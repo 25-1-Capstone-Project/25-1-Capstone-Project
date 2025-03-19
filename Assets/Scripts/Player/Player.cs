@@ -7,16 +7,17 @@ using UnityEngine.Rendering;
 public class Player : MonoBehaviour
 {
 
-    [SerializeField] Vector3 moveVec;
+    Vector3 moveVec;
+    Vector2 lookInput;
     [SerializeField] float speed;
     [SerializeField] float bulletSpeed;
     [SerializeField] GameObject arrow;
     [SerializeField] GameObject ammo;
-    [SerializeField] Vector2 lookInput;
+
     [SerializeField] Rigidbody2D rb;
     [SerializeField] Transform PlayerModel;
 
- 
+
     private void FixedUpdate()
     {
         rb.MovePosition(transform.position + (moveVec * speed * Time.fixedDeltaTime));
@@ -43,11 +44,11 @@ public class Player : MonoBehaviour
         //캐릭터의 방향
         if (direction.x < 0)
         {
-            PlayerModel.rotation = Quaternion.AngleAxis(0,Vector2.up);
+            PlayerModel.rotation = Quaternion.AngleAxis(0, Vector2.up);
         }
         else
         {
-            PlayerModel.rotation = Quaternion.AngleAxis(180f,Vector2.up);
+            PlayerModel.rotation = Quaternion.AngleAxis(180f, Vector2.up);
 
         }
 
