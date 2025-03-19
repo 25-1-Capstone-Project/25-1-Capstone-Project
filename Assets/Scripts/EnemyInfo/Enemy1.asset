@@ -12,3 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48cb4d560ee21ee43a9cd094eafa310c, type: 3}
   m_Name: Enemy1
   m_EditorClassIdentifier: 
+  id: 0
+  monsterName: Bot
+  maxHealth: 0
+  moveSpeed: 3
+  attackSpeed: 0
+  attackDamage: 1

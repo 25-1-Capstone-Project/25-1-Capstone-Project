@@ -2,8 +2,11 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] private float speed = 3f;
-  
+    [SerializeField] EnemyData enemyData;
+    private float speed;
+    int health;
+    private float attackSpeed;
+    private float attackDamage;
     private Rigidbody2D rb;
 
     // StateMachine Property
@@ -12,6 +15,12 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+
+        attackSpeed = enemyData.attackDamage;
+        attackSpeed = enemyData.attackSpeed;
+        speed = enemyData.moveSpeed;
+        health = enemyData.maxHealth;
+
 
         // Initialize StateMachine
         StateMachine = new StateMachine<EnemyState>();
@@ -33,11 +42,7 @@ public class Enemy : MonoBehaviour
         StateMachine.FixedUpdate();
     }
 
-    // Public methods to expose data or perform actions
-    public Transform GetPlayerTransform()
-    {
-        return GameManager.instance.playerTransform;
-    }
+  
 
     public Rigidbody2D GetRigidbody()
     {

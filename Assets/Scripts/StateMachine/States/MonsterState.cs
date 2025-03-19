@@ -22,14 +22,13 @@ public class IdleState : EnemyState
 
     public override void Enter()
     {
-        Debug.Log("몬스터 대기 중");
         enemy.GetRigidbody().linearVelocity = Vector2.zero; // 정지
     }
 
     public override void Update()
     {
         // 플레이어가 일정 거리 안에 있으면 추격 상태로 전환
-        if (Vector3.Distance(enemy.transform.position, enemy.GetPlayerTransform().position) < 10f)
+        if (Vector3.Distance(enemy.transform.position, GameManager.instance.GetPlayerTransform().position) < 10f)
         {
             enemy.StateMachine.ChangeState<MoveState>();
         }
@@ -37,7 +36,7 @@ public class IdleState : EnemyState
 
     public override void Exit()
     {
-        Debug.Log("몬스터 이동 시작");
+  
     }
 }
 
@@ -48,13 +47,13 @@ public class MoveState : EnemyState, IFixedUpdateState
 
     public override void Enter()
     {
-        Debug.Log("몬스터 추격 시작");
+     
     }
 
     public override void Update()
     {
         // 플레이어가 가까우면 공격 상태로 전환
-        if (Vector3.Distance(enemy.transform.position, enemy.GetPlayerTransform().position) < 2f)
+        if (Vector3.Distance(enemy.transform.position, GameManager.instance.GetPlayerTransform().position) < 2f)
         {
             enemy.StateMachine.ChangeState<AttackState>();
         }
@@ -62,7 +61,7 @@ public class MoveState : EnemyState, IFixedUpdateState
 
     public void FixedUpdate()
     {
-        Transform playerTransform = enemy.GetPlayerTransform();
+        Transform playerTransform = GameManager.instance.GetPlayerTransform();
         if (playerTransform != null)
         {
             // 플레이어 방향으로 이동
@@ -74,7 +73,6 @@ public class MoveState : EnemyState, IFixedUpdateState
     public override void Exit()
     {
         enemy.GetRigidbody().linearVelocity = Vector2.zero; // 추격 종료 시 정지
-        Debug.Log("몬스터 추격 종료");
     }
 }
 
@@ -88,7 +86,6 @@ public class AttackState : EnemyState
 
     public override void Enter()
     {
-        Debug.Log("몬스터 공격!");
         lastAttackTime = Time.time;
     }
 
@@ -103,6 +100,6 @@ public class AttackState : EnemyState
 
     public override void Exit()
     {
-        Debug.Log("몬스터 공격 종료");
+     
     }
 }

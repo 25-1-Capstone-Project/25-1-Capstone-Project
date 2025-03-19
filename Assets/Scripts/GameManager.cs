@@ -36,5 +36,11 @@ public class GameManager : MonoBehaviour
     {
         StateMachine.Update();
     }
+
+      // Public methods to expose data or perform actions
+    public Transform GetPlayerTransform()
+    {
+        return instance.playerTransform;
+    }
 }
 

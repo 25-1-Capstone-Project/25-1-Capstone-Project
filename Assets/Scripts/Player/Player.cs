@@ -1,26 +1,30 @@
-using System;
-using Unity.Mathematics;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Rendering;
+
 
 public class Player : MonoBehaviour
 {
-
     Vector3 moveVec;
     Vector2 lookInput;
-    [SerializeField] float speed;
+
     [SerializeField] float bulletSpeed;
+    [SerializeField] bool parry;
+    [SerializeField] PlayerStat playerStat;
+
     [SerializeField] GameObject arrow;
     [SerializeField] GameObject ammo;
 
     [SerializeField] Rigidbody2D rb;
     [SerializeField] Transform PlayerModel;
 
-
+    void Start()
+    {
+        playerStat = GetComponent<PlayerStat>();
+    }
     private void FixedUpdate()
     {
-        rb.MovePosition(transform.position + (moveVec * speed * Time.fixedDeltaTime));
+        rb.MovePosition(transform.position + (moveVec * playerStat.speed * Time.fixedDeltaTime));
     }
     void OnMove(InputValue value)
     {
@@ -49,30 +53,51 @@ public class Player : MonoBehaviour
         else
         {
             PlayerModel.rotation = Quaternion.AngleAxis(180f, Vector2.up);
-
         }
 
     }
     void OnClick(InputValue value)
     {
-        if (value.Get<float>() > 0)
-        {
-            Shoot();
-        }
+           Parry();
     }
-    private void Shoot()
-    {
-        // 탄환 생성 (현재 화살표 방향 기준)
-        GameObject a = Instantiate(ammo, arrow.transform.position, arrow.transform.rotation);
-
-        // Rigidbody2D 추가 후, 발사 방향으로 속도 적용
-        Rigidbody2D rb = a.GetComponent<Rigidbody2D>();
-
-        if (rb != null)
-        {
-            rb.linearVelocity = arrow.transform.right * bulletSpeed; // 화살표가 바라보는 방향으로 발사
-        }
-
+    void Parry(){
+        StartCoroutine(ChangeParry());
     }
+    IEnumerator ChangeParry(){
+        if(parry)
+            {
+                yield break;
+            }
+        //패링 효과 추가해야함   
+        parry = true;
+
+        yield return new WaitForSeconds(1);
+        parry = false;
+       
+       //데미지 받을때 패리 체크
+       //들어온 방향 과 화살표의 방향을 내적
+       //-1 ~0 사이일 경우 내 방향 여기에 스트레치를 줘서 반경 조절
+       //일치할 경우 데미지 무시 
+    }
+
+    public void Damaged(){
+        playerStat.health --;
+    }
+
+
+    // private void Shoot()
+    // {
+    //     // 탄환 생성 (현재 화살표 방향 기준)
+    //     GameObject ammo = Instantiate(this.ammo, arrow.transform.position, arrow.transform.rotation);
+
+    //     // Rigidbody2D 추가 후, 발사 방향으로 속도 적용
+    //     Rigidbody2D rb = ammo.GetComponent<Rigidbody2D>();
+
+    //     if (rb != null)
+    //     {
+    //         rb.linearVelocity = arrow.transform.right * bulletSpeed; // 화살표가 바라보는 방향으로 발사
+    //     }
+
+    // }
 
 }
