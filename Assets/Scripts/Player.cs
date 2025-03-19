@@ -14,7 +14,9 @@ public class Player : MonoBehaviour
     [SerializeField] GameObject ammo;
     [SerializeField] Vector2 lookInput;
     [SerializeField] Rigidbody2D rb;
+    [SerializeField] Transform PlayerModel;
 
+ 
     private void FixedUpdate()
     {
         rb.MovePosition(transform.position + (moveVec * speed * Time.fixedDeltaTime));
@@ -25,6 +27,8 @@ public class Player : MonoBehaviour
     }
     void OnLook(InputValue value)
     {
+
+        //공격의 방향향
         lookInput = value.Get<Vector2>();
 
         if (lookInput == Vector2.zero)
@@ -35,6 +39,18 @@ public class Player : MonoBehaviour
 
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         arrow.transform.rotation = Quaternion.Euler(0, 0, angle);
+
+        //캐릭터의 방향
+        if (direction.x < 0)
+        {
+            PlayerModel.rotation = Quaternion.AngleAxis(0,Vector2.up);
+        }
+        else
+        {
+            PlayerModel.rotation = Quaternion.AngleAxis(180f,Vector2.up);
+
+        }
+
     }
     void OnClick(InputValue value)
     {
@@ -45,9 +61,9 @@ public class Player : MonoBehaviour
     }
     private void Shoot()
     {
-         // 탄환 생성 (현재 화살표 방향 기준)
+        // 탄환 생성 (현재 화살표 방향 기준)
         GameObject a = Instantiate(ammo, arrow.transform.position, arrow.transform.rotation);
-        
+
         // Rigidbody2D 추가 후, 발사 방향으로 속도 적용
         Rigidbody2D rb = a.GetComponent<Rigidbody2D>();
 
@@ -55,7 +71,7 @@ public class Player : MonoBehaviour
         {
             rb.linearVelocity = arrow.transform.right * bulletSpeed; // 화살표가 바라보는 방향으로 발사
         }
-        
+
     }
-  
+
 }
