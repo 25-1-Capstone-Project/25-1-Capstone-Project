@@ -23,4 +23,13 @@ public class StateMachine<T> where T : IState
     {
         currentState?.Update();
     }
+
+    public void FixedUpdate()
+    {
+        // FixedUpdate가 필요한 상태만 실행
+        if (currentState is IFixedUpdateState fixedState)
+        {
+            fixedState.FixedUpdate();
+        }
+    }
 }

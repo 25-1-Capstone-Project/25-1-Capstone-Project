@@ -7,3 +7,7 @@ public interface IState
     void Update();  
     void Exit();   
 }
+public interface IFixedUpdateState
+{
+    void FixedUpdate();
+}

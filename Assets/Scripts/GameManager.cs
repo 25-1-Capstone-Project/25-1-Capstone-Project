@@ -1,8 +1,26 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    //싱글톤
+    public static GameManager instance;
+    public Transform playerTransform;
     public StateMachine<GameState> StateMachine { get; private set; }
+
+    void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+        }
+
+        DontDestroyOnLoad(gameObject);
+    }
 
     void Start()
     {
