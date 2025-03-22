@@ -1,4 +1,7 @@
+using System.Collections;
+using JetBrains.Annotations;
 using UnityEngine;
+using UnityEngine.InputSystem.LowLevel;
 
 // 몬스터 상태 기본 클래스
 public abstract class EnemyState : IState
@@ -36,7 +39,7 @@ public class IdleState : EnemyState
 
     public override void Exit()
     {
-  
+
     }
 }
 
@@ -47,7 +50,7 @@ public class MoveState : EnemyState, IFixedUpdateState
 
     public override void Enter()
     {
-     
+
     }
 
     public override void Update()
@@ -66,7 +69,8 @@ public class MoveState : EnemyState, IFixedUpdateState
         {
             // 플레이어 방향으로 이동
             Vector2 direction = (playerTransform.position - enemy.transform.position).normalized;
-            enemy.GetRigidbody().linearVelocity = direction * enemy.GetSpeed(); // Rigidbody2D의 velocity 사용
+            enemy.GetRigidbody().linearVelocity = direction * enemy.GetSpeed(); 
+            //enemy.transform.rotation = Quaternion.LookRotation(direction); // 스프라이트로 대체해야함
         }
     }
 
@@ -79,27 +83,43 @@ public class MoveState : EnemyState, IFixedUpdateState
 // 공격 상태
 public class AttackState : EnemyState
 {
-    private float attackCooldown = 1.5f; // 공격 딜레이
-    private float lastAttackTime = 0f;
+    private float attackCooldown = 1.5f; //공격 시간
+    private float beforAttackCooldown = 1.5f; //선딜
+    private bool isAttacking;
 
     public AttackState(Enemy enemy) : base(enemy) { }
 
     public override void Enter()
     {
-        lastAttackTime = Time.time;
+
+        isAttacking = true;
+        enemy.StartCoroutine(Attack());
+
     }
 
     public override void Update()
     {
         // 일정 시간이 지나면 다시 추격 상태로 변경
-        if (Time.time - lastAttackTime > attackCooldown)
+        if (!isAttacking)
         {
             enemy.StateMachine.ChangeState<MoveState>();
         }
-    }
 
+    }
+    private IEnumerator Attack()
+    {
+        // 여기서 애니메이션 재생 또는 실제 공격 로직 실행 가능
+        Debug.Log("Attack started");
+        //enemy.GetRigidbody().AddForce()
+
+        // 예: 공격 애니메이션 재생 시간
+        yield return new WaitForSeconds(attackCooldown);
+
+        Debug.Log("Attack finished");
+        isAttacking = false;
+    }
     public override void Exit()
     {
-     
+        enemy.StopCoroutine(Attack());
     }
 }

@@ -12,16 +12,27 @@ public class Enemy : MonoBehaviour
     // StateMachine Property
     public StateMachine<EnemyState> StateMachine { get; private set; }
 
-    void Start()
+   void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
 
+        SetComponents();
+        DataInit();
+        SetStateMachine();
+    }
+    void DataInit()
+    {
         attackSpeed = enemyData.attackDamage;
         attackSpeed = enemyData.attackSpeed;
         speed = enemyData.moveSpeed;
         health = enemyData.maxHealth;
+    }
+    void SetComponents(){
+        rb = GetComponent<Rigidbody2D>();
+    }
+ 
 
-
+    private void SetStateMachine()
+    {
         // Initialize StateMachine
         StateMachine = new StateMachine<EnemyState>();
         StateMachine.AddState(new IdleState(this));
@@ -41,8 +52,6 @@ public class Enemy : MonoBehaviour
     {
         StateMachine.FixedUpdate();
     }
-
-  
 
     public Rigidbody2D GetRigidbody()
     {

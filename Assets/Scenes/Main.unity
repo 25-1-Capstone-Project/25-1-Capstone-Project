@@ -1274,9 +1274,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bdcf287498a55d42a10b726385e34a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 4
   bulletSpeed: 4
   parry: 0
+  playerStat: {fileID: 11400000, guid: ac875f24e6722b44186598c3523bc25c, type: 2}
   arrow: {fileID: 1777444772}
   ammo: {fileID: 6894103495596934110, guid: 341fb0815bf65ea4a8d42969d53cbd75, type: 3}
   rb: {fileID: 1143255033}

@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
 
     [SerializeField] float bulletSpeed;
     [SerializeField] bool parry;
-    [SerializeField] PlayerStat playerStat;
+    [SerializeField] PlayerStatus playerStat;
 
     [SerializeField] GameObject arrow;
     [SerializeField] GameObject ammo;
@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        playerStat = GetComponent<PlayerStat>();
+        rb = GetComponent<Rigidbody2D>();
     }
     private void FixedUpdate()
     {
