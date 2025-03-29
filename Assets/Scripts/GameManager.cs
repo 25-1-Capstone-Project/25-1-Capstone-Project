@@ -5,7 +5,8 @@ public class GameManager : MonoBehaviour
 {
     //싱글톤
     public static GameManager instance;
-    public Transform playerTransform;
+    public Player player;
+
     public StateMachine<GameState> StateMachine { get; private set; }
 
     void Awake()
@@ -40,7 +41,7 @@ public class GameManager : MonoBehaviour
       // Public methods to expose data or perform actions
     public Transform GetPlayerTransform()
     {
-        return instance.playerTransform;
+        return player.transform;
     }
 }
 

@@ -1222,12 +1222,14 @@ GameObject:
   m_Component:
   - component: {fileID: 1143255031}
   - component: {fileID: 1143255030}
+  - component: {fileID: 1143255034}
   - component: {fileID: 1143255029}
   - component: {fileID: 1143255033}
   - component: {fileID: 1143255032}
+  - component: {fileID: 1143255035}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1274,8 +1276,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bdcf287498a55d42a10b726385e34a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletSpeed: 4
-  parry: 0
+  isParring: 0
+  canUseParry: 1
   playerStat: {fileID: 11400000, guid: ac875f24e6722b44186598c3523bc25c, type: 2}
   arrow: {fileID: 1777444772}
   ammo: {fileID: 6894103495596934110, guid: 341fb0815bf65ea4a8d42969d53cbd75, type: 3}
@@ -1305,7 +1307,7 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1143255028}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
@@ -1361,6 +1363,54 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &1143255034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1143255028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3d92e0e91441894ca0f037686e0825f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!58 &1143255035
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1143255028}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Radius: 0.5
 --- !u!1 &1255925803
 GameObject:
   m_ObjectHideFlags: 0
@@ -6548,7 +6598,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f58d5bdb23d95aa42a60c13969f1185c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerTransform: {fileID: 1143255031}
+  player: {fileID: 1143255030}
 --- !u!4 &1775959995
 Transform:
   m_ObjectHideFlags: 0
@@ -6610,7 +6660,7 @@ GameObject:
   - component: {fileID: 1789375077}
   m_Layer: 0
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

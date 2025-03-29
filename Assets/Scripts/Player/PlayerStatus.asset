@@ -13,4 +13,9 @@ MonoBehaviour:
   m_Name: PlayerStatus
   m_EditorClassIdentifier: 
   speed: 3
-  health: 10
+  health: -20
+  bulletSpeed: 0
+  parryCooldown: 3
+  parryDuration: 5
+  parryStackMax: 0
+  currentParryStack: 22

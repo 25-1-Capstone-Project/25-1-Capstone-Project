@@ -1,4 +1,7 @@
 using System.Collections;
+using System.Transactions;
+using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,19 +11,23 @@ public class Player : MonoBehaviour
     Vector3 moveVec;
     Vector2 lookInput;
 
-    [SerializeField] float bulletSpeed;
-    [SerializeField] bool parry;
+    float angle;
+    [SerializeField] bool isParring;
+    [SerializeField] bool canUseParry = true;
+    Vector3 direction;
+    [SerializeField] WaitForSeconds parryDurationSec;
+    [SerializeField] WaitForSeconds parryCoolDownSec;
     [SerializeField] PlayerStatus playerStat;
-
     [SerializeField] GameObject arrow;
     [SerializeField] GameObject ammo;
-
     [SerializeField] Rigidbody2D rb;
     [SerializeField] Transform PlayerModel;
-
+    Coroutine ParryRoutine;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        parryDurationSec = new WaitForSeconds(playerStat.parryDuration);
+        parryCoolDownSec = new WaitForSeconds(playerStat.parryCooldown);
     }
     private void FixedUpdate()
     {
@@ -32,16 +39,19 @@ public class Player : MonoBehaviour
     }
     void OnLook(InputValue value)
     {
-
-        //공격의 방향향
         lookInput = value.Get<Vector2>();
 
         if (lookInput == Vector2.zero)
             return;
 
-        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(new Vector3(lookInput.x, lookInput.y, 0));
-        Vector3 direction = (mouseWorldPos - arrow.transform.position).normalized;
+        // 카메라 Z 위치 보정
+        Vector3 mouseScreenPos = new Vector3(lookInput.x, lookInput.y, -Camera.main.transform.position.z);
+        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(mouseScreenPos);
 
+        // 방향
+        direction = (mouseWorldPos - arrow.transform.position).normalized;
+
+        // 회전
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         arrow.transform.rotation = Quaternion.Euler(0, 0, angle);
 
@@ -58,32 +68,86 @@ public class Player : MonoBehaviour
     }
     void OnClick(InputValue value)
     {
-           Parry();
-    }
-    void Parry(){
-        StartCoroutine(ChangeParry());
-    }
-    IEnumerator ChangeParry(){
-        if(parry)
-            {
-                yield break;
-            }
-        //패링 효과 추가해야함   
-        parry = true;
+        if (!canUseParry)
+            return;
 
-        yield return new WaitForSeconds(1);
-        parry = false;
-       
-       //데미지 받을때 패리 체크
-       //들어온 방향 과 화살표의 방향을 내적
-       //-1 ~0 사이일 경우 내 방향 여기에 스트레치를 줘서 반경 조절
-       //일치할 경우 데미지 무시 
+        ParryRoutine = StartCoroutine(Parry());
     }
 
-    public void Damaged(){
-        playerStat.health --;
+    IEnumerator Parry()
+    {
+        canUseParry = false;
+        isParring = true;
+        yield return parryDurationSec;
+        ParryFailed();
     }
 
+    public void ParrySucces()
+    {
+        Debug.Log("패리 성공");
+        playerStat.currentParryStack++;
+        isParring = false;
+        canUseParry = true;
+    }
+    public void ParryFailed()
+    {
+        isParring = false;
+        canUseParry = false;
+        StartCoroutine(ParryCoolDownRoutine());
+
+    }
+    IEnumerator ParryCoolDownRoutine()
+    {
+
+
+        yield return parryCoolDownSec;
+        canUseParry = true;
+        // float coolDown = playerStat.parryCooldown;
+        //쿨 도는 거 시각화 필요
+        //while(coolDown  >0){}
+        yield break;
+
+    }
+    public void EnemyContact(Vector3 enemyDirection)
+    {
+        //데미지 받을때 패리 체크
+        //들어온 방향 과 화살표의 방향을 내적
+        //-1 ~0 사이일 경우 내 방향 여기에 스트레치를 줘서 반경 조절
+        //일치할 경우 데미지 무시
+        switch (isParring)
+        {
+            case true:
+                float parryDot = Vector3.Dot(direction, enemyDirection);
+
+                if (parryDot < 0 && parryDot > -1)
+                {
+                    StopCoroutine(ParryRoutine);
+                    ParrySucces();
+                }
+                else
+                {
+                    Debug.Log("패리실패");
+                    StopCoroutine(ParryRoutine);
+                    ParryFailed();
+                    Damage();
+                }
+
+                break;
+            case false:
+
+                Damage();
+                break;
+        }
+    }
+    void Damage()
+    {
+        //데미지 받는 로직
+        playerStat.health--;
+    }
+    void OnDrawGizmos()
+    {
+        Gizmos.DrawLine(transform.position, transform.position + direction);
+    }
 
     // private void Shoot()
     // {
