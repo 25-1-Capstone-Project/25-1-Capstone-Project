@@ -9,14 +9,14 @@ public class PlayerCollision : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
 
-        switch (other.tag)
-        {
-            case "Enemy":
+        // switch (other.tag)
+        // {
+        //     case "Enemy":
              
-                Vector3 enemyDirection = (transform.position - other.transform.position).normalized;
-                GameManager.instance.player.EnemyContact(enemyDirection);
-                break;
-        }
+        //         Vector3 enemyDirection = (transform.position - other.transform.position).normalized;
+        //         GameManager.instance.player.EnemyContact(enemyDirection);
+        //         break;
+        // }
 
 
     }

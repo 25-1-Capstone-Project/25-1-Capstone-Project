@@ -1,7 +1,6 @@
 using System.Collections;
-using JetBrains.Annotations;
 using UnityEngine;
-using UnityEngine.InputSystem.LowLevel;
+
 
 // 몬스터 상태 기본 클래스
 public abstract class EnemyState : IState
@@ -25,14 +24,13 @@ public class IdleState : EnemyState
 
     public override void Enter()
     {
-        
         enemy.GetRigidbody().linearVelocity = Vector2.zero; // 정지
     }
 
     public override void Update()
     {
         // 플레이어가 일정 거리 안에 있으면 추격 상태로 전환
-        if (Vector3.Distance(enemy.transform.position, GameManager.instance.GetPlayerTransform().position) < 10f)
+        if (Vector3.Distance(enemy.transform.position, GameManager.instance.GetPlayerTransform().position) < 5f)
         {
             enemy.StateMachine.ChangeState<ChaseState>();
         }
@@ -111,12 +109,8 @@ public class AttackState : EnemyState
     {
         // 여기서 애니메이션 재생 또는 실제 공격 로직 실행 가능
         Debug.Log("Attack started");
-        int attackIndex = Random.Range(0,1);
-
-        switch(attackIndex){
-            case 0:break;
-            case 1:break;
-        }
+        
+       // enemy.Attack();
         // 예: 공격 애니메이션 재생 시간
         yield return new WaitForSeconds(attackCooldown);
 

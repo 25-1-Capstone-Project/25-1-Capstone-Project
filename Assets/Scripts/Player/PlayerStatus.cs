@@ -5,7 +5,8 @@ public class PlayerStatus : ScriptableObject
 {
     [Header("기본 능력")]
     public float speed;
-    public float health;
+    public int maxHealth;
+    public int damage;
 
     [Header("투사체")]
     public float bulletSpeed;

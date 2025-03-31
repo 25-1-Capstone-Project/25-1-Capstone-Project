@@ -11,11 +11,11 @@ public class Player : MonoBehaviour
     Vector3 moveVec;
     Vector2 lookInput;
 
-    float angle;
+
     [SerializeField] bool isParring;
     [SerializeField] bool canUseParry = true;
     [SerializeField] bool canUseAttack = true;
-    Vector3 direction;
+
     [SerializeField] WaitForSeconds parryDurationSec;
     [SerializeField] WaitForSeconds parryCoolDownSec;
     [SerializeField] PlayerStatus playerStat;
@@ -23,12 +23,31 @@ public class Player : MonoBehaviour
     [SerializeField] GameObject ammo;
     [SerializeField] Rigidbody2D rb;
     [SerializeField] Transform PlayerModel;
+    Vector3 direction;
+    int health;
+    int Health
+    {
+        get { return health; }
+        set
+        {
+            health = value;
+
+            if (health < 0)
+                health = 0;
+        }
+    }
     Coroutine ParryRoutine;
+    float angle;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         parryDurationSec = new WaitForSeconds(playerStat.parryDuration);
         parryCoolDownSec = new WaitForSeconds(playerStat.parryCooldown);
+    }
+    void InitPlayer()
+    {
+        Health = playerStat.maxHealth;
     }
     #region 이동
     private void FixedUpdate()
@@ -40,7 +59,6 @@ public class Player : MonoBehaviour
         moveVec = value.Get<Vector2>().normalized;
     }
     #endregion
-
     #region 방향
     void OnLook(InputValue value)
     {
@@ -131,7 +149,7 @@ public class Player : MonoBehaviour
 
     }
     #endregion
-    public void EnemyContact(Vector3 enemyDirection)
+    public void TakeDamage(int damage, Vector3 enemyDirection)
     {
         //데미지 받을때 패리 체크
         //들어온 방향 과 화살표의 방향을 내적
@@ -140,6 +158,7 @@ public class Player : MonoBehaviour
         switch (isParring)
         {
             case true:
+
                 float parryDot = Vector3.Dot(direction, enemyDirection);
 
                 if (parryDot < 0 && parryDot > -1)
@@ -152,22 +171,21 @@ public class Player : MonoBehaviour
                     Debug.Log("패리실패");
                     StopCoroutine(ParryRoutine);
                     ParryFailed();
-                    Damage();
+                    StartCoroutine(DamagedRoutine(damage));
                 }
 
                 break;
             case false:
-
-                Damage();
+                StartCoroutine(DamagedRoutine(damage));
                 break;
         }
     }
-    void Damage()
+    public IEnumerator DamagedRoutine(int damage)
     {
-        //데미지 받는 로직
-        playerStat.health--;
+        Health -= damage;
+        yield return null;
     }
-   
+
     // private void Shoot()
     // {
     //     // 탄환 생성 (현재 화살표 방향 기준)

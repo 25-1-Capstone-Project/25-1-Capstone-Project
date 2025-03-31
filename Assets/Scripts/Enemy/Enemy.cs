@@ -1,14 +1,38 @@
 using UnityEngine;
 
+
 public class Enemy : MonoBehaviour
 {
+    
     [SerializeField] EnemyData enemyData;
     [SerializeField] SpriteRenderer enemySprite;
     EnemyAnimatorController enemyAnimController;
+    [SerializeField] EnemyAttackPattern attackPattern;
+
+
+    #region GetFunction
+    public EnemyAttackPattern GetAttackPattern() => attackPattern;
+    public Rigidbody2D GetRigidbody() => rb;
+    public float GetSpeed() => speed;
+    public EnemyAnimatorController GetAnimatorController() => enemyAnimController;
+    public Transform GetPlayer() => GameManager.instance.GetPlayerTransform();
+
+    #endregion
+    public bool IsAttacking { get; set; }
     private float speed;
     int health;
-    float attackSpeed;
-    float attackDamage;
+    int Health
+    {
+        get { return health; }
+        set
+        {
+            health = value;
+
+            if (health < 0)
+                health = 0;
+        }
+    }
+  
     private Rigidbody2D rb;
 
     // StateMachine Property
@@ -22,8 +46,12 @@ public class Enemy : MonoBehaviour
     }
     void EnemyInit()
     {
-        attackDamage = enemyData.attackDamage;
-        attackSpeed = enemyData.attackSpeed;
+        switch(enemyData.eEnemyType){
+            case EEnemyType.Sowrd:
+             //
+            break;
+        }
+
         speed = enemyData.moveSpeed;
         health = enemyData.maxHealth;
     }
@@ -32,8 +60,6 @@ public class Enemy : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         enemyAnimController = GetComponent<EnemyAnimatorController>();
     }
-
-
     private void SetStateMachine()
     {
         // Initialize StateMachine
@@ -57,33 +83,27 @@ public class Enemy : MonoBehaviour
     }
     void LateUpdate()
     {
-       SpriteFlip();
+        SpriteFlip();
     }
-    void SpriteFlip(){
-         enemySprite.flipX = rb.linearVelocityX == 0 ? enemySprite.flipX :rb.linearVelocity.x > 0 ;
-    }
-    #region GetFunction
-    public Rigidbody2D GetRigidbody()
+    void SpriteFlip()
     {
-        return rb;
+        enemySprite.flipX = rb.linearVelocityX == 0 ? enemySprite.flipX : rb.linearVelocity.x > 0;
     }
 
-    public float GetSpeed()
+
+    public void Attack()
     {
-        return speed;
+        // StartCoroutine(enemyData.Attack());
     }
 
-    public EnemyAnimatorController GetAnimatorController()
-    {
-        return enemyAnimController;
-    }
-    #endregion
-    
     void OnTriggerEnter2D(Collider2D other)
     {
+        // collider를 이용한 공격시
+        // 데미지 함수로 대체해야함
+        //설계 필요
         if (other.CompareTag("PlayerAttack"))
         {
-            health--;
+            Health--;
         }
     }
 }
