@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
     float angle;
     [SerializeField] bool isParring;
     [SerializeField] bool canUseParry = true;
+    [SerializeField] bool canUseAttack = true;
     Vector3 direction;
     [SerializeField] WaitForSeconds parryDurationSec;
     [SerializeField] WaitForSeconds parryCoolDownSec;
@@ -29,6 +30,7 @@ public class Player : MonoBehaviour
         parryDurationSec = new WaitForSeconds(playerStat.parryDuration);
         parryCoolDownSec = new WaitForSeconds(playerStat.parryCooldown);
     }
+    #region 이동
     private void FixedUpdate()
     {
         rb.MovePosition(transform.position + (moveVec * playerStat.speed * Time.fixedDeltaTime));
@@ -37,6 +39,9 @@ public class Player : MonoBehaviour
     {
         moveVec = value.Get<Vector2>().normalized;
     }
+    #endregion
+
+    #region 방향
     void OnLook(InputValue value)
     {
         lookInput = value.Get<Vector2>();
@@ -44,6 +49,10 @@ public class Player : MonoBehaviour
         if (lookInput == Vector2.zero)
             return;
 
+        Look();
+    }
+    private void Look()
+    {
         // 카메라 Z 위치 보정
         Vector3 mouseScreenPos = new Vector3(lookInput.x, lookInput.y, -Camera.main.transform.position.z);
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(mouseScreenPos);
@@ -64,16 +73,29 @@ public class Player : MonoBehaviour
         {
             PlayerModel.rotation = Quaternion.AngleAxis(180f, Vector2.up);
         }
-
     }
-    void OnClick(InputValue value)
+    #endregion
+    #region 공격
+    void OnAttack(InputValue value)
+    {
+        if (!canUseAttack)
+            return;
+
+        StartCoroutine(Parry());
+    }
+    IEnumerator AttackRoutine()
+    {
+        yield return null;
+    }
+    #endregion
+    #region 패링
+    void OnParry(InputValue value)
     {
         if (!canUseParry)
             return;
 
         ParryRoutine = StartCoroutine(Parry());
     }
-
     IEnumerator Parry()
     {
         canUseParry = false;
@@ -108,6 +130,7 @@ public class Player : MonoBehaviour
         yield break;
 
     }
+    #endregion
     public void EnemyContact(Vector3 enemyDirection)
     {
         //데미지 받을때 패리 체크
@@ -144,11 +167,7 @@ public class Player : MonoBehaviour
         //데미지 받는 로직
         playerStat.health--;
     }
-    void OnDrawGizmos()
-    {
-        Gizmos.DrawLine(transform.position, transform.position + direction);
-    }
-
+   
     // private void Shoot()
     // {
     //     // 탄환 생성 (현재 화살표 방향 기준)
