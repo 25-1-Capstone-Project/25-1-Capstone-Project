@@ -57,9 +57,12 @@ public class Enemy : MonoBehaviour
     }
     void LateUpdate()
     {
-       // if (StateMachine.ChangeState) 공격시 0되서 뒤집기안됨
-        enemySprite.flipX = rb.linearVelocity.x > 0;
+       SpriteFlip();
     }
+    void SpriteFlip(){
+         enemySprite.flipX = rb.linearVelocityX == 0 ? enemySprite.flipX :rb.linearVelocity.x > 0 ;
+    }
+    #region GetFunction
     public Rigidbody2D GetRigidbody()
     {
         return rb;
@@ -74,6 +77,8 @@ public class Enemy : MonoBehaviour
     {
         return enemyAnimController;
     }
+    #endregion
+    
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("PlayerAttack"))

@@ -86,16 +86,17 @@ public class AttackState : EnemyState
 {
     private float attackCooldown = 1.5f; //공격 시간
     private float beforAttackCooldown = 1.5f; //선딜
+     private float afterAttackCooldown = 1.5f; //후딜
     private bool isAttacking;
 
     public AttackState(Enemy enemy) : base(enemy) { }
 
     public override void Enter()
     {
-        enemy.GetAnimatorController().PlayAttack();
         isAttacking = true;
-        enemy.StartCoroutine(Attack());
-
+        enemy.GetAnimatorController().PlayAttack();
+      
+        enemy.StartCoroutine(AttackRoutine());
     }
 
     public override void Update()
@@ -105,13 +106,17 @@ public class AttackState : EnemyState
         {
             enemy.StateMachine.ChangeState<ChaseState>();
         }
-
     }
-    private IEnumerator Attack()
+    private IEnumerator AttackRoutine()
     {
         // 여기서 애니메이션 재생 또는 실제 공격 로직 실행 가능
         Debug.Log("Attack started");
+        int attackIndex = Random.Range(0,1);
 
+        switch(attackIndex){
+            case 0:break;
+            case 1:break;
+        }
         // 예: 공격 애니메이션 재생 시간
         yield return new WaitForSeconds(attackCooldown);
 
@@ -120,6 +125,6 @@ public class AttackState : EnemyState
     }
     public override void Exit()
     {
-        enemy.StopCoroutine(Attack());
+        enemy.StopCoroutine(AttackRoutine());
     }
 }
