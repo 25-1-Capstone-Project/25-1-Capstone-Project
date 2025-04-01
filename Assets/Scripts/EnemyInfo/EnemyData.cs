@@ -9,7 +9,7 @@ public enum EEnemyType{
     Max
 }
 
-[CreateAssetMenu(fileName = "EnemyData", menuName = "Scriptable Objects/EnemyData")]
+[CreateAssetMenu(fileName = "EnemyData", menuName = "Enemy/EnemyData")]
 public class EnemyData : ScriptableObject
 {
     
