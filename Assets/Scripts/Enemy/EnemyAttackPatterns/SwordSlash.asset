@@ -9,12 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 48cb4d560ee21ee43a9cd094eafa310c, type: 3}
-  m_Name: Enemy1
+  m_Script: {fileID: 11500000, guid: 75957c8fc8ff32d4bb9a8de73795a18f, type: 3}
+  m_Name: SwordSlash
   m_EditorClassIdentifier: 
-  eEnemyType: 1
-  monsterName: Bot
-  maxHealth: 0
-  moveSpeed: 3
-  attackSpeed: 0
-  attackDamage: 1
+  damage: 7
+  delay: 0.2
+  range: 1

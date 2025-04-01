@@ -182,6 +182,7 @@ public class Player : MonoBehaviour
     }
     public IEnumerator DamagedRoutine(int damage)
     {
+        Debug.Log(123);
         Health -= damage;
         yield return null;
     }
