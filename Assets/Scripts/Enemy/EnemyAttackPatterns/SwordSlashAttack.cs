@@ -19,7 +19,7 @@ public class SwordSlashAttack : EnemyAttackPattern
         if (hit.collider != null)
         {
             
-            hit.collider.GetComponent<Player>()?.TakeDamage(damage, direction);
+            hit.collider.GetComponent<Player>()?.TakeDamage(damage, direction, enemy);
         }
 
         yield return new WaitForSeconds(0.5f);

@@ -43,7 +43,7 @@ public class IdleState : EnemyState
 }
 
 // 추격 상태
-public class ChaseState : EnemyState, IFixedUpdateState
+public class ChaseState : EnemyState, IFixedUpdateState, ILateUpdateState
 {
     public ChaseState(Enemy enemy) : base(enemy) { }
 
@@ -73,10 +73,18 @@ public class ChaseState : EnemyState, IFixedUpdateState
         }
     }
 
+    public void LateUpdate()
+    {
+        enemy.SpriteFlip();
+    }
+   
+
     public override void Exit()
     {
         enemy.GetRigidbody().linearVelocity = Vector2.zero; // 추격 종료 시 정지
     }
+
+   
 }
 
 // 공격 상태

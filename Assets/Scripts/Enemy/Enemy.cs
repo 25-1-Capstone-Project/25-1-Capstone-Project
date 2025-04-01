@@ -82,21 +82,20 @@ public class Enemy : MonoBehaviour
     {
         StateMachine.FixedUpdate();
     }
-    void LateUpdate()
-    {
-        SpriteFlip();
-    }
-    void SpriteFlip()
+
+    public void SpriteFlip()
     {
         enemySprite.flipX = rb.linearVelocityX == 0 ? enemySprite.flipX : rb.linearVelocity.x > 0;
     }
-
-
     public void Attack()
     {
         StartCoroutine(attackPattern.Execute(this));
     }
 
+    public void KnockBack(Vector2 direction)
+    {
+        rb.AddForce(direction * 50 );
+    }
     void OnTriggerEnter2D(Collider2D other)
     {
         // collider를 이용한 공격시

@@ -7,7 +7,7 @@ public class PlayerStatus : ScriptableObject
     public float speed;
     public int maxHealth;
     public int damage;
-
+    public float attackCooldown;
     [Header("투사체")]
     public float bulletSpeed;
   

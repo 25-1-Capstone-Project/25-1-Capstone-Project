@@ -11,11 +11,11 @@ public class Player : MonoBehaviour
     Vector3 moveVec;
     Vector2 lookInput;
 
-
     [SerializeField] bool isParring;
     [SerializeField] bool canUseParry = true;
     [SerializeField] bool canUseAttack = true;
 
+    [SerializeField] WaitForSeconds attackCoolDownSec;
     [SerializeField] WaitForSeconds parryDurationSec;
     [SerializeField] WaitForSeconds parryCoolDownSec;
     [SerializeField] PlayerStatus playerStat;
@@ -25,7 +25,7 @@ public class Player : MonoBehaviour
     [SerializeField] Transform PlayerModel;
 
     [SerializeField] GameObject testPrefab;
-
+    [SerializeField] ParticleSystem attackSlashParticle;
     Vector3 direction;
     int health;
     int Health
@@ -46,8 +46,9 @@ public class Player : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         // 플레이어 스탯 기반으로 패리 시간·쿨타임 설정
-        parryDurationSec = new WaitForSeconds(playerStat.parryDuration); 
+        parryDurationSec = new WaitForSeconds(playerStat.parryDuration);
         parryCoolDownSec = new WaitForSeconds(playerStat.parryCooldown);
+        attackCoolDownSec = new WaitForSeconds(playerStat.attackCooldown);
         // 스킬 테스트용으로 추가함
         playerStat.currentParryStack = 3;
     }
@@ -55,6 +56,7 @@ public class Player : MonoBehaviour
     {
         Health = playerStat.maxHealth;
     }
+
     #region 이동
     // 매 프레임마다 OnMove(PlayerInput)으로 moveVec 받아서 처리
     private void FixedUpdate()
@@ -66,6 +68,7 @@ public class Player : MonoBehaviour
         moveVec = value.Get<Vector2>().normalized;
     }
     #endregion
+
     #region 방향
     // 마우스 이동으로 보는 방향 처리(마우스 위치값(OnLook)→Look()호출, 캐릭터 보는 방향 조절)
     // 근데 상하좌우 이동 방향에 캐릭터 방향 추가하는 게 낫지 않아요? 위오레도 그 느낌이던데
@@ -102,6 +105,7 @@ public class Player : MonoBehaviour
         }
     }
     #endregion
+
     #region 공격
     // 플레이어인풋으로 클릭 받아서 현재 공격 사용 가능할 경우 코루틴 돌림
     void OnAttack(InputValue value)
@@ -109,13 +113,18 @@ public class Player : MonoBehaviour
         if (!canUseAttack)
             return;
 
-        StartCoroutine(Parry());
+        StartCoroutine(AttackRoutine());
     }
     IEnumerator AttackRoutine()
     {
-        yield return null;
+        canUseAttack = false;
+        attackSlashParticle.Play();
+        
+        yield return attackCoolDownSec;
+        canUseAttack = true;
     }
     #endregion
+
     #region 패링
     // 패리 키 입력 받으면 패리 가능여부 확인 후 패리 코루틴 실행
     void OnParry(InputValue value)
@@ -135,12 +144,13 @@ public class Player : MonoBehaviour
     }
 
     // 패리 성공|실패 여부에 따라 패리가능 변수 처리, 패리중→패리중X, 패리 실패 시 쿨다운 코루틴 호출
-    public void ParrySucces()
+    public void ParrySucces(Enemy enemy, Vector2 enemyDirection)
     {
-        Debug.Log("패리 성공");
         playerStat.currentParryStack++;
         isParring = false;
         canUseParry = true;
+
+        enemy.KnockBack(enemyDirection);
     }
     public void ParryFailed()
     {
@@ -164,7 +174,7 @@ public class Player : MonoBehaviour
     #endregion
 
     // 대미지 처리 함수? 적에서 충돌 발생 시 호출되는듯?
-    public void TakeDamage(int damage, Vector3 enemyDirection)
+    public void TakeDamage(int damage, Vector2 enemyDirection, Enemy enemy)
     {
         //데미지 받을때 패리 체크
         //들어온 방향 과 화살표의 방향을 내적
@@ -173,26 +183,24 @@ public class Player : MonoBehaviour
         switch (isParring)
         {
             case true:
-
-                float parryDot = Vector3.Dot(direction, enemyDirection);
+                float parryDot = Vector2.Dot(direction, enemyDirection);
 
                 if (parryDot < 0 && parryDot > -1)
                 {
-                    if(ParryRoutine != null)
-                    StopCoroutine(ParryRoutine);
+                    if (ParryRoutine != null)
+                        StopCoroutine(ParryRoutine);
 
-                    ParrySucces();
+                    ParrySucces(enemy, direction);
                 }
                 else
                 {
                     Debug.Log("패리실패");
-                    if(ParryRoutine != null)
-                    StopCoroutine(ParryRoutine);
-                    
+                    if (ParryRoutine != null)
+                        StopCoroutine(ParryRoutine);
+
                     ParryFailed();
                     StartCoroutine(DamagedRoutine(damage));
                 }
-
                 break;
             case false:
                 StartCoroutine(DamagedRoutine(damage));
@@ -207,8 +215,8 @@ public class Player : MonoBehaviour
     }
 
 
- 
-#region 스킬 테스트
+
+    #region 스킬 테스트
     // 스킬 테스트용으로 정말 단순하게 투사체 프리팹 처리해서 방향으로 발사하는 것만 하드코딩된...
     void OnSkillTest(InputValue value)
     {
@@ -234,7 +242,7 @@ public class Player : MonoBehaviour
             rb.linearVelocity = fDirection * 10f;
         }
     }
-#endregion
+    #endregion
 
 
     // private void Shoot()
