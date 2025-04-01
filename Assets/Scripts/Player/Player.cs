@@ -178,13 +178,17 @@ public class Player : MonoBehaviour
 
                 if (parryDot < 0 && parryDot > -1)
                 {
+                    if(ParryRoutine != null)
                     StopCoroutine(ParryRoutine);
+
                     ParrySucces();
                 }
                 else
                 {
                     Debug.Log("패리실패");
+                    if(ParryRoutine != null)
                     StopCoroutine(ParryRoutine);
+                    
                     ParryFailed();
                     StartCoroutine(DamagedRoutine(damage));
                 }
