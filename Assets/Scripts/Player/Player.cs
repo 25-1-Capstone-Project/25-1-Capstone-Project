@@ -24,9 +24,11 @@ public class Player : MonoBehaviour
     [SerializeField] Rigidbody2D rb;
     [SerializeField] Transform PlayerModel;
 
-    [SerializeField] GameObject testPrefab;
+    SkillPattern currentSkill;
 
     Vector3 direction;
+    public Vector3 Direction => direction;
+
     int health;
     int Health
     {
@@ -42,21 +44,27 @@ public class Player : MonoBehaviour
     Coroutine ParryRoutine;
     float angle;
 
+    public int ParryStack
+    {
+        get { return playerStat.currentParryStack; }
+        set { playerStat.currentParryStack = Mathf.Max(value, 0); }
+    }
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         // 플레이어 스탯 기반으로 패리 시간·쿨타임 설정
-        parryDurationSec = new WaitForSeconds(playerStat.parryDuration); 
+        parryDurationSec = new WaitForSeconds(playerStat.parryDuration);
         parryCoolDownSec = new WaitForSeconds(playerStat.parryCooldown);
-        // 스킬 테스트용으로 추가함
-        playerStat.currentParryStack = 3;
+
+        currentSkill = SkillManager.instance.SkillPatterns[0];
     }
     void InitPlayer()
     {
         Health = playerStat.maxHealth;
     }
     #region 이동
-    // 매 프레임마다 OnMove(PlayerInput)으로 moveVec 받아서 처리
+    // 매 FixedUpdate마다 OnMove(PlayerInput)으로 moveVec 받아서 처리
     private void FixedUpdate()
     {
         rb.MovePosition(transform.position + (moveVec * playerStat.speed * Time.fixedDeltaTime));
@@ -68,7 +76,6 @@ public class Player : MonoBehaviour
     #endregion
     #region 방향
     // 마우스 이동으로 보는 방향 처리(마우스 위치값(OnLook)→Look()호출, 캐릭터 보는 방향 조절)
-    // 근데 상하좌우 이동 방향에 캐릭터 방향 추가하는 게 낫지 않아요? 위오레도 그 느낌이던데
     void OnLook(InputValue value)
     {
         lookInput = value.Get<Vector2>();
@@ -163,7 +170,7 @@ public class Player : MonoBehaviour
     }
     #endregion
 
-    // 대미지 처리 함수? 적에서 충돌 발생 시 호출되는듯?
+    // 대미지 처리 함수. 적 스크립트에서 플레이어와 적 충돌 발생 시 호출
     public void TakeDamage(int damage, Vector3 enemyDirection)
     {
         //데미지 받을때 패리 체크
@@ -178,17 +185,14 @@ public class Player : MonoBehaviour
 
                 if (parryDot < 0 && parryDot > -1)
                 {
-                    if(ParryRoutine != null)
-                    StopCoroutine(ParryRoutine);
-
+                    if (ParryRoutine != null)
+                        StopCoroutine(ParryRoutine);
                     ParrySucces();
                 }
                 else
                 {
                     Debug.Log("패리실패");
-                    if(ParryRoutine != null)
                     StopCoroutine(ParryRoutine);
-                    
                     ParryFailed();
                     StartCoroutine(DamagedRoutine(damage));
                 }
@@ -201,40 +205,45 @@ public class Player : MonoBehaviour
     }
     public IEnumerator DamagedRoutine(int damage)
     {
-        Debug.Log(123);
         Health -= damage;
         yield return null;
     }
 
 
- 
-#region 스킬 테스트
-    // 스킬 테스트용으로 정말 단순하게 투사체 프리팹 처리해서 방향으로 발사하는 것만 하드코딩된...
+
+    #region 스킬 테스트
     void OnSkillTest(InputValue value)
     {
-        TestSkillAct();
+        if (currentSkill != null)
+        {
+            StartCoroutine(currentSkill.Act(this)); // 스킬 실행
+        }
+        else
+        {
+        }
+        //TestSkillAct();
     }
 
-    void TestSkillAct()
-    {
-        if (playerStat.currentParryStack <= 0)
-        {
-            Debug.Log("패리 스택 부족");
-            return;
-        }
+    //void TestSkillAct()
+    //{
+    //    if (ParryStack <= 0)
+    //    {
+    //        Debug.Log("패리 스택 부족");
+    //        return;
+    //    }
 
-        playerStat.currentParryStack--;
+    //    ParryStack--;
 
-        GameObject fireball = Instantiate(testPrefab, transform.position, Quaternion.identity);
-        Rigidbody2D rb = fireball.GetComponent<Rigidbody2D>();
+    //    GameObject fireball = Instantiate(testPrefab, transform.position, Quaternion.identity);
+    //    Rigidbody2D rb = fireball.GetComponent<Rigidbody2D>();
 
-        if (rb != null)
-        {
-            Vector3 fDirection = direction;
-            rb.linearVelocity = fDirection * 10f;
-        }
-    }
-#endregion
+    //    if (rb != null)
+    //    {
+    //        Vector3 fDirection = direction;
+    //        rb.linearVelocity = fDirection * 10f;
+    //    }
+    //}
+    #endregion
 
 
     // private void Shoot()
