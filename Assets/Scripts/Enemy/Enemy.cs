@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    
+
     [SerializeField] EnemyData enemyData;
     [SerializeField] SpriteRenderer enemySprite;
     EnemyAnimatorController enemyAnimController;
@@ -32,7 +32,7 @@ public class Enemy : MonoBehaviour
                 health = 0;
         }
     }
-  
+
     private Rigidbody2D rb;
 
     // StateMachine Property
@@ -46,14 +46,15 @@ public class Enemy : MonoBehaviour
     }
     void EnemyInit()
     {
-        switch(enemyData.eEnemyType){
-            case EEnemyType.Sowrd:
-             //
-            break;
-        }
-
         speed = enemyData.moveSpeed;
         health = enemyData.maxHealth;
+
+        switch (enemyData.eEnemyType)
+        {
+            case EEnemyType.Sowrd:
+                attackPattern = EnemyManager.instance.commonEnemyAttackPatterns[0];
+                break;
+        }
     }
     void SetComponents()
     {
@@ -93,7 +94,7 @@ public class Enemy : MonoBehaviour
 
     public void Attack()
     {
-        // StartCoroutine(enemyData.Attack());
+        StartCoroutine(attackPattern.Execute(this));
     }
 
     void OnTriggerEnter2D(Collider2D other)

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "PlayerStatus", menuName = "Scriptable Objects/PlayerStatus")]
+[CreateAssetMenu(fileName = "PlayerStatus", menuName = "Player/PlayerStatus")]
 public class PlayerStatus : ScriptableObject
 {
     [Header("기본 능력")]

@@ -93,7 +93,6 @@ public class AttackState : EnemyState
     {
         isAttacking = true;
         enemy.GetAnimatorController().PlayAttack();
-      
         enemy.StartCoroutine(AttackRoutine());
     }
 
@@ -110,7 +109,7 @@ public class AttackState : EnemyState
         // 여기서 애니메이션 재생 또는 실제 공격 로직 실행 가능
         Debug.Log("Attack started");
         
-       // enemy.Attack();
+        enemy.Attack();
         // 예: 공격 애니메이션 재생 시간
         yield return new WaitForSeconds(attackCooldown);
 

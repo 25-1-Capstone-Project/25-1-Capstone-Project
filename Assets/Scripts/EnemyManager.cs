@@ -18,5 +18,5 @@ public class EnemyManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    public EnemyAttackPattern[] attackPatterns;
+    public EnemyAttackPattern[] commonEnemyAttackPatterns;
 }
