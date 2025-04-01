@@ -103,6 +103,7 @@ public class Enemy : MonoBehaviour
         //설계 필요
         if (other.CompareTag("PlayerAttack"))
         {
+            Debug.Log("맞음");
             Health--;
         }
     }
