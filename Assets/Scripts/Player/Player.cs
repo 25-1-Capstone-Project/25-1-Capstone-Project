@@ -11,7 +11,6 @@ public class Player : MonoBehaviour
     Vector3 moveVec;
     Vector2 lookInput;
 
-
     [SerializeField] bool isParrying;
     [SerializeField] bool canUseParry = true;
     [SerializeField] bool canUseAttack = true;
@@ -26,11 +25,10 @@ public class Player : MonoBehaviour
     [SerializeField] Transform PlayerModel;
     [SerializeField] ParticleSystem attackSlashParticle;
     SkillPattern currentSkill;
-
     Vector3 direction;
     public Vector3 Direction => direction;
     Coroutine ParryRoutine;
-
+    private SpriteRenderer[] spriteRenderers;
 
     int health;
     int Health
@@ -53,6 +51,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
+        spriteRenderers = PlayerModel.GetComponentsInChildren<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
         // 플레이어 스탯 기반으로 패리 시간·쿨타임 설정
         waitParryDuration = new WaitForSeconds(playerStat.parryDurationSec);
@@ -233,6 +232,7 @@ public class Player : MonoBehaviour
     }
     public IEnumerator DamagedRoutine(int damage)
     {
+        FlashOnDamage();
         Debug.Log("아야!");
         Health -= damage;
         yield return null;
@@ -289,6 +289,31 @@ public class Player : MonoBehaviour
     //     }
 
     // } 
+    [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private Color hitColor = Color.red;
+    [SerializeField] private float flashDuration = 0.1f;
 
+    public void FlashOnDamage()
+    {
+        StartCoroutine(FlashRoutine());
+    }
+
+    private IEnumerator FlashRoutine()
+    {
+        Color[] originalColors = new Color[spriteRenderers.Length];
+
+        for (int i = 0; i < spriteRenderers.Length; i++)
+        {
+            originalColors[i] = spriteRenderers[i].color;
+            spriteRenderers[i].color = hitColor;
+        }
+
+        yield return new WaitForSeconds(flashDuration);
+
+        for (int i = 0; i < spriteRenderers.Length; i++)
+        {
+            spriteRenderers[i].color = originalColors[i];
+        }
+    }
 
 }

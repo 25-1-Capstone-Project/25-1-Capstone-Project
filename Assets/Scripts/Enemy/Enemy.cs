@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 
@@ -6,11 +7,12 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] EnemyData enemyData;
     [SerializeField] SpriteRenderer enemySprite;
-    EnemyAnimatorController enemyAnimController;
+    [SerializeField] EnemyAnimatorController enemyAnimController;
     [SerializeField] EnemyAttackPattern attackPattern;
-     [SerializeField] ParticleSystem attackParticle;
-     [SerializeField] Transform attackParticleTransform;
-
+    [SerializeField] ParticleSystem attackParticle;
+    [SerializeField] Transform attackParticleTransform;
+    [SerializeField] private Color hitColor = Color.red;
+    [SerializeField] private float flashDuration = 0.1f;
     #region GetFunction
     public EnemyAttackPattern GetAttackPattern() => attackPattern;
     public int GetDamage() => enemyData.attackDamage;
@@ -62,7 +64,7 @@ public class Enemy : MonoBehaviour
     void SetComponents()
     {
         rb = GetComponent<Rigidbody2D>();
-        enemyAnimController = GetComponent<EnemyAnimatorController>();
+       
     }
     private void SetStateMachine()
     {
@@ -80,7 +82,10 @@ public class Enemy : MonoBehaviour
     {
         StateMachine.Update();
     }
-
+    void LateUpdate()
+    {
+        StateMachine.LateUpdate();
+    }
     void FixedUpdate()
     {
         StateMachine.FixedUpdate();
@@ -88,7 +93,8 @@ public class Enemy : MonoBehaviour
 
     public void SpriteFlip()
     {
-        enemySprite.flipX = rb.linearVelocityX == 0 ? enemySprite.flipX : rb.linearVelocity.x > 0;
+        enemySprite.flipX = rb.linearVelocityX == 0 ? enemySprite.flipX : rb.linearVelocityX > 0;
+        Debug.Log( enemySprite.flipX);
     }
     public void Attack()
     {
@@ -97,6 +103,7 @@ public class Enemy : MonoBehaviour
     public void TakeDamage(int damage)
     {
         Debug.Log("적 아야");
+        FlashOnDamage();
     }
     public void KnockBack(Vector2 direction)
     {
@@ -112,6 +119,20 @@ public class Enemy : MonoBehaviour
             Debug.Log("맞음");
             Health--;
         }
+    }
+    public void FlashOnDamage()
+    {
+        StartCoroutine(FlashRoutine());
+    }
+
+    private IEnumerator FlashRoutine()
+    {
+        Color originalColor = enemySprite.color;
+        enemySprite.color = hitColor;
+
+        yield return new WaitForSeconds(flashDuration);
+
+        enemySprite.color = originalColor;
     }
 #if UNITY_EDITOR
     private void OnDrawGizmosSelected()
@@ -131,7 +152,7 @@ public class Enemy : MonoBehaviour
         Gizmos.matrix = rot;
         Gizmos.DrawWireCube(Vector3.zero, boxSize);
 
-        
+
     }
 #endif
 
