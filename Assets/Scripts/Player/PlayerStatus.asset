@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PlayerStatus
   m_EditorClassIdentifier: 
   speed: 3
-  maxHealth: 0
+  maxHealth: 30
   damage: 5
   attackCooldownSec: 1
   attackRange: 1
@@ -22,4 +22,4 @@ MonoBehaviour:
   parryCooldownSec: 2
   parryDurationSec: 0.5
   parryStackMax: 0
-  currentParryStack: 23
+  currentParryStack: 2

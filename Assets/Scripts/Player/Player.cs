@@ -26,7 +26,13 @@ public class Player : MonoBehaviour
     [SerializeField] ParticleSystem attackSlashParticle;
     SkillPattern currentSkill;
     Vector3 direction;
+
     public Vector3 Direction => direction;
+    public int UIHealth => health;
+    public int UIMaxHealth => playerStat.maxHealth;
+    public float ParryCooldownRatio => parryCooldownTimer / playerStat.parryCooldownSec;
+    private float parryCooldownTimer = 0f;
+
     Coroutine ParryRoutine;
     private SpriteRenderer[] spriteRenderers;
 
@@ -58,6 +64,9 @@ public class Player : MonoBehaviour
         waitParryCoolDown = new WaitForSeconds(playerStat.parryCooldownSec);
         waitAttackCoolDown = new WaitForSeconds(playerStat.attackCooldownSec);
         currentSkill = SkillManager.instance.SkillPatterns[0];
+
+        // 체력 UI 테스트
+        InitPlayer();
     }
     void InitPlayer()
     {
@@ -198,15 +207,29 @@ public class Player : MonoBehaviour
         StartCoroutine(ParryCoolDownRoutine());
 
     }
+
+
     // 패리 쿨다운 코루틴, 패리 쿨만큼 기다렸다가 패리가능여부 True;
     IEnumerator ParryCoolDownRoutine()
     {
-        yield return waitParryCoolDown;
+        //yield return waitParryCoolDown;
+        //canUseParry = true;
+        //// float coolDown = playerStat.parryCooldown;
+        ////쿨 도는 거 시각화 필요
+        ////while(coolDown  >0){}
+        //yield break;
+
+        canUseParry = false;
+        parryCooldownTimer = playerStat.parryCooldownSec;
+
+        while (parryCooldownTimer > 0)
+        {
+            parryCooldownTimer -= Time.deltaTime;
+            yield return null;
+        }
+
+        parryCooldownTimer = 0;
         canUseParry = true;
-        // float coolDown = playerStat.parryCooldown;
-        //쿨 도는 거 시각화 필요
-        //while(coolDown  >0){}
-        yield break;
 
     }
     #endregion
