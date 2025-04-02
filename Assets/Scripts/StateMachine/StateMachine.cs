@@ -32,4 +32,13 @@ public class StateMachine<T> where T : IState
             fixedState.FixedUpdate();
         }
     }
+
+    public void LateUpdate()
+    {
+        // FixedUpdate가 필요한 상태만 실행
+        if (currentState is ILateUpdateState lateState)
+        {
+            lateState.LateUpdate();
+        }
+    }
 }

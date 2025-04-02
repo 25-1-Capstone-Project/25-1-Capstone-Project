@@ -7,13 +7,15 @@ public class PlayerStatus : ScriptableObject
     public float speed;
     public int maxHealth;
     public int damage;
-
+    public float attackCooldownSec;
+    public float attackRange;
+    public float attackAngle = 120;
     [Header("투사체")]
     public float bulletSpeed;
   
     [Header("패리 관련")]
-    public float parryCooldown;
-    public float parryDuration;
+    public float parryCooldownSec;
+    public float parryDurationSec;
     public int parryStackMax;
     public int currentParryStack;
 

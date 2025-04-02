@@ -43,7 +43,7 @@ public class IdleState : EnemyState
 }
 
 // 추격 상태
-public class ChaseState : EnemyState, IFixedUpdateState
+public class ChaseState : EnemyState, IFixedUpdateState, ILateUpdateState
 {
     public ChaseState(Enemy enemy) : base(enemy) { }
 
@@ -73,10 +73,18 @@ public class ChaseState : EnemyState, IFixedUpdateState
         }
     }
 
+    public void LateUpdate()
+    {
+        enemy.SpriteFlip();
+    }
+   
+
     public override void Exit()
     {
         enemy.GetRigidbody().linearVelocity = Vector2.zero; // 추격 종료 시 정지
     }
+
+   
 }
 
 // 공격 상태
@@ -107,13 +115,13 @@ public class AttackState : EnemyState
     private IEnumerator AttackRoutine()
     {
         // 여기서 애니메이션 재생 또는 실제 공격 로직 실행 가능
-        Debug.Log("Attack started");
+  
         
         enemy.Attack();
         // 예: 공격 애니메이션 재생 시간
         yield return new WaitForSeconds(attackCooldown);
 
-        Debug.Log("Attack finished");
+       
         isAttacking = false;
     }
     public override void Exit()

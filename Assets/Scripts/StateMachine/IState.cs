@@ -11,3 +11,8 @@ public interface IFixedUpdateState
 {
     void FixedUpdate();
 }
+
+public interface ILateUpdateState
+{
+    void LateUpdate();
+}

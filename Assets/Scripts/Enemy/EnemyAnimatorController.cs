@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class EnemyAnimatorController : MonoBehaviour
 {
-    private Animator animator;
+    Animator animator;
 
     void Awake()
     {

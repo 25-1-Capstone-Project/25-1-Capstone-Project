@@ -11,23 +11,24 @@ public class Player : MonoBehaviour
     Vector3 moveVec;
     Vector2 lookInput;
 
-
-    [SerializeField] bool isParring;
+    [SerializeField] bool isParrying;
     [SerializeField] bool canUseParry = true;
     [SerializeField] bool canUseAttack = true;
 
-    [SerializeField] WaitForSeconds parryDurationSec;
-    [SerializeField] WaitForSeconds parryCoolDownSec;
+    [SerializeField] WaitForSeconds waitAttackCoolDown;
+    [SerializeField] WaitForSeconds waitParryDuration;
+    [SerializeField] WaitForSeconds waitParryCoolDown;
     [SerializeField] PlayerStatus playerStat;
     [SerializeField] GameObject arrow;
     [SerializeField] GameObject ammo;
     [SerializeField] Rigidbody2D rb;
     [SerializeField] Transform PlayerModel;
-
+    [SerializeField] ParticleSystem attackSlashParticle;
     SkillPattern currentSkill;
-
     Vector3 direction;
     public Vector3 Direction => direction;
+    Coroutine ParryRoutine;
+    private SpriteRenderer[] spriteRenderers;
 
     int health;
     int Health
@@ -41,8 +42,6 @@ public class Player : MonoBehaviour
                 health = 0;
         }
     }
-    Coroutine ParryRoutine;
-    float angle;
 
     public int ParryStack
     {
@@ -52,17 +51,19 @@ public class Player : MonoBehaviour
 
     void Start()
     {
+        spriteRenderers = PlayerModel.GetComponentsInChildren<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
         // 플레이어 스탯 기반으로 패리 시간·쿨타임 설정
-        parryDurationSec = new WaitForSeconds(playerStat.parryDuration);
-        parryCoolDownSec = new WaitForSeconds(playerStat.parryCooldown);
-
+        waitParryDuration = new WaitForSeconds(playerStat.parryDurationSec);
+        waitParryCoolDown = new WaitForSeconds(playerStat.parryCooldownSec);
+        waitAttackCoolDown = new WaitForSeconds(playerStat.attackCooldownSec);
         currentSkill = SkillManager.instance.SkillPatterns[0];
     }
     void InitPlayer()
     {
         Health = playerStat.maxHealth;
     }
+
     #region 이동
     // 매 FixedUpdate마다 OnMove(PlayerInput)으로 moveVec 받아서 처리
     private void FixedUpdate()
@@ -74,6 +75,7 @@ public class Player : MonoBehaviour
         moveVec = value.Get<Vector2>().normalized;
     }
     #endregion
+
     #region 방향
     // 마우스 이동으로 보는 방향 처리(마우스 위치값(OnLook)→Look()호출, 캐릭터 보는 방향 조절)
     void OnLook(InputValue value)
@@ -109,19 +111,55 @@ public class Player : MonoBehaviour
         }
     }
     #endregion
+
     #region 공격
     // 플레이어인풋으로 클릭 받아서 현재 공격 사용 가능할 경우 코루틴 돌림
-    void OnAttack(InputValue value)
+    void OnAttack()
     {
         if (!canUseAttack)
             return;
 
-        StartCoroutine(Parry());
+
+        StartCoroutine(AttackRoutine());
     }
     IEnumerator AttackRoutine()
     {
-        yield return null;
+        canUseAttack = false;
+        attackSlashParticle.Play();
+        Vector2 origin = transform.position;
+
+        Collider2D[] hits = Physics2D.OverlapCircleAll(origin, playerStat.attackRange, LayerMask.GetMask("Enemy"));
+
+        foreach (var hit in hits)
+        {
+            Vector2 toTarget = ((Vector2)hit.transform.position - origin).normalized;
+            float angle = Vector2.Angle(direction, toTarget);
+
+            if (angle <= playerStat.attackAngle / 2f)
+            {
+                hit.GetComponent<Enemy>()?.TakeDamage(playerStat.damage);
+            }
+        }
+
+        yield return waitAttackCoolDown;
+        canUseAttack = true;
     }
+    //attack 디버깅 용
+    void OnDrawGizmos()
+    {
+        float range = playerStat.attackRange;
+        float angle = playerStat.attackAngle;
+
+        Vector3 forward = direction;
+        Vector3 left = Quaternion.Euler(0, 0, -angle / 2) * forward;
+        Vector3 right = Quaternion.Euler(0, 0, angle / 2) * forward;
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(transform.position, transform.position + left * range);
+        Gizmos.DrawLine(transform.position, transform.position + right * range);
+
+    }
+
     #endregion
     #region 패링
     // 패리 키 입력 받으면 패리 가능여부 확인 후 패리 코루틴 실행
@@ -136,22 +174,26 @@ public class Player : MonoBehaviour
     IEnumerator Parry()
     {
         canUseParry = false;
-        isParring = true;
-        yield return parryDurationSec;
+        isParrying = true;
+        yield return waitParryDuration;
         ParryFailed();
     }
 
     // 패리 성공|실패 여부에 따라 패리가능 변수 처리, 패리중→패리중X, 패리 실패 시 쿨다운 코루틴 호출
-    public void ParrySucces()
+    public void ParrySuccess(Enemy enemy, Vector2 enemyDirection)
     {
-        Debug.Log("패리 성공");
+        StopCoroutine(ParryRoutine);
         playerStat.currentParryStack++;
-        isParring = false;
+        isParrying = false;
         canUseParry = true;
+        Debug.Log("패리 성공");
+        enemy.KnockBack(enemyDirection);
     }
     public void ParryFailed()
     {
-        isParring = false;
+        StopCoroutine(ParryRoutine);
+        Debug.Log("패리 실패");
+        isParrying = false;
         canUseParry = false;
         StartCoroutine(ParryCoolDownRoutine());
 
@@ -159,8 +201,7 @@ public class Player : MonoBehaviour
     // 패리 쿨다운 코루틴, 패리 쿨만큼 기다렸다가 패리가능여부 True;
     IEnumerator ParryCoolDownRoutine()
     {
-
-        yield return parryCoolDownSec;
+        yield return waitParryCoolDown;
         canUseParry = true;
         // float coolDown = playerStat.parryCooldown;
         //쿨 도는 거 시각화 필요
@@ -171,40 +212,28 @@ public class Player : MonoBehaviour
     #endregion
 
     // 대미지 처리 함수. 적 스크립트에서 플레이어와 적 충돌 발생 시 호출
-    public void TakeDamage(int damage, Vector3 enemyDirection)
+    public void TakeDamage(int damage, Vector2 enemyDir, Enemy enemy)
     {
-        //데미지 받을때 패리 체크
-        //들어온 방향 과 화살표의 방향을 내적
-        //-1 ~0 사이일 경우 내 방향 여기에 스트레치를 줘서 반경 조절
-        //일치할 경우 데미지 무시
-        switch (isParring)
+        if (isParrying)
         {
-            case true:
-
-                float parryDot = Vector3.Dot(direction, enemyDirection);
-
-                if (parryDot < 0 && parryDot > -1)
-                {
-                    if (ParryRoutine != null)
-                        StopCoroutine(ParryRoutine);
-                    ParrySucces();
-                }
-                else
-                {
-                    Debug.Log("패리실패");
-                    StopCoroutine(ParryRoutine);
-                    ParryFailed();
-                    StartCoroutine(DamagedRoutine(damage));
-                }
-
-                break;
-            case false:
+            float parryDot = Vector2.Dot(direction, -enemyDir);
+            float threshold = Mathf.Cos(45f * Mathf.Deg2Rad); // 90도 시야
+            Debug.Log(parryDot);
+            if (parryDot >= threshold)
+                ParrySuccess(enemy, direction);
+            else
+            {
+                ParryFailed();
                 StartCoroutine(DamagedRoutine(damage));
-                break;
+            }
         }
+        else
+            StartCoroutine(DamagedRoutine(damage));
     }
     public IEnumerator DamagedRoutine(int damage)
     {
+        FlashOnDamage();
+        Debug.Log("아야!");
         Health -= damage;
         yield return null;
     }
@@ -260,6 +289,31 @@ public class Player : MonoBehaviour
     //     }
 
     // } 
+    [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private Color hitColor = Color.red;
+    [SerializeField] private float flashDuration = 0.1f;
 
+    public void FlashOnDamage()
+    {
+        StartCoroutine(FlashRoutine());
+    }
+
+    private IEnumerator FlashRoutine()
+    {
+        Color[] originalColors = new Color[spriteRenderers.Length];
+
+        for (int i = 0; i < spriteRenderers.Length; i++)
+        {
+            originalColors[i] = spriteRenderers[i].color;
+            spriteRenderers[i].color = hitColor;
+        }
+
+        yield return new WaitForSeconds(flashDuration);
+
+        for (int i = 0; i < spriteRenderers.Length; i++)
+        {
+            spriteRenderers[i].color = originalColors[i];
+        }
+    }
 
 }

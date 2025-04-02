@@ -12,13 +12,12 @@ public enum EEnemyType{
 [CreateAssetMenu(fileName = "EnemyData", menuName = "Enemy/EnemyData")]
 public class EnemyData : ScriptableObject
 {
-    
     public EEnemyType eEnemyType;
     public string monsterName;
     public int maxHealth;
     public float moveSpeed;
     public float attackSpeed;
-    public float attackDamage;
+    public int attackDamage;
 
 
  
