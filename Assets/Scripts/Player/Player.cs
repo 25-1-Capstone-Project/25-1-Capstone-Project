@@ -52,8 +52,8 @@ public class Player : MonoBehaviour
                 health = 0;
                 Dead();
             }
-              
-            
+
+
         }
     }
     public void Dead()
@@ -100,8 +100,8 @@ public class Player : MonoBehaviour
     }
     void OnMove(InputValue value)
     {
-        if(isDead)
-        return;
+        if (isDead)
+            return;
 
         moveVec = value.Get<Vector2>().normalized;
     }
@@ -190,7 +190,7 @@ public class Player : MonoBehaviour
 
     }
     //attack 디버깅 용
-   
+
 
     #endregion
 
@@ -198,7 +198,7 @@ public class Player : MonoBehaviour
     // 패리 키 입력 받으면 패리 가능여부 확인 후 패리 코루틴 실행
     void OnParry(InputValue value)
     {
-        if (!canUseParry||isDead)
+        if (!canUseParry || isDead)
             return;
 
         ParryRoutine = StartCoroutine(Parry());
@@ -236,8 +236,16 @@ public class Player : MonoBehaviour
     // 패리 쿨다운 코루틴, 패리 쿨만큼 기다렸다가 패리가능여부 True;
     IEnumerator ParryCoolDownRoutine()
     {
-        yield return waitParryCoolDown;
+        canUseParry = false;
+        parryCooldownTimer = playerStat.parryCooldownSec;
+        while (parryCooldownTimer > 0)
+        {
+            parryCooldownTimer -= Time.deltaTime;
+            yield return null;
+        }
+        parryCooldownTimer = 0;
         canUseParry = true;
+
     }
     #endregion
 
@@ -320,7 +328,8 @@ public class Player : MonoBehaviour
     //     }
 
     // } 
-    
+
+    #region FlashSprite
     [SerializeField] private Color hitColor = Color.red;
     [SerializeField] private float flashDuration = 0.1f;
 
@@ -346,5 +355,6 @@ public class Player : MonoBehaviour
             spriteRenderers[i].color = originalColors[i];
         }
     }
+    #endregion
 
 }
