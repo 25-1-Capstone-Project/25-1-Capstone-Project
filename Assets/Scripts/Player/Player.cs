@@ -59,7 +59,7 @@ public class Player : MonoBehaviour
     public void Dead()
     {
         playerAnim.PlayDeath();
-        isDead = false;
+        isDead = true;
     }
     public int ParryStack
     {
@@ -270,7 +270,7 @@ public class Player : MonoBehaviour
     }
     public IEnumerator DamagedRoutine(int damage)
     {
-        playerAnim.PlayKnockBack();
+        //playerAnim.PlayKnockBack();
         FlashOnDamage();
         Debug.Log("아야!");
         Health -= damage;

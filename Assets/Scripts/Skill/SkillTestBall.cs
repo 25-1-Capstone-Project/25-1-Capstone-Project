@@ -2,12 +2,13 @@ using UnityEngine;
 
 public class SkillTestBall : MonoBehaviour
 {
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        // ¸ó½ºÅÍ ÅÂ±×¸¦ °¡Áø ¿ÀºêÁ§Æ®¿Í Ãæµ¹ÇßÀ» ¶§
-        if (collision.CompareTag("Enemy"))
+        int damage = 3;
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½Â±×¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½æµ¹ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+        if (other.CompareTag("Enemy"))
         {
-            Debug.Log("°ø°Ý(½ºÅ³A)");
+            other.GetComponent<Enemy>().TakeDamage(damage);
             Destroy(gameObject, 0.1f);
         }
     }

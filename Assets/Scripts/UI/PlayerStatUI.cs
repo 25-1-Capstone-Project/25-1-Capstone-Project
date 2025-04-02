@@ -1,10 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
-
-public class PrototypeUIManager : MonoBehaviour
+public class PlayerStatUI : MonoBehaviour
 {
     [SerializeField] private Player player;
-    [SerializeField] private Transform playerTransform;
     [SerializeField] private RectTransform cooldownUI;
     [SerializeField] private Vector3 uiOffset = new Vector3(0.6f, 0.8f, 0f);
 
@@ -12,15 +10,19 @@ public class PrototypeUIManager : MonoBehaviour
     [SerializeField] private Slider hpBar;
     [SerializeField] private Image cooldownImage;
 
-
-    private void Update()
+    public void UI_HPBarUpdate()
+    {
+        hpBar.value = player.UIHealth / player.UIMaxHealth;
+    }
+    public void UI_ParryStackUpdate()
     {
         parryStackText.text = player.ParryStack.ToString();
-        hpBar.value = (float)player.UIHealth / (float)player.UIMaxHealth;
-
+    }
+    public void UI_ParryCooldownUpdate()
+    {
         cooldownImage.fillAmount = player.ParryCooldownRatio;
-
-        Vector3 worldPos = playerTransform.position + uiOffset;
+        Vector3 worldPos = player.transform.position + uiOffset;
         cooldownUI.position = Camera.main.WorldToScreenPoint(worldPos);
     }
+
 }

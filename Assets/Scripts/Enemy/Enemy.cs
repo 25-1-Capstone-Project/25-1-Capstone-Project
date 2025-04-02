@@ -23,13 +23,14 @@ public class Enemy : MonoBehaviour
     public Transform GetPlayer() => GameManager.instance.GetPlayerTransform();
     public Transform GetAttackParticleT() => attackParticleTransform;
     public ParticleSystem GetAttackParticle() => attackParticle;
-    
+
     public Vector2 GetDirectionVec() => GameManager.instance.GetPlayerTransform().position - transform.position;
     public Vector2 GetDirectionNormalVec() => GetDirectionVec().normalized;
     #endregion
 
     public bool IsAttacking { get; set; }
     private float speed;
+    bool isDead;
     int health;
     int Health
     {
@@ -38,11 +39,24 @@ public class Enemy : MonoBehaviour
         {
             health = value;
 
-            if (health < 0)
+            if (health <= 0)
+            {
                 health = 0;
+                Dead();
+            }
         }
     }
-
+    public void Dead()
+    {
+        StateMachine.ChangeState<DeadState>();
+        isDead = true;
+    }
+    public IEnumerator DeadRoutine(){
+        enemyAnimController.PlayDeath();
+        yield return new WaitForSeconds(1f);
+        Destroy(gameObject);
+    }
+    
     private Rigidbody2D rb;
 
     // StateMachine Property
@@ -56,6 +70,7 @@ public class Enemy : MonoBehaviour
     }
     void EnemyInit()
     {
+        isDead = false;
         speed = enemyData.moveSpeed;
         health = enemyData.maxHealth;
 
@@ -79,6 +94,7 @@ public class Enemy : MonoBehaviour
         StateMachine.AddState(new ChaseState(this));
         StateMachine.AddState(new AttackState(this));
         StateMachine.AddState(new KnockBackState(this));
+        StateMachine.AddState(new DeadState(this));
         // Set initial state
         StateMachine.ChangeState<IdleState>();
     }
@@ -99,7 +115,7 @@ public class Enemy : MonoBehaviour
     public void SpriteFlip()
     {
         enemySprite.flipX = rb.linearVelocityX == 0 ? enemySprite.flipX : rb.linearVelocityX > 0;
-        
+
     }
     public void Attack()
     {
@@ -107,6 +123,7 @@ public class Enemy : MonoBehaviour
     }
     public void TakeDamage(int damage)
     {
+        Health -= damage;
         Debug.Log("적 아야");
         FlashOnDamage();
     }
@@ -115,7 +132,7 @@ public class Enemy : MonoBehaviour
         enemyAnimController.PlayKnockBack();
         rb.AddForce(-GetDirectionNormalVec() * 50);
     }
-   
+
     public void FlashOnDamage()
     {
         StartCoroutine(FlashRoutine());

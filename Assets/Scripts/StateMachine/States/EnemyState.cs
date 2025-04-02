@@ -138,3 +138,20 @@ public class KnockBackState : EnemyState
     public override void Update() {}
     public override void Exit() {}
 }
+public class DeadState : EnemyState
+{
+    Coroutine coroutine;
+    public DeadState(Enemy enemy) : base(enemy) { }
+
+    public override void Enter()
+    {
+        if(coroutine!=null)
+        return;
+
+        enemy.StopAllCoroutines();
+        coroutine = enemy.StartCoroutine(enemy.DeadRoutine());
+    }
+
+    public override void Update() {}
+    public override void Exit() {}
+}
