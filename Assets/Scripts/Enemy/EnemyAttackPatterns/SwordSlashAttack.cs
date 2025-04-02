@@ -18,8 +18,11 @@ public class SwordSlashAttack : EnemyAttackPattern
         float angle = Mathf.Atan2(attackDir.y, attackDir.x) * Mathf.Rad2Deg;
 
         yield return new WaitForSeconds(delay);
-      //  enemy.GetAttackParticle().Play();
-        //enemy.GetAttackParticleT().LookAt((Vector2)enemy.transform.position+ attackDir);
+
+        Transform particleTransform = enemy.GetAttackParticleT();
+        particleTransform.rotation = Quaternion.Euler(0f, 0f, angle);
+
+        enemy.GetAttackParticle().Play();
         Vector2 boxCenter = (Vector2)enemy.transform.position + attackDir * 0.5f;
         Vector2 boxSize = new Vector2(1f, 1f);
 
