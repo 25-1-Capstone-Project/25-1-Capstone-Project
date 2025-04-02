@@ -16,9 +16,9 @@ public class Player : MonoBehaviour
     [SerializeField] bool canUseParry = true;
     [SerializeField] bool canUseAttack = true;
 
-    [SerializeField] WaitForSeconds attackCoolDownSec;
-    [SerializeField] WaitForSeconds parryDurationSec;
-    [SerializeField] WaitForSeconds parryCoolDownSec;
+    [SerializeField] WaitForSeconds waitAttackCoolDown;
+    [SerializeField] WaitForSeconds waitParryDuration;
+    [SerializeField] WaitForSeconds waitParryCoolDown;
     [SerializeField] PlayerStatus playerStat;
     [SerializeField] GameObject arrow;
     [SerializeField] GameObject ammo;
@@ -55,9 +55,9 @@ public class Player : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         // 플레이어 스탯 기반으로 패리 시간·쿨타임 설정
-        parryDurationSec = new WaitForSeconds(playerStat.parryDuration);
-        parryCoolDownSec = new WaitForSeconds(playerStat.parryCooldown);
-
+        waitParryDuration = new WaitForSeconds(playerStat.parryDurationSec);
+        waitParryCoolDown = new WaitForSeconds(playerStat.parryCooldownSec);
+        waitAttackCoolDown = new WaitForSeconds(playerStat.attackCooldownSec);
         currentSkill = SkillManager.instance.SkillPatterns[0];
     }
     void InitPlayer()
@@ -115,10 +115,11 @@ public class Player : MonoBehaviour
 
     #region 공격
     // 플레이어인풋으로 클릭 받아서 현재 공격 사용 가능할 경우 코루틴 돌림
-    void OnAttack(InputValue value)
+    void OnAttack()
     {
         if (!canUseAttack)
             return;
+
 
         StartCoroutine(AttackRoutine());
     }
@@ -127,7 +128,7 @@ public class Player : MonoBehaviour
         canUseAttack = false;
         attackSlashParticle.Play();
 
-        yield return attackCoolDownSec;
+        yield return waitAttackCoolDown;
         canUseAttack = true;
     }
     #endregion
@@ -145,7 +146,7 @@ public class Player : MonoBehaviour
     {
         canUseParry = false;
         isParring = true;
-        yield return parryDurationSec;
+        yield return waitParryDuration;
         ParryFailed();
     }
 
@@ -169,7 +170,7 @@ public class Player : MonoBehaviour
     // 패리 쿨다운 코루틴, 패리 쿨만큼 기다렸다가 패리가능여부 True;
     IEnumerator ParryCoolDownRoutine()
     {
-        yield return parryCoolDownSec;
+        yield return waitParryCoolDown;
         canUseParry = true;
         // float coolDown = playerStat.parryCooldown;
         //쿨 도는 거 시각화 필요
