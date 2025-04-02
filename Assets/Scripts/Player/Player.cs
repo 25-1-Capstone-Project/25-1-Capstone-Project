@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
     Vector2 lookInput;
 
 
-    [SerializeField] bool isParring;
+    [SerializeField] bool isParrying;
     [SerializeField] bool canUseParry = true;
     [SerializeField] bool canUseAttack = true;
 
@@ -127,10 +127,40 @@ public class Player : MonoBehaviour
     {
         canUseAttack = false;
         attackSlashParticle.Play();
+        Vector2 origin = transform.position;
+
+        Collider2D[] hits = Physics2D.OverlapCircleAll(origin, playerStat.attackRange, LayerMask.GetMask("Enemy"));
+
+        foreach (var hit in hits)
+        {
+            Vector2 toTarget = ((Vector2)hit.transform.position - origin).normalized;
+            float angle = Vector2.Angle(direction, toTarget);
+
+            if (angle <= playerStat.attackAngle / 2f)
+            {
+                hit.GetComponent<Enemy>()?.TakeDamage(playerStat.damage);
+            }
+        }
 
         yield return waitAttackCoolDown;
         canUseAttack = true;
     }
+    //attack 디버깅 용
+    void OnDrawGizmos()
+    {
+        float range = playerStat.attackRange;
+        float angle = playerStat.attackAngle;
+
+        Vector3 forward = direction;
+        Vector3 left = Quaternion.Euler(0, 0, -angle / 2) * forward;
+        Vector3 right = Quaternion.Euler(0, 0, angle / 2) * forward;
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(transform.position, transform.position + left * range);
+        Gizmos.DrawLine(transform.position, transform.position + right * range);
+
+    }
+
     #endregion
     #region 패링
     // 패리 키 입력 받으면 패리 가능여부 확인 후 패리 코루틴 실행
@@ -145,24 +175,26 @@ public class Player : MonoBehaviour
     IEnumerator Parry()
     {
         canUseParry = false;
-        isParring = true;
+        isParrying = true;
         yield return waitParryDuration;
         ParryFailed();
     }
 
     // 패리 성공|실패 여부에 따라 패리가능 변수 처리, 패리중→패리중X, 패리 실패 시 쿨다운 코루틴 호출
-    public void ParrySucces(Enemy enemy, Vector2 enemyDirection)
+    public void ParrySuccess(Enemy enemy, Vector2 enemyDirection)
     {
+        StopCoroutine(ParryRoutine);
         playerStat.currentParryStack++;
-        isParring = false;
+        isParrying = false;
         canUseParry = true;
-
+        Debug.Log("패리 성공");
         enemy.KnockBack(enemyDirection);
     }
     public void ParryFailed()
     {
+        StopCoroutine(ParryRoutine);
         Debug.Log("패리 실패");
-        isParring = false;
+        isParrying = false;
         canUseParry = false;
         StartCoroutine(ParryCoolDownRoutine());
 
@@ -181,38 +213,23 @@ public class Player : MonoBehaviour
     #endregion
 
     // 대미지 처리 함수. 적 스크립트에서 플레이어와 적 충돌 발생 시 호출
-    public void TakeDamage(int damage, Vector2 enemyDirection, Enemy enemy)
+    public void TakeDamage(int damage, Vector2 enemyDir, Enemy enemy)
     {
-        //데미지 받을때 패리 체크
-        //들어온 방향 과 화살표의 방향을 내적
-        //-1 ~0 사이일 경우 내 방향 여기에 스트레치를 줘서 반경 조절
-        //일치할 경우 데미지 무시
-        switch (isParring)
+        if (isParrying)
         {
-            case true:
-                float parryDot = Vector2.Dot(direction, enemyDirection);
-
-                if (parryDot < 0 && parryDot > -1)
-                {
-                    if (ParryRoutine != null)
-                        StopCoroutine(ParryRoutine);
-
-                    ParrySucces(enemy, direction);
-                }
-                else
-                {
-                    Debug.Log("패리실패");
-                    if (ParryRoutine != null)
-                        StopCoroutine(ParryRoutine);
-
-                    ParryFailed();
-                    StartCoroutine(DamagedRoutine(damage));
-                }
-                break;
-            case false:
+            float parryDot = Vector2.Dot(direction, -enemyDir);
+            float threshold = Mathf.Cos(45f * Mathf.Deg2Rad); // 90도 시야
+            Debug.Log(parryDot);
+            if (parryDot >= threshold)
+                ParrySuccess(enemy, direction);
+            else
+            {
+                ParryFailed();
                 StartCoroutine(DamagedRoutine(damage));
-                break;
+            }
         }
+        else
+            StartCoroutine(DamagedRoutine(damage));
     }
     public IEnumerator DamagedRoutine(int damage)
     {

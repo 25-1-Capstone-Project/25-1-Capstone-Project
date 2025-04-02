@@ -15,9 +15,11 @@ MonoBehaviour:
   speed: 3
   maxHealth: 0
   damage: 5
-  attackCooldown: 1
+  attackCooldownSec: 1
+  attackRange: 1
+  attackAngle: 120
   bulletSpeed: 0
-  parryCooldown: 3
-  parryDuration: 5
+  parryCooldownSec: 2
+  parryDurationSec: 0.5
   parryStackMax: 0
-  currentParryStack: 3
+  currentParryStack: 23

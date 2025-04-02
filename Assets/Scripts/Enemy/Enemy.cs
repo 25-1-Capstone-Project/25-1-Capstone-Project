@@ -8,15 +8,18 @@ public class Enemy : MonoBehaviour
     [SerializeField] SpriteRenderer enemySprite;
     EnemyAnimatorController enemyAnimController;
     [SerializeField] EnemyAttackPattern attackPattern;
-
+     [SerializeField] ParticleSystem attackParticle;
+     [SerializeField] Transform attackParticleTransform;
 
     #region GetFunction
     public EnemyAttackPattern GetAttackPattern() => attackPattern;
+    public int GetDamage() => enemyData.attackDamage;
     public Rigidbody2D GetRigidbody() => rb;
     public float GetSpeed() => speed;
     public EnemyAnimatorController GetAnimatorController() => enemyAnimController;
     public Transform GetPlayer() => GameManager.instance.GetPlayerTransform();
-
+    public Transform GetAttackParticleT() => attackParticleTransform;
+    public ParticleSystem GetAttackParticle() => attackParticle;
     #endregion
     public bool IsAttacking { get; set; }
     private float speed;
@@ -91,10 +94,13 @@ public class Enemy : MonoBehaviour
     {
         StartCoroutine(attackPattern.Execute(this));
     }
-
+    public void TakeDamage(int damage)
+    {
+        Debug.Log("적 아야");
+    }
     public void KnockBack(Vector2 direction)
     {
-        rb.AddForce(direction * 50 );
+        rb.AddForce(direction * 50);
     }
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -107,4 +113,26 @@ public class Enemy : MonoBehaviour
             Health--;
         }
     }
+#if UNITY_EDITOR
+    private void OnDrawGizmosSelected()
+    {
+        if (!(attackPattern is SwordSlashAttack sword)) return;
+
+        Vector2 attackDir = (GameManager.instance.player.transform.position - transform.position).normalized;
+        float attackAngle = Mathf.Atan2(attackDir.y, attackDir.x) * Mathf.Rad2Deg;
+
+        Vector2 boxCenter = (Vector2)transform.position + attackDir * 0.5f;
+        Vector2 boxSize = new Vector2(1f, 1f); // 혹은 sword.range 등에서 계산
+
+        Gizmos.color = Color.red;
+
+        // 회전 매트릭스로 회전 적용
+        Matrix4x4 rot = Matrix4x4.TRS(boxCenter, Quaternion.Euler(0, 0, attackAngle), Vector3.one);
+        Gizmos.matrix = rot;
+        Gizmos.DrawWireCube(Vector3.zero, boxSize);
+
+        
+    }
+#endif
+
 }

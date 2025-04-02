@@ -8,6 +8,8 @@ public class PlayerStatus : ScriptableObject
     public int maxHealth;
     public int damage;
     public float attackCooldownSec;
+    public float attackRange;
+    public float attackAngle = 120;
     [Header("투사체")]
     public float bulletSpeed;
   
