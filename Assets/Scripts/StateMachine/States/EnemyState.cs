@@ -117,11 +117,11 @@ public class AttackState : EnemyState
         enemy.StopCoroutine(AttackRoutine());
     }
 }
-public class ParryState : EnemyState
+public class KnockBackState : EnemyState
 {
     WaitForSeconds KnockBackDelaySec = new WaitForSeconds(0.5f);
 
-    public ParryState(Enemy enemy) : base(enemy) { }
+    public KnockBackState(Enemy enemy) : base(enemy) { }
 
     public override void Enter()
     {

@@ -78,7 +78,7 @@ public class Enemy : MonoBehaviour
         StateMachine.AddState(new IdleState(this));
         StateMachine.AddState(new ChaseState(this));
         StateMachine.AddState(new AttackState(this));
-        StateMachine.AddState(new ParryState(this));
+        StateMachine.AddState(new KnockBackState(this));
         // Set initial state
         StateMachine.ChangeState<IdleState>();
     }

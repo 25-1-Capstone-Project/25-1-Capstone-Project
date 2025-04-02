@@ -28,8 +28,14 @@ public class Player : MonoBehaviour
 
     SkillPattern currentSkill;
     Vector3 direction;
-    public Vector3 Direction => direction;
+
     bool isDead;
+    public Vector3 Direction => direction;
+    public int UIHealth => health;
+    public int UIMaxHealth => playerStat.maxHealth;
+    public float ParryCooldownRatio => parryCooldownTimer / playerStat.parryCooldownSec;
+    private float parryCooldownTimer = 0f;
+
     Coroutine ParryRoutine;
     private SpriteRenderer[] spriteRenderers;
 
@@ -70,6 +76,9 @@ public class Player : MonoBehaviour
         waitParryCoolDown = new WaitForSeconds(playerStat.parryCooldownSec);
         waitAttackCoolDown = new WaitForSeconds(playerStat.attackCooldownSec);
         currentSkill = SkillManager.instance.SkillPatterns[0];
+
+        // 체력 UI 테스트
+        InitPlayer();
     }
     void SetComponent()
     {
@@ -180,6 +189,9 @@ public class Player : MonoBehaviour
         Gizmos.DrawLine(transform.position, transform.position + right * range);
 
     }
+    //attack 디버깅 용
+   
+
     #endregion
 
     #region 패링
@@ -208,7 +220,7 @@ public class Player : MonoBehaviour
         isParrying = false;
         canUseParry = true;
         Debug.Log("패리 성공");
-        enemy.StateMachine.ChangeState<ParryState>();
+        enemy.StateMachine.ChangeState<KnockBackState>();
     }
     public void ParryFailed()
     {
@@ -219,6 +231,8 @@ public class Player : MonoBehaviour
         StartCoroutine(ParryCoolDownRoutine());
 
     }
+
+
     // 패리 쿨다운 코루틴, 패리 쿨만큼 기다렸다가 패리가능여부 True;
     IEnumerator ParryCoolDownRoutine()
     {
