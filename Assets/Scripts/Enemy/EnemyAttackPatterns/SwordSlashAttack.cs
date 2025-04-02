@@ -13,7 +13,7 @@ public class SwordSlashAttack : EnemyAttackPattern
     {
         enemy.IsAttacking = true;
 
-        // 공격 방향을 정확히 플레이어 기준으로
+    
         Vector2 attackDir = (GameManager.instance.player.transform.position - enemy.transform.position).normalized;
         float angle = Mathf.Atan2(attackDir.y, attackDir.x) * Mathf.Rad2Deg;
 

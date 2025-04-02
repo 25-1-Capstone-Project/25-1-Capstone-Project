@@ -13,6 +13,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] Transform attackParticleTransform;
     [SerializeField] private Color hitColor = Color.red;
     [SerializeField] private float flashDuration = 0.1f;
+
     #region GetFunction
     public EnemyAttackPattern GetAttackPattern() => attackPattern;
     public int GetDamage() => enemyData.attackDamage;
@@ -22,7 +23,11 @@ public class Enemy : MonoBehaviour
     public Transform GetPlayer() => GameManager.instance.GetPlayerTransform();
     public Transform GetAttackParticleT() => attackParticleTransform;
     public ParticleSystem GetAttackParticle() => attackParticle;
+    
+    public Vector2 GetDirectionVec() => GameManager.instance.GetPlayerTransform().position - transform.position;
+    public Vector2 GetDirectionNormalVec() => GetDirectionVec().normalized;
     #endregion
+
     public bool IsAttacking { get; set; }
     private float speed;
     int health;
@@ -64,7 +69,7 @@ public class Enemy : MonoBehaviour
     void SetComponents()
     {
         rb = GetComponent<Rigidbody2D>();
-       
+
     }
     private void SetStateMachine()
     {
@@ -73,7 +78,7 @@ public class Enemy : MonoBehaviour
         StateMachine.AddState(new IdleState(this));
         StateMachine.AddState(new ChaseState(this));
         StateMachine.AddState(new AttackState(this));
-
+        StateMachine.AddState(new ParryState(this));
         // Set initial state
         StateMachine.ChangeState<IdleState>();
     }
@@ -94,7 +99,7 @@ public class Enemy : MonoBehaviour
     public void SpriteFlip()
     {
         enemySprite.flipX = rb.linearVelocityX == 0 ? enemySprite.flipX : rb.linearVelocityX > 0;
-        Debug.Log( enemySprite.flipX);
+        
     }
     public void Attack()
     {
@@ -105,21 +110,12 @@ public class Enemy : MonoBehaviour
         Debug.Log("적 아야");
         FlashOnDamage();
     }
-    public void KnockBack(Vector2 direction)
+    public void KnockBack()
     {
-        rb.AddForce(direction * 50);
+        enemyAnimController.PlayKnockBack();
+        rb.AddForce(-GetDirectionNormalVec() * 50);
     }
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        // collider를 이용한 공격시
-        // 데미지 함수로 대체해야함
-        //설계 필요
-        if (other.CompareTag("PlayerAttack"))
-        {
-            Debug.Log("맞음");
-            Health--;
-        }
-    }
+   
     public void FlashOnDamage()
     {
         StartCoroutine(FlashRoutine());
@@ -131,7 +127,6 @@ public class Enemy : MonoBehaviour
         enemySprite.color = hitColor;
 
         yield return new WaitForSeconds(flashDuration);
-
         enemySprite.color = originalColor;
     }
 #if UNITY_EDITOR
@@ -139,7 +134,7 @@ public class Enemy : MonoBehaviour
     {
         if (!(attackPattern is SwordSlashAttack sword)) return;
 
-        Vector2 attackDir = (GameManager.instance.player.transform.position - transform.position).normalized;
+        Vector2 attackDir = GetDirectionNormalVec();
         float attackAngle = Mathf.Atan2(attackDir.y, attackDir.x) * Mathf.Rad2Deg;
 
         Vector2 boxCenter = (Vector2)transform.position + attackDir * 0.5f;

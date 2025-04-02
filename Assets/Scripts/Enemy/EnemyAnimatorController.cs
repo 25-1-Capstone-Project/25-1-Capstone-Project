@@ -29,12 +29,18 @@ public class EnemyAnimatorController : MonoBehaviour
         SetTrigger("Death");
     }
 
+    public void PlayKnockBack()
+    {
+        SetTrigger("KnockBack");
+    }
+
     private void SetTrigger(string triggerName)
     {
         animator.ResetTrigger("Idle");
         animator.ResetTrigger("Chase");
         animator.ResetTrigger("Attack");
         animator.ResetTrigger("Death");
+        animator.ResetTrigger("KnockBack");
 
         animator.SetTrigger(triggerName);
     }

@@ -24,9 +24,12 @@ public class Player : MonoBehaviour
     [SerializeField] Rigidbody2D rb;
     [SerializeField] Transform PlayerModel;
     [SerializeField] ParticleSystem attackSlashParticle;
+    [SerializeField] PlayerAnimatorController playerAnim;
+
     SkillPattern currentSkill;
     Vector3 direction;
     public Vector3 Direction => direction;
+    bool isDead;
     Coroutine ParryRoutine;
     private SpriteRenderer[] spriteRenderers;
 
@@ -38,11 +41,20 @@ public class Player : MonoBehaviour
         {
             health = value;
 
-            if (health < 0)
+            if (health <= 0)
+            {
                 health = 0;
+                Dead();
+            }
+              
+            
         }
     }
-
+    public void Dead()
+    {
+        playerAnim.PlayDeath();
+        isDead = false;
+    }
     public int ParryStack
     {
         get { return playerStat.currentParryStack; }
@@ -51,16 +63,23 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        spriteRenderers = PlayerModel.GetComponentsInChildren<SpriteRenderer>();
-        rb = GetComponent<Rigidbody2D>();
+        SetComponent();
+        InitPlayer();
         // 플레이어 스탯 기반으로 패리 시간·쿨타임 설정
         waitParryDuration = new WaitForSeconds(playerStat.parryDurationSec);
         waitParryCoolDown = new WaitForSeconds(playerStat.parryCooldownSec);
         waitAttackCoolDown = new WaitForSeconds(playerStat.attackCooldownSec);
         currentSkill = SkillManager.instance.SkillPatterns[0];
     }
+    void SetComponent()
+    {
+        spriteRenderers = PlayerModel.GetComponentsInChildren<SpriteRenderer>();
+        rb = GetComponent<Rigidbody2D>();
+        playerAnim = GetComponent<PlayerAnimatorController>();
+    }
     void InitPlayer()
     {
+        isDead = false;
         Health = playerStat.maxHealth;
     }
 
@@ -72,6 +91,9 @@ public class Player : MonoBehaviour
     }
     void OnMove(InputValue value)
     {
+        if(isDead)
+        return;
+
         moveVec = value.Get<Vector2>().normalized;
     }
     #endregion
@@ -82,7 +104,7 @@ public class Player : MonoBehaviour
     {
         lookInput = value.Get<Vector2>();
 
-        if (lookInput == Vector2.zero)
+        if (lookInput == Vector2.zero || isDead)
             return;
 
         Look();
@@ -92,10 +114,8 @@ public class Player : MonoBehaviour
         // 카메라 Z 위치 보정
         Vector3 mouseScreenPos = new Vector3(lookInput.x, lookInput.y, -Camera.main.transform.position.z);
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(mouseScreenPos);
-
         // 방향
         direction = (mouseWorldPos - arrow.transform.position).normalized;
-
         // 회전
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         arrow.transform.rotation = Quaternion.Euler(0, 0, angle);
@@ -113,26 +133,27 @@ public class Player : MonoBehaviour
     #endregion
 
     #region 공격
-    // 플레이어인풋으로 클릭 받아서 현재 공격 사용 가능할 경우 코루틴 돌림
     void OnAttack()
     {
-        if (!canUseAttack)
+        if (!canUseAttack || isDead)
             return;
-
 
         StartCoroutine(AttackRoutine());
     }
     IEnumerator AttackRoutine()
     {
         canUseAttack = false;
-        attackSlashParticle.Play();
-        Vector2 origin = transform.position;
 
-        Collider2D[] hits = Physics2D.OverlapCircleAll(origin, playerStat.attackRange, LayerMask.GetMask("Enemy"));
+
+        playerAnim.PlayAttack();
+
+        yield return new WaitForSeconds(0.2f);
+        attackSlashParticle.Play();
+        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, playerStat.attackRange, LayerMask.GetMask("Enemy"));
 
         foreach (var hit in hits)
         {
-            Vector2 toTarget = ((Vector2)hit.transform.position - origin).normalized;
+            Vector2 toTarget = (hit.transform.position - transform.position).normalized;
             float angle = Vector2.Angle(direction, toTarget);
 
             if (angle <= playerStat.attackAngle / 2f)
@@ -159,13 +180,13 @@ public class Player : MonoBehaviour
         Gizmos.DrawLine(transform.position, transform.position + right * range);
 
     }
-
     #endregion
+
     #region 패링
     // 패리 키 입력 받으면 패리 가능여부 확인 후 패리 코루틴 실행
     void OnParry(InputValue value)
     {
-        if (!canUseParry)
+        if (!canUseParry||isDead)
             return;
 
         ParryRoutine = StartCoroutine(Parry());
@@ -187,7 +208,7 @@ public class Player : MonoBehaviour
         isParrying = false;
         canUseParry = true;
         Debug.Log("패리 성공");
-        enemy.KnockBack(enemyDirection);
+        enemy.StateMachine.ChangeState<ParryState>();
     }
     public void ParryFailed()
     {
@@ -203,11 +224,6 @@ public class Player : MonoBehaviour
     {
         yield return waitParryCoolDown;
         canUseParry = true;
-        // float coolDown = playerStat.parryCooldown;
-        //쿨 도는 거 시각화 필요
-        //while(coolDown  >0){}
-        yield break;
-
     }
     #endregion
 
@@ -232,6 +248,7 @@ public class Player : MonoBehaviour
     }
     public IEnumerator DamagedRoutine(int damage)
     {
+        playerAnim.PlayKnockBack();
         FlashOnDamage();
         Debug.Log("아야!");
         Health -= damage;
@@ -289,7 +306,7 @@ public class Player : MonoBehaviour
     //     }
 
     // } 
-    [SerializeField] private SpriteRenderer spriteRenderer;
+    
     [SerializeField] private Color hitColor = Color.red;
     [SerializeField] private float flashDuration = 0.1f;
 
