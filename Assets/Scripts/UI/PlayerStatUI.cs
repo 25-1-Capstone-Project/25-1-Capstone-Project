@@ -12,7 +12,7 @@ public class PlayerStatUI : MonoBehaviour
 
     public void UI_HPBarUpdate()
     {
-        hpBar.value = player.UIHealth / player.UIMaxHealth;
+        hpBar.value = (float)player.UIHealth / (float)player.UIMaxHealth;
     }
     public void UI_ParryStackUpdate()
     {

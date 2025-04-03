@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: PlayerStatus
   m_EditorClassIdentifier: 
   speed: 3
-  maxHealth: 100
+  maxHealth: 10
   damage: 2
-  attackCooldownSec: 1
+  attackCooldownSec: 0.5
   attackRange: 1
   attackAngle: 120
   bulletSpeed: 0
   parryCooldownSec: 2
   parryDurationSec: 0.5
   parryStackMax: 0
-  currentParryStack: 26
+  currentParryStack: 12

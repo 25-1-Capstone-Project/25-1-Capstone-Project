@@ -1,7 +1,4 @@
 using System.Collections;
-using System.Transactions;
-using Unity.Mathematics;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -199,7 +196,7 @@ public class Player : MonoBehaviour
     {
         if (!canUseParry || isDead)
             return;
-
+        FlashParry();
         ParryRoutine = StartCoroutine(Parry());
     }
     // 패리 코루틴, 일단 패리 사용X, 패리중O 처리→패리지속시간 기다림 뒤 ParryFailed() 호출
@@ -348,6 +345,28 @@ public class Player : MonoBehaviour
         }
 
         yield return new WaitForSeconds(flashDuration);
+
+        for (int i = 0; i < spriteRenderers.Length; i++)
+        {
+            spriteRenderers[i].color = originalColors[i];
+        }
+    }
+      public void FlashParry()
+    {
+        StartCoroutine(FlashParryRoutine());
+    }
+
+    private IEnumerator FlashParryRoutine()
+    {
+        Color[] originalColors = new Color[spriteRenderers.Length];
+
+        for (int i = 0; i < spriteRenderers.Length; i++)
+        {
+            originalColors[i] = spriteRenderers[i].color;
+            spriteRenderers[i].color = Color.blue;
+        }
+
+        yield return waitParryDuration;
 
         for (int i = 0; i < spriteRenderers.Length; i++)
         {

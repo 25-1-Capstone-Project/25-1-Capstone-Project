@@ -85,7 +85,7 @@ public class ChaseState : EnemyState, IFixedUpdateState, ILateUpdateState
 public class AttackState : EnemyState
 {
     private float attackCooldown = 1.5f; //공격 시간
-   
+    private Coroutine coroutine;
     private bool isAttacking;
 
     public AttackState(Enemy enemy) : base(enemy) { }
@@ -95,7 +95,7 @@ public class AttackState : EnemyState
         enemy.SpriteFlip();
         isAttacking = true;
         enemy.GetAnimatorController().PlayAttack();
-        enemy.StartCoroutine(AttackRoutine());
+        coroutine = enemy.StartCoroutine(AttackRoutine());
     }
 
     public override void Update()
@@ -114,7 +114,7 @@ public class AttackState : EnemyState
     }
     public override void Exit()
     {
-        enemy.StopCoroutine(AttackRoutine());
+        enemy.StopCoroutine(coroutine);
     }
 }
 public class KnockBackState : EnemyState
@@ -125,7 +125,7 @@ public class KnockBackState : EnemyState
 
     public override void Enter()
     {
-        enemy.StopAllCoroutines();
+       
         enemy.StartCoroutine(KnockBack());
         
     }
