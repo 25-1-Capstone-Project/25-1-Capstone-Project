@@ -1,10 +1,14 @@
+using System.Collections;
 using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
     public static EnemyManager instance;
-
-     void Awake()
+    public Transform spawnPosParent;
+    private Transform[] spawnPointsT;
+    public GameObject enemyPrefab;
+    public EnemyAttackPattern[] commonEnemyAttackPatterns;
+    void Awake()
     {
         if (instance == null)
         {
@@ -16,7 +20,26 @@ public class EnemyManager : MonoBehaviour
         }
 
         DontDestroyOnLoad(gameObject);
+
+        spawnPointsT = spawnPosParent.GetComponentsInChildren<Transform>();
+    }
+    void Start()
+    {
+        StartCoroutine(SpawnRoutine());
     }
 
-    public EnemyAttackPattern[] commonEnemyAttackPatterns;
+    IEnumerator SpawnRoutine()
+    {
+        while (!GameManager.instance.player.GetIsDead())
+        {
+            Spawn();
+            yield return new WaitForSeconds(10);
+        }
+    }
+    void Spawn()
+    {
+        int index = Random.Range(0, spawnPointsT.Length);
+        Instantiate(enemyPrefab, spawnPointsT[index].position, Quaternion.identity);
+    }
+
 }

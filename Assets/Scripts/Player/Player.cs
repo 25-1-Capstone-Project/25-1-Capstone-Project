@@ -30,6 +30,7 @@ public class Player : MonoBehaviour
     Vector3 direction;
 
     bool isDead;
+    public bool GetIsDead() => isDead;
     public Vector3 Direction => direction;
     public int UIHealth => health;
     public int UIMaxHealth => playerStat.maxHealth;
@@ -52,8 +53,6 @@ public class Player : MonoBehaviour
                 health = 0;
                 Dead();
             }
-
-
         }
     }
     public void Dead()

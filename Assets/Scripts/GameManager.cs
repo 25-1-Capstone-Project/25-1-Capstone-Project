@@ -1,5 +1,6 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -38,6 +39,9 @@ public class GameManager : MonoBehaviour
         StateMachine.Update();
     }
 
+    public void TestResetButton(){
+        SceneManager.LoadScene(0);
+    }
       // Public methods to expose data or perform actions
     public Transform GetPlayerTransform()
     {

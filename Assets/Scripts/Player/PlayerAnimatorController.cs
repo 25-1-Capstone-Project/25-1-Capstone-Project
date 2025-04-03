@@ -34,7 +34,7 @@ public class PlayerAnimatorController : MonoBehaviour
 
     private void SetTrigger(string triggerName)
     {
-        animator.ResetTrigger("Idle");
+        //animator.ResetTrigger("Idle");
         animator.ResetTrigger("1_Move");
         animator.ResetTrigger("2_Attack");
         animator.ResetTrigger("4_Death");

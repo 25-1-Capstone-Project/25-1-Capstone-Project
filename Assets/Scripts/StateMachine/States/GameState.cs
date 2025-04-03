@@ -49,8 +49,8 @@ public class PlayingState : GameState
 
     public override void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-            gameManager.StateMachine.ChangeState<PausedState>();
+        // if (Input.GetKeyDown(KeyCode.Escape))
+        //     gameManager.StateMachine.ChangeState<PausedState>();
     }
 
     public override void Exit()
