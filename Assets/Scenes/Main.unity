@@ -3168,6 +3168,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 919865993923637413, guid: 4569542ff57041d42827b0cbdb7bd76c, type: 3}
+      propertyPath: dashDistance
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 1043139584216896345, guid: 4569542ff57041d42827b0cbdb7bd76c, type: 3}
       propertyPath: m_Name
       value: Player

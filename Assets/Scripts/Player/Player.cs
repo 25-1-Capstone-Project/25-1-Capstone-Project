@@ -5,38 +5,22 @@ using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
+
+    [Header("방향 관련")]
     Vector3 moveVec;
     Vector2 lookInput;
 
-    [SerializeField] bool isParrying;
-    [SerializeField] bool canUseParry = true;
-    [SerializeField] bool canUseAttack = true;
-
-    [SerializeField] WaitForSeconds waitAttackCoolDown;
-    [SerializeField] WaitForSeconds waitParryDuration;
-    [SerializeField] WaitForSeconds waitParryCoolDown;
-    [SerializeField] PlayerStatus playerStat;
-    [SerializeField] GameObject arrow;
-    [SerializeField] GameObject ammo;
-    [SerializeField] Rigidbody2D rb;
-    [SerializeField] Transform PlayerModel;
-    [SerializeField] ParticleSystem attackSlashParticle;
-    [SerializeField] PlayerAnimatorController playerAnim;
-
-    SkillPattern currentSkill;
     Vector3 direction;
-
-    bool isDead;
-    public bool GetIsDead() => isDead;
     public Vector3 Direction => direction;
-    public int UIHealth => health;
-    public int UIMaxHealth => playerStat.maxHealth;
-    public float ParryCooldownRatio => parryCooldownTimer / playerStat.parryCooldownSec;
-    private float parryCooldownTimer = 0f;
 
-    Coroutine ParryRoutine;
-    private SpriteRenderer[] spriteRenderers;
 
+    [Header("플레이어 상태")]
+    [SerializeField] bool canUseAttack = true;
+    [SerializeField] bool isParrying = false;
+
+    bool isDead = false;
+    public bool GetIsDead() => isDead;
+    [Header("체력")]
     int health;
     int Health
     {
@@ -52,6 +36,39 @@ public class Player : MonoBehaviour
             }
         }
     }
+    public int UIHealth => health;
+    public int UIMaxHealth => playerStat.maxHealth;
+
+    [Header("패링 옵션")]
+    [SerializeField] bool canUseParry = true;
+    public float ParryCooldownRatio => parryCooldownTimer / playerStat.parryCooldownSec;
+    private float parryCooldownTimer = 0f;
+    Coroutine ParryRoutine;
+
+    [Header("대시 옵션")]
+    [SerializeField] float dashDistance = 5f;
+    [SerializeField] bool canUseDash = true;
+    [SerializeField] private float dashDuration = 0.2f;
+    [SerializeField] private float dashCooldown = 1f;
+    bool isDashing = false;
+
+    [Header("대기 시간")]
+    WaitForSeconds waitAttackCoolDown;
+    WaitForSeconds waitParryDuration;
+
+
+    [Header("컴포넌트")]
+    [SerializeField] PlayerStatus playerStat;
+    [SerializeField] GameObject arrow;
+    [SerializeField] GameObject ammo;
+    [SerializeField] Rigidbody2D rb;
+    [SerializeField] Transform PlayerModel;
+    [SerializeField] ParticleSystem attackSlashParticle;
+    [SerializeField] PlayerAnimatorController playerAnim;
+    SkillPattern currentSkill;
+    private SpriteRenderer[] spriteRenderers;
+
+
     public void Dead()
     {
         playerAnim.PlayDeath();
@@ -69,7 +86,6 @@ public class Player : MonoBehaviour
         InitPlayer();
         // 플레이어 스탯 기반으로 패리 시간·쿨타임 설정
         waitParryDuration = new WaitForSeconds(playerStat.parryDurationSec);
-        waitParryCoolDown = new WaitForSeconds(playerStat.parryCooldownSec);
         waitAttackCoolDown = new WaitForSeconds(playerStat.attackCooldownSec);
         currentSkill = SkillManager.instance.SkillPatterns[0];
 
@@ -92,7 +108,10 @@ public class Player : MonoBehaviour
     // 매 FixedUpdate마다 OnMove(PlayerInput)으로 moveVec 받아서 처리
     private void FixedUpdate()
     {
-        rb.MovePosition(transform.position + (moveVec * playerStat.speed * Time.fixedDeltaTime));
+        if (!isDashing)
+        {
+            rb.MovePosition(transform.position + (moveVec * playerStat.speed * Time.fixedDeltaTime));
+        }
     }
     void OnMove(InputValue value)
     {
@@ -100,6 +119,35 @@ public class Player : MonoBehaviour
             return;
 
         moveVec = value.Get<Vector2>().normalized;
+    }
+
+
+    void OnDash()
+    {
+        if (isDead || !canUseDash || moveVec == Vector3.zero)
+            return;
+
+        StartCoroutine(DashCoroutine());
+    }
+
+    IEnumerator DashCoroutine()
+    {
+        isDashing = true;
+        canUseDash = false;
+
+        // 대시 방향과 힘 설정
+        rb.linearVelocity = moveVec.normalized * (dashDistance / dashDuration);
+
+
+        // playerAnim.PlayDash();
+
+        yield return new WaitForSeconds(dashDuration);
+
+        rb.linearVelocity = Vector2.zero;
+        isDashing = false;
+
+        yield return new WaitForSeconds(dashCooldown);
+        canUseDash = true;
     }
     #endregion
 
@@ -351,7 +399,7 @@ public class Player : MonoBehaviour
             spriteRenderers[i].color = originalColors[i];
         }
     }
-      public void FlashParry()
+    public void FlashParry()
     {
         StartCoroutine(FlashParryRoutine());
     }
