@@ -17,9 +17,9 @@ public class Player : MonoBehaviour
     [Header("플레이어 상태")]
     [SerializeField] bool canUseAttack = true;
     [SerializeField] bool isParrying = false;
-
     bool isDead = false;
     public bool GetIsDead() => isDead;
+
     [Header("체력")]
     int health;
     int Health
@@ -41,9 +41,11 @@ public class Player : MonoBehaviour
 
     [Header("패링 옵션")]
     [SerializeField] bool canUseParry = true;
+    [SerializeField] GameObject parryEffectPrefab; // 패링 이펙트 프리팹
     public float ParryCooldownRatio => parryCooldownTimer / playerStat.parryCooldownSec;
     private float parryCooldownTimer = 0f;
     Coroutine ParryRoutine;
+
 
     [Header("대시 옵션")]
     [SerializeField] float dashDistance = 5f;
@@ -265,6 +267,13 @@ public class Player : MonoBehaviour
         canUseParry = true;
         Debug.Log("패리 성공");
         enemy.StateMachine.ChangeState<KnockBackState>();
+        ParryEffect();
+
+    }
+    public void ParryEffect()
+    {
+        GameObject effect = Instantiate(parryEffectPrefab, transform.position + (direction / 2), Quaternion.identity);
+        Destroy(effect, 0.5f);
     }
     public void ParryFailed()
     {
@@ -320,8 +329,6 @@ public class Player : MonoBehaviour
         Health -= damage;
         yield return null;
     }
-
-
 
     #region 스킬 테스트
     void OnSkillTest(InputValue value)
@@ -384,11 +391,10 @@ public class Player : MonoBehaviour
 
     private IEnumerator FlashRoutine()
     {
-        Color[] originalColors = new Color[spriteRenderers.Length];
 
         for (int i = 0; i < spriteRenderers.Length; i++)
         {
-            originalColors[i] = spriteRenderers[i].color;
+     
             spriteRenderers[i].color = hitColor;
         }
 
@@ -396,7 +402,7 @@ public class Player : MonoBehaviour
 
         for (int i = 0; i < spriteRenderers.Length; i++)
         {
-            spriteRenderers[i].color = originalColors[i];
+            spriteRenderers[i].color =  Color.white;
         }
     }
     public void FlashParry()
@@ -406,11 +412,10 @@ public class Player : MonoBehaviour
 
     private IEnumerator FlashParryRoutine()
     {
-        Color[] originalColors = new Color[spriteRenderers.Length];
 
         for (int i = 0; i < spriteRenderers.Length; i++)
         {
-            originalColors[i] = spriteRenderers[i].color;
+   
             spriteRenderers[i].color = Color.blue;
         }
 
@@ -418,7 +423,7 @@ public class Player : MonoBehaviour
 
         for (int i = 0; i < spriteRenderers.Length; i++)
         {
-            spriteRenderers[i].color = originalColors[i];
+            spriteRenderers[i].color =  Color.white;
         }
     }
     #endregion
