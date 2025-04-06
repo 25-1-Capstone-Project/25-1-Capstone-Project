@@ -51,11 +51,7 @@ public class Enemy : MonoBehaviour
         StateMachine.ChangeState<DeadState>();
         isDead = true;
     }
-    public IEnumerator DeadRoutine(){
-        enemyAnimController.PlayDeath();
-        yield return new WaitForSeconds(1f);
-        Destroy(gameObject);
-    }
+ 
     
     private Rigidbody2D rb;
 
@@ -93,7 +89,8 @@ public class Enemy : MonoBehaviour
         StateMachine.AddState(new IdleState(this));
         StateMachine.AddState(new ChaseState(this));
         StateMachine.AddState(new AttackState(this));
-        StateMachine.AddState(new KnockBackState(this));
+        StateMachine.AddState(new ParryState(this));
+        StateMachine.AddState(new DamagedState(this));
         StateMachine.AddState(new DeadState(this));
         // Set initial state
         StateMachine.ChangeState<IdleState>();
@@ -123,16 +120,17 @@ public class Enemy : MonoBehaviour
     }
     public void TakeDamage(int damage)
     {
+        StateMachine.ChangeState<DamagedState>();
+        FlashOnDamage();
         Health -= damage;
         Debug.Log("적 아야");
-        FlashOnDamage();
     }
-    public void KnockBack()
+    public void KnockBack(float knockBackForce)
     {
         enemyAnimController.PlayKnockBack();
-        rb.AddForce(-GetDirectionNormalVec() * 50);
+        rb.linearVelocity = -GetDirectionNormalVec() * knockBackForce;
     }
-
+   
     public void FlashOnDamage()
     {
         StartCoroutine(FlashRoutine());
@@ -140,11 +138,9 @@ public class Enemy : MonoBehaviour
 
     private IEnumerator FlashRoutine()
     {
-        Color originalColor = enemySprite.color;
         enemySprite.color = hitColor;
-
         yield return new WaitForSeconds(flashDuration);
-        enemySprite.color = originalColor;
+        enemySprite.color = Color.white;
     }
 #if UNITY_EDITOR
     private void OnDrawGizmosSelected()

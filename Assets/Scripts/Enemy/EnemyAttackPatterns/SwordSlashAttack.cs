@@ -12,8 +12,7 @@ public class SwordSlashAttack : EnemyAttackPattern
     public override IEnumerator Execute(Enemy enemy)
     {
         enemy.IsAttacking = true;
-
-    
+        enemy.GetAnimatorController().PlayAttack();
         Vector2 attackDir = (GameManager.instance.player.transform.position - enemy.transform.position).normalized;
         float angle = Mathf.Atan2(attackDir.y, attackDir.x) * Mathf.Rad2Deg;
 
@@ -21,7 +20,7 @@ public class SwordSlashAttack : EnemyAttackPattern
 
         Transform particleTransform = enemy.GetAttackParticleT();
         particleTransform.rotation = Quaternion.Euler(0f, 0f, angle);
-
+     
         enemy.GetAttackParticle().Play();
         Vector2 boxCenter = (Vector2)enemy.transform.position + attackDir * 0.5f;
         Vector2 boxSize = new Vector2(1f, 1f);

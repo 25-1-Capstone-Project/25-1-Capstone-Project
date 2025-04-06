@@ -3,7 +3,7 @@ using UnityEngine;
 public class SkillManager : MonoBehaviour
 {
     public static SkillManager instance;
-
+    public Transform skillObjectsParent;
     void Awake()
     {
         if (instance == null)

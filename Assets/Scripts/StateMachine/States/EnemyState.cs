@@ -77,8 +77,6 @@ public class ChaseState : EnemyState, IFixedUpdateState, ILateUpdateState
     {
         enemy.GetRigidbody().linearVelocity = Vector2.zero; // 추격 종료 시 정지
     }
-
-
 }
 
 // 공격 상태
@@ -94,7 +92,6 @@ public class AttackState : EnemyState
     {
         enemy.SpriteFlip();
         isAttacking = true;
-        enemy.GetAnimatorController().PlayAttack();
         coroutine = enemy.StartCoroutine(AttackRoutine());
     }
 
@@ -117,27 +114,51 @@ public class AttackState : EnemyState
         enemy.StopCoroutine(coroutine);
     }
 }
-public class KnockBackState : EnemyState
+public class ParryState : EnemyState
 {
     WaitForSeconds KnockBackDelaySec = new WaitForSeconds(0.5f);
 
-    public KnockBackState(Enemy enemy) : base(enemy) { }
+    public ParryState(Enemy enemy) : base(enemy) { }
 
     public override void Enter()
     {
-       
         enemy.StartCoroutine(KnockBack());
-        
     }
     public IEnumerator KnockBack()
     {
-        enemy.KnockBack();
+        enemy.KnockBack(2);
         yield return KnockBackDelaySec;
         enemy.StateMachine.ChangeState<ChaseState>();
     }
-    public override void Update() {}
-    public override void Exit() {}
+    public override void Update() { }
+    public override void Exit() { }
 }
+//패링 당했을때
+
+
+public class DamagedState : EnemyState
+{
+    public DamagedState(Enemy enemy) : base(enemy) { }
+
+    public override void Enter()
+    {
+        enemy.StopAllCoroutines();
+        // enemy.GetAnimatorController().PlayDamaged();
+        enemy.StartCoroutine(DamagedRoutine());
+    }
+    public IEnumerator DamagedRoutine()
+    {
+        enemy.KnockBack(1);
+        enemy.FlashOnDamage();
+        yield return new WaitForSeconds(0.5f);
+
+        enemy.StateMachine.ChangeState<ChaseState>();
+    }
+
+    public override void Update() { }
+    public override void Exit() { }
+}
+
 public class DeadState : EnemyState
 {
     Coroutine coroutine;
@@ -145,13 +166,18 @@ public class DeadState : EnemyState
 
     public override void Enter()
     {
-        if(coroutine!=null)
-        return;
-
+        if (coroutine != null)
+            return;
+        enemy.GetRigidbody().linearVelocity = Vector2.zero; 
         enemy.StopAllCoroutines();
-        coroutine = enemy.StartCoroutine(enemy.DeadRoutine());
+        coroutine = enemy.StartCoroutine(DeadRoutine());
     }
-
-    public override void Update() {}
-    public override void Exit() {}
+    public IEnumerator DeadRoutine()
+    {
+        enemy.GetAnimatorController().PlayDeath();
+        yield return new WaitForSeconds(1f);
+        Object.Destroy(enemy.gameObject);
+    }
+    public override void Update() { }
+    public override void Exit() { }
 }

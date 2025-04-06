@@ -287,6 +287,28 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &524744453 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8591801359179052948, guid: 1dcf81b032860844f9986953bb536f1b, type: 3}
+  m_PrefabInstance: {fileID: 4274082969258874623}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &524744454 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 937461059478429828, guid: 1dcf81b032860844f9986953bb536f1b, type: 3}
+  m_PrefabInstance: {fileID: 4274082969258874623}
+  m_PrefabAsset: {fileID: 0}
+--- !u!210 &524744455
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 524744453}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 3
+  m_SortAtRoot: 0
 --- !u!114 &586457371 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6893693471094952815, guid: 40ab0909b5b4fd849a5a176ab1b355fa, type: 3}
@@ -2922,6 +2944,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2245027790862884740, guid: 1dcf81b032860844f9986953bb536f1b, type: 3}
+      propertyPath: skillObjectsParent
+      value: 
+      objectReference: {fileID: 524744454}
     - target: {fileID: 5968704591726521879, guid: 1dcf81b032860844f9986953bb536f1b, type: 3}
       propertyPath: m_Name
       value: SkillManager
@@ -2969,7 +2995,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8591801359179052948, guid: 1dcf81b032860844f9986953bb536f1b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 524744455}
   m_SourcePrefab: {fileID: 100100000, guid: 1dcf81b032860844f9986953bb536f1b, type: 3}
 --- !u!1001 &6244609840990426964
 PrefabInstance:
@@ -2985,7 +3014,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919865993923637413, guid: 4569542ff57041d42827b0cbdb7bd76c, type: 3}
       propertyPath: dashDistance
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 919865993923637413, guid: 4569542ff57041d42827b0cbdb7bd76c, type: 3}
       propertyPath: parryEffectPrefab

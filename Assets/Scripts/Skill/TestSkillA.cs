@@ -24,15 +24,13 @@ public class TestSkillA : SkillPattern
 
         player.ParryStack -= requiredParryStack;
 
-        GameObject fireball = Instantiate(fireballPrefab, player.transform.position, Quaternion.identity);
+        GameObject fireball = Instantiate(fireballPrefab, player.transform.position, Quaternion.identity,SkillManager.instance.skillObjectsParent);
         Rigidbody2D rb = fireball.GetComponent<Rigidbody2D>();
 
         if (rb != null)
         {
             rb.linearVelocity = player.Direction * fireballSpeed;
         }
-
-        Debug.Log($"스킬A / 대미지: {damage}, 남은 패리 스택: {player.ParryStack}");
 
         yield return null;
     }

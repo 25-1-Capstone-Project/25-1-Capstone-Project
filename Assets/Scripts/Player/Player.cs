@@ -14,13 +14,13 @@ public class Player : MonoBehaviour
     public Vector3 Direction => direction;
 
 
-    [Header("플레이어 상태")]
+    [Header("=====플레이어 상태=====")]
     [SerializeField] bool canUseAttack = true;
     [SerializeField] bool isParrying = false;
     bool isDead = false;
     public bool GetIsDead() => isDead;
 
-    [Header("체력")]
+    [Header("=====체력=====")]
     int health;
     int Health
     {
@@ -39,27 +39,36 @@ public class Player : MonoBehaviour
     public int UIHealth => health;
     public int UIMaxHealth => playerStat.maxHealth;
 
-    [Header("패링 옵션")]
+    [Header("=====패링 옵션=====")]
     [SerializeField] bool canUseParry = true;
     [SerializeField] GameObject parryEffectPrefab; // 패링 이펙트 프리팹
     public float ParryCooldownRatio => parryCooldownTimer / playerStat.parryCooldownSec;
     private float parryCooldownTimer = 0f;
     Coroutine ParryRoutine;
+    public int ParryStack
+    {
+        get { return playerStat.currentParryStack; }
+        set { playerStat.currentParryStack = Mathf.Max(value, 0); }
+    }
 
 
-    [Header("대시 옵션")]
+    [Header("=====대시 옵션=====")]
     [SerializeField] float dashDistance = 5f;
     [SerializeField] bool canUseDash = true;
     [SerializeField] private float dashDuration = 0.2f;
     [SerializeField] private float dashCooldown = 1f;
     bool isDashing = false;
 
-    [Header("대기 시간")]
+    [Header("=====플래시 옵션=====")]
+    [SerializeField] private Color hitColor = Color.red;
+    [SerializeField] private float flashDuration = 0.1f;
+
+    [Header("=====대기 시간=====")]
     WaitForSeconds waitAttackCoolDown;
     WaitForSeconds waitParryDuration;
 
 
-    [Header("컴포넌트")]
+    [Header("=====컴포넌트=====")]
     [SerializeField] PlayerStatus playerStat;
     [SerializeField] GameObject arrow;
     [SerializeField] GameObject ammo;
@@ -76,16 +85,11 @@ public class Player : MonoBehaviour
         playerAnim.PlayDeath();
         isDead = true;
     }
-    public int ParryStack
-    {
-        get { return playerStat.currentParryStack; }
-        set { playerStat.currentParryStack = Mathf.Max(value, 0); }
-    }
 
     void Start()
     {
         SetComponent();
-        InitPlayer();
+
         // 플레이어 스탯 기반으로 패리 시간·쿨타임 설정
         waitParryDuration = new WaitForSeconds(playerStat.parryDurationSec);
         waitAttackCoolDown = new WaitForSeconds(playerStat.attackCooldownSec);
@@ -112,8 +116,12 @@ public class Player : MonoBehaviour
     {
         if (!isDashing)
         {
-            rb.MovePosition(transform.position + (moveVec * playerStat.speed * Time.fixedDeltaTime));
+            rb.linearVelocity = moveVec * playerStat.speed; //* Time.fixedDeltaTime;
         }
+
+        //기존방식
+        //     rb.MovePosition(transform.position + (moveVec * playerStat.speed * Time.fixedDeltaTime));
+
     }
     void OnMove(InputValue value)
     {
@@ -123,12 +131,10 @@ public class Player : MonoBehaviour
         moveVec = value.Get<Vector2>().normalized;
     }
 
-
     void OnDash()
     {
         if (isDead || !canUseDash || moveVec == Vector3.zero)
             return;
-
         StartCoroutine(DashCoroutine());
     }
 
@@ -139,7 +145,6 @@ public class Player : MonoBehaviour
 
         // 대시 방향과 힘 설정
         rb.linearVelocity = moveVec.normalized * (dashDistance / dashDuration);
-
 
         // playerAnim.PlayDash();
 
@@ -198,7 +203,6 @@ public class Player : MonoBehaviour
     IEnumerator AttackRoutine()
     {
         canUseAttack = false;
-
 
         playerAnim.PlayAttack();
 
@@ -265,8 +269,7 @@ public class Player : MonoBehaviour
         playerStat.currentParryStack++;
         isParrying = false;
         canUseParry = true;
-        Debug.Log("패리 성공");
-        enemy.StateMachine.ChangeState<KnockBackState>();
+        enemy.StateMachine.ChangeState<ParryState>();
         ParryEffect();
 
     }
@@ -301,6 +304,7 @@ public class Player : MonoBehaviour
 
     }
     #endregion
+    #region 데미지 처리
 
     // 대미지 처리 함수. 적 스크립트에서 플레이어와 적 충돌 발생 시 호출
     public void TakeDamage(int damage, Vector2 enemyDir, Enemy enemy)
@@ -329,7 +333,7 @@ public class Player : MonoBehaviour
         Health -= damage;
         yield return null;
     }
-
+    #endregion
     #region 스킬 테스트
     void OnSkillTest(InputValue value)
     {
@@ -342,6 +346,8 @@ public class Player : MonoBehaviour
         }
         //TestSkillAct();
     }
+
+
 
     //void TestSkillAct()
     //{
@@ -364,7 +370,6 @@ public class Player : MonoBehaviour
     //}
     #endregion
 
-
     // private void Shoot()
     // {
     //     // 탄환 생성 (현재 화살표 방향 기준)
@@ -381,8 +386,7 @@ public class Player : MonoBehaviour
     // } 
 
     #region FlashSprite
-    [SerializeField] private Color hitColor = Color.red;
-    [SerializeField] private float flashDuration = 0.1f;
+
 
     public void FlashOnDamage()
     {
@@ -394,7 +398,7 @@ public class Player : MonoBehaviour
 
         for (int i = 0; i < spriteRenderers.Length; i++)
         {
-     
+
             spriteRenderers[i].color = hitColor;
         }
 
@@ -402,7 +406,7 @@ public class Player : MonoBehaviour
 
         for (int i = 0; i < spriteRenderers.Length; i++)
         {
-            spriteRenderers[i].color =  Color.white;
+            spriteRenderers[i].color = Color.white;
         }
     }
     public void FlashParry()
@@ -415,7 +419,7 @@ public class Player : MonoBehaviour
 
         for (int i = 0; i < spriteRenderers.Length; i++)
         {
-   
+
             spriteRenderers[i].color = Color.blue;
         }
 
@@ -423,7 +427,7 @@ public class Player : MonoBehaviour
 
         for (int i = 0; i < spriteRenderers.Length; i++)
         {
-            spriteRenderers[i].color =  Color.white;
+            spriteRenderers[i].color = Color.white;
         }
     }
     #endregion
