@@ -49,11 +49,12 @@ public class ChaseState : EnemyState, IFixedUpdateState, ILateUpdateState
 
     public override void Enter()
     {
-        enemy.GetAnimatorController().PlayChase();
+
     }
 
     public override void Update()
     {
+        enemy.GetAnimatorController().PlayChase();
         // 플레이어가 가까우면 공격 상태로 전환
         if (enemy.GetDirectionVec().magnitude < 1f)
         {
@@ -63,6 +64,9 @@ public class ChaseState : EnemyState, IFixedUpdateState, ILateUpdateState
 
     public void FixedUpdate()
     {
+        if (enemy.GetDirectionVec().magnitude < 1f)
+            return;
+
         Vector2 direction = enemy.GetDirectionNormalVec();
         enemy.GetRigidbody().linearVelocity = direction * enemy.GetSpeed();
     }
@@ -82,37 +86,30 @@ public class ChaseState : EnemyState, IFixedUpdateState, ILateUpdateState
 // 공격 상태
 public class AttackState : EnemyState
 {
-    private float attackCooldown = 1.5f; //공격 시간
-    private Coroutine coroutine;
-    private bool isAttacking;
-
     public AttackState(Enemy enemy) : base(enemy) { }
 
     public override void Enter()
     {
-        enemy.SpriteFlip();
-        isAttacking = true;
-        coroutine = enemy.StartCoroutine(AttackRoutine());
+            enemy.Attack();
+            enemy.StartCoroutine(WaitAttackCooldown());
     }
 
-    public override void Update()
+    private IEnumerator WaitAttackCooldown()
     {
-        // 일정 시간이 지나면 다시 추격 상태로 변경
-        if (!isAttacking)
+        yield return new WaitForSeconds(enemy.GetAttackPattern().cooldown); // 정확히 기다리고
+        if (enemy.GetDirectionVec().magnitude < 1f)
+        {
+            enemy.StateMachine.ChangeState<AttackState>();
+        }
+        else
         {
             enemy.StateMachine.ChangeState<ChaseState>();
         }
+
     }
-    private IEnumerator AttackRoutine()
-    {
-        enemy.Attack();
-        yield return new WaitForSeconds(attackCooldown);
-        isAttacking = false;
-    }
-    public override void Exit()
-    {
-        enemy.StopCoroutine(coroutine);
-    }
+
+    public override void Update() { }
+    public override void Exit() { }
 }
 public class ParryState : EnemyState
 {
@@ -168,8 +165,11 @@ public class DeadState : EnemyState
     {
         if (coroutine != null)
             return;
-        enemy.GetRigidbody().linearVelocity = Vector2.zero; 
+        enemy.GetRigidbody().linearVelocity = Vector2.zero;
+        enemy.GetRigidbody().simulated = false; // 상호작용 비활성화
+
         enemy.StopAllCoroutines();
+
         coroutine = enemy.StartCoroutine(DeadRoutine());
     }
     public IEnumerator DeadRoutine()

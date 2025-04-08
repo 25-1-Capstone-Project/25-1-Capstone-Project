@@ -14,7 +14,7 @@ public class PlayerCollision : MonoBehaviour
         //     case "Enemy":
              
         //         Vector3 enemyDirection = (transform.position - other.transform.position).normalized;
-        //         GameManager.instance.player.EnemyContact(enemyDirection);
+        //         Player.instance.EnemyContact(enemyDirection);
         //         break;
         // }
 

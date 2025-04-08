@@ -5,20 +5,33 @@ using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
+    public static Player instance;
+    private void Awake()
+    {
+        if (instance == null)
+            instance = this;
+        else
+            Destroy(gameObject);
+    }
+    private void OnDestroy()
+    {
+        if (instance == this)
+            instance = null;
+    }
 
     [Header("방향 관련")]
-    Vector3 moveVec;
+    Vector2 moveVec;
     Vector2 lookInput;
-
     Vector3 direction;
     public Vector3 Direction => direction;
 
 
     [Header("=====플레이어 상태=====")]
-    [SerializeField] bool canUseAttack = true;
-    [SerializeField] bool isParrying = false;
+    bool canUseAttack = true;
+    bool isParrying = false;
     bool isDead = false;
-    public bool GetIsDead() => isDead;
+    bool isAttacking = false;
+    bool isDashing = false;
 
     [Header("=====체력=====")]
     int health;
@@ -57,7 +70,7 @@ public class Player : MonoBehaviour
     [SerializeField] bool canUseDash = true;
     [SerializeField] private float dashDuration = 0.2f;
     [SerializeField] private float dashCooldown = 1f;
-    bool isDashing = false;
+
 
     [Header("=====플래시 옵션=====")]
     [SerializeField] private Color hitColor = Color.red;
@@ -80,6 +93,35 @@ public class Player : MonoBehaviour
     private SpriteRenderer[] spriteRenderers;
 
 
+
+    #region GetFunction
+    public bool GetIsDead() => isDead;
+    public Transform GetPlayerTransform()
+    {
+        return transform;
+    }
+    public int GetActionState()
+    {
+        if (isDashing) return 3;
+        if (isAttacking) return 2;
+        if (isParrying) return 4;
+        if (moveVec.magnitude > 0.1f) return 1; // Walk
+        return 0; // Idle
+    }
+
+    // public int GetDirectionIndex()
+    // {
+    //     // if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
+    //     {
+    //        // return direction.x > 0 ? 3 : 2; // Right : Left
+    //     }
+    //     // else
+    //     {
+    //         return direction.y > 0 ? 0 : 1; // Up : Down
+    //     }
+    // }
+
+    #endregion
     public void Dead()
     {
         playerAnim.PlayDeath();
@@ -98,6 +140,23 @@ public class Player : MonoBehaviour
         // 체력 UI 테스트
         InitPlayer();
     }
+    void LateUpdate()
+    {
+        UpdateAnimationState();
+    }
+
+    void UpdateAnimationState()
+    {
+        if (isDead) return;
+        if (isAttacking) return;
+        if (isParrying) return;
+        if (isDashing) return;
+
+        if (moveVec.magnitude > 0.1f)
+            playerAnim.PlayMove();
+        else
+            playerAnim.PlayIdle();
+    }
     void SetComponent()
     {
         spriteRenderers = PlayerModel.GetComponentsInChildren<SpriteRenderer>();
@@ -114,10 +173,14 @@ public class Player : MonoBehaviour
     // 매 FixedUpdate마다 OnMove(PlayerInput)으로 moveVec 받아서 처리
     private void FixedUpdate()
     {
-        if (!isDashing)
-        {
-            rb.linearVelocity = moveVec * playerStat.speed; //* Time.fixedDeltaTime;
-        }
+        Move();
+    }
+    void Move()
+    {
+        if (isDashing || isDead || isAttacking || isParrying)
+            return;
+
+        rb.linearVelocity = moveVec * playerStat.speed;
 
         //기존방식
         //     rb.MovePosition(transform.position + (moveVec * playerStat.speed * Time.fixedDeltaTime));
@@ -125,15 +188,17 @@ public class Player : MonoBehaviour
     }
     void OnMove(InputValue value)
     {
-        if (isDead)
+        if (isDead || isDashing)
             return;
 
+
         moveVec = value.Get<Vector2>().normalized;
+       // playerAnim.PlayMove();
     }
 
     void OnDash()
     {
-        if (isDead || !canUseDash || moveVec == Vector3.zero)
+        if (isDead || !canUseDash || moveVec == Vector2.zero)
             return;
         StartCoroutine(DashCoroutine());
     }
@@ -142,7 +207,7 @@ public class Player : MonoBehaviour
     {
         isDashing = true;
         canUseDash = false;
-
+        playerAnim.PlayDash();
         // 대시 방향과 힘 설정
         rb.linearVelocity = moveVec.normalized * (dashDistance / dashDuration);
 
@@ -179,9 +244,11 @@ public class Player : MonoBehaviour
         // 회전
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         arrow.transform.rotation = Quaternion.Euler(0, 0, angle);
-
-        //캐릭터의 방향
-        if (direction.x < 0)
+        FlipX();
+    }
+    private void FlipX()
+    {   //캐릭터의 방향
+        if (direction.x > 0)
         {
             PlayerModel.rotation = Quaternion.AngleAxis(0, Vector2.up);
         }
@@ -195,15 +262,17 @@ public class Player : MonoBehaviour
     #region 공격
     void OnAttack()
     {
-        if (!canUseAttack || isDead)
+        if (!canUseAttack || isDead || isDashing || isParrying)
             return;
 
         StartCoroutine(AttackRoutine());
     }
     IEnumerator AttackRoutine()
     {
-        canUseAttack = false;
 
+        isAttacking = true;
+        canUseAttack = false;
+        rb.linearVelocity = Vector2.zero;
         playerAnim.PlayAttack();
 
         yield return new WaitForSeconds(0.2f);
@@ -222,6 +291,7 @@ public class Player : MonoBehaviour
         }
 
         yield return waitAttackCoolDown;
+        isAttacking = false;
         canUseAttack = true;
     }
     //attack 디버깅 용
@@ -248,8 +318,9 @@ public class Player : MonoBehaviour
     // 패리 키 입력 받으면 패리 가능여부 확인 후 패리 코루틴 실행
     void OnParry(InputValue value)
     {
-        if (!canUseParry || isDead)
+        if (!canUseParry || isDead || isAttacking || isDashing)
             return;
+
         playerAnim.PlayParry();
         FlashParry();
         ParryRoutine = StartCoroutine(Parry());
@@ -259,6 +330,7 @@ public class Player : MonoBehaviour
     {
         canUseParry = false;
         isParrying = true;
+        rb.linearVelocity = Vector2.zero;
         yield return waitParryDuration;
         ParryFailed();
     }
@@ -305,6 +377,7 @@ public class Player : MonoBehaviour
 
     }
     #endregion
+
     #region 데미지 처리
 
     // 대미지 처리 함수. 적 스크립트에서 플레이어와 적 충돌 발생 시 호출
@@ -328,7 +401,7 @@ public class Player : MonoBehaviour
     }
     public IEnumerator DamagedRoutine(int damage)
     {
-        //playerAnim.PlayKnockBack();
+        playerAnim.PlayKnockBack();
         FlashOnDamage();
         Debug.Log("아야!");
         Health -= damage;

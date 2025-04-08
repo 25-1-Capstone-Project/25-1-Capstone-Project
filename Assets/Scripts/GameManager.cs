@@ -6,7 +6,6 @@ public class GameManager : MonoBehaviour
 {
     //싱글톤
     public static GameManager instance;
-    public Player player;
 
     public StateMachine<GameState> StateMachine { get; private set; }
 
@@ -43,9 +42,6 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(0);
     }
       // Public methods to expose data or perform actions
-    public Transform GetPlayerTransform()
-    {
-        return player.transform;
-    }
+   
 }
 

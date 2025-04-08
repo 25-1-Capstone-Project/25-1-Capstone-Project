@@ -3,7 +3,15 @@ using UnityEngine;
 public class PlayerAnimatorController : MonoBehaviour
 {
     [SerializeField] Animator animator;
+    enum Direction { Up, Down, Left, Right }
+    enum ActionState { Idle, Walk, Attack, Dash, Parry }
 
+
+    void Update()
+    {
+        // animator.SetInteger("Direction", Player.instance.GetDirectionIndex());
+        //  animator.SetInteger("ActionState", Player.instance.GetActionState());
+    }
 
 
     public void PlayIdle()
@@ -13,39 +21,45 @@ public class PlayerAnimatorController : MonoBehaviour
 
     public void PlayMove()
     {
-        SetTrigger("1_Move");
+        SetTrigger("Move");
     }
 
     public void PlayAttack()
     {
-        SetTrigger("2_Attack");
+        SetTrigger("Attack");
     }
 
     public void PlayDeath()
     {
-        SetTrigger("4_Death");
+        SetTrigger("Death");
         animator.SetBool("isDeath", true);
     }
 
     public void PlayKnockBack()
     {
-        SetTrigger("3_Damaged");
+        SetTrigger("Damaged");
     }
 
     public void PlayParry()
     {
-        SetTrigger("7_Parry");
+        SetTrigger("Parry");
     }
+
+    public void PlayDash()
+    {
+        SetTrigger("Dash");
+    }
+
 
     private void SetTrigger(string triggerName)
     {
-        //animator.ResetTrigger("Idle");
-        animator.ResetTrigger("1_Move");
-        animator.ResetTrigger("2_Attack");
-        animator.ResetTrigger("4_Death");
-        animator.ResetTrigger("3_Damaged");
-        animator.ResetTrigger("7_Parry");
-
+        animator.ResetTrigger("Idle");
+        animator.ResetTrigger("Move");
+        animator.ResetTrigger("Attack");
+        animator.ResetTrigger("Death");
+        animator.ResetTrigger("Damaged");
+        animator.ResetTrigger("Parry");
+        animator.ResetTrigger("Dash");
         animator.SetTrigger(triggerName);
     }
 }

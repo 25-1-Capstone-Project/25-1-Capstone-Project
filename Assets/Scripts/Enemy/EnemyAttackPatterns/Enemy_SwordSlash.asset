@@ -10,8 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 75957c8fc8ff32d4bb9a8de73795a18f, type: 3}
-  m_Name: SwordSlash
+  m_Name: Enemy_SwordSlash
   m_EditorClassIdentifier: 
   damage: 7
   delay: 0.5
   range: 1
+  cooldown: 1

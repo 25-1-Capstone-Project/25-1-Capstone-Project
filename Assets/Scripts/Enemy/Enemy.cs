@@ -20,17 +20,19 @@ public class Enemy : MonoBehaviour
     public Rigidbody2D GetRigidbody() => rb;
     public float GetSpeed() => speed;
     public EnemyAnimatorController GetAnimatorController() => enemyAnimController;
-    public Transform GetPlayer() => GameManager.instance.GetPlayerTransform();
+    public Transform GetPlayer() => Player.instance.GetPlayerTransform();
     public Transform GetAttackParticleT() => attackParticleTransform;
     public ParticleSystem GetAttackParticle() => attackParticle;
-
-    public Vector2 GetDirectionVec() => GameManager.instance.GetPlayerTransform().position - transform.position;
+    public Vector2 GetDirectionVec() => Player.instance.GetPlayerTransform().position - transform.position;
     public Vector2 GetDirectionNormalVec() => GetDirectionVec().normalized;
+    
+  
     #endregion
 
     public bool IsAttacking { get; set; }
+    public float LastAttackTime { get; set; }
     private float speed;
-    bool isDead;
+
     int health;
     int Health
     {
@@ -49,10 +51,8 @@ public class Enemy : MonoBehaviour
     public void Dead()
     {
         StateMachine.ChangeState<DeadState>();
-        isDead = true;
     }
  
-    
     private Rigidbody2D rb;
 
     // StateMachine Property
@@ -66,7 +66,6 @@ public class Enemy : MonoBehaviour
     }
     void EnemyInit()
     {
-        isDead = false;
         speed = enemyData.moveSpeed;
         health = enemyData.maxHealth;
 
@@ -92,6 +91,7 @@ public class Enemy : MonoBehaviour
         StateMachine.AddState(new ParryState(this));
         StateMachine.AddState(new DamagedState(this));
         StateMachine.AddState(new DeadState(this));
+        
         // Set initial state
         StateMachine.ChangeState<IdleState>();
     }
@@ -145,7 +145,7 @@ public class Enemy : MonoBehaviour
 #if UNITY_EDITOR
     private void OnDrawGizmosSelected()
     {
-        if (!(attackPattern is SwordSlashAttack sword)) return;
+        if (!(attackPattern is Enmey_SwordSlash sword)) return;
 
         Vector2 attackDir = GetDirectionNormalVec();
         float attackAngle = Mathf.Atan2(attackDir.y, attackDir.x) * Mathf.Rad2Deg;
