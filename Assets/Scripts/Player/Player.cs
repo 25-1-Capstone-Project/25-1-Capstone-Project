@@ -250,6 +250,7 @@ public class Player : MonoBehaviour
     {
         if (!canUseParry || isDead)
             return;
+        playerAnim.PlayParry();
         FlashParry();
         ParryRoutine = StartCoroutine(Parry());
     }

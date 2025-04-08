@@ -24,12 +24,17 @@ public class PlayerAnimatorController : MonoBehaviour
     public void PlayDeath()
     {
         SetTrigger("4_Death");
-        animator.SetBool("isDeath",true);
+        animator.SetBool("isDeath", true);
     }
-    
+
     public void PlayKnockBack()
     {
         SetTrigger("3_Damaged");
+    }
+
+    public void PlayParry()
+    {
+        SetTrigger("7_Parry");
     }
 
     private void SetTrigger(string triggerName)
@@ -39,6 +44,7 @@ public class PlayerAnimatorController : MonoBehaviour
         animator.ResetTrigger("2_Attack");
         animator.ResetTrigger("4_Death");
         animator.ResetTrigger("3_Damaged");
+        animator.ResetTrigger("7_Parry");
 
         animator.SetTrigger(triggerName);
     }
