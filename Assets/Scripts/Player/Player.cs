@@ -126,6 +126,7 @@ public class Player : MonoBehaviour
     {
         playerAnim.PlayDeath();
         isDead = true;
+        rb.linearVelocity = Vector2.zero;
     }
 
     void Start()
@@ -191,9 +192,8 @@ public class Player : MonoBehaviour
         if (isDead || isDashing)
             return;
 
-
         moveVec = value.Get<Vector2>().normalized;
-       // playerAnim.PlayMove();
+     
     }
 
     void OnDash()
@@ -358,7 +358,6 @@ public class Player : MonoBehaviour
         isParrying = false;
         canUseParry = false;
         StartCoroutine(ParryCoolDownRoutine());
-
     }
 
 
