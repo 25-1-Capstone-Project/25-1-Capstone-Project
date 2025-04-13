@@ -12,6 +12,8 @@ public class Player : MonoBehaviour
             instance = this;
         else
             Destroy(gameObject);
+
+
     }
     private void OnDestroy()
     {
@@ -50,20 +52,44 @@ public class Player : MonoBehaviour
         }
     }
     public int UIHealth => health;
-    public int UIMaxHealth => playerStat.maxHealth;
+    public int UIMaxHealth => stats.maxHealth;
 
     [Header("=====패링 옵션=====")]
     [SerializeField] bool canUseParry = true;
     [SerializeField] GameObject parryEffectPrefab; // 패링 이펙트 프리팹
-    public float ParryCooldownRatio => parryCooldownTimer / playerStat.parryCooldownSec;
+    public float ParryCooldownRatio => parryCooldownTimer / stats.attackCooldownSec;
     private float parryCooldownTimer = 0f;
     Coroutine ParryRoutine;
     public int ParryStack
     {
-        get { return playerStat.currentParryStack; }
-        set { playerStat.currentParryStack = Mathf.Max(value, 0); }
+        get => stats.currentParryStack;
+        set
+        {
+            int previous = stats.currentParryStack;
+            stats.currentParryStack = value;
+                 
+            // 0이 된 경우 전체 제거
+            if (value == 0 && previous > 0)
+            {
+                UIManager.instance.parryStackUI.RemoveAllParryStackIcon();
+            }
+            // 증가 → 아이콘 추가
+            else if (value > previous)
+            {
+                UIManager.instance.parryStackUI.AddParryStackIcon();
+            }
+            // 감소 → 아이콘 제거
+            else if (value < previous)
+            {
+                int delta = previous - value;
+                UIManager.instance.parryStackUI.RemoveParryStackIcon(delta);
+            }
+        
+          
+        }
     }
-
+    public void SetParryStack(int max) { stats.maxParryStack = max; UIManager.instance.parryStackUI.SetMaxParryStack(); }
+    
 
     [Header("=====대시 옵션=====")]
     [SerializeField] float dashDistance = 5f;
@@ -82,7 +108,7 @@ public class Player : MonoBehaviour
 
 
     [Header("=====컴포넌트=====")]
-    [SerializeField] PlayerStatus playerStat;
+    [SerializeField] PlayerData playerData;
     [SerializeField] GameObject arrow;
     [SerializeField] GameObject ammo;
     [SerializeField] Rigidbody2D rb;
@@ -91,10 +117,24 @@ public class Player : MonoBehaviour
     [SerializeField] PlayerAnimatorController playerAnim;
     SkillPattern currentSkill;
     private SpriteRenderer[] spriteRenderers;
+    public PlayerRuntimeStats stats = new PlayerRuntimeStats();
 
+    void InitPlayer()
+    {
+        stats.ApplyBase(playerData); // 원본 데이터를 복사
+       
+        currentSkill = SkillManager.instance.SkillPatterns[0]; // 현재 스킬 가져오기
+        if (currentSkill == null)
+            SetParryStack(0);
+        else
+            SetParryStack(currentSkill.ultimateCost);
 
+        isDead = false;
+        Health = stats.maxHealth;
+    }
 
     #region GetFunction
+    public PlayerRuntimeStats GetPlayerRuntimeStats() => stats;
     public bool GetIsDead() => isDead;
     public Transform GetPlayerTransform()
     {
@@ -109,37 +149,31 @@ public class Player : MonoBehaviour
         return 0; // Idle
     }
 
-    // public int GetDirectionIndex()
-    // {
-    //     // if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
-    //     {
-    //        // return direction.x > 0 ? 3 : 2; // Right : Left
-    //     }
-    //     // else
-    //     {
-    //         return direction.y > 0 ? 0 : 1; // Up : Down
-    //     }
-    // }
+    public int GetDirectionIndex()
+    {
+        // if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
+        {
+            // return direction.x > 0 ? 3 : 2; // Right : Left
+        }
+        // else
+        {
+            return direction.y > 0 ? 0 : 1; // Up : Down
+        }
+    }
 
     #endregion
-    public void Dead()
-    {
-        playerAnim.PlayDeath();
-        isDead = true;
-        rb.linearVelocity = Vector2.zero;
-    }
 
     void Start()
     {
+        InitPlayer();
         SetComponent();
 
         // 플레이어 스탯 기반으로 패리 시간·쿨타임 설정
-        waitParryDuration = new WaitForSeconds(playerStat.parryDurationSec);
-        waitAttackCoolDown = new WaitForSeconds(playerStat.attackCooldownSec);
-        currentSkill = SkillManager.instance.SkillPatterns[0];
+        waitParryDuration = new WaitForSeconds(stats.parryDurationSec);
+        waitAttackCoolDown = new WaitForSeconds(stats.attackCooldownSec);
 
         // 체력 UI 테스트
-        InitPlayer();
+
     }
     void LateUpdate()
     {
@@ -164,11 +198,6 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         playerAnim = GetComponent<PlayerAnimatorController>();
     }
-    void InitPlayer()
-    {
-        isDead = false;
-        Health = playerStat.maxHealth;
-    }
 
     #region 이동
     // 매 FixedUpdate마다 OnMove(PlayerInput)으로 moveVec 받아서 처리
@@ -181,7 +210,7 @@ public class Player : MonoBehaviour
         if (isDashing || isDead || isAttacking || isParrying)
             return;
 
-        rb.linearVelocity = moveVec * playerStat.speed;
+        rb.linearVelocity = moveVec * stats.speed;
 
         //기존방식
         //     rb.MovePosition(transform.position + (moveVec * playerStat.speed * Time.fixedDeltaTime));
@@ -193,7 +222,7 @@ public class Player : MonoBehaviour
             return;
 
         moveVec = value.Get<Vector2>().normalized;
-     
+
     }
 
     void OnDash()
@@ -277,16 +306,16 @@ public class Player : MonoBehaviour
 
         yield return new WaitForSeconds(0.2f);
         attackSlashParticle.Play();
-        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, playerStat.attackRange, LayerMask.GetMask("Enemy"));
+        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, stats.attackRange, LayerMask.GetMask("Enemy"));
 
         foreach (var hit in hits)
         {
             Vector2 toTarget = (hit.transform.position - transform.position).normalized;
             float angle = Vector2.Angle(direction, toTarget);
 
-            if (angle <= playerStat.attackAngle / 2f)
+            if (angle <= stats.attackAngle / 2f)
             {
-                hit.GetComponent<Enemy>()?.TakeDamage(playerStat.damage);
+                hit.GetComponent<Enemy>()?.TakeDamage(stats.damage);
             }
         }
 
@@ -297,8 +326,8 @@ public class Player : MonoBehaviour
     //attack 디버깅 용
     void OnDrawGizmos()
     {
-        float range = playerStat.attackRange;
-        float angle = playerStat.attackAngle;
+        float range = stats.attackRange;
+        float angle = stats.attackAngle;
 
         Vector3 forward = direction;
         Vector3 left = Quaternion.Euler(0, 0, -angle / 2) * forward;
@@ -336,10 +365,15 @@ public class Player : MonoBehaviour
     }
 
     // 패리 성공|실패 여부에 따라 패리가능 변수 처리, 패리중→패리중X, 패리 실패 시 쿨다운 코루틴 호출
-    public void ParrySuccess(Enemy enemy, Vector2 enemyDirection)
+    public void ParrySuccess(Enemy enemy)
     {
         StopCoroutine(ParryRoutine);
-        playerStat.currentParryStack++;
+
+        if (ParryStack < stats.maxParryStack)
+        {
+            ParryStack++;
+        }
+
         isParrying = false;
         canUseParry = true;
         enemy.StateMachine.ChangeState<ParryState>();
@@ -365,7 +399,7 @@ public class Player : MonoBehaviour
     IEnumerator ParryCoolDownRoutine()
     {
         canUseParry = false;
-        parryCooldownTimer = playerStat.parryCooldownSec;
+        parryCooldownTimer = stats.parryCooldownSec;
         while (parryCooldownTimer > 0)
         {
             parryCooldownTimer -= Time.deltaTime;
@@ -388,7 +422,7 @@ public class Player : MonoBehaviour
             float threshold = Mathf.Cos(45f * Mathf.Deg2Rad); // 90도 시야
             Debug.Log(parryDot);
             if (parryDot >= threshold)
-                ParrySuccess(enemy, direction);
+                ParrySuccess(enemy);
             else
             {
                 ParryFailed();
@@ -407,19 +441,41 @@ public class Player : MonoBehaviour
         yield return null;
     }
     #endregion
+
     #region 스킬 테스트
     void OnSkillTest(InputValue value)
     {
-        if (currentSkill != null)
+        var skillType = currentSkill.ParryStackCheck();
+
+        if (currentSkill == null || skillType == SkillType.Empty)
+            return;
+
+        switch (skillType)
         {
-            StartCoroutine(currentSkill.Act(this)); // 스킬 실행
+            case SkillType.Common:
+                ParryStack -= currentSkill.commonCost;
+
+                StartCoroutine(currentSkill.CommonSkill(this));
+                break;
+            case SkillType.Ultimate:
+                ParryStack -= currentSkill.ultimateCost;
+                StartCoroutine(currentSkill.UltimateSkill(this));
+                break;
+            case SkillType.Empty:
+                Debug.Log("스킬 사용 불가");
+                break;
+
         }
-        else
-        {
-        }
+
+
         //TestSkillAct();
     }
-
+    public void Dead()
+    {
+        playerAnim.PlayDeath();
+        isDead = true;
+        rb.linearVelocity = Vector2.zero;
+    }
 
 
     //void TestSkillAct()

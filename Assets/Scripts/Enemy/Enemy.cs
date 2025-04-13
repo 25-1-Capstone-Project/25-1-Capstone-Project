@@ -29,8 +29,8 @@ public class Enemy : MonoBehaviour
   
     #endregion
 
-    public bool IsAttacking { get; set; }
-    public float LastAttackTime { get; set; }
+    public bool IsAttacking;
+    private bool isDead;
     private float speed;
 
     int health;
@@ -50,6 +50,7 @@ public class Enemy : MonoBehaviour
     }
     public void Dead()
     {
+        isDead = true;
         StateMachine.ChangeState<DeadState>();
     }
  
@@ -120,6 +121,7 @@ public class Enemy : MonoBehaviour
     }
     public void TakeDamage(int damage)
     {
+        if (isDead) return;
         StateMachine.ChangeState<DamagedState>();
         FlashOnDamage();
         Health -= damage;

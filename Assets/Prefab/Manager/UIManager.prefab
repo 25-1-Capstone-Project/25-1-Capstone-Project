@@ -44,10 +44,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcc648fbf86dd6e4a9fc69cdc56c181a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  playerTransform: {fileID: 0}
-  cooldownUI: {fileID: 0}
-  uiOffset: {x: 0.6, y: 0.8, z: 0}
-  parryStackText: {fileID: 0}
-  hpBar: {fileID: 0}
-  cooldownImage: {fileID: 0}
+  playerStatUI: {fileID: 0}
+  parryStackUI: {fileID: 0}

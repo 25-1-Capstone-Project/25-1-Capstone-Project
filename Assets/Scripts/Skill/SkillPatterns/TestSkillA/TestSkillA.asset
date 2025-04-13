@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85d7af65177650840989165a4ab70622, type: 3}
   m_Name: TestSkillA
   m_EditorClassIdentifier: 
-  fireballPrefab: {fileID: 6986725825239899581, guid: 987176123172fe14488869561d516ccf, type: 3}
+  skillType: -1
   fireballSpeed: 10
   damage: 5
-  requiredParryStack: 1
+  commonCost: 1
+  ultimateCost: 3
+  fireballPrefab: {fileID: 6986725825239899581, guid: 987176123172fe14488869561d516ccf, type: 3}

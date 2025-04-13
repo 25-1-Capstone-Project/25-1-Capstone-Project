@@ -60,13 +60,25 @@ MonoBehaviour:
   dashCooldown: 1
   hitColor: {r: 1, g: 0, b: 0, a: 1}
   flashDuration: 0.1
-  playerStat: {fileID: 11400000, guid: ac875f24e6722b44186598c3523bc25c, type: 2}
+  playerData: {fileID: 11400000, guid: ac875f24e6722b44186598c3523bc25c, type: 2}
   arrow: {fileID: 8287425239734384137}
   ammo: {fileID: 6894103495596934110, guid: 341fb0815bf65ea4a8d42969d53cbd75, type: 3}
   rb: {fileID: 7744931419652356997}
   PlayerModel: {fileID: 2342616242443963963}
   attackSlashParticle: {fileID: 7364082439217725575}
   playerAnim: {fileID: 1608423559212130683}
+  stats:
+    speed: 0
+    maxHealth: 0
+    currentHealth: 0
+    damage: 0
+    attackCooldownSec: 0
+    attackRange: 0
+    attackAngle: 0
+    parryCooldownSec: 0
+    parryDurationSec: 0
+    maxParryStack: 0
+    currentParryStack: 0
 --- !u!114 &6366903998483742144
 MonoBehaviour:
   m_ObjectHideFlags: 0

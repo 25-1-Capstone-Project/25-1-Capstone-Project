@@ -3,15 +3,27 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
-    [SerializeField] PlayerStatUI playerStatUI;
-    void Start()
+  
+    public PlayerStatUI playerStatUI;
+    public ParryStackUI parryStackUI;
+  
+    public static UIManager instance { get; private set; }
+    private void Awake()
     {
-        playerStatUI = GetComponent<PlayerStatUI>();
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
+
     private void LateUpdate()
     {
         playerStatUI.UI_ParryCooldownUpdate();
-        playerStatUI.UI_ParryStackUpdate();
+       // playerStatUI.UI_ParryStackUpdate();
         playerStatUI.UI_HPBarUpdate();
     }
 

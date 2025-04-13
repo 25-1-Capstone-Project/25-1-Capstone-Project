@@ -13,7 +13,7 @@ public class StateMachine<T> where T : IState
 
     public void ChangeState<TState>() where TState : T
     {
-     
+      
         currentState?.Exit();
 
         currentState = states[typeof(TState)];

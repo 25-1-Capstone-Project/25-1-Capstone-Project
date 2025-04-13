@@ -18,8 +18,7 @@ MonoBehaviour:
   attackCooldownSec: 0.3
   attackRange: 1
   attackAngle: 120
-  bulletSpeed: 0
-  parryCooldownSec: 1
-  parryDurationSec: 0.2
-  parryStackMax: 10
+  parryCooldownSec: 0.5
+  parryDurationSec: 1
   currentParryStack: 0
+  maxParryStack: 3
