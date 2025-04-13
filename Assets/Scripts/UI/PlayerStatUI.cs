@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 public class PlayerStatUI : MonoBehaviour
 {
-    [SerializeField] private Player player;
+    [SerializeField] private PlayerScript player;
     [SerializeField] private RectTransform cooldownUI;
     [SerializeField] private Vector3 uiOffset = new Vector3(0.6f, 0.8f, 0f);
 

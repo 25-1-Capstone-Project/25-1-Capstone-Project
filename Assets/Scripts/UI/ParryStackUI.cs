@@ -8,13 +8,13 @@ public class ParryStackUI : MonoBehaviour
     [SerializeField] GameObject[] parryStacksCases;
     public void AddParryStackIcon()
     {
-        Debug.Log("ParryStackUI AddParryStackIcon() currentParryStack: " + Player.instance.GetPlayerRuntimeStats().currentParryStack);
-        parryStacksIcons[Player.instance.GetPlayerRuntimeStats().currentParryStack - 1].SetActive(true);
+        Debug.Log("ParryStackUI AddParryStackIcon() currentParryStack: " + PlayerScript.instance.GetPlayerRuntimeStats().currentParryStack);
+        parryStacksIcons[PlayerScript.instance.GetPlayerRuntimeStats().currentParryStack - 1].SetActive(true);
     }
     public void RemoveParryStackIcon(int cost)
     {
 
-        int index = Player.instance.GetPlayerRuntimeStats().currentParryStack;
+        int index = PlayerScript.instance.GetPlayerRuntimeStats().currentParryStack;
         for (int i = 0; i < cost; i++)
         {
             parryStacksIcons[index--].SetActive(false);
@@ -36,7 +36,7 @@ public class ParryStackUI : MonoBehaviour
             parryStacksIcons[i].SetActive(false);
         }
 
-        for (int i = 0; i < Player.instance.GetPlayerRuntimeStats().maxParryStack; i++)
+        for (int i = 0; i < PlayerScript.instance.GetPlayerRuntimeStats().maxParryStack; i++)
         {
             parryStacksCases[i].SetActive(true);
         }

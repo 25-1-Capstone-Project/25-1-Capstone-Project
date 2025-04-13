@@ -20,10 +20,10 @@ public class Enemy : MonoBehaviour
     public Rigidbody2D GetRigidbody() => rb;
     public float GetSpeed() => speed;
     public EnemyAnimatorController GetAnimatorController() => enemyAnimController;
-    public Transform GetPlayer() => Player.instance.GetPlayerTransform();
+    public Transform GetPlayer() => PlayerScript.instance.GetPlayerTransform();
     public Transform GetAttackParticleT() => attackParticleTransform;
     public ParticleSystem GetAttackParticle() => attackParticle;
-    public Vector2 GetDirectionVec() => Player.instance.GetPlayerTransform().position - transform.position;
+    public Vector2 GetDirectionVec() => PlayerScript.instance.GetPlayerTransform().position - transform.position;
     public Vector2 GetDirectionNormalVec() => GetDirectionVec().normalized;
     
   

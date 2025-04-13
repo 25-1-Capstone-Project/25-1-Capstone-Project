@@ -8,7 +8,7 @@ public class Enmey_SwordSlash : EnemyAttackPattern
     {
         enemy.IsAttacking = true;
         enemy.GetAnimatorController().PlayAttack();
-        Vector2 attackDir = (Player.instance.transform.position - enemy.transform.position).normalized;
+        Vector2 attackDir = (PlayerScript.instance.transform.position - enemy.transform.position).normalized;
         float angle = Mathf.Atan2(attackDir.y, attackDir.x) * Mathf.Rad2Deg;
 
         yield return new WaitForSeconds(delay);
@@ -23,7 +23,7 @@ public class Enmey_SwordSlash : EnemyAttackPattern
         // 단일 대상 판정
         Collider2D hit = Physics2D.OverlapBox(boxCenter, boxSize, angle, LayerMask.GetMask("Player"));
 
-        if (hit != null && hit.TryGetComponent<Player>(out var player))
+        if (hit != null && hit.TryGetComponent<PlayerScript>(out var player))
         {
             player.TakeDamage(enemy.GetDamage(), attackDir, enemy); // 예시
 

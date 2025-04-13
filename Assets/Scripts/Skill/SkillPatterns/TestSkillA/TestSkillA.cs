@@ -7,7 +7,7 @@ public class TestSkillA : SkillPattern
     [SerializeField] private GameObject fireballPrefab;
  
 
-    public override IEnumerator CommonSkill(Player player){
+    public override IEnumerator CommonSkill(PlayerScript player){
 
 
         GameObject fireball = Instantiate(fireballPrefab, player.transform.position, Quaternion.identity,SkillManager.instance.skillObjectsParent);
@@ -16,7 +16,7 @@ public class TestSkillA : SkillPattern
         yield return null;
     }
 
-    public override IEnumerator UltimateSkill(Player player)
+    public override IEnumerator UltimateSkill(PlayerScript player)
     {
         player.ParryStack = 0;
         for (int i = 0; i < 3; i++)

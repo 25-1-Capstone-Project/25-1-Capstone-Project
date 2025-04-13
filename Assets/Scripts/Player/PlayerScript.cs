@@ -3,17 +3,15 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 
-public class Player : MonoBehaviour
+public class PlayerScript : MonoBehaviour
 {
-    public static Player instance;
+    public static PlayerScript instance;
     private void Awake()
     {
         if (instance == null)
             instance = this;
         else
             Destroy(gameObject);
-
-
     }
     private void OnDestroy()
     {
@@ -67,7 +65,7 @@ public class Player : MonoBehaviour
         {
             int previous = stats.currentParryStack;
             stats.currentParryStack = value;
-                 
+
             // 0이 된 경우 전체 제거
             if (value == 0 && previous > 0)
             {
@@ -84,12 +82,12 @@ public class Player : MonoBehaviour
                 int delta = previous - value;
                 UIManager.instance.parryStackUI.RemoveParryStackIcon(delta);
             }
-        
-          
+
+
         }
     }
     public void SetParryStack(int max) { stats.maxParryStack = max; UIManager.instance.parryStackUI.SetMaxParryStack(); }
-    
+
 
     [Header("=====대시 옵션=====")]
     [SerializeField] float dashDistance = 5f;
@@ -122,7 +120,7 @@ public class Player : MonoBehaviour
     void InitPlayer()
     {
         stats.ApplyBase(playerData); // 원본 데이터를 복사
-       
+
         currentSkill = SkillManager.instance.SkillPatterns[0]; // 현재 스킬 가져오기
         if (currentSkill == null)
             SetParryStack(0);
@@ -140,26 +138,7 @@ public class Player : MonoBehaviour
     {
         return transform;
     }
-    public int GetActionState()
-    {
-        if (isDashing) return 3;
-        if (isAttacking) return 2;
-        if (isParrying) return 4;
-        if (moveVec.magnitude > 0.1f) return 1; // Walk
-        return 0; // Idle
-    }
-
-    public int GetDirectionIndex()
-    {
-        // if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
-        {
-            // return direction.x > 0 ? 3 : 2; // Right : Left
-        }
-        // else
-        {
-            return direction.y > 0 ? 0 : 1; // Up : Down
-        }
-    }
+ 
 
     #endregion
 
@@ -177,21 +156,12 @@ public class Player : MonoBehaviour
     }
     void LateUpdate()
     {
-        UpdateAnimationState();
+        if (isDead || isAttacking || isParrying || isDashing) return;
+
+        playerAnim.UpdateMovement(moveVec);
+        FlipX();
     }
 
-    void UpdateAnimationState()
-    {
-        if (isDead) return;
-        if (isAttacking) return;
-        if (isParrying) return;
-        if (isDashing) return;
-
-        if (moveVec.magnitude > 0.1f)
-            playerAnim.PlayMove();
-        else
-            playerAnim.PlayIdle();
-    }
     void SetComponent()
     {
         spriteRenderers = PlayerModel.GetComponentsInChildren<SpriteRenderer>();
@@ -222,7 +192,7 @@ public class Player : MonoBehaviour
             return;
 
         moveVec = value.Get<Vector2>().normalized;
-
+    
     }
 
     void OnDash()
@@ -273,11 +243,14 @@ public class Player : MonoBehaviour
         // 회전
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         arrow.transform.rotation = Quaternion.Euler(0, 0, angle);
-        FlipX();
     }
     private void FlipX()
-    {   //캐릭터의 방향
-        if (direction.x > 0)
+    {
+        if (moveVec.x == 0)
+            return;
+
+        //캐릭터의 방향
+        if (moveVec.x > 0)
         {
             PlayerModel.rotation = Quaternion.AngleAxis(0, Vector2.up);
         }

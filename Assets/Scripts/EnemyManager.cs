@@ -30,7 +30,7 @@ public class EnemyManager : MonoBehaviour
 
     IEnumerator SpawnRoutine()
     {
-        while (!Player.instance.GetIsDead())
+        while (!PlayerScript.instance.GetIsDead())
         {
             Spawn();
             yield return new WaitForSeconds(10);

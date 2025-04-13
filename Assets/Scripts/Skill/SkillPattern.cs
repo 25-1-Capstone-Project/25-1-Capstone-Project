@@ -16,17 +16,17 @@ public abstract class SkillPattern : ScriptableObject
     public int ultimateCost = 0;
     public SkillType ParryStackCheck()
     {
-        if (Player.instance.ParryStack >= ultimateCost)
+        if (PlayerScript.instance.ParryStack >= ultimateCost)
         {
             return SkillType.Ultimate;
         }
-        else if (Player.instance.ParryStack >= commonCost)
+        else if (PlayerScript.instance.ParryStack >= commonCost)
         {
             return SkillType.Common;
         }
         return SkillType.Empty;
     }
    
-    public abstract IEnumerator CommonSkill(Player player);
-    public abstract IEnumerator UltimateSkill(Player player);
+    public abstract IEnumerator CommonSkill(PlayerScript player);
+    public abstract IEnumerator UltimateSkill(PlayerScript player);
 }
