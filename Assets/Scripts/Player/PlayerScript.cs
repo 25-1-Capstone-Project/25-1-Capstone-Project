@@ -100,10 +100,7 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private Color hitColor = Color.red;
     [SerializeField] private float flashDuration = 0.1f;
 
-    [Header("=====대기 시간=====")]
-    WaitForSeconds waitAttackCoolDown;
-    WaitForSeconds waitParryDuration;
-
+ 
 
     [Header("=====컴포넌트=====")]
     [SerializeField] PlayerData playerData;
@@ -147,9 +144,6 @@ public class PlayerScript : MonoBehaviour
         InitPlayer();
         SetComponent();
 
-        // 플레이어 스탯 기반으로 패리 시간·쿨타임 설정
-        waitParryDuration = new WaitForSeconds(stats.parryDurationSec);
-        waitAttackCoolDown = new WaitForSeconds(stats.attackCooldownSec);
 
         // 체력 UI 테스트
 
@@ -159,7 +153,7 @@ public class PlayerScript : MonoBehaviour
         if (isDead || isAttacking || isParrying || isDashing) return;
 
         playerAnim.UpdateMovement(moveVec);
-        FlipX();
+        
     }
 
     void SetComponent()
@@ -170,6 +164,13 @@ public class PlayerScript : MonoBehaviour
     }
 
     #region 이동
+    void OnMove(InputValue value)
+    {
+      
+        
+        moveVec = value.Get<Vector2>().normalized;
+    
+    }
     // 매 FixedUpdate마다 OnMove(PlayerInput)으로 moveVec 받아서 처리
     private void FixedUpdate()
     {
@@ -186,14 +187,7 @@ public class PlayerScript : MonoBehaviour
         //     rb.MovePosition(transform.position + (moveVec * playerStat.speed * Time.fixedDeltaTime));
 
     }
-    void OnMove(InputValue value)
-    {
-        if (isDead || isDashing)
-            return;
-
-        moveVec = value.Get<Vector2>().normalized;
     
-    }
 
     void OnDash()
     {
@@ -206,7 +200,7 @@ public class PlayerScript : MonoBehaviour
     {
         isDashing = true;
         canUseDash = false;
-        playerAnim.PlayDash();
+        playerAnim.PlayDash(moveVec);
         // 대시 방향과 힘 설정
         rb.linearVelocity = moveVec.normalized * (dashDistance / dashDuration);
 
@@ -244,21 +238,7 @@ public class PlayerScript : MonoBehaviour
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         arrow.transform.rotation = Quaternion.Euler(0, 0, angle);
     }
-    private void FlipX()
-    {
-        if (moveVec.x == 0)
-            return;
-
-        //캐릭터의 방향
-        if (moveVec.x > 0)
-        {
-            PlayerModel.rotation = Quaternion.AngleAxis(0, Vector2.up);
-        }
-        else
-        {
-            PlayerModel.rotation = Quaternion.AngleAxis(180f, Vector2.up);
-        }
-    }
+    
     #endregion
 
     #region 공격
@@ -292,7 +272,7 @@ public class PlayerScript : MonoBehaviour
             }
         }
 
-        yield return waitAttackCoolDown;
+        yield return new WaitForSeconds(stats.attackCooldownSec);
         isAttacking = false;
         canUseAttack = true;
     }
@@ -333,8 +313,13 @@ public class PlayerScript : MonoBehaviour
         canUseParry = false;
         isParrying = true;
         rb.linearVelocity = Vector2.zero;
-        yield return waitParryDuration;
-        ParryFailed();
+        // 패리 지속시간이 끝나면 패리중X 처리
+        yield return new WaitForSeconds(stats.parryDurationSec);
+        isParrying = false;
+        
+        // 패리 쿨타임이 끝나면 패리 가능여부 True 처리
+        yield return new WaitForSeconds(stats.parryCooldownSec);
+        canUseParry = true;
     }
 
     // 패리 성공|실패 여부에 따라 패리가능 변수 처리, 패리중→패리중X, 패리 실패 시 쿨다운 코루틴 호출
@@ -358,30 +343,18 @@ public class PlayerScript : MonoBehaviour
         GameObject effect = Instantiate(parryEffectPrefab, transform.position + (direction / 2), Quaternion.identity);
         Destroy(effect, 0.5f);
     }
-    public void ParryFailed()
-    {
-        StopCoroutine(ParryRoutine);
-        Debug.Log("패리 실패");
-        isParrying = false;
-        canUseParry = false;
-        StartCoroutine(ParryCoolDownRoutine());
-    }
+    //잠시 삭제 (쿨타임 하나로 묶어버림)
+    // public void ParryFailed()
+    // {
+    //     StopCoroutine(ParryRoutine);
+    //     Debug.Log("패리 실패");
+    //     isParrying = false;
+    //     canUseParry = false;
+      
+    // }
 
 
     // 패리 쿨다운 코루틴, 패리 쿨만큼 기다렸다가 패리가능여부 True;
-    IEnumerator ParryCoolDownRoutine()
-    {
-        canUseParry = false;
-        parryCooldownTimer = stats.parryCooldownSec;
-        while (parryCooldownTimer > 0)
-        {
-            parryCooldownTimer -= Time.deltaTime;
-            yield return null;
-        }
-        parryCooldownTimer = 0;
-        canUseParry = true;
-
-    }
     #endregion
 
     #region 데미지 처리
@@ -398,7 +371,7 @@ public class PlayerScript : MonoBehaviour
                 ParrySuccess(enemy);
             else
             {
-                ParryFailed();
+               // ParryFailed();
                 StartCoroutine(DamagedRoutine(damage));
             }
         }
@@ -525,7 +498,7 @@ public class PlayerScript : MonoBehaviour
             spriteRenderers[i].color = Color.blue;
         }
 
-        yield return waitParryDuration;
+        yield return new WaitForSeconds(stats.parryDurationSec);
 
         for (int i = 0; i < spriteRenderers.Length; i++)
         {

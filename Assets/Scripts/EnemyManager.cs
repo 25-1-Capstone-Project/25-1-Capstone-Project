@@ -25,7 +25,7 @@ public class EnemyManager : MonoBehaviour
     }
     void Start()
     {
-        StartCoroutine(SpawnRoutine());
+       StartCoroutine(SpawnRoutine());
     }
 
     IEnumerator SpawnRoutine()

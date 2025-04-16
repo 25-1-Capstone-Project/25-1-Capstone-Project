@@ -109,27 +109,150 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: attack_side_0000_0
+      name: attack_Left_0000_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 224
-        height: 224
+        x: 5
+        y: 52
+        width: 146
+        height: 126
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: e391d0bebf2b8b960800000000000000
-      internalID: 7618035564747233598
+      spriteID: 2b02c8fe59701c847b151231eaf6369f
+      internalID: -1483862918
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: attack_Left_0000_1
+      rect:
+        serializedVersion: 2
+        x: 190
+        y: 52
+        width: 144
+        height: 126
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2f6798b63d65d91438e58db0aa3e2762
+      internalID: -1217759580
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: attack_Left_0000_2
+      rect:
+        serializedVersion: 2
+        x: 398
+        y: 52
+        width: 110
+        height: 126
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9f92adcc491ba8f479056f73f625d62a
+      internalID: 133015693
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: attack_Left_0000_3
+      rect:
+        serializedVersion: 2
+        x: 602
+        y: 46
+        width: 79
+        height: 132
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ee38a99d15ff8ff4c8a10401b3ce86ab
+      internalID: -1074860784
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: attack_Left_0000_4
+      rect:
+        serializedVersion: 2
+        x: 773
+        y: 49
+        width: 77
+        height: 129
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 64cca90739b6d2844a67d10e9957bba9
+      internalID: 1060086944
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: attack_Left_0000_5
+      rect:
+        serializedVersion: 2
+        x: 922
+        y: 50
+        width: 91
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e85ebf28ca849bc4ca1b59c5c8597bef
+      internalID: -1511617302
       vertices: []
       indices: 
       edges: []
@@ -148,7 +271,12 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      attack_side_0000_0: 7618035564747233598
+      attack_Left_0000_0: -1483862918
+      attack_Left_0000_1: -1217759580
+      attack_Left_0000_2: 133015693
+      attack_Left_0000_3: -1074860784
+      attack_Left_0000_4: 1060086944
+      attack_Left_0000_5: -1511617302
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

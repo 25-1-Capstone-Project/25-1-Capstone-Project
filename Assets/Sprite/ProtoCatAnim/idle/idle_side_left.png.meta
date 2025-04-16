@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: fa122d2b401dea24181f68c6734ae2e3
+guid: aebc42fd20c11704e872587c1f7e5b66
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6245456091798709171
-    second: KakaoTalk_20250413_225017922_0
+      213: 6501046556338068986
+    second: idle_side_0000_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -109,16 +109,29 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: KakaoTalk_20250413_225017922_0
+      name: idle_side_0000_0
       rect:
         serializedVersion: 2
         x: 76
         y: 49
-        width: 79
+        width: 75
         height: 131
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -128,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d4cd90c36cea359a0800000000000000
-      internalID: -6245456091798709171
+      spriteID: afd9ec2266b583a50800000000000000
+      internalID: 6501046556338068986
       vertices: []
       indices: 
       edges: []
@@ -148,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      KakaoTalk_20250413_225017922_0: -6245456091798709171
+      idle_side_0000_0: 6501046556338068986
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
