@@ -1,5 +1,7 @@
 using UnityEngine;
-
+/// <summary>
+/// 플레이어 애니메이션을 제어하는 스크립트입니다.
+/// </summary>
 public class PlayerAnimatorController : MonoBehaviour
 {
     [SerializeField] public Animator animator;

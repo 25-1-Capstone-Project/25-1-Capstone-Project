@@ -2,16 +2,27 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-
+/// <summary>
+/// 플레이어의 이동, 공격, 패링, 대시 등을 처리하는 스크립트입니다.
+/// 플레이어의 상태를 관리하고, 애니메이션과 상호작용합니다.
+/// 씬 전환 시 플레이어의 상태를 저장하고 불러오는 기능도 포함되어 있습니다.
+/// 이 스크립트는 Singleton 패턴을 사용합니다.
+/// </summary>
 public class PlayerScript : MonoBehaviour
 {
     public static PlayerScript instance;
     private void Awake()
     {
         if (instance == null)
+        {
             instance = this;
+            DontDestroyOnLoad(gameObject); // 씬 간 유지
+        }
         else
+        {
             Destroy(gameObject);
+            return;
+        }
     }
     private void OnDestroy()
     {
@@ -100,7 +111,7 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private Color hitColor = Color.red;
     [SerializeField] private float flashDuration = 0.1f;
 
- 
+
 
     [Header("=====컴포넌트=====")]
     [SerializeField] PlayerData playerData;
@@ -135,7 +146,7 @@ public class PlayerScript : MonoBehaviour
     {
         return transform;
     }
- 
+
 
     #endregion
 
@@ -153,7 +164,7 @@ public class PlayerScript : MonoBehaviour
         if (isDead || isAttacking || isParrying || isDashing) return;
 
         playerAnim.UpdateMovement(moveVec);
-        
+
     }
 
     void SetComponent()
@@ -166,10 +177,7 @@ public class PlayerScript : MonoBehaviour
     #region 이동
     void OnMove(InputValue value)
     {
-      
-        
         moveVec = value.Get<Vector2>().normalized;
-    
     }
     // 매 FixedUpdate마다 OnMove(PlayerInput)으로 moveVec 받아서 처리
     private void FixedUpdate()
@@ -187,7 +195,6 @@ public class PlayerScript : MonoBehaviour
         //     rb.MovePosition(transform.position + (moveVec * playerStat.speed * Time.fixedDeltaTime));
 
     }
-    
 
     void OnDash()
     {
@@ -238,7 +245,7 @@ public class PlayerScript : MonoBehaviour
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         arrow.transform.rotation = Quaternion.Euler(0, 0, angle);
     }
-    
+
     #endregion
 
     #region 공격
@@ -316,7 +323,7 @@ public class PlayerScript : MonoBehaviour
         // 패리 지속시간이 끝나면 패리중X 처리
         yield return new WaitForSeconds(stats.parryDurationSec);
         isParrying = false;
-        
+
         // 패리 쿨타임이 끝나면 패리 가능여부 True 처리
         yield return new WaitForSeconds(stats.parryCooldownSec);
         canUseParry = true;
@@ -350,7 +357,7 @@ public class PlayerScript : MonoBehaviour
     //     Debug.Log("패리 실패");
     //     isParrying = false;
     //     canUseParry = false;
-      
+
     // }
 
 
@@ -371,7 +378,7 @@ public class PlayerScript : MonoBehaviour
                 ParrySuccess(enemy);
             else
             {
-               // ParryFailed();
+                // ParryFailed();
                 StartCoroutine(DamagedRoutine(damage));
             }
         }
@@ -422,43 +429,35 @@ public class PlayerScript : MonoBehaviour
         isDead = true;
         rb.linearVelocity = Vector2.zero;
     }
-
-
-    //void TestSkillAct()
-    //{
-    //    if (ParryStack <= 0)
-    //    {
-    //        Debug.Log("패리 스택 부족");
-    //        return;
-    //    }
-
-    //    ParryStack--;
-
-    //    GameObject fireball = Instantiate(testPrefab, transform.position, Quaternion.identity);
-    //    Rigidbody2D rb = fireball.GetComponent<Rigidbody2D>();
-
-    //    if (rb != null)
-    //    {
-    //        Vector3 fDirection = direction;
-    //        rb.linearVelocity = fDirection * 10f;
-    //    }
-    //}
     #endregion
 
-    // private void Shoot()
-    // {
-    //     // 탄환 생성 (현재 화살표 방향 기준)
-    //     GameObject ammo = Instantiate(this.ammo, arrow.transform.position, arrow.transform.rotation);
+    #region Stat
+    [System.Serializable]
+    public class PlayerState
+    {
+        public int currentHP;
+        public int currentParryStack;
+        public Vector3 position;
+    }
 
-    //     // Rigidbody2D 추가 후, 발사 방향으로 속도 적용
-    //     Rigidbody2D rb = ammo.GetComponent<Rigidbody2D>();
+    public PlayerState SaveState()
+    {
+        return new PlayerState
+        {
+            currentHP = this.UIHealth,
+            currentParryStack = this.ParryStack,
+            position = transform.position
+        };
+    }
 
-    //     if (rb != null)
-    //     {
-    //         rb.linearVelocity = arrow.transform.right * bulletSpeed; // 화살표가 바라보는 방향으로 발사
-    //     }
+    public void LoadState(PlayerState data)
+    {
+        this.health = data.currentHP;
+        this.ParryStack = data.currentParryStack;
+        transform.position = data.position;
+    }
 
-    // } 
+    #endregion
 
     #region FlashSprite
 

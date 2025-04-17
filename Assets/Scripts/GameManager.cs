@@ -1,7 +1,8 @@
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using System.Collections;
+using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     //싱글톤
@@ -38,10 +39,11 @@ public class GameManager : MonoBehaviour
         StateMachine.Update();
     }
 
-    public void TestResetButton(){
+    public void TestResetButton()
+    {
         SceneManager.LoadScene(0);
     }
-      // Public methods to expose data or perform actions
-   
+ 
+
 }
 
