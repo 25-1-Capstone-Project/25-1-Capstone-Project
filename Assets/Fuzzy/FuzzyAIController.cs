@@ -1,14 +1,22 @@
 using UnityEngine;
+using UnityEngine.UI;
 
-public enum SkillAction { Idle, Slash, Dash, RangedShot, Heal }
+public enum SkillAction { Idle, Slash, Dash, Shot, Heal }
 
 public class FuzzyAIController : MonoBehaviour
 {
     public Transform player;
+
+    [Header("Stats")]
     public float moveSpeed = 2f;
     public float health = 100f;
     public float fieldOfView = 90f;
     public float sightRange = 10f;
+
+    [Header("UI References")]
+    public Text healthText;
+    public Text distanceText;
+    public Text actionText;
 
     private SkillAction currentSkill;
     private SpriteRenderer sr;
@@ -25,32 +33,40 @@ public class FuzzyAIController : MonoBehaviour
 
         float distance = Vector2.Distance(transform.position, player.position);
 
+        // Update UI
+        UpdateUI(distance);
+
         if (IsPlayerInSight())
         {
             hasSeenPlayer = true;
             fieldOfView = 360f;
         }
 
-        // 실시간 체력 조절 (디버그용)
-        if (Input.GetKeyDown(KeyCode.UpArrow))
+        // Debug: 체력 조정
+        if (Input.GetKeyDown(KeyCode.UpArrow)) health = Mathf.Clamp(health + 10f, 0f, 100f);
+        if (Input.GetKeyDown(KeyCode.DownArrow)) health = Mathf.Clamp(health - 10f, 0f, 100f);
+
+        
+
+        if (!hasSeenPlayer)
         {
-            health = Mathf.Clamp(health + 10f, 0f, 100f);
-            Debug.Log("체력 증가: " + health);
-        }
-        if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            health = Mathf.Clamp(health - 10f, 0f, 100f);
-            Debug.Log("체력 감소: " + health);
+            currentSkill = SkillAction.Idle;
         }
 
-        currentSkill = DecideSkillFuzzy(distance, health);
-
-        if (hasSeenPlayer)
+        else
         {
+            currentSkill = DecideSkillFuzzy(distance, health);
             HandleMovement();
         }
 
         UseSkill(currentSkill);
+    }
+
+    void UpdateUI(float distance)
+    {
+        if (healthText != null) healthText.text = $"체력: {health:F0}";
+        if (distanceText != null) distanceText.text = $"거리: {distance:F2}";
+        if (actionText != null) actionText.text = $"스킬: {currentSkill}";
     }
 
     void HandleMovement()
@@ -73,51 +89,44 @@ public class FuzzyAIController : MonoBehaviour
         }
         return false;
     }
-
-    // 퍼지 로직 적용
-    // 삼각형 퍼지 소속 함수
-    float Triangular(float x, float a, float b, float c)
+    
+//가우시안 함수 계산
+    float Gaussian(float x, float c, float sigma)
     {
-        if (x <= a || x >= c) return 0f;
-        else if (x == b) return 1f;
-        else if (x < b) return (x - a) / (b - a);
-        else return (c - x) / (c - b);
+        return Mathf.Exp(-Mathf.Pow(x - c, 2f) / (2f * Mathf.Pow(sigma, 2f)));
     }
 
     SkillAction DecideSkillFuzzy(float distance, float hp)
     {
-        float near = Triangular(distance, 0f, 1.5f, 3f);     // 가까움
-        float mid = Triangular(distance, 2f, 4f, 6f);       // 중간
-        float far = Triangular(distance, 5f, 7.5f, 10f);    // 멀리
+        float near = Gaussian(distance, 1f, 1f);
+        float mid = Gaussian(distance, 4f, 1f);
+        float far = Gaussian(distance, 8f, 1.5f);
 
-        // 체력에 따른 소속 함수
-        float low = Triangular(hp, 0f, 25f, 50f);           // 체력 낮음
-        float medium = Triangular(hp, 30f, 50f, 70f);       // 체력 중간
-        float high = Triangular(hp, 60f, 80f, 100f);        // 체력 높음
+        float low = Gaussian(hp, 20f, 10f);
+        float medium = Gaussian(hp, 50f, 10f);
+        float high = Gaussian(hp, 80f, 10f);
 
         Debug.Log($"[퍼지] near: {near:F2}, mid: {mid:F2}, far: {far:F2} | low: {low:F2}, medium: {medium:F2}, high: {high:F2}");
 
-        // 각 규칙의 값 계산
-        float slashRule = Mathf.Min(near, high) * 5f;       // 근접 공격
-        float dashRule = Mathf.Min(mid, medium) * 4f;       // 돌진
-        float rangedRule = Mathf.Min(far, high) * 3f;       // 원거리 공격
-        float healRule = Mathf.Min(near, low) * 2f;         // 회복
-        float idleRule = Mathf.Min(far, low) * 1f;          // 대기
+        float slashRule = Mathf.Min(near, high) * 4f;
+        float dashRule = Mathf.Min(mid, medium) * 3f;
+        float rangedRule = Mathf.Min(far, high) * 2f;
+        float healRule = Mathf.Min(far, low) * 1f;
 
-        float totalWeight = slashRule + dashRule + rangedRule + healRule + idleRule + 0.0001f;
+        float totalWeight = slashRule + dashRule + rangedRule + healRule + 0.0001f;
+        
         float weightedAverage = (
             slashRule * 5f +
             dashRule * 4f +
             rangedRule * 3f +
-            healRule * 2f +
-            idleRule * 1f
+            healRule * 2f
         ) / totalWeight;
 
         Debug.Log($"[퍼지] Weighted Avg: {weightedAverage:F2}");
 
         if (weightedAverage >= 4.5f) return SkillAction.Slash;
         if (weightedAverage >= 3.5f) return SkillAction.Dash;
-        if (weightedAverage >= 2.5f) return SkillAction.RangedShot;
+        if (weightedAverage >= 2.5f) return SkillAction.Shot;
         if (weightedAverage >= 1.5f) return SkillAction.Heal;
         return SkillAction.Idle;
     }
@@ -129,11 +138,11 @@ public class FuzzyAIController : MonoBehaviour
 
         switch (action)
         {
-            case SkillAction.Slash: color = Color.red; actionName = "근접 공격(Slash)"; break;
-            case SkillAction.Dash: color = Color.magenta; actionName = "돌진(Dash)"; break;
-            case SkillAction.RangedShot: color = Color.cyan; actionName = "원거리 공격(Ranged Shot)"; break;
-            case SkillAction.Heal: color = Color.green; actionName = "회복(Heal)"; break;
-            case SkillAction.Idle: color = Color.gray; actionName = "대기(Idle)"; break;
+            case SkillAction.Slash: color = Color.red; actionName = "근접 공격"; break;
+            case SkillAction.Dash: color = Color.magenta; actionName = "돌진"; break;
+            case SkillAction.Shot: color = Color.cyan; actionName = "원거리 공격"; break;
+            case SkillAction.Heal: color = Color.green; actionName = "회복"; break;
+            case SkillAction.Idle: color = Color.gray; actionName = "대기"; break;
         }
 
         sr.color = color;

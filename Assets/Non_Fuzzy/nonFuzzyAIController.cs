@@ -96,7 +96,7 @@ public class nonFuzzyAIController : MonoBehaviour
         else if (distance <= 8f)
         {
             // 플레이어가 멀리 있을 때 원거리 공격
-            return SkillAction.RangedShot;
+            return SkillAction.Shot;
         }
         else
         {
@@ -114,7 +114,7 @@ public class nonFuzzyAIController : MonoBehaviour
         {
             case SkillAction.Slash: color = Color.red; actionName = "근접 공격(Slash)"; break;
             case SkillAction.Dash: color = Color.magenta; actionName = "돌진(Dash)"; break;
-            case SkillAction.RangedShot: color = Color.cyan; actionName = "원거리 공격(Ranged Shot)"; break;
+            case SkillAction.Shot: color = Color.cyan; actionName = "원거리 공격(Ranged Shot)"; break;
             case SkillAction.Heal: color = Color.green; actionName = "회복(Heal)"; break;
             case SkillAction.Idle: color = Color.gray; actionName = "대기(Idle)"; break;
         }
