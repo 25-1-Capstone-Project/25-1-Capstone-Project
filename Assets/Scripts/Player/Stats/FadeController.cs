@@ -17,7 +17,7 @@ public class FadeController : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-           
+            DontDestroyOnLoad(gameObject);
         }
         else if (instance != this)
         {

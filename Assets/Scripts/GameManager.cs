@@ -42,6 +42,7 @@ public class GameManager : MonoBehaviour
     public void TestResetButton()
     {
         SceneManager.LoadScene(0);
+        PlayerScript.instance.InitPlayer();
     }
  
 

@@ -125,7 +125,7 @@ public class PlayerScript : MonoBehaviour
     private SpriteRenderer[] spriteRenderers;
     public PlayerRuntimeStats stats = new PlayerRuntimeStats();
 
-    void InitPlayer()
+    public void InitPlayer()
     {
         stats.ApplyBase(playerData); // 원본 데이터를 복사
 
