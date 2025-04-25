@@ -1,21 +1,13 @@
 using UnityEngine;
 
-public class SkillManager : MonoBehaviour
+public class SkillManager : Singleton<SkillManager>
 {
-    public static SkillManager instance;
     public Transform skillObjectsParent;
-    void Awake()
+    protected override void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else if (instance != this)
-        {
-            Destroy(gameObject);
-        }
-
-        DontDestroyOnLoad(gameObject);
+      
+        base.Awake();
+        
     }
 
     public SkillPattern[] SkillPatterns;

@@ -25,20 +25,12 @@ public class PortalTrigger : MonoBehaviour
 
     private IEnumerator TransitionScene()
     {
-       
-        // SceneTransitionCarrier 생성 또는 찾기
-        if (SceneTransitionCarrier.instance == null)
-        {
-            GameObject go = new GameObject("SceneTransitionCarrier");
-            go.AddComponent<SceneTransitionCarrier>();
-        }
-
         // 정보 전달
-        SceneTransitionCarrier.instance.targetSceneName = targetSceneName;
-        SceneTransitionCarrier.instance.spawnPointID = targetSpawnPointID;
+        SceneTransitionCarrier.Instance.targetSceneName = targetSceneName;
+        SceneTransitionCarrier.Instance.spawnPointID = targetSpawnPointID;
 
         // 페이드 아웃
-        yield return FadeController.instance.FadeOut();
+        yield return FadeController.Instance.FadeOut();
 
         // 씬 로딩
         AsyncOperation loadOp = SceneManager.LoadSceneAsync(targetSceneName);

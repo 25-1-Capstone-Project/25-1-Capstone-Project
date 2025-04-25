@@ -1,24 +1,17 @@
 using UnityEngine;
 
 
-public class UIManager : MonoBehaviour
+public class UIManager : Singleton<UIManager> 
 {
   
     public PlayerStatUI playerStatUI;
     public ParryStackUI parryStackUI;
   
-    public static UIManager instance { get; private set; }
-    private void Awake()
+
+    protected override void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(this);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        base.Awake(); 
+        
     }
 
     private void LateUpdate()

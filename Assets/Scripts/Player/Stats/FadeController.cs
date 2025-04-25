@@ -6,24 +6,13 @@ using UnityEngine.SceneManagement;
 /// 페이드 아웃 및 페이드 인을 담당하는 스크립트입니다.
 /// 씬전환에 활용중입니다.
 /// </summary>
-public class FadeController : MonoBehaviour
+public class FadeController : Singleton<FadeController>
 {
     public Image fadeImage;
     public float fadeDuration = 1f;
-    public static FadeController instance;
-
-    private void Awake()
+    protected override void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else if (instance != this)
-        {
-            Destroy(gameObject);
-        }
-
+        base.Awake();
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
     public IEnumerator FadeOut()
@@ -33,7 +22,7 @@ public class FadeController : MonoBehaviour
         Color color = fadeImage.color;
         while (time < fadeDuration)
         {
-            
+
             color.a = Mathf.Lerp(0, 1, time / fadeDuration);
             fadeImage.color = color;
             time += Time.deltaTime;
@@ -41,8 +30,8 @@ public class FadeController : MonoBehaviour
         }
         color.a = 1;
         fadeImage.color = color;
-      
-        
+
+
     }
     public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
@@ -52,16 +41,20 @@ public class FadeController : MonoBehaviour
     {
         float time = 0;
         Color color = fadeImage.color;
-       
+
         while (time < fadeDuration)
         {
             color.a = Mathf.Lerp(1, 0, time / fadeDuration);
-             fadeImage.color = color;
+            fadeImage.color = color;
             time += Time.deltaTime;
             yield return null;
         }
         color.a = 0;
         fadeImage.color = color;
         PlayerInputBlocker.Block(false);
+    }
+    private void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 }

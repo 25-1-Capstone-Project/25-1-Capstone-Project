@@ -8,7 +8,7 @@ public class Enmey_SwordSlash : EnemyAttackPattern
     {
         enemy.IsAttacking = true;
         enemy.GetAnimatorController().PlayAttack();
-        Vector2 attackDir = (PlayerScript.instance.transform.position - enemy.transform.position).normalized;
+        Vector2 attackDir = (PlayerScript.Instance.transform.position - enemy.transform.position).normalized;
         float angle = Mathf.Atan2(attackDir.y, attackDir.x) * Mathf.Rad2Deg;
 
         yield return new WaitForSeconds(delay);

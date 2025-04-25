@@ -3,25 +3,14 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
 using UnityEngine.UI;
-public class GameManager : MonoBehaviour
+public class GameManager : Singleton<GameManager>
 {
-    //싱글톤
-    public static GameManager instance;
-
     public StateMachine<GameState> StateMachine { get; private set; }
 
-    void Awake()
+    protected override void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else if (instance != this)
-        {
-            Destroy(gameObject);
-        }
-
-        DontDestroyOnLoad(gameObject);
+        base.Awake(); 
+        Time.timeScale = 1f;
     }
 
     void Start()
@@ -42,7 +31,7 @@ public class GameManager : MonoBehaviour
     public void TestResetButton()
     {
         SceneManager.LoadScene(0);
-        PlayerScript.instance.InitPlayer();
+        PlayerScript.Instance.InitPlayer();
     }
  
 

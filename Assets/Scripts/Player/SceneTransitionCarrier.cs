@@ -1,21 +1,13 @@
 using UnityEngine;
 
-public class SceneTransitionCarrier : MonoBehaviour
+public class SceneTransitionCarrier : Singleton<SceneTransitionCarrier>
 {
-    public static SceneTransitionCarrier instance;
 
     public string targetSceneName;
     public string spawnPointID;
 
-    void Awake()
+    protected override void Awake()
     {
-        if (instance != null)
-        {
-            Destroy(gameObject);
-            return;
-        }
-
-        instance = this;
-     
+        base.Awake();
     }
 }

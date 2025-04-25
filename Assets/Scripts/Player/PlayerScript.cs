@@ -8,26 +8,11 @@ using UnityEngine.InputSystem;
 /// 씬 전환 시 플레이어의 상태를 저장하고 불러오는 기능도 포함되어 있습니다.
 /// 이 스크립트는 Singleton 패턴을 사용합니다.
 /// </summary>
-public class PlayerScript : MonoBehaviour
+public class PlayerScript : Singleton<PlayerScript>
 {
-    public static PlayerScript instance;
-    private void Awake()
+    protected override void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject); // 씬 간 유지
-        }
-        else
-        {
-            Destroy(gameObject);
-            return;
-        }
-    }
-    private void OnDestroy()
-    {
-        if (instance == this)
-            instance = null;
+        base.Awake();
     }
 
     [Header("방향 관련")]
@@ -80,24 +65,24 @@ public class PlayerScript : MonoBehaviour
             // 0이 된 경우 전체 제거
             if (value == 0 && previous > 0)
             {
-                UIManager.instance.parryStackUI.RemoveAllParryStackIcon();
+                UIManager.Instance.parryStackUI.RemoveAllParryStackIcon();
             }
             // 증가 → 아이콘 추가
             else if (value > previous)
             {
-                UIManager.instance.parryStackUI.AddParryStackIcon();
+                UIManager.Instance.parryStackUI.AddParryStackIcon();
             }
             // 감소 → 아이콘 제거
             else if (value < previous)
             {
                 int delta = previous - value;
-                UIManager.instance.parryStackUI.RemoveParryStackIcon(delta);
+                UIManager.Instance.parryStackUI.RemoveParryStackIcon(delta);
             }
 
 
         }
     }
-    public void SetParryStack(int max) { stats.maxParryStack = max; UIManager.instance.parryStackUI.SetMaxParryStack(); }
+    public void SetParryStack(int max) { stats.maxParryStack = max; UIManager.Instance.parryStackUI.SetMaxParryStack(); }
 
 
     [Header("=====대시 옵션=====")]
@@ -129,7 +114,7 @@ public class PlayerScript : MonoBehaviour
     {
         stats.ApplyBase(playerData); // 원본 데이터를 복사
 
-        currentSkill = SkillManager.instance.SkillPatterns[0]; // 현재 스킬 가져오기
+        currentSkill = SkillManager.Instance.SkillPatterns[0]; // 현재 스킬 가져오기
         if (currentSkill == null)
             SetParryStack(0);
         else

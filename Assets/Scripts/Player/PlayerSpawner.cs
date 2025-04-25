@@ -9,9 +9,9 @@ public class PlayerSpawnManager : MonoBehaviour
 {
     void Start()
     {
-        if (SceneTransitionCarrier.instance == null) return;
+        if (SceneTransitionCarrier.Instance == null) return;
 
-        string spawnID = SceneTransitionCarrier.instance.spawnPointID;
+        string spawnID = SceneTransitionCarrier.Instance.spawnPointID;
         if (string.IsNullOrEmpty(spawnID)) return;
 
         var spawns = FindObjectsOfType<PlayerSpawnPoint>();
@@ -19,7 +19,7 @@ public class PlayerSpawnManager : MonoBehaviour
         {
             if (spawn.spawnPointID == spawnID)
             {
-                var player = PlayerScript.instance;
+                var player = PlayerScript.Instance;
                 player.transform.position = spawn.transform.position;
                 break;
             }

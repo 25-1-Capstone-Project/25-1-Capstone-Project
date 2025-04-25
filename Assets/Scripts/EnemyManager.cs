@@ -1,36 +1,30 @@
 using System.Collections;
 using UnityEngine;
 
-public class EnemyManager : MonoBehaviour
+public class EnemyManager : Singleton<EnemyManager>
 {
-    public static EnemyManager instance;
+
     public Transform spawnPosParent;
     private Transform[] spawnPointsT;
     public GameObject enemyPrefab;
     public EnemyAttackPattern[] commonEnemyAttackPatterns;
-    void Awake()
+    protected override void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else if (instance != this)
-        {
-            Destroy(gameObject);
-        }
-
-        DontDestroyOnLoad(gameObject);
-
+        base.Awake();
         spawnPointsT = spawnPosParent.GetComponentsInChildren<Transform>();
     }
+
+
+
+
     void Start()
     {
-       StartCoroutine(SpawnRoutine());
+        StartCoroutine(SpawnRoutine());
     }
 
     IEnumerator SpawnRoutine()
     {
-        while (!PlayerScript.instance.GetIsDead())
+        while (!PlayerScript.Instance.GetIsDead())
         {
             Spawn();
             yield return new WaitForSeconds(10);

@@ -20,10 +20,10 @@ public class Enemy : MonoBehaviour
     public Rigidbody2D GetRigidbody() => rb;
     public float GetSpeed() => speed;
     public EnemyAnimatorController GetAnimatorController() => enemyAnimController;
-    public Transform GetPlayer() => PlayerScript.instance.GetPlayerTransform();
+    public Transform GetPlayer() => PlayerScript.Instance.GetPlayerTransform();
     public Transform GetAttackParticleT() => attackParticleTransform;
     public ParticleSystem GetAttackParticle() => attackParticle;
-    public Vector2 GetDirectionVec() => PlayerScript.instance.GetPlayerTransform().position - transform.position;
+    public Vector2 GetDirectionVec() => PlayerScript.Instance.GetPlayerTransform().position - transform.position;
     public Vector2 GetDirectionNormalVec() => GetDirectionVec().normalized;
     
   
@@ -73,7 +73,7 @@ public class Enemy : MonoBehaviour
         switch (enemyData.eEnemyType)
         {
             case EEnemyType.Sowrd:
-                attackPattern = EnemyManager.instance.commonEnemyAttackPatterns[0];
+                attackPattern = EnemyManager.Instance.commonEnemyAttackPatterns[0];
                 break;
         }
     }
