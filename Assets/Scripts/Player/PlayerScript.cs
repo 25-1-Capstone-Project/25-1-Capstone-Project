@@ -294,7 +294,7 @@ public class PlayerScript : Singleton<PlayerScript>
     {
         if (!canUseParry || isDead || isAttacking || isDashing)
             return;
-
+        
         playerAnim.PlayParry();
         FlashParry();
         ParryRoutine = StartCoroutine(Parry());
@@ -323,16 +323,20 @@ public class PlayerScript : Singleton<PlayerScript>
         {
             ParryStack++;
         }
-
+      
         isParrying = false;
         canUseParry = true;
         enemy.StateMachine.ChangeState<ParryState>();
-        ParryEffect();
+        StartCoroutine(ParryEffect());
+        
 
     }
-    public void ParryEffect()
+    public IEnumerator ParryEffect()
     {
         GameObject effect = Instantiate(parryEffectPrefab, transform.position + (direction / 2), Quaternion.identity);
+        GameManager.Instance.SetTimeScale(0);
+        yield return new WaitForSecondsRealtime(0.1f);
+        GameManager.Instance.SetTimeScale(1);
         Destroy(effect, 0.5f);
     }
     //잠시 삭제 (쿨타임 하나로 묶어버림)
@@ -381,7 +385,7 @@ public class PlayerScript : Singleton<PlayerScript>
     #endregion
 
     #region 스킬 테스트
-    void OnSkillTest(InputValue value)
+    void OnSkill(InputValue value)
     {
         var skillType = currentSkill.ParryStackCheck();
 
@@ -449,46 +453,31 @@ public class PlayerScript : Singleton<PlayerScript>
 
     public void FlashOnDamage()
     {
-        StartCoroutine(FlashRoutine());
+        StartCoroutine(FlashRoutine(hitColor));
     }
 
-    private IEnumerator FlashRoutine()
+    private IEnumerator FlashRoutine(Color color)
     {
 
         for (int i = 0; i < spriteRenderers.Length; i++)
         {
 
-            spriteRenderers[i].color = hitColor;
+            spriteRenderers[i].color = color;
         }
 
         yield return new WaitForSeconds(flashDuration);
 
         for (int i = 0; i < spriteRenderers.Length; i++)
         {
-            spriteRenderers[i].color = Color.white;
+            spriteRenderers[i].color =  Color.white;
         }
     }
     public void FlashParry()
     {
-        StartCoroutine(FlashParryRoutine());
+        StartCoroutine(FlashRoutine(Color.blue));
     }
 
-    private IEnumerator FlashParryRoutine()
-    {
-
-        for (int i = 0; i < spriteRenderers.Length; i++)
-        {
-
-            spriteRenderers[i].color = Color.blue;
-        }
-
-        yield return new WaitForSeconds(stats.parryDurationSec);
-
-        for (int i = 0; i < spriteRenderers.Length; i++)
-        {
-            spriteRenderers[i].color = Color.white;
-        }
-    }
+   
     #endregion
 
 }

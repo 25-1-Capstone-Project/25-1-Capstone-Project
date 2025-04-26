@@ -96,7 +96,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "SkillTest",
+                    "name": "Skill",
                     "type": "Button",
                     "id": "fb291961-8af7-45e4-99b5-f0386fc7f164",
                     "expectedControlType": "",
@@ -509,7 +509,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "SkillTest",
+                    "action": "Skill",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

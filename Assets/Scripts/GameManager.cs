@@ -33,6 +33,10 @@ public class GameManager : Singleton<GameManager>
         SceneManager.LoadScene(0);
         PlayerScript.Instance.InitPlayer();
     }
+    public void SetTimeScale(float timeScale)
+    {
+        Time.timeScale = timeScale;
+    }
  
 
 }
