@@ -30,7 +30,7 @@ public class PortalTrigger : MonoBehaviour
         SceneTransitionCarrier.Instance.spawnPointID = targetSpawnPointID;
 
         // 페이드 아웃
-        yield return FadeController.Instance.FadeOut();
+        yield return FadeController.Instance.FadeOut(Color.black, 1f);
 
         // 씬 로딩
         AsyncOperation loadOp = SceneManager.LoadSceneAsync(targetSceneName);

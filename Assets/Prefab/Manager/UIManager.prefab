@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: Reset
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -170,11 +170,11 @@ RectTransform:
   - {fileID: 5304042200399011035}
   m_Father: {fileID: 7404427291971171201}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 160, y: 30}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &3706904869524517441
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -332,6 +332,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4452798532267807175, guid: 40ab0909b5b4fd849a5a176ab1b355fa, type: 3}
+      propertyPath: m_Name
+      value: FadeImage
+      objectReference: {fileID: 0}
     - target: {fileID: 5717796560089829728, guid: 40ab0909b5b4fd849a5a176ab1b355fa, type: 3}
       propertyPath: m_Name
       value: UICanvas
@@ -420,34 +424,13 @@ PrefabInstance:
     - {fileID: 6345090349523996363, guid: 40ab0909b5b4fd849a5a176ab1b355fa, type: 3}
     m_RemovedGameObjects:
     - {fileID: 6829267692872628075, guid: 40ab0909b5b4fd849a5a176ab1b355fa, type: 3}
+    - {fileID: 5264899853035405025, guid: 40ab0909b5b4fd849a5a176ab1b355fa, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 6885372971579684939, guid: 40ab0909b5b4fd849a5a176ab1b355fa, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5254646356151380429}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4452798532267807175, guid: 40ab0909b5b4fd849a5a176ab1b355fa, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 4790729986061237572}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 40ab0909b5b4fd849a5a176ab1b355fa, type: 3}
---- !u!1 &326381182663465485 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4452798532267807175, guid: 40ab0909b5b4fd849a5a176ab1b355fa, type: 3}
-  m_PrefabInstance: {fileID: 4128689632184568778}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &4790729986061237572
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 326381182663465485}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13332db977ddf7046b2b40f2df982bc8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fadeImage: {fileID: 8682358612218867426}
-  fadeDuration: 1
 --- !u!114 &3101714524455845474 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1317177227425559976, guid: 40ab0909b5b4fd849a5a176ab1b355fa, type: 3}
@@ -473,16 +456,5 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ed75d1b392f1d1408a78fa1506c574d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &8682358612218867426 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4697784859671192872, guid: 40ab0909b5b4fd849a5a176ab1b355fa, type: 3}
-  m_PrefabInstance: {fileID: 4128689632184568778}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 326381182663465485}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

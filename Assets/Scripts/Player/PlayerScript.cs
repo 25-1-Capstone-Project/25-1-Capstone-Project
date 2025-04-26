@@ -334,9 +334,12 @@ public class PlayerScript : Singleton<PlayerScript>
     public IEnumerator ParryEffect()
     {
         GameObject effect = Instantiate(parryEffectPrefab, transform.position + (direction / 2), Quaternion.identity);
-        GameManager.Instance.SetTimeScale(0);
-        yield return new WaitForSecondsRealtime(0.1f);
-        GameManager.Instance.SetTimeScale(1);
+        AudioManager.Instance.PlaySFX("ParrySuccess");
+
+        GameManager.Instance.SetTimeScale(0.5f);
+        yield return FadeController.Instance.FadeOut(Color.white, 0.05f,0.01f);
+        yield return FadeController.Instance.FadeIn(Color.white, 0.05f,0.01f);
+       GameManager.Instance.SetTimeScale(1);
         Destroy(effect, 0.5f);
     }
     //잠시 삭제 (쿨타임 하나로 묶어버림)

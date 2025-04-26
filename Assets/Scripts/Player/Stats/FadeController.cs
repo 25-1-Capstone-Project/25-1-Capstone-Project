@@ -15,43 +15,47 @@ public class FadeController : Singleton<FadeController>
         base.Awake();
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
-    public IEnumerator FadeOut()
+    public IEnumerator FadeOut(Color color, float delay, float maxAlpha = 1f)
     {
         PlayerInputBlocker.Block(true);
         float time = 0;
-        Color color = fadeImage.color;
-        while (time < fadeDuration)
+        color.a = 0;
+        fadeImage.color = color;
+        
+        while (time < delay)
         {
 
-            color.a = Mathf.Lerp(0, 1, time / fadeDuration);
+            color.a = Mathf.Lerp(0, maxAlpha, time / delay);
             fadeImage.color = color;
-            time += Time.deltaTime;
+            time += Time.unscaledDeltaTime;
             yield return null;
         }
         color.a = 1;
         fadeImage.color = color;
-
-
     }
-    public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        StartCoroutine(FadeIn());
-    }
-    public IEnumerator FadeIn()
+
+    public IEnumerator FadeIn(Color color, float delay, float maxAlpha = 1f)
     {
         float time = 0;
-        Color color = fadeImage.color;
+        color.a = maxAlpha;
+        fadeImage.color = color;
+       
 
-        while (time < fadeDuration)
+        while (time < delay)
         {
-            color.a = Mathf.Lerp(1, 0, time / fadeDuration);
+            color.a = Mathf.Lerp(maxAlpha, 0, time / delay);
             fadeImage.color = color;
-            time += Time.deltaTime;
+            time += Time.unscaledDeltaTime;
             yield return null;
         }
         color.a = 0;
         fadeImage.color = color;
         PlayerInputBlocker.Block(false);
+    }
+  
+    public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        StartCoroutine(FadeIn(Color.black, fadeDuration));
     }
     private void OnDestroy()
     {
