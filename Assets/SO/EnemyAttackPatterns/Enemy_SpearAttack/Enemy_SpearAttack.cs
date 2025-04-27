@@ -1,8 +1,8 @@
 using UnityEngine;
 using System.Collections;
 
-[CreateAssetMenu(menuName = "Enemy/AttackPattern/Enmey/Enmey_SwordSlash")]
-public class Enmey_SwordSlash : EnemyAttackPattern
+[CreateAssetMenu(menuName = "Enemy/AttackPattern/Enmey/Enemy_SpearAttack")]
+public class Enemy_SpearAttack : EnemyAttackPattern
 {
     public override IEnumerator Execute(Enemy enemy)
     {

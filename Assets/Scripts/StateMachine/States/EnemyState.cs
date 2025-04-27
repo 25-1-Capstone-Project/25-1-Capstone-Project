@@ -49,17 +49,13 @@ public class ChaseState : EnemyState, IFixedUpdateState, ILateUpdateState
 
     public override void Enter()
     {
-
+        enemy.GetAnimatorController().PlayChase();
     }
 
     public override void Update()
     {
-        enemy.GetAnimatorController().PlayChase();
-        // 플레이어가 가까우면 공격 상태로 전환
-        if (enemy.GetDirectionVec().magnitude < 1f)
-        {
-            enemy.StateMachine.ChangeState<AttackState>();
-        }
+        enemy.CheckAttackRange(); // 공격 범위 체크
+       
     }
 
     public void FixedUpdate()
@@ -90,8 +86,8 @@ public class AttackState : EnemyState
 
     public override void Enter()
     {
-            enemy.Attack();
-            enemy.StartCoroutine(WaitAttackCooldown());
+        enemy.Attack();
+        enemy.StartCoroutine(WaitAttackCooldown());
     }
 
     private IEnumerator WaitAttackCooldown()
@@ -146,7 +142,7 @@ public class DamagedState : EnemyState
     public IEnumerator DamagedRoutine()
     {
         enemy.KnockBack(1);
-        enemy.FlashOnDamage();
+        enemy.FlashSprite(Color.red, 0.5f);
         yield return new WaitForSeconds(0.5f);
 
         enemy.StateMachine.ChangeState<ChaseState>();

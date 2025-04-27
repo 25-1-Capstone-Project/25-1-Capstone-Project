@@ -2,9 +2,10 @@
 using System.Collections;
 using UnityEngine;
 
-public enum EEnemyType{
+public enum EEnemyType
+{
     NUll,
-    Sowrd,
+    Sword,
     Spear,
     Max
 }
@@ -17,8 +18,9 @@ public class EnemyData : ScriptableObject
     public int maxHealth;
     public float moveSpeed;
     public float attackSpeed;
+    public float attackRange;
     public int attackDamage;
 
 
- 
+
 }

@@ -50,7 +50,7 @@ public class PlayerScript : Singleton<PlayerScript>
 
     [Header("=====패링 옵션=====")]
     [SerializeField] bool canUseParry = true;
-    [SerializeField] GameObject parryEffectPrefab; // 패링 이펙트 프리팹
+    [SerializeField] GameObject parryEffectVFX; // 패링 이펙트 프리팹
     public float ParryCooldownRatio => parryCooldownTimer / stats.attackCooldownSec;
     private float parryCooldownTimer = 0f;
     Coroutine ParryRoutine;
@@ -333,14 +333,16 @@ public class PlayerScript : Singleton<PlayerScript>
     }
     public IEnumerator ParryEffect()
     {
-        GameObject effect = Instantiate(parryEffectPrefab, transform.position + (direction / 2), Quaternion.identity);
+        parryEffectVFX.transform.position = transform.position + (direction / 2);
+        parryEffectVFX.SetActive(true);
         AudioManager.Instance.PlaySFX("ParrySuccess");
 
         GameManager.Instance.SetTimeScale(0.5f);
         yield return FadeController.Instance.FadeOut(Color.white, 0.05f,0.01f);
         yield return FadeController.Instance.FadeIn(Color.white, 0.05f,0.01f);
        GameManager.Instance.SetTimeScale(1);
-        Destroy(effect, 0.5f);
+       yield return new WaitForSeconds(0.5f);
+        parryEffectVFX.SetActive(false);
     }
     //잠시 삭제 (쿨타임 하나로 묶어버림)
     // public void ParryFailed()

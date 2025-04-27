@@ -25,8 +25,8 @@ public class Enemy : MonoBehaviour
     public ParticleSystem GetAttackParticle() => attackParticle;
     public Vector2 GetDirectionVec() => PlayerScript.Instance.GetPlayerTransform().position - transform.position;
     public Vector2 GetDirectionNormalVec() => GetDirectionVec().normalized;
-    
-  
+
+
     #endregion
 
     public bool IsAttacking;
@@ -53,7 +53,7 @@ public class Enemy : MonoBehaviour
         isDead = true;
         StateMachine.ChangeState<DeadState>();
     }
- 
+
     private Rigidbody2D rb;
 
     // StateMachine Property
@@ -72,8 +72,11 @@ public class Enemy : MonoBehaviour
 
         switch (enemyData.eEnemyType)
         {
-            case EEnemyType.Sowrd:
+            case EEnemyType.Sword:
                 attackPattern = EnemyManager.Instance.commonEnemyAttackPatterns[0];
+                break;
+            case EEnemyType.Spear:
+                attackPattern = EnemyManager.Instance.commonEnemyAttackPatterns[1];
                 break;
         }
     }
@@ -92,7 +95,7 @@ public class Enemy : MonoBehaviour
         StateMachine.AddState(new ParryState(this));
         StateMachine.AddState(new DamagedState(this));
         StateMachine.AddState(new DeadState(this));
-        
+
         // Set initial state
         StateMachine.ChangeState<IdleState>();
     }
@@ -115,6 +118,14 @@ public class Enemy : MonoBehaviour
         enemySprite.flipX = rb.linearVelocityX == 0 ? enemySprite.flipX : rb.linearVelocityX > 0;
 
     }
+    public void CheckAttackRange()
+    {
+         // 플레이어가 가까우면 공격 상태로 전환
+        if (GetDirectionVec().magnitude < enemyData.attackRange)
+        {
+            StateMachine.ChangeState<AttackState>();
+        }
+    }
     public void Attack()
     {
         StartCoroutine(attackPattern.Execute(this));
@@ -123,7 +134,6 @@ public class Enemy : MonoBehaviour
     {
         if (isDead) return;
         StateMachine.ChangeState<DamagedState>();
-        FlashOnDamage();
         Health -= damage;
         Debug.Log("적 아야");
     }
@@ -132,35 +142,44 @@ public class Enemy : MonoBehaviour
         enemyAnimController.PlayKnockBack();
         rb.linearVelocity = -GetDirectionNormalVec() * knockBackForce;
     }
-   
-    public void FlashOnDamage()
+
+    public void FlashSprite(Color color, float duration)
     {
-        StartCoroutine(FlashRoutine());
+        StartCoroutine(FlashRoutine(color, duration));
     }
 
-    private IEnumerator FlashRoutine()
+    private IEnumerator FlashRoutine(Color color, float duration)
     {
-        enemySprite.color = hitColor;
-        yield return new WaitForSeconds(flashDuration);
+        enemySprite.color = color;
+        yield return new WaitForSeconds(duration);
         enemySprite.color = Color.white;
     }
 #if UNITY_EDITOR
-    private void OnDrawGizmosSelected()
+    private void OnDrawGizmos()
     {
-        if (!(attackPattern is Enmey_SwordSlash sword)) return;
+        switch (enemyData.eEnemyType)
+        {
+            case EEnemyType.Sword:
+                Gizmos.color = Color.blue;
+                Vector2 attackDir = GetDirectionNormalVec();
+                float attackAngle = Mathf.Atan2(attackDir.y, attackDir.x) * Mathf.Rad2Deg;
 
-        Vector2 attackDir = GetDirectionNormalVec();
-        float attackAngle = Mathf.Atan2(attackDir.y, attackDir.x) * Mathf.Rad2Deg;
+                Vector2 boxCenter = (Vector2)transform.position + attackDir * 0.5f;
+                Vector2 boxSize = new Vector2(1f, 1f); // 혹은 sword.range 등에서 계산
 
-        Vector2 boxCenter = (Vector2)transform.position + attackDir * 0.5f;
-        Vector2 boxSize = new Vector2(1f, 1f); // 혹은 sword.range 등에서 계산
+                Gizmos.color = Color.red;
 
-        Gizmos.color = Color.red;
+                // 회전 매트릭스로 회전 적용
+                Matrix4x4 rot = Matrix4x4.TRS(boxCenter, Quaternion.Euler(0, 0, attackAngle), Vector3.one);
+                Gizmos.matrix = rot;
+                Gizmos.DrawWireCube(Vector2.zero, new Vector2(boxSize.x, boxSize.y));
 
-        // 회전 매트릭스로 회전 적용
-        Matrix4x4 rot = Matrix4x4.TRS(boxCenter, Quaternion.Euler(0, 0, attackAngle), Vector3.one);
-        Gizmos.matrix = rot;
-        Gizmos.DrawWireCube(Vector3.zero, boxSize);
+                break;
+            case EEnemyType.Spear:
+            
+            
+                break;
+        }
 
 
     }

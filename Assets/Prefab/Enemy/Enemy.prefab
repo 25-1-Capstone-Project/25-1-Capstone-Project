@@ -5145,7 +5145,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.5
+  m_Radius: 0.29
 --- !u!114 &7631478283850709374
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5166,6 +5166,7 @@ MonoBehaviour:
   attackParticleTransform: {fileID: 3053135295925599640}
   hitColor: {r: 1, g: 0, b: 0, a: 1}
   flashDuration: 0.1
+  IsAttacking: 0
 --- !u!212 &1271979707003504873
 SpriteRenderer:
   m_ObjectHideFlags: 0

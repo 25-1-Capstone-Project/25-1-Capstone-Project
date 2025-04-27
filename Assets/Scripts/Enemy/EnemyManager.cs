@@ -15,8 +15,6 @@ public class EnemyManager : Singleton<EnemyManager>
     }
 
 
-
-
     void Start()
     {
         StartCoroutine(SpawnRoutine());
