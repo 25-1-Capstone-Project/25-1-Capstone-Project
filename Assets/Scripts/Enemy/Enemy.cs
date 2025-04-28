@@ -118,13 +118,13 @@ public class Enemy : MonoBehaviour
         enemySprite.flipX = rb.linearVelocityX == 0 ? enemySprite.flipX : rb.linearVelocityX > 0;
 
     }
-    public void CheckAttackRange()
+    public bool CheckAttackRange()
     {
          // 플레이어가 가까우면 공격 상태로 전환
-        if (GetDirectionVec().magnitude < enemyData.attackRange)
-        {
-            StateMachine.ChangeState<AttackState>();
-        }
+        if (GetDirectionVec().magnitude < enemyData.attackRange) 
+            return true;
+        else 
+            return false;
     }
     public void Attack()
     {

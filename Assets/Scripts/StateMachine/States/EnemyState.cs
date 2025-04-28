@@ -54,13 +54,14 @@ public class ChaseState : EnemyState, IFixedUpdateState, ILateUpdateState
 
     public override void Update()
     {
-        enemy.CheckAttackRange(); // 공격 범위 체크
+        if(enemy.CheckAttackRange())
+        enemy.StateMachine.ChangeState<AttackState>(); // 공격 범위 체크
        
     }
 
     public void FixedUpdate()
     {
-        if (enemy.GetDirectionVec().magnitude < 1f)
+        if (enemy.CheckAttackRange())
             return;
 
         Vector2 direction = enemy.GetDirectionNormalVec();
