@@ -10,7 +10,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] EnemyAnimatorController enemyAnimController;
     [SerializeField] EnemyAttackPattern attackPattern;
     [SerializeField] ParticleSystem attackParticle;
-    [SerializeField] Transform attackParticleTransform;
+   
     [SerializeField] private Color hitColor = Color.red;
     [SerializeField] private float flashDuration = 0.1f;
 
@@ -21,8 +21,7 @@ public class Enemy : MonoBehaviour
     public float GetSpeed() => speed;
     public EnemyAnimatorController GetAnimatorController() => enemyAnimController;
     public Transform GetPlayer() => PlayerScript.Instance.GetPlayerTransform();
-    public Transform GetAttackParticleT() => attackParticleTransform;
-    public ParticleSystem GetAttackParticle() => attackParticle;
+
     public Vector2 GetDirectionVec() => PlayerScript.Instance.GetPlayerTransform().position - transform.position;
     public Vector2 GetDirectionNormalVec() => GetDirectionVec().normalized;
 

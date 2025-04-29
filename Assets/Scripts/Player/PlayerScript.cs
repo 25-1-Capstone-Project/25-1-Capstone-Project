@@ -28,6 +28,7 @@ public class PlayerScript : Singleton<PlayerScript>
     bool isDead = false;
     bool isAttacking = false;
     bool isDashing = false;
+    bool isParrySuccess = false;
 
     [Header("=====체력=====")]
     int health;
@@ -50,7 +51,6 @@ public class PlayerScript : Singleton<PlayerScript>
 
     [Header("=====패링 옵션=====")]
     [SerializeField] bool canUseParry = true;
-    [SerializeField] GameObject parryEffectVFX; // 패링 이펙트 프리팹
     public float ParryCooldownRatio => parryCooldownTimer / stats.attackCooldownSec;
     private float parryCooldownTimer = 0f;
     Coroutine ParryRoutine;
@@ -250,7 +250,7 @@ public class PlayerScript : Singleton<PlayerScript>
         playerAnim.PlayAttack();
 
         yield return new WaitForSeconds(0.2f);
-        attackSlashParticle.Play();
+        ObjectPooler.Instance.SpawnFromPool("AttackSlashParticle", arrow.transform.position, arrow.transform.rotation);
         Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, stats.attackRange, LayerMask.GetMask("Enemy"));
 
         foreach (var hit in hits)
@@ -294,7 +294,7 @@ public class PlayerScript : Singleton<PlayerScript>
     {
         if (!canUseParry || isDead || isAttacking || isDashing)
             return;
-        
+
         playerAnim.PlayParry();
         FlashParry();
         ParryRoutine = StartCoroutine(Parry());
@@ -323,26 +323,28 @@ public class PlayerScript : Singleton<PlayerScript>
         {
             ParryStack++;
         }
-      
+
         isParrying = false;
         canUseParry = true;
         enemy.StateMachine.ChangeState<ParryState>();
         StartCoroutine(ParryEffect());
-        
+
 
     }
     public IEnumerator ParryEffect()
     {
-        parryEffectVFX.transform.position = transform.position + (direction / 2);
-        parryEffectVFX.SetActive(true);
-        AudioManager.Instance.PlaySFX("ParrySuccess");
 
+        ObjectPooler.Instance.SpawnFromPool("ParryEffect", transform.position + (direction / 2), Quaternion.identity);
+        AudioManager.Instance.PlaySFX("ParrySuccess");
+        isParrySuccess = true;
         GameManager.Instance.SetTimeScale(0.5f);
-        yield return FadeController.Instance.FadeOut(Color.white, 0.05f,0.01f);
-        yield return FadeController.Instance.FadeIn(Color.white, 0.05f,0.01f);
-       GameManager.Instance.SetTimeScale(1);
-       yield return new WaitForSeconds(0.5f);
-        parryEffectVFX.SetActive(false);
+        yield return FadeController.Instance.FadeOut(Color.white, 0.05f, 0.01f);
+        yield return FadeController.Instance.FadeIn(Color.white, 0.05f, 0.01f);
+        GameManager.Instance.SetTimeScale(1);
+
+        yield return new WaitForSeconds(0.5f);
+            isParrySuccess = false;
+
     }
     //잠시 삭제 (쿨타임 하나로 묶어버림)
     // public void ParryFailed()
@@ -363,6 +365,9 @@ public class PlayerScript : Singleton<PlayerScript>
     // 대미지 처리 함수. 적 스크립트에서 플레이어와 적 충돌 발생 시 호출
     public void TakeDamage(int damage, Vector2 enemyDir, Enemy enemy)
     {
+        if (isDead) return;
+        if (isParrySuccess) return;
+
         if (isParrying)
         {
             float parryDot = Vector2.Dot(direction, -enemyDir);
@@ -474,7 +479,7 @@ public class PlayerScript : Singleton<PlayerScript>
 
         for (int i = 0; i < spriteRenderers.Length; i++)
         {
-            spriteRenderers[i].color =  Color.white;
+            spriteRenderers[i].color = Color.white;
         }
     }
     public void FlashParry()
@@ -482,7 +487,7 @@ public class PlayerScript : Singleton<PlayerScript>
         StartCoroutine(FlashRoutine(Color.blue));
     }
 
-   
+
     #endregion
 
 }

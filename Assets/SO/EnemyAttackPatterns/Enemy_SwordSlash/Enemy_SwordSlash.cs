@@ -12,10 +12,7 @@ public class Enemy_SwordSlash : EnemyAttackPattern
         float angle = Mathf.Atan2(attackDir.y, attackDir.x) * Mathf.Rad2Deg;
         enemy.FlashSprite(Color.blue, delay);
         yield return new WaitForSeconds(delay);
-
-        Transform particleTransform = enemy.GetAttackParticleT();
-        particleTransform.rotation = Quaternion.Euler(0f, 0f, angle);
-        enemy.GetAttackParticle().Play();
+        ObjectPooler.Instance.SpawnFromPool("AttackSlashParticle", enemy.transform.position, Quaternion.Euler(0f, 0f, angle));
         Vector2 boxCenter = (Vector2)enemy.transform.position + attackDir * 0.5f;
         Vector2 boxSize = new Vector2(1f, 1f);
 

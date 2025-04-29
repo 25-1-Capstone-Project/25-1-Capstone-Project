@@ -13,10 +13,7 @@ public class Enemy_SpearAttack : EnemyAttackPattern
 
         yield return new WaitForSeconds(delay);
 
-        Transform particleTransform = enemy.GetAttackParticleT();
-        particleTransform.rotation = Quaternion.Euler(0f, 0f, angle);
 
-        enemy.GetAttackParticle().Play();
         Vector2 boxCenter = (Vector2)enemy.transform.position + attackDir * 0.5f;
         Vector2 boxSize = new Vector2(1f, 1f);
 
@@ -32,6 +29,9 @@ public class Enemy_SpearAttack : EnemyAttackPattern
         enemy.IsAttacking = false;
     }
 
+    private void OnDrawGizmos() {
+        
+    }
 
 
 }
