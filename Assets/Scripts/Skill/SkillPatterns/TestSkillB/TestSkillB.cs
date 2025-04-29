@@ -1,36 +1,50 @@
-// using UnityEngine;
-// using System.Collections;
+// 2025.04.29 ¾È¿¹¼±
+// ½ºÅ³B(°­Å¸!)¸¦ °ü¸®ÇÏ´Â ½ºÅ©¸³Æ®ÀÔ´Ï´Ù. (½ºÅ³ ¼³¸í: Àü¹æ ºÎÃ¤²Ã n¢ª°¢µµ·Î ¼¼°Ô °ø°Ý / ÇÃ·¹ÀÌ¾î ÁÖÀ§¸¦ ¼¼°Ô °ø°Ý)
+// »ç¿ë ½Ã ÇöÀç »óÅÂ¿¡ ¸Â´Â ÇÔ¼ö°¡ È£ÃâµÇ¾î(Common/Ultimate) Àû ´ë¹ÌÁö ÆÇÁ¤À» Ã³¸®ÇÕ´Ï´Ù.
+//
+using UnityEngine;
+using System.Collections;
 
-// [CreateAssetMenu(menuName = "Player/Skill/SkillB")]
-// public class TestSkillB : SkillPattern
-// {
-//     [SerializeField] private int damage = 10;
-//     [SerializeField] private int requiredParryStack = 2;
-//     [SerializeField] private float attackRadius = 2f;
+[CreateAssetMenu(menuName = "Player/Skill/SkillB")]
+public class TestSkillB : SkillPattern
+{
+    [SerializeField] float attackRange;
+    [SerializeField] float attackAngle;
+    [SerializeField] float attackVFX;
 
-//     public override IEnumerator Act(Player player)
-//     {
-//         if (player.ParryStack < requiredParryStack)
-//         {
-//             Debug.Log("ï¿½Ð¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
-//             yield break;
-//         }
+    public override IEnumerator CommonSkill(PlayerScript player)
+    {
+        Collider2D[] hits = Physics2D.OverlapCircleAll(player.transform.position, attackRange, LayerMask.GetMask("Enemy"));
 
-//         player.ParryStack -= requiredParryStack;
+        foreach (var hit in hits)
+        {
+            if (hit != null)
+            {
+                Vector2 toTarget = (hit.transform.position - player.transform.position).normalized;
+                float angle = Vector2.Angle(player.Direction, toTarget);
 
+                if (angle <= attackAngle / 2f)
+                {
+                    hit.GetComponent<Enemy>()?.TakeDamage(damage);
+                }
+            }
+        }
 
-//         Collider2D[] hitObjects = Physics2D.OverlapCircleAll(player.transform.position, attackRadius);
-//         foreach (Collider2D obj in hitObjects)
-//         {
-//             if (obj.CompareTag("Enemy"))
-//             {
-//                 // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½...
-//                 Debug.Log("ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½Å³B)");
-//             }
-//         }
+        yield return null;
+    }
 
-//         Debug.Log($"ï¿½ï¿½Å³B / ï¿½ï¿½ï¿½ï¿½ï¿½: {damage}, ï¿½ï¿½ï¿½ï¿½ ï¿½Ð¸ï¿½ ï¿½ï¿½ï¿½ï¿½: {player.ParryStack}");
+    public override IEnumerator UltimateSkill(PlayerScript player)
+    {
+        Collider2D[] hits = Physics2D.OverlapCircleAll(player.transform.position, attackRange, LayerMask.GetMask("Enemy"));
 
-//         yield return null;
-//     }
-// }
+        foreach (var hit in hits)
+        {
+            if (hit != null)
+            {
+                hit.GetComponent<Enemy>().TakeDamage(damage + 10);
+            }
+        }
+
+        yield return null;
+    }
+}

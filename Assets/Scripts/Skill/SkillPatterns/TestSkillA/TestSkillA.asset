@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: TestSkillA
   m_EditorClassIdentifier: 
   skillType: -1
-  fireballSpeed: 10
   damage: 5
   commonCost: 1
   ultimateCost: 3
+  skillIcon: {fileID: 21300000, guid: 3af538eca28a03b40b0fe89d25dc4c46, type: 3}
   fireballPrefab: {fileID: 6986725825239899581, guid: 987176123172fe14488869561d516ccf, type: 3}
+  fireballSpeed: 10

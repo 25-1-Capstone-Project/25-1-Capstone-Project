@@ -10,10 +10,11 @@ public enum SkillType
 public abstract class SkillPattern : ScriptableObject
 {
     public SkillType skillType = SkillType.Common;
-    public float fireballSpeed = 0;
     public int damage = 0;
     public int commonCost = 0;
     public int ultimateCost = 0;
+    public Sprite skillIcon;
+    
     public SkillType ParryStackCheck()
     {
         if (PlayerScript.Instance.ParryStack >= ultimateCost)

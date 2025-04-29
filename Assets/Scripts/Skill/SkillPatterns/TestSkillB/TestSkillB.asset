@@ -12,6 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c84b620b2b5ec0e40bddf0299e77f193, type: 3}
   m_Name: TestSkillB
   m_EditorClassIdentifier: 
+  skillType: 0
   damage: 10
-  requiredParryStack: 2
-  attackRadius: 2
+  commonCost: 1
+  ultimateCost: 2
+  skillIcon: {fileID: 21300000, guid: 88d325a2ad48da54abede7be8a7eff05, type: 3}
+  attackRange: 3
+  attackAngle: 45
+  attackVFX: 0
