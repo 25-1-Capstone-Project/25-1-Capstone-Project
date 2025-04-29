@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [System.Serializable]
-public class PlayerStats
+public class PlayerStatsData
 {
     public float hp;                             // 현재 체력
     public float atk;                            // 공격력
