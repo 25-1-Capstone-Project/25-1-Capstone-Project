@@ -54,9 +54,9 @@ public class ChaseState : EnemyState, IFixedUpdateState, ILateUpdateState
 
     public override void Update()
     {
-        if(enemy.CheckAttackRange())
-        enemy.StateMachine.ChangeState<AttackState>(); // 공격 범위 체크
-       
+        if (enemy.CheckAttackRange())
+            enemy.StateMachine.ChangeState<AttackState>(); // 공격 범위 체크
+
     }
 
     public void FixedUpdate()
@@ -83,31 +83,40 @@ public class ChaseState : EnemyState, IFixedUpdateState, ILateUpdateState
 // 공격 상태
 public class AttackState : EnemyState
 {
+    private Coroutine attackRoutine;
+
     public AttackState(Enemy enemy) : base(enemy) { }
 
     public override void Enter()
     {
-        enemy.Attack();
-        enemy.StartCoroutine(WaitAttackCooldown());
+        enemy.IsAttacking = true;
+        attackRoutine = enemy.StartCoroutine(AttackSequence());
     }
-
-    private IEnumerator WaitAttackCooldown()
+    public override void Update(){}
+    
+    public override void Exit()
     {
-        yield return new WaitForSeconds(enemy.GetAttackPattern().cooldown); // 정확히 기다리고
-        if (enemy.GetDirectionVec().magnitude < 1f)
+        if (attackRoutine != null)
         {
-            enemy.StateMachine.ChangeState<AttackState>();
-        }
-        else
-        {
-            enemy.StateMachine.ChangeState<ChaseState>();
+            enemy.StopCoroutine(attackRoutine);
+            attackRoutine = null;
         }
 
+        enemy.IsAttacking = false;
+        enemy.ClearAttackEffect(); // 예고선 정리 등
     }
 
-    public override void Update() { }
-    public override void Exit() { }
+    private IEnumerator AttackSequence()
+    {
+        yield return enemy.GetAttackPattern().Execute(enemy);
+
+        if (enemy.CheckAttackRange())
+            enemy.StateMachine.ChangeState<AttackState>();
+        else
+            enemy.StateMachine.ChangeState<ChaseState>();
+    }
 }
+
 public class ParryState : EnemyState
 {
     WaitForSeconds KnockBackDelaySec = new WaitForSeconds(0.5f);
@@ -116,6 +125,7 @@ public class ParryState : EnemyState
 
     public override void Enter()
     {
+        enemy.StopAllCoroutines();
         enemy.StartCoroutine(KnockBack());
     }
     public IEnumerator KnockBack()

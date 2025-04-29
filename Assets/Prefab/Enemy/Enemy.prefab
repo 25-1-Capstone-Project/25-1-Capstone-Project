@@ -5126,7 +5126,7 @@ CircleCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -5158,13 +5158,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d84031b5247769488d60dac111cc2ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyData: {fileID: 11400000, guid: d46b03d0aca470544a744d50695fc672, type: 2}
+  enemyData: {fileID: 11400000, guid: fe069fc829c907f4c8345e0939402a0d, type: 2}
   enemySprite: {fileID: 6823296138178529082}
   enemyAnimController: {fileID: 1213534254612820977}
   attackPattern: {fileID: 0}
   attackParticle: {fileID: 3584909397277161193}
-  attackParticleTransform: {fileID: 3053135295925599640}
-  hitColor: {r: 1, g: 0, b: 0, a: 1}
   flashDuration: 0.1
   IsAttacking: 0
 --- !u!212 &1271979707003504873

@@ -10,24 +10,11 @@ public class Enemy : MonoBehaviour
     [SerializeField] EnemyAnimatorController enemyAnimController;
     [SerializeField] EnemyAttackPattern attackPattern;
     [SerializeField] ParticleSystem attackParticle;
-   
-    [SerializeField] private Color hitColor = Color.red;
+    private Rigidbody2D rb;
+
+    // StateMachine Property
+    public StateMachine<EnemyState> StateMachine { get; private set; }
     [SerializeField] private float flashDuration = 0.1f;
-
-    #region GetFunction
-    public EnemyAttackPattern GetAttackPattern() => attackPattern;
-    public int GetDamage() => enemyData.attackDamage;
-    public Rigidbody2D GetRigidbody() => rb;
-    public float GetSpeed() => speed;
-    public EnemyAnimatorController GetAnimatorController() => enemyAnimController;
-    public Transform GetPlayer() => PlayerScript.Instance.GetPlayerTransform();
-
-    public Vector2 GetDirectionVec() => PlayerScript.Instance.GetPlayerTransform().position - transform.position;
-    public Vector2 GetDirectionNormalVec() => GetDirectionVec().normalized;
-
-
-    #endregion
-
     public bool IsAttacking;
     private bool isDead;
     private float speed;
@@ -53,36 +40,44 @@ public class Enemy : MonoBehaviour
         StateMachine.ChangeState<DeadState>();
     }
 
-    private Rigidbody2D rb;
-
-    // StateMachine Property
-    public StateMachine<EnemyState> StateMachine { get; private set; }
-
-    void Start()
+    #region 적 공격 예고선
+    public LineRenderer CurrentSpearIndicator { get; set; }
+    public void ClearAttackEffect()
     {
-        SetComponents();
-        EnemyInit();
-        SetStateMachine();
+        if (CurrentSpearIndicator != null)
+        {
+            CurrentSpearIndicator.gameObject.SetActive(false);
+            CurrentSpearIndicator = null;
+        }
     }
+    #endregion
+
+    #region GetFunction
+    public EnemyAttackPattern GetAttackPattern() => attackPattern;
+    public int GetDamage() => enemyData.attackDamage;
+    public Rigidbody2D GetRigidbody() => rb;
+    public float GetSpeed() => speed;
+    public EnemyAnimatorController GetAnimatorController() => enemyAnimController;
+    public Transform GetPlayer() => PlayerScript.Instance.GetPlayerTransform();
+
+    public Vector2 GetDirectionVec() => PlayerScript.Instance.GetPlayerTransform().position - transform.position;
+    public Vector2 GetDirectionNormalVec() => GetDirectionVec().normalized;
+
+
+    #endregion
+
+    #region Initialize
     void EnemyInit()
     {
+
+        attackPattern = enemyData.attackPattern;
+        enemyAnimController.SetAnimator(enemyData.animator);
         speed = enemyData.moveSpeed;
         health = enemyData.maxHealth;
-
-        switch (enemyData.eEnemyType)
-        {
-            case EEnemyType.Sword:
-                attackPattern = EnemyManager.Instance.commonEnemyAttackPatterns[0];
-                break;
-            case EEnemyType.Spear:
-                attackPattern = EnemyManager.Instance.commonEnemyAttackPatterns[1];
-                break;
-        }
     }
     void SetComponents()
     {
         rb = GetComponent<Rigidbody2D>();
-
     }
     private void SetStateMachine()
     {
@@ -98,6 +93,15 @@ public class Enemy : MonoBehaviour
         // Set initial state
         StateMachine.ChangeState<IdleState>();
     }
+    #endregion
+
+    #region Unity LifeCycle
+    void Start()
+    {
+        SetComponents();
+        EnemyInit();
+        SetStateMachine();
+    }
 
     void Update()
     {
@@ -111,6 +115,8 @@ public class Enemy : MonoBehaviour
     {
         StateMachine.FixedUpdate();
     }
+    #endregion
+
 
     public void SpriteFlip()
     {
@@ -119,10 +125,10 @@ public class Enemy : MonoBehaviour
     }
     public bool CheckAttackRange()
     {
-         // 플레이어가 가까우면 공격 상태로 전환
-        if (GetDirectionVec().magnitude < enemyData.attackRange) 
+        // 플레이어가 가까우면 공격 상태로 전환
+        if (GetDirectionVec().magnitude < enemyData.attackRange)
             return true;
-        else 
+        else
             return false;
     }
     public void Attack()
@@ -174,10 +180,7 @@ public class Enemy : MonoBehaviour
                 Gizmos.DrawWireCube(Vector2.zero, new Vector2(boxSize.x, boxSize.y));
 
                 break;
-            case EEnemyType.Spear:
-            
-            
-                break;
+
         }
 
 

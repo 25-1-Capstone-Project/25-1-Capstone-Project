@@ -241,6 +241,7 @@ MonoBehaviour:
   enemyPrefab: {fileID: 6562499921600132831, guid: 67445b1cd71ab5d46b053e38f592af3c, type: 3}
   commonEnemyAttackPatterns:
   - {fileID: 11400000, guid: e046c09cf101f054c834b068de4af735, type: 2}
+  - {fileID: 11400000, guid: 88202967312e349458158c3961c05dad, type: 2}
 --- !u!1 &7070216437517767325
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,6 +9,10 @@ public class EnemyAnimatorController : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
+    public void SetAnimator(RuntimeAnimatorController animator)
+    { 
+        this.animator.runtimeAnimatorController = animator;
+    }
     public void PlayIdle()
     {
         SetTrigger("Idle");

@@ -48,3 +48,9 @@ MonoBehaviour:
   - tag: ParryEffect
     prefab: {fileID: 1429954232896169633, guid: bbba54ffba7275549a405d1c513419b3, type: 3}
     size: 0
+  - tag: AttackSlashParticle
+    prefab: {fileID: 1662842244217693460, guid: 2a20153a327efc241a6254d115656abd, type: 3}
+    size: 0
+  - tag: AttackSpearEffect
+    prefab: {fileID: 7384867683205151564, guid: 58ffa022f47032846bbd05b75d1831e1, type: 3}
+    size: 0

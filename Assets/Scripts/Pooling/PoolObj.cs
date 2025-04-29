@@ -5,6 +5,6 @@ public class PoolObj : MonoBehaviour
 {
     void OnDisable()
     {
-        ObjectPooler.Instance.ReturnToPool(gameObject);
+        EffectPooler.Instance.ReturnToPool(gameObject);
     }
 }

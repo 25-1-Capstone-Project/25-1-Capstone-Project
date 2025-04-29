@@ -1,6 +1,6 @@
-// 2025.04.29 ¾È¿¹¼±
-// ½ºÅ³A(ÆÄÀÌ¾îº¼)¸¦ °ü¸®ÇÏ´Â ½ºÅ©¸³Æ®ÀÔ´Ï´Ù. (½ºÅ³ ¼³¸í: Àü¹æÀ¸·Î ÆÄÀÌ¾îº¼ ¹ß»ç / Àü¹æ 3¹æÇâÀ¸·Î °¢°¢ ÆÄÀÌ¾îº¼ ¹ß»ç)
-// »ç¿ë ½Ã ÇöÀç »óÅÂ¿¡ ¸Â´Â ÇÔ¼ö°¡ È£ÃâµÇ¾î(Common/Ultimate) ÆÄÀÌ¾îº¼ ÇÁ¸®ÆÕÀÇ »ý¼º, µ¿ÀÛÀ» Ã³¸®ÇÕ´Ï´Ù
+// 2025.04.29 ï¿½È¿ï¿½ï¿½ï¿½
+// ï¿½ï¿½Å³A(ï¿½ï¿½ï¿½Ì¾îº¼)ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½Å©ï¿½ï¿½Æ®ï¿½Ô´Ï´ï¿½. (ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¾îº¼ ï¿½ß»ï¿½ / ï¿½ï¿½ï¿½ï¿½ 3ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¾îº¼ ï¿½ß»ï¿½)
+// ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â¿ï¿½ ï¿½Â´ï¿½ ï¿½Ô¼ï¿½ï¿½ï¿½ È£ï¿½ï¿½Ç¾ï¿½(Common/Ultimate) ï¿½ï¿½ï¿½Ì¾îº¼ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½Õ´Ï´ï¿½
 //
 
 using UnityEngine;
@@ -12,27 +12,27 @@ public class TestSkillA : SkillPattern
     [SerializeField] private GameObject fireballPrefab;
     [SerializeField] private float fireballSpeed;
 
-    // ³À´Ù Â®´Âµ¥... Instantiate-Destroy¹æ½Ä ³ªÁß¿¡ »ý°¢ Á» ÇØº¸ÀÚ
-    public override IEnumerator CommonSkill(PlayerScript player){
+    // ï¿½ï¿½ï¿½ï¿½ Â®ï¿½Âµï¿½... Instantiate-Destroyï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ß¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Øºï¿½ï¿½ï¿½
+    public override IEnumerator CommonSkill(PlayerScript player)
+    {
 
-        GameObject fireball = Instantiate(fireballPrefab, player.transform.position, Quaternion.identity,SkillManager.Instance.skillObjectsParent);
+        GameObject fireball = Instantiate(fireballPrefab, player.transform.position, Quaternion.identity, SkillManager.Instance.skillObjectsParent);
         fireball.GetComponent<Rigidbody2D>().linearVelocity = player.Direction * fireballSpeed;
-        
+
         yield return null;
     }
 
     public override IEnumerator UltimateSkill(PlayerScript player)
-    { 
+    {
         //player.ParryStack = 0;
-        for (int i = 0; i < 3; i++)
-        {
-            Debug.Log("Ultimate Skill Activated!");
-            SpawnFireball(Quaternion.Euler(0, 0, 30f) * player.Direction, player);
-            SpawnFireball(Quaternion.Euler(0, 0, -30f) * player.Direction, player);
-            SpawnFireball(player.Direction, player);
 
-            yield return 0.1f;
-        }
+
+        Debug.Log("Ultimate Skill Activated!");
+        SpawnFireball(Quaternion.Euler(0, 0, 30f) * player.Direction, player);
+        SpawnFireball(Quaternion.Euler(0, 0, -30f) * player.Direction, player);
+        SpawnFireball(player.Direction, player);
+
+
         yield return null;
     }
 

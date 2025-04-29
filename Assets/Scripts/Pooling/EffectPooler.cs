@@ -9,7 +9,7 @@ using System;
 /// OnDisable()=> ObjectPooler.Instance.ReturnToPool(gameObject) 를 호출하여 풀링된 오브젝트를 반환합니다.
 /// effect의 경우 파티클 시스템에서 StopAction Disable 설정
 /// </summary>
-public class ObjectPooler : Singleton<ObjectPooler>
+public class EffectPooler : Singleton<EffectPooler>
 {
     protected override void Awake() => base.Awake();
 
@@ -25,7 +25,7 @@ public class ObjectPooler : Singleton<ObjectPooler>
     Dictionary<string, Queue<GameObject>> poolDictionary;
 
 
-    public GameObject SpawnFromPool(string tag, Vector3 position, Quaternion rotation = default) =>
+    public GameObject SpawnFromPool(string tag, Vector3 position = default, Quaternion rotation = default) =>
         _SpawnFromPool(tag, position, rotation);
 
 
@@ -35,6 +35,19 @@ public class ObjectPooler : Singleton<ObjectPooler>
             throw new Exception($"Pool with tag {tag} doesn't exist.");
 
         return spawnObjects.FindAll(x => x.name == tag);
+    }
+
+  
+    public T SpawnFromPool<T>(string tag, Vector3 position = default, Quaternion rotation = default) where T : Component
+    {
+        GameObject obj = _SpawnFromPool(tag, position, rotation);
+        if (obj.TryGetComponent(out T component))
+            return component;
+        else
+        {
+            obj.SetActive(false);
+            throw new Exception($"Component not found");
+        }
     }
     public List<T> GetAllPools<T>(string tag) where T : Component
     {
@@ -121,29 +134,7 @@ public class ObjectPooler : Singleton<ObjectPooler>
         }
     }
 
-    //제네럴 타입 나중에 필요할까?
-    // public T SpawnFromPool<T>(string tag, Vector3 position) where T : Component
-    // {
-    //     GameObject obj = _SpawnFromPool(tag, position, Quaternion.identity);
-    //     if (obj.TryGetComponent(out T component))
-    //         return component;
-    //     else
-    //     {
-    //         obj.SetActive(false);
-    //         throw new Exception($"Component not found");
-    //     }
-    // }
-    // public T SpawnFromPool<T>(string tag, Vector3 position, Quaternion rotation) where T : Component
-    // {
-    //     GameObject obj = _SpawnFromPool(tag, position, rotation);
-    //     if (obj.TryGetComponent(out T component))
-    //         return component;
-    //     else
-    //     {
-    //         obj.SetActive(false);
-    //         throw new Exception($"Component not found");
-    //     }
-    // }
+
 
     [ContextMenu("GetSpawnObjectsInfo")]
     void GetSpawnObjectsInfo()

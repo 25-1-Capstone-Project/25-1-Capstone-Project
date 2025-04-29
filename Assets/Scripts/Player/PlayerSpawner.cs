@@ -1,13 +1,18 @@
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 /// <summary>
 /// 씬 전환 시 플레이어의 스폰 포인트를 관리하는 스크립트입니다.
 /// 씬 전환 시 PlayerSpawnPoint와 ID를 맞춰야 합니다.
 /// 
 /// </summary>
-public class PlayerSpawnManager : MonoBehaviour
+public class PlayerSpawnManager : Singleton<PlayerSpawnManager>
 {
-    void Start()
+    protected override void Awake()
+    {
+        base.Awake();
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+    void PlayerSpawn()
     {
         if (SceneTransitionCarrier.Instance == null) return;
 
@@ -25,4 +30,13 @@ public class PlayerSpawnManager : MonoBehaviour
             }
         }
     }
+    public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        PlayerSpawn();
+    }
+    private void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
 }

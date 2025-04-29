@@ -28,7 +28,7 @@ public class PlayerScript : Singleton<PlayerScript>
     bool isDead = false;
     bool isAttacking = false;
     bool isDashing = false;
-    bool isParrySuccess = false;
+    bool isGod = false; // 무적 상태
 
     [Header("=====체력=====")]
     int health;
@@ -250,7 +250,7 @@ public class PlayerScript : Singleton<PlayerScript>
         playerAnim.PlayAttack();
 
         yield return new WaitForSeconds(0.2f);
-        ObjectPooler.Instance.SpawnFromPool("AttackSlashParticle", arrow.transform.position, arrow.transform.rotation);
+        EffectPooler.Instance.SpawnFromPool("AttackSlashParticle", arrow.transform.position, arrow.transform.rotation);
         Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, stats.attackRange, LayerMask.GetMask("Enemy"));
 
         foreach (var hit in hits)
@@ -334,16 +334,16 @@ public class PlayerScript : Singleton<PlayerScript>
     public IEnumerator ParryEffect()
     {
 
-        ObjectPooler.Instance.SpawnFromPool("ParryEffect", transform.position + (direction / 2), Quaternion.identity);
+        EffectPooler.Instance.SpawnFromPool("ParryEffect", transform.position + (direction / 2), Quaternion.identity);
         AudioManager.Instance.PlaySFX("ParrySuccess");
-        isParrySuccess = true;
+        isGod = true;
         GameManager.Instance.SetTimeScale(0.5f);
         yield return FadeController.Instance.FadeOut(Color.white, 0.05f, 0.01f);
         yield return FadeController.Instance.FadeIn(Color.white, 0.05f, 0.01f);
         GameManager.Instance.SetTimeScale(1);
 
         yield return new WaitForSeconds(0.5f);
-            isParrySuccess = false;
+            isGod = false;
 
     }
     //잠시 삭제 (쿨타임 하나로 묶어버림)
@@ -366,7 +366,7 @@ public class PlayerScript : Singleton<PlayerScript>
     public void TakeDamage(int damage, Vector2 enemyDir, Enemy enemy)
     {
         if (isDead) return;
-        if (isParrySuccess) return;
+        if (isGod) return;
 
         if (isParrying)
         {
@@ -386,11 +386,13 @@ public class PlayerScript : Singleton<PlayerScript>
     }
     public IEnumerator DamagedRoutine(int damage)
     {
+        isGod = true;
         playerAnim.PlayKnockBack();
         FlashOnDamage();
         Debug.Log("아야!");
         Health -= damage;
-        yield return null;
+        yield return new WaitForSeconds(1f);
+        isGod = false;
     }
     #endregion
 
