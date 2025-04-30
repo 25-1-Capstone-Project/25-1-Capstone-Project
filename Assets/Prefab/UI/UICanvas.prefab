@@ -824,7 +824,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &8616144996568199728
 RectTransform:
   m_ObjectHideFlags: 0
@@ -876,7 +876,7 @@ MonoBehaviour:
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
-  m_FillMethod: 1
+  m_FillMethod: 4
   m_FillAmount: 0
   m_FillClockwise: 1
   m_FillOrigin: 0
@@ -1129,6 +1129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillIconUI: {fileID: 3384380816604367545}
+  cooldownOverlay: {fileID: 4285628693875186874}
 --- !u!1 &5830722480617824567
 GameObject:
   m_ObjectHideFlags: 0

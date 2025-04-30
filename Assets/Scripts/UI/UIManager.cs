@@ -16,7 +16,7 @@ public class UIManager : Singleton<UIManager>
     private void LateUpdate()
     {
         //playerStatUI.UI_ParryCooldownUpdate();
-       // playerStatUI.UI_ParryStackUpdate();
+        //playerStatUI.UI_ParryStackUpdate();
         playerStatUI.UI_HPBarUpdate();
     }
 

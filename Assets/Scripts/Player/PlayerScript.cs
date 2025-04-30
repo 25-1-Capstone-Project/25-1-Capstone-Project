@@ -147,6 +147,25 @@ public class PlayerScript : Singleton<PlayerScript>
         // 체력 UI 테스트
 
     }
+
+    void Update()
+    {
+        // 스킬 UI관련
+        // 땜질한 것들 메워서 조건 걸 필요ㅇ
+        if (currentSkill == null) return;
+        if (!currentSkill.IsCooldownReady())
+        {
+            float elapsed = Time.unscaledTime - currentSkill.lastUseTime;
+            float ratio = Mathf.Clamp01(1f - (elapsed / currentSkill.cooldown));
+
+            UIManager.Instance.skillUI.UpdateCooldown(ratio);
+        }
+        else
+        {
+            UIManager.Instance.skillUI.UpdateCooldown(0f);
+        }
+    }
+
     void LateUpdate()
     {
         if (isDead || isAttacking || isParrying || isDashing) return;
@@ -326,6 +345,11 @@ public class PlayerScript : Singleton<PlayerScript>
         {
             ParryStack++;
         }
+        // 주먹구구식으로 땜질해 뒀는데 고찰이 필요...
+        if (ParryStack == stats.maxParryStack)
+        {
+            currentSkill.ResetCooldown();
+        }
 
         isParrying = false;
         canUseParry = true;
@@ -399,7 +423,7 @@ public class PlayerScript : Singleton<PlayerScript>
     }
     #endregion
 
-    #region 스킬 테스트
+    #region 스킬
     void OnSkill(InputValue value)
     {
         var skillType = currentSkill.ParryStackCheck();
@@ -407,25 +431,30 @@ public class PlayerScript : Singleton<PlayerScript>
         if (currentSkill == null || skillType == SkillType.Empty)
             return;
 
+        if (isDead || isDashing || isParrying)
+            return;
+
+        // 스킬 쿨타임 체크
+        if (!currentSkill.IsCooldownReady())
+            return;
+
         switch (skillType)
         {
             case SkillType.Common:
                 ParryStack -= currentSkill.commonCost;
-
+                currentSkill.SetCooldown();
                 StartCoroutine(currentSkill.CommonSkill(this));
                 break;
             case SkillType.Ultimate:
                 ParryStack -= currentSkill.ultimateCost;
+                currentSkill.ResetCooldown();
                 StartCoroutine(currentSkill.UltimateSkill(this));
                 break;
-            case SkillType.Empty:
-                Debug.Log("스킬 사용 불가");
-                break;
+            //case SkillType.Empty:
+            //    Debug.Log("스킬 사용 불가");
+            //    break;
 
         }
-
-
-        //TestSkillAct();
     }
     public void Dead()
     {
