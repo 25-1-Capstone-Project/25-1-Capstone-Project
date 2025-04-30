@@ -435,33 +435,6 @@ public class PlayerScript : Singleton<PlayerScript>
     }
     #endregion
 
-    #region Stat
-    [System.Serializable]
-    public class PlayerState
-    {
-        public int currentHP;
-        public int currentParryStack;
-        public Vector3 position;
-    }
-
-    public PlayerState SaveState()
-    {
-        return new PlayerState
-        {
-            currentHP = this.UIHealth,
-            currentParryStack = this.ParryStack,
-            position = transform.position
-        };
-    }
-
-    public void LoadState(PlayerState data)
-    {
-        this.health = data.currentHP;
-        this.ParryStack = data.currentParryStack;
-        transform.position = data.position;
-    }
-
-    #endregion
 
     #region FlashSprite
 
