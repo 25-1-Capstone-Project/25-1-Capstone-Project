@@ -117,8 +117,11 @@ public class PlayerScript : Singleton<PlayerScript>
         currentSkill = SkillManager.Instance.SkillPatterns[0]; // 현재 스킬 가져오기
         if (currentSkill == null)
             SetParryStack(0);
-        else
+        else 
+        {
             SetParryStack(currentSkill.ultimateCost);
+            UIManager.Instance.skillUI.UpdateSkillIcon(currentSkill.skillIcon);
+        }
 
         isDead = false;
         Health = stats.maxHealth;
