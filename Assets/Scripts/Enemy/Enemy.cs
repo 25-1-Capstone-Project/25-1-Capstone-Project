@@ -115,6 +115,11 @@ public class Enemy : MonoBehaviour
     {
         StateMachine.FixedUpdate();
     }
+    void OnDestroy()
+    {
+
+        ClearAttackEffect();
+    }
     #endregion
 
 
