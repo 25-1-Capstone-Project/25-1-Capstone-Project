@@ -103,7 +103,7 @@ public class AttackState : EnemyState
         }
 
         enemy.IsAttacking = false;
-        enemy.ClearAttackEffect(); // 예고선 정리 등
+        enemy.ClearAttackEffect(); // 예고선 정리
     }
 
     private IEnumerator AttackSequence()
