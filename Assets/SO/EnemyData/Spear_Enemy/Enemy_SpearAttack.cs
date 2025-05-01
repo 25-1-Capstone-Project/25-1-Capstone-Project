@@ -9,7 +9,7 @@ public class Enemy_SpearAttack : EnemyAttackPattern
     public float attackDuration;
     public float attackPostDelay;
     public float effectWidth = 0.4f;
-    public Vector2 hitboxSize = new Vector2(1f, 1f);
+
 
     public override IEnumerator Execute(Enemy enemy)
     {
@@ -49,18 +49,15 @@ public class Enemy_SpearAttack : EnemyAttackPattern
 
             if (!hasDealtDamage)
             {
-                Vector2 boxCenter = (Vector2)enemy.transform.position + dir * hitboxSize.x * 0.5f;
-                Collider2D[] hits = Physics2D.OverlapBoxAll(boxCenter, hitboxSize, 0f, LayerMask.GetMask("Player"));
+                Collider2D hit = Physics2D.OverlapCircle((Vector2)enemy.transform.position, 0.3f, LayerMask.GetMask("Player"));
 
-                foreach (var hit in hits)
+
+                if (hit != null && hit.CompareTag("Player"))
                 {
-                    if (hit.CompareTag("Player"))
-                    {
-                        PlayerScript.Instance.TakeDamage(enemy.GetDamage(), dir, enemy);
-                        hasDealtDamage = true;
-                        break;
-                    }
+                    PlayerScript.Instance.TakeDamage(enemy.GetDamage(), dir, enemy);
+                    hasDealtDamage = true;
                 }
+
             }
 
             time += Time.deltaTime;

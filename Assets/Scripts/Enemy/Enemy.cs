@@ -1,4 +1,5 @@
 using System.Collections;
+using UnityEditor;
 using UnityEngine;
 
 
@@ -69,11 +70,11 @@ public class Enemy : MonoBehaviour
     #region Initialize
     void EnemyInit()
     {
-
         attackPattern = enemyData.attackPattern;
         enemyAnimController.SetAnimator(enemyData.animator);
         speed = enemyData.moveSpeed;
         health = enemyData.maxHealth;
+        GetComponent<EnemyAttack>().SetDamage(GetDamage());
     }
     void SetComponents()
     {
@@ -143,7 +144,11 @@ public class Enemy : MonoBehaviour
     public void TakeDamage(int damage)
     {
         if (isDead) return;
-        StateMachine.ChangeState<DamagedState>();
+
+        if (!IsAttacking)
+            StateMachine.ChangeState<DamagedState>();
+        
+        FlashSprite(Color.red, 0.5f);
         Health -= damage;
         Debug.Log("적 아야");
     }
@@ -185,7 +190,10 @@ public class Enemy : MonoBehaviour
                 Gizmos.DrawWireCube(Vector2.zero, new Vector2(boxSize.x, boxSize.y));
 
                 break;
+            case EEnemyType.Spear:
+                Gizmos.DrawSphere(transform.position, 0.5f);
 
+                break;
         }
 
 

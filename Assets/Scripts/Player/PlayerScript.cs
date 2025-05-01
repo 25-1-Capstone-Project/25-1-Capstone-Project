@@ -117,7 +117,7 @@ public class PlayerScript : Singleton<PlayerScript>
         currentSkill = SkillManager.Instance.SkillPatterns[0]; // 현재 스킬 가져오기
         if (currentSkill == null)
             SetParryStack(0);
-        else 
+        else
         {
             SetParryStack(currentSkill.ultimateCost);
             UIManager.Instance.skillUI.UpdateSkillIcon(currentSkill.skillIcon);
@@ -329,7 +329,7 @@ public class PlayerScript : Singleton<PlayerScript>
 
         isParrying = false;
         canUseParry = true;
-        enemy.StateMachine.ChangeState<ParryState>();
+        enemy?.StateMachine.ChangeState<ParryState>();
         StartCoroutine(ParryEffect());
 
 
@@ -346,7 +346,7 @@ public class PlayerScript : Singleton<PlayerScript>
         GameManager.Instance.SetTimeScale(1);
 
         yield return new WaitForSeconds(0.5f);
-            isGod = false;
+        isGod = false;
 
     }
     //잠시 삭제 (쿨타임 하나로 묶어버림)
@@ -366,7 +366,7 @@ public class PlayerScript : Singleton<PlayerScript>
     #region 데미지 처리
 
     // 대미지 처리 함수. 적 스크립트에서 플레이어와 적 충돌 발생 시 호출
-    public void TakeDamage(int damage, Vector2 enemyDir, Enemy enemy)
+    public void TakeDamage(int damage, Vector2 enemyDir, Enemy enemy = null)
     {
         if (isDead) return;
         if (isGod) return;

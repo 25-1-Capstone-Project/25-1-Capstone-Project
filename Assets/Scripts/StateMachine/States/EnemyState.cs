@@ -153,7 +153,7 @@ public class DamagedState : EnemyState
     public IEnumerator DamagedRoutine()
     {
         enemy.KnockBack(1);
-        enemy.FlashSprite(Color.red, 0.5f);
+
         yield return new WaitForSeconds(0.5f);
 
         enemy.StateMachine.ChangeState<ChaseState>();
