@@ -16,11 +16,14 @@ using UnityEngine;
 
 public class MapGen : MonoBehaviour
 {
-    int mapWidth = 10;
-    int mapHeight = 10;
+    [SerializeField] int mapWidth = 10;
+    [SerializeField] int mapHeight = 10;
+    [SerializeField] GameObject roomPrefab;
+    GameObject MapObject;
     [SerializeField] int roomCount;
     int _roomCount;
     int[] map;
+
     List<int> SpecialRoom;
     public void Start()
     {
@@ -30,7 +33,11 @@ public class MapGen : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            if (MapObject != null) Destroy(MapObject);
+            MapObject = new GameObject();
+
             MapCreate();
+            SpawnRoom();
         }
     }
     public void MapCreate()
@@ -81,8 +88,10 @@ public class MapGen : MonoBehaviour
         {
             MapCreate();
         }
+
+
     }
-    public void OnDrawGizmos()
+    public void SpawnRoom()
     {
         for (int i = 0; i < map.Length; i++)
         {
@@ -90,20 +99,14 @@ public class MapGen : MonoBehaviour
             {
                 if (SpecialRoom.Contains(i))
                 {
-                    Gizmos.color = Color.yellow;
-                    Gizmos.DrawCube(new Vector3(i % mapWidth, i / mapWidth), Vector3.one);
+                    GameObject room = Instantiate(roomPrefab, new Vector2(i % mapWidth, i / mapWidth), Quaternion.identity, MapObject.transform);
+                    room.GetComponent<SpriteRenderer>().color = Color.yellow;
                 }
                 else
                 {
-                    Gizmos.color = Color.red;
-                    Gizmos.DrawCube(new Vector3(i % mapWidth, i / mapWidth), Vector3.one);
+                    GameObject room = Instantiate(roomPrefab, new Vector2(i % mapWidth, i / mapWidth), Quaternion.identity, MapObject.transform);
+                    room.GetComponent<SpriteRenderer>().color = Color.red;
                 }
-            }
-
-            else
-            {
-                Gizmos.color = Color.white;
-                Gizmos.DrawCube(new Vector3(i % mapWidth, i / mapWidth), Vector3.one * 0.5f);
             }
         }
     }
