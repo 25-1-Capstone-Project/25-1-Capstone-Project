@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 /// 플레이어가 이 트리거에 닿으면 지정된 씬으로 전환됩니다.
 /// 씬 전환 시 플레이어의 스폰 포인트를 지정하는 PlayerSpawnPoint와 ID를 맞춰야 합니다.
 /// </summary>
-public class PortalTrigger : MonoBehaviour
+public class ScenePortalTrigger : MonoBehaviour
 {
     [SerializeField] private string targetSceneName;
     [SerializeField] private string targetSpawnPointID;

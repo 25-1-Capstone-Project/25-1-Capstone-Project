@@ -16,14 +16,14 @@ using UnityEngine;
 
 public class MapGen : MonoBehaviour
 {
+    [SerializeField] Vector2Int roomSize;
     [SerializeField] int mapWidth = 10;
     [SerializeField] int mapHeight = 10;
     [SerializeField] GameObject roomPrefab;
     GameObject MapObject;
     [SerializeField] int roomCount;
-    int _roomCount;
     int[] map;
-
+    [SerializeField] GameObject doorPrefab;
     List<int> SpecialRoom;
     public void Start()
     {
@@ -34,7 +34,7 @@ public class MapGen : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             if (MapObject != null) Destroy(MapObject);
-            MapObject = new GameObject();
+            MapObject = new GameObject("GeneratedMap");
 
             MapCreate();
             SpawnRoom();
@@ -49,7 +49,7 @@ public class MapGen : MonoBehaviour
         int start = mapWidth * mapHeight / 2 + mapWidth / 2;
         roomQueue.Enqueue(start);
         map[start] = 1;
-        _roomCount = roomCount - 1;
+        int _roomCount = roomCount - 1;
         while (roomQueue.Count > 0)
         {
             int index = roomQueue.Dequeue();
@@ -89,26 +89,52 @@ public class MapGen : MonoBehaviour
             MapCreate();
         }
 
-
     }
     public void SpawnRoom()
     {
+        RoomManager.Instance.roomMap.Clear();
+
         for (int i = 0; i < map.Length; i++)
         {
             if (map[i] == 1)
             {
-                if (SpecialRoom.Contains(i))
-                {
-                    GameObject room = Instantiate(roomPrefab, new Vector2(i % mapWidth, i / mapWidth), Quaternion.identity, MapObject.transform);
-                    room.GetComponent<SpriteRenderer>().color = Color.yellow;
-                }
-                else
-                {
-                    GameObject room = Instantiate(roomPrefab, new Vector2(i % mapWidth, i / mapWidth), Quaternion.identity, MapObject.transform);
-                    room.GetComponent<SpriteRenderer>().color = Color.red;
-                }
+                Vector2Int roomPos = new Vector2Int((i % mapWidth )* roomSize.x, i / mapWidth * roomSize.y);
+                GameObject room = Instantiate(roomPrefab, new Vector3(roomPos.x, roomPos.y, 0), Quaternion.identity, MapObject.transform);
+
+
+
+                RoomManager.Instance.roomMap.Add(roomPos, room);
+                room.SetActive(false);
+
+
+                AddDoorIfNeighborExists(room, roomPos + new Vector2Int(0, roomSize.y), Direction.Up, new Vector3(0, roomSize.y / 2, 0));
+                AddDoorIfNeighborExists(room, roomPos + new Vector2Int(0, -roomSize.y ), Direction.Down, new Vector3(0, -roomSize.y / 2, 0));
+                AddDoorIfNeighborExists(room, roomPos + new Vector2Int(-roomSize.x,0), Direction.Left, new Vector3(-roomSize.x / 2, 0, 0));
+                AddDoorIfNeighborExists(room, roomPos + new Vector2Int( roomSize.x, 0), Direction.Right, new Vector3(roomSize.x / 2, 0, 0));
             }
+        }
+
+        Vector2Int startRoomPos = new Vector2Int(mapWidth / 2 * roomSize.x, mapHeight / 2 * roomSize.y);
+        RoomManager.Instance.currentRoomPos = startRoomPos;
+        RoomManager.Instance.roomMap[startRoomPos].SetActive(true);
+    }
+
+    void AddDoorIfNeighborExists(GameObject room, Vector2Int neighborPos, Direction dir, Vector3 localPos)
+    {
+        if (RoomManager.Instance.roomMap.ContainsKey(neighborPos) ||
+            (neighborPos.x >= 0 && neighborPos.x < mapWidth &&
+             neighborPos.y >= 0 && neighborPos.y < mapHeight &&
+             map[neighborPos.x + neighborPos.y * mapWidth] == 1))
+        {
+            GameObject door = Instantiate(doorPrefab, room.transform);
+            door.transform.localPosition = localPos;
+            door.name = $"Door_{dir}";
+
+            DoorTrigger trigger = door.GetComponent<DoorTrigger>();
+            trigger.direction = dir;
         }
     }
     bool IsSameRow(int a, int b) => (a / mapWidth) == (b / mapWidth);
+
+
 }
