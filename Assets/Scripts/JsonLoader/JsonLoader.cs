@@ -3,7 +3,7 @@ using System.IO;
 
 public class PlayerSaveManager : MonoBehaviour
 {
-    public PlayerStats player = new PlayerStats();
+    public SaveData player = new SaveData();
     private string savePath;
 
     void Start()
@@ -25,7 +25,7 @@ public class PlayerSaveManager : MonoBehaviour
         if (File.Exists(savePath))
         {
             string json = File.ReadAllText(savePath);
-            player = JsonUtility.FromJson<PlayerStats>(json);
+            player = JsonUtility.FromJson<SaveData>(json);
             Debug.Log("✅ 불러오기 완료!");
             Debug.Log("플레이어 체력: " + player.hp);
         }

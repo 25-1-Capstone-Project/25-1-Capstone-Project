@@ -1,11 +1,10 @@
 using UnityEngine;
 
 [System.Serializable]
-public class PlayerStats
+public class SaveData
 {
     public int saveIndex;                     // 저장 회차 인덱스
     public float hp;                             // 현재 체력
-
     public int gold;                             // 현재 보유한 골드
     public int equipedRune;                    // 장착중인 룬  
     public bool[] unlockedRunes;               // 해금한 룬 목록
