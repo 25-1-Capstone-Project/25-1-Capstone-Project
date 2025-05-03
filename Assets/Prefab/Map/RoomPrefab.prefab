@@ -98,6 +98,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TileMap
       objectReference: {fileID: 0}
+    - target: {fileID: 6823593486890170220, guid: 0f7a62d739a1ccb429a8a2e5f06e6ebe, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

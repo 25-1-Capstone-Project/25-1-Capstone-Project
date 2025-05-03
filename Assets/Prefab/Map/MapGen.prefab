@@ -45,10 +45,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03b3f2a658b80ff4a944b2077e740f9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomSize: {x: 12, y: 10}
+  roomSize: {x: 13, y: 9}
   mapWidth: 9
   mapHeight: 9
-  roomPrefab: {fileID: 0}
+  roomPrefab: {fileID: 3472201371951633315, guid: 9212060348112bc43b3d467545415724, type: 3}
   roomCount: 20
   doorPrefab: {fileID: 1640283549017557581, guid: ad6c5e24848553b4b83343455945c6b4, type: 3}
 --- !u!114 &5374514495471530501
@@ -64,4 +64,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentRoomPos: {x: 3, y: 5}
-  player: {fileID: 0}
+  mapGen: {fileID: 0}

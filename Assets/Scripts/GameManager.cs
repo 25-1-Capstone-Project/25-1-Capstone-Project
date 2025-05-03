@@ -1,10 +1,10 @@
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using System.Collections;
-using UnityEngine.UI;
+
 public class GameManager : Singleton<GameManager>
 {
+    [SerializeField] GameObject PlayerPrefab;
     public StateMachine<GameState> StateMachine { get; private set; }
 
     protected override void Awake()
@@ -37,7 +37,12 @@ public class GameManager : Singleton<GameManager>
     {
         Time.timeScale = timeScale;
     }
- 
+    public void InstancePlayer(Vector3 spawnPoint)
+    {
+        Instantiate(PlayerPrefab, spawnPoint, Quaternion.identity);
+         CameraManager.Instance.SetCameraPosition(spawnPoint);
+        
+    }
 
 }
 

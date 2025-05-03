@@ -17,7 +17,7 @@ public class UIManager : Singleton<UIManager>
     {
         //playerStatUI.UI_ParryCooldownUpdate();
        // playerStatUI.UI_ParryStackUpdate();
-        playerStatUI.UI_HPBarUpdate();
+       
     }
 
 }

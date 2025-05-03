@@ -17,7 +17,7 @@ public class FadeController : Singleton<FadeController>
     }
     public IEnumerator FadeOut(Color color, float delay, float maxAlpha = 1f)
     {
-        PlayerInputBlocker.Block(true);
+        //PlayerInputBlocker.Block(true);
         float time = 0;
         color.a = 0;
         fadeImage.color = color;
@@ -50,7 +50,7 @@ public class FadeController : Singleton<FadeController>
         }
         color.a = 0;
         fadeImage.color = color;
-        PlayerInputBlocker.Block(false);
+        //PlayerInputBlocker.Block(false);
     }
   
     public void OnSceneLoaded(Scene scene, LoadSceneMode mode)

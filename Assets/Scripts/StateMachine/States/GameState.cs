@@ -44,13 +44,13 @@ public class PlayingState : GameState
 
     public override void Enter()
     {
-        Debug.Log("게임 시작");
+        MapManager.Instance.mapGen.InitMap();
     }
 
     public override void Update()
     {
-        // if (Input.GetKeyDown(KeyCode.Escape))
-        //     gameManager.StateMachine.ChangeState<PausedState>();
+        if (Input.GetKeyDown(KeyCode.Escape))
+        gameManager.StateMachine.ChangeState<PlayingState>();
     }
 
     public override void Exit()

@@ -44,6 +44,7 @@ public class PlayerScript : Singleton<PlayerScript>
                 health = 0;
                 Dead();
             }
+            UIManager.Instance.playerStatUI.UI_HPBarUpdate();
         }
     }
     public int UIHealth => health;
@@ -104,7 +105,6 @@ public class PlayerScript : Singleton<PlayerScript>
     [SerializeField] GameObject ammo;
     [SerializeField] Rigidbody2D rb;
     [SerializeField] Transform PlayerModel;
-    [SerializeField] ParticleSystem attackSlashParticle;
     [SerializeField] PlayerAnimatorController playerAnim;
     SkillPattern currentSkill;
     private SpriteRenderer[] spriteRenderers;

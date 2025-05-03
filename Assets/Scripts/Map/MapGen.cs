@@ -25,21 +25,16 @@ public class MapGen : MonoBehaviour
     int[] map;
     [SerializeField] GameObject doorPrefab;
     List<int> SpecialRoom;
-    public void Start()
-    {
-        MapCreate();
-    }
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            if (MapObject != null) Destroy(MapObject);
-            MapObject = new GameObject("GeneratedMap");
 
-            MapCreate();
-            SpawnRoom();
-        }
+    public void InitMap()
+    {
+        if (MapObject != null) Destroy(MapObject);
+        MapObject = new GameObject("GeneratedMap");
+
+        MapCreate();
+        SpawnRoom();
     }
+
     public void MapCreate()
     {
         map = new int[mapWidth * mapHeight];
@@ -92,46 +87,51 @@ public class MapGen : MonoBehaviour
     }
     public void SpawnRoom()
     {
-        RoomManager.Instance.roomMap.Clear();
+        MapManager.Instance.roomMap.Clear();
 
         for (int i = 0; i < map.Length; i++)
         {
             if (map[i] == 1)
             {
-                Vector2Int roomPos = new Vector2Int((i % mapWidth )* roomSize.x, i / mapWidth * roomSize.y);
-                GameObject room = Instantiate(roomPrefab, new Vector3(roomPos.x, roomPos.y, 0), Quaternion.identity, MapObject.transform);
+                Vector2Int roomPos = new Vector2Int(i % mapWidth, i / mapWidth);
+                GameObject room = Instantiate(roomPrefab, new Vector3(roomPos.x * roomSize.x, roomPos.y * roomSize.y, 0), Quaternion.identity, MapObject.transform);
 
-
-
-                RoomManager.Instance.roomMap.Add(roomPos, room);
+                MapManager.Instance.roomMap.Add(roomPos, room);
                 room.SetActive(false);
 
-
-                AddDoorIfNeighborExists(room, roomPos + new Vector2Int(0, roomSize.y), Direction.Up, new Vector3(0, roomSize.y / 2, 0));
-                AddDoorIfNeighborExists(room, roomPos + new Vector2Int(0, -roomSize.y ), Direction.Down, new Vector3(0, -roomSize.y / 2, 0));
-                AddDoorIfNeighborExists(room, roomPos + new Vector2Int(-roomSize.x,0), Direction.Left, new Vector3(-roomSize.x / 2, 0, 0));
-                AddDoorIfNeighborExists(room, roomPos + new Vector2Int( roomSize.x, 0), Direction.Right, new Vector3(roomSize.x / 2, 0, 0));
+                AddDoorIfNeighborExists(room, roomPos + Vector2Int.up, Direction.Up, new Vector3(0, roomSize.y / 2, 0));
+                AddDoorIfNeighborExists(room, roomPos + Vector2Int.down, Direction.Down, new Vector3(0, -roomSize.y / 2, 0));
+                AddDoorIfNeighborExists(room, roomPos + Vector2Int.left, Direction.Left, new Vector3(-roomSize.x / 2, 0, 0));
+                AddDoorIfNeighborExists(room, roomPos + Vector2Int.right, Direction.Right, new Vector3(roomSize.x / 2, 0, 0));
+                room.GetComponent<Room>().InitRoom();
             }
         }
 
-        Vector2Int startRoomPos = new Vector2Int(mapWidth / 2 * roomSize.x, mapHeight / 2 * roomSize.y);
-        RoomManager.Instance.currentRoomPos = startRoomPos;
-        RoomManager.Instance.roomMap[startRoomPos].SetActive(true);
+        Vector2Int startRoomPos = new Vector2Int(mapWidth / 2, mapHeight / 2);
+        MapManager.Instance.currentRoomPos = startRoomPos;
+        MapManager.Instance.roomMap[startRoomPos].SetActive(true);
+
+        GameManager.Instance.InstancePlayer(MapManager.Instance.roomMap[startRoomPos].transform.position);
     }
 
-    void AddDoorIfNeighborExists(GameObject room, Vector2Int neighborPos, Direction dir, Vector3 localPos)
+    void AddDoorIfNeighborExists(GameObject roomObj, Vector2Int neighborPos, Direction dir, Vector3 localPos)
     {
-        if (RoomManager.Instance.roomMap.ContainsKey(neighborPos) ||
+        if (MapManager.Instance.roomMap.ContainsKey(neighborPos) ||
             (neighborPos.x >= 0 && neighborPos.x < mapWidth &&
              neighborPos.y >= 0 && neighborPos.y < mapHeight &&
              map[neighborPos.x + neighborPos.y * mapWidth] == 1))
         {
-            GameObject door = Instantiate(doorPrefab, room.transform);
+
+            GameObject door = Instantiate(doorPrefab, roomObj.transform);
             door.transform.localPosition = localPos;
             door.name = $"Door_{dir}";
 
             DoorTrigger trigger = door.GetComponent<DoorTrigger>();
             trigger.direction = dir;
+
+            roomObj.GetComponent<Room>().AddPortalPointObj(door);
+
+            
         }
     }
     bool IsSameRow(int a, int b) => (a / mapWidth) == (b / mapWidth);

@@ -9,8 +9,8 @@ public class DoorTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            RoomManager.Instance.MoveToRoom(direction);
-            Debug.Log("Player entered door: " + direction);
+            MapManager.Instance.MoveToRoom(direction);
+   
         }
     }
 }
