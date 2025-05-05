@@ -1,8 +1,3 @@
-// 2025.04.29 �ȿ���
-// ��ųA(���̾)�� �����ϴ� ��ũ��Ʈ�Դϴ�. (��ų ����: �������� ���̾ �߻� / ���� 3�������� ���� ���̾ �߻�)
-// ��� �� ���� ���¿� �´� �Լ��� ȣ��Ǿ�(Common/Ultimate) ���̾ �������� ����, ������ ó���մϴ�
-//
-
 using UnityEngine;
 using System.Collections;
 
@@ -12,7 +7,6 @@ public class TestSkillA : SkillPattern
     [SerializeField] private GameObject fireballPrefab;
     [SerializeField] private float fireballSpeed;
 
-    // ���� ®�µ�... Instantiate-Destroy��� ���߿� ���� �� �غ���
     public override IEnumerator CommonSkill(PlayerScript player)
     {
 

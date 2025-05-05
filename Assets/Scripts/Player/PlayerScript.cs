@@ -105,6 +105,7 @@ public class PlayerScript : Singleton<PlayerScript>
     [SerializeField] GameObject ammo;
     [SerializeField] Rigidbody2D rb;
     [SerializeField] Transform PlayerModel;
+    [SerializeField] ParticleSystem attackSlashParticle;
     [SerializeField] PlayerAnimatorController playerAnim;
     SkillPattern currentSkill;
     private SpriteRenderer[] spriteRenderers;
@@ -114,14 +115,9 @@ public class PlayerScript : Singleton<PlayerScript>
     {
         stats.ApplyBase(playerData); // 원본 데이터를 복사
 
-        currentSkill = SkillManager.Instance.SkillPatterns[0]; // 현재 스킬 가져오기
-        if (currentSkill == null)
-            SetParryStack(0);
-        else
-        {
-            SetParryStack(currentSkill.ultimateCost);
-            UIManager.Instance.skillUI.UpdateSkillIcon(currentSkill.skillIcon);
-        }
+        // 스킬 불러오기?
+
+        SkillSetting(0);
 
         isDead = false;
         Health = stats.maxHealth;
@@ -147,6 +143,7 @@ public class PlayerScript : Singleton<PlayerScript>
         // 체력 UI 테스트
 
     }
+
     void LateUpdate()
     {
         if (isDead || isAttacking || isParrying || isDashing) return;
@@ -326,12 +323,22 @@ public class PlayerScript : Singleton<PlayerScript>
         {
             ParryStack++;
         }
+        // 주먹구구식으로 땜질해 뒀는데 고찰이 필요...
+        if (ParryStack == stats.maxParryStack)
+        {
+            currentSkill.ResetCooldown();
+            if (cooldownRoutine != null)
+            {
+                StopCoroutine(cooldownRoutine);
+                cooldownRoutine = null;
+                UIManager.Instance.skillUI.UpdateCooldown(0f);
+            }
+        }
 
         isParrying = false;
         canUseParry = true;
         enemy?.StateMachine.ChangeState<ParryState>();
         StartCoroutine(ParryEffect());
-
 
     }
     public IEnumerator ParryEffect()
@@ -399,7 +406,30 @@ public class PlayerScript : Singleton<PlayerScript>
     }
     #endregion
 
-    #region 스킬 테스트
+    #region 스킬
+    Coroutine cooldownRoutine;
+
+    // 스킬 셋팅
+    void SkillSetting(int skillNum)
+    {
+        currentSkill = SkillManager.Instance.SkillPatterns[skillNum];
+
+        if (currentSkill == null)
+        {
+            SetParryStack(0);
+        }
+        else
+        {
+            // 땜질2
+            SetParryStack(currentSkill.ultimateCost);
+            UIManager.Instance.parryStackUI.SyncParryIcons(ParryStack);
+            UIManager.Instance.skillUI.UpdateSkillIcon(currentSkill.skillIcon);
+        }
+    }
+
+
+
+    // 스킬 키 입력
     void OnSkill(InputValue value)
     {
         var skillType = currentSkill.ParryStackCheck();
@@ -407,32 +437,75 @@ public class PlayerScript : Singleton<PlayerScript>
         if (currentSkill == null || skillType == SkillType.Empty)
             return;
 
+        if (isDead || isDashing || isParrying)
+            return;
+
+        // 스킬 쿨타임 체크
+        if (!currentSkill.IsCooldownReady())
+            return;
+
         switch (skillType)
         {
             case SkillType.Common:
                 ParryStack -= currentSkill.commonCost;
-
+                currentSkill.SetCooldown();
                 StartCoroutine(currentSkill.CommonSkill(this));
+                if (cooldownRoutine != null)
+                    StopCoroutine(cooldownRoutine);
+                cooldownRoutine = StartCoroutine(CooldownRoutine());
                 break;
             case SkillType.Ultimate:
                 ParryStack -= currentSkill.ultimateCost;
+                currentSkill.ResetCooldown();
                 StartCoroutine(currentSkill.UltimateSkill(this));
                 break;
-            case SkillType.Empty:
-                Debug.Log("스킬 사용 불가");
-                break;
+                //case SkillType.Empty:
+                //    Debug.Log("스킬 사용 불가");
+                //    break;
 
         }
-
-
-        //TestSkillAct();
     }
+
+    IEnumerator CooldownRoutine()
+    {
+        float duration = currentSkill.cooldown;
+        float startTime = Time.time;
+
+        while (Time.time - startTime < duration)
+        {
+            float elapsed = Time.time - startTime;
+            float ratio = Mathf.Clamp01(1f - (elapsed / duration));
+            UIManager.Instance.skillUI.UpdateCooldown(ratio);
+            yield return null;
+        }
+
+        UIManager.Instance.skillUI.UpdateCooldown(0f);
+        cooldownRoutine = null;
+    }
+    #endregion
+
     public void Dead()
     {
         playerAnim.PlayDeath();
         isDead = true;
         rb.linearVelocity = Vector2.zero;
     }
+
+
+    #region 인벤토리
+
+    void OnInventory(InputValue value)
+    {
+        //SkillSetting(1);
+        Time.timeScale = 0f;
+        UIManager.Instance.skillSelect.ShowSkillWindow(OnSkillSelected);
+    }
+
+    void OnSkillSelected(int index)
+    {
+        SkillSetting(index);
+    }
+
     #endregion
 
 
