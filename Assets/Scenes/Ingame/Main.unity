@@ -591,9 +591,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1951943412611108154, guid: 5d9521cb6bd3a514ebfc8aafc24a2b68, type: 3}
+      propertyPath: roomPrefab
+      value: 
+      objectReference: {fileID: 2521365868005272557, guid: 0f7a62d739a1ccb429a8a2e5f06e6ebe, type: 3}
     - target: {fileID: 3350446380117234403, guid: 5d9521cb6bd3a514ebfc8aafc24a2b68, type: 3}
       propertyPath: m_Name
       value: MapGen
+      objectReference: {fileID: 0}
+    - target: {fileID: 3350446380117234403, guid: 5d9521cb6bd3a514ebfc8aafc24a2b68, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3732356919014672485, guid: 5d9521cb6bd3a514ebfc8aafc24a2b68, type: 3}
       propertyPath: m_LocalPosition.x
@@ -778,6 +786,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AudioManager
       objectReference: {fileID: 0}
+    - target: {fileID: 6990460983127962424, guid: cf53be6b807809e419fe53f6934e29c3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -835,6 +847,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerSpawnPoint
       objectReference: {fileID: 0}
+    - target: {fileID: 6944638661161206903, guid: c44e3545a0200044a8a090da013fe8de, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -851,6 +867,10 @@ PrefabInstance:
     - target: {fileID: 5398574056034855121, guid: 2e5f661d846e40d4bb06f8ff03bf569e, type: 3}
       propertyPath: m_Name
       value: GameManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 5398574056034855121, guid: 2e5f661d846e40d4bb06f8ff03bf569e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6107933875107746861, guid: 2e5f661d846e40d4bb06f8ff03bf569e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1010,6 +1030,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EffectPooler
       objectReference: {fileID: 0}
+    - target: {fileID: 1252674177885724664, guid: 4741b474fb1ea444f9aad06fe4526b9e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1026,6 +1050,10 @@ PrefabInstance:
     - target: {fileID: 5968704591726521879, guid: 1dcf81b032860844f9986953bb536f1b, type: 3}
       propertyPath: m_Name
       value: SkillManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 5968704591726521879, guid: 1dcf81b032860844f9986953bb536f1b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6938864172016951787, guid: 1dcf81b032860844f9986953bb536f1b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1083,6 +1111,10 @@ PrefabInstance:
     - target: {fileID: 2351772731186613843, guid: 4dadab94c41a2424b844ed46da2311cd, type: 3}
       propertyPath: m_Name
       value: PortalPoint
+      objectReference: {fileID: 0}
+    - target: {fileID: 2351772731186613843, guid: 4dadab94c41a2424b844ed46da2311cd, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5120305556154676551, guid: 4dadab94c41a2424b844ed46da2311cd, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1181,6 +1213,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerSpawner
       objectReference: {fileID: 0}
+    - target: {fileID: 8787593422398777663, guid: 089420f7689b1974296fcbc8d7fc75fe, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1197,6 +1233,10 @@ PrefabInstance:
     - target: {fileID: 1613399038206551730, guid: 9a8b9d9ec37ac4a4a946ee927f3547fe, type: 3}
       propertyPath: m_Name
       value: SceneTransitionCarrier
+      objectReference: {fileID: 0}
+    - target: {fileID: 1613399038206551730, guid: 9a8b9d9ec37ac4a4a946ee927f3547fe, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5265373972406670262, guid: 9a8b9d9ec37ac4a4a946ee927f3547fe, type: 3}
       propertyPath: m_LocalPosition.x
