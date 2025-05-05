@@ -48,6 +48,7 @@ MonoBehaviour:
   playerStatUI: {fileID: 7562120149351183780}
   parryStackUI: {fileID: 3101714524455845474}
   skillUI: {fileID: 7328131335259420974}
+  skillSelect: {fileID: 4302704396364622747}
 --- !u!1001 &4128689632184568778
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -162,6 +163,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 27b92361d9244c74ab248ef4c28cb3cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4302704396364622747 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 214566956334850129, guid: 40ab0909b5b4fd849a5a176ab1b355fa, type: 3}
+  m_PrefabInstance: {fileID: 4128689632184568778}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea641e1eef8c5ab4ba9e28eb7bb9cf8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &7328131335259420974 stripped

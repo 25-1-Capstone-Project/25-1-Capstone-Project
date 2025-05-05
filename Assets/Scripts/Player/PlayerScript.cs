@@ -114,14 +114,9 @@ public class PlayerScript : Singleton<PlayerScript>
     {
         stats.ApplyBase(playerData); // 원본 데이터를 복사
 
-        currentSkill = SkillManager.Instance.SkillPatterns[0]; // 현재 스킬 가져오기
-        if (currentSkill == null)
-            SetParryStack(0);
-        else 
-        {
-            SetParryStack(currentSkill.ultimateCost);
-            UIManager.Instance.skillUI.UpdateSkillIcon(currentSkill.skillIcon);
-        }
+        // 스킬 불러오기?
+
+        SkillSetting(0);
 
         isDead = false;
         Health = stats.maxHealth;
@@ -146,24 +141,6 @@ public class PlayerScript : Singleton<PlayerScript>
 
         // 체력 UI 테스트
 
-    }
-
-    void Update()
-    {
-        // 스킬 UI관련
-        // 땜질한 것들 메워서 조건 걸 필요ㅇ
-        if (currentSkill == null) return;
-        if (!currentSkill.IsCooldownReady())
-        {
-            float elapsed = Time.unscaledTime - currentSkill.lastUseTime;
-            float ratio = Mathf.Clamp01(1f - (elapsed / currentSkill.cooldown));
-
-            UIManager.Instance.skillUI.UpdateCooldown(ratio);
-        }
-        else
-        {
-            UIManager.Instance.skillUI.UpdateCooldown(0f);
-        }
     }
 
     void LateUpdate()
@@ -349,13 +326,18 @@ public class PlayerScript : Singleton<PlayerScript>
         if (ParryStack == stats.maxParryStack)
         {
             currentSkill.ResetCooldown();
+            if (cooldownRoutine != null)
+            {
+                StopCoroutine(cooldownRoutine);
+                cooldownRoutine = null;
+                UIManager.Instance.skillUI.UpdateCooldown(0f);
+            }
         }
 
         isParrying = false;
         canUseParry = true;
         enemy.StateMachine.ChangeState<ParryState>();
         StartCoroutine(ParryEffect());
-
 
     }
     public IEnumerator ParryEffect()
@@ -424,6 +406,29 @@ public class PlayerScript : Singleton<PlayerScript>
     #endregion
 
     #region 스킬
+    Coroutine cooldownRoutine;
+
+    // 스킬 셋팅
+    void SkillSetting(int skillNum)
+    {
+        currentSkill = SkillManager.Instance.SkillPatterns[skillNum];
+
+        if (currentSkill == null)
+        {
+            SetParryStack(0);
+        }
+        else
+        {
+            // 땜질2
+            SetParryStack(currentSkill.ultimateCost);
+            UIManager.Instance.parryStackUI.SyncParryIcons(ParryStack);
+            UIManager.Instance.skillUI.UpdateSkillIcon(currentSkill.skillIcon);
+        }
+    }
+
+
+
+    // 스킬 키 입력
     void OnSkill(InputValue value)
     {
         var skillType = currentSkill.ParryStackCheck();
@@ -444,6 +449,9 @@ public class PlayerScript : Singleton<PlayerScript>
                 ParryStack -= currentSkill.commonCost;
                 currentSkill.SetCooldown();
                 StartCoroutine(currentSkill.CommonSkill(this));
+                if (cooldownRoutine != null)
+            StopCoroutine(cooldownRoutine);
+        cooldownRoutine = StartCoroutine(CooldownRoutine());
                 break;
             case SkillType.Ultimate:
                 ParryStack -= currentSkill.ultimateCost;
@@ -456,12 +464,47 @@ public class PlayerScript : Singleton<PlayerScript>
 
         }
     }
+
+    IEnumerator CooldownRoutine()
+    {
+        float duration = currentSkill.cooldown;
+        float startTime = Time.time;
+
+        while (Time.time - startTime < duration)
+        {
+            float elapsed = Time.time - startTime;
+            float ratio = Mathf.Clamp01(1f - (elapsed / duration));
+            UIManager.Instance.skillUI.UpdateCooldown(ratio);
+            yield return null;
+        }
+
+        UIManager.Instance.skillUI.UpdateCooldown(0f);
+        cooldownRoutine = null;
+    }
+#endregion
+
     public void Dead()
     {
         playerAnim.PlayDeath();
         isDead = true;
         rb.linearVelocity = Vector2.zero;
     }
+    
+
+    #region 인벤토리
+
+    void OnInventory(InputValue value)
+    {
+        //SkillSetting(1);
+        Time.timeScale = 0f;
+        UIManager.Instance.skillSelect.ShowSkillWindow(OnSkillSelected);
+    }
+
+    void OnSkillSelected(int index)
+    {
+        SkillSetting(index);
+    }
+
     #endregion
 
 

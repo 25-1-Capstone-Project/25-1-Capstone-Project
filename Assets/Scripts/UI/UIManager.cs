@@ -7,6 +7,7 @@ public class UIManager : Singleton<UIManager>
     public PlayerStatUI playerStatUI;
     public ParryStackUI parryStackUI;
     public SkillUI skillUI;
+    public SkillSelect skillSelect;
 
     protected override void Awake()
     {

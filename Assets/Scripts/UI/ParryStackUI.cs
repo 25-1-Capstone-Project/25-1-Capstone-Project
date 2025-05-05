@@ -41,4 +41,12 @@ public class ParryStackUI : MonoBehaviour
             parryStacksCases[i].SetActive(true);
         }
     }
+
+    public void SyncParryIcons(int c)
+    {
+        for (int i = 0; i < c; i++)
+        {
+            parryStacksIcons[0 + i].SetActive(true);
+        }
+    }
 }

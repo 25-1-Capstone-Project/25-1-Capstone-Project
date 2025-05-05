@@ -37,12 +37,12 @@ public abstract class SkillPattern : ScriptableObject
 
     public bool IsCooldownReady()
     {
-        return Time.unscaledTime >= lastUseTime + cooldown;
+        return Time.time >= lastUseTime + cooldown;
     }
 
     public void SetCooldown()
     {
-        lastUseTime = Time.unscaledTime;
+        lastUseTime = Time.time;
     }
 
     //Äð´Ù¿î ¸®¼Â...
