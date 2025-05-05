@@ -481,7 +481,7 @@ GameObject:
   - component: {fileID: 874924783}
   - component: {fileID: 874924782}
   m_Layer: 5
-  m_Name: HealthText
+  m_Name: StateText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -640,7 +640,7 @@ GameObject:
   - component: {fileID: 1464246288}
   - component: {fileID: 1464246289}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: BossA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -756,14 +756,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 244436232}
+  attackRange: 5
   moveSpeed: 2
   health: 100
-  fieldOfView: 60
-  sightRange: 4
-  maxsightRange: 10
-  healthText: {fileID: 874924782}
-  distanceText: {fileID: 933212486}
-  actionText: {fileID: 1661919276}
+  StateText: {fileID: 874924782}
 --- !u!1 &1661919274
 GameObject:
   m_ObjectHideFlags: 0
