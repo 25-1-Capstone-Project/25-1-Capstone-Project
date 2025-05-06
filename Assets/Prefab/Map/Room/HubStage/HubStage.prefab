@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5102540741425620937}
   - component: {fileID: 8910423767092611422}
   m_Layer: 0
-  m_Name: CenterForestMap
+  m_Name: HubStage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3628,5 +3628,5 @@ SortingGroup:
   m_Enabled: 1
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 4
+  m_SortingOrder: 0
   m_SortAtRoot: 0

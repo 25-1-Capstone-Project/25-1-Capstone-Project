@@ -5,7 +5,7 @@ public class MapManager : Singleton<MapManager>
 {
     public Dictionary<Vector2Int, GameObject> roomMap = new Dictionary<Vector2Int, GameObject>();
     public Vector2Int currentRoomPos;
-    public MapGen mapGen;
+    private MapGen mapGen;
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -13,9 +13,15 @@ public class MapManager : Singleton<MapManager>
             roomMap[currentRoomPos].GetComponent<Room>().ClearRoom();
         }
     }
-    void Start()
+    protected override void Awake()
     {
+        base.Awake();
         mapGen = GetComponent<MapGen>();
+       
+    }
+    public void CreateMap()
+    {
+        mapGen.InitMap();
     }
     public void MoveToRoom(Direction dir)
     {
@@ -64,5 +70,7 @@ public class MapManager : Singleton<MapManager>
             _ => Vector3.zero
         };
     }
-
+    public void SetActiveMapManager(bool active){
+            gameObject.SetActive(active);
+    }
 }

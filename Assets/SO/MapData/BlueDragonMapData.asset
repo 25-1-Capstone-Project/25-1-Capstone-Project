@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f45e5a3ebdabf0644b384ede59de54e1, type: 3}
+  m_Name: BlueDragonMapData
+  m_EditorClassIdentifier: 
+  sceneList:
+  - {fileID: 102900000, guid: a3234dc710b706743803ba972362b7eb, type: 3}
+  - {fileID: 102900000, guid: 4671a7502182116449fc126d47ab7dfa, type: 3}
+  - {fileID: 102900000, guid: a033318840b541243a207e1f3f381e2c, type: 3}
+  sceneNames:
+  - BlueDragon1F
+  - BlueDragon2F
+  - BlueDragonBoss

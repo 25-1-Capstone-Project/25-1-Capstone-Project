@@ -8,8 +8,8 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class ScenePortalTrigger : MonoBehaviour
 {
-    [SerializeField] private string targetSceneName;
-    [SerializeField] private int targetSpawnPointID;
+    [SerializeField] private EDungeonType dungeonType;
+    [SerializeField] private EGameState targetGameState;  // 예: "Hub", "Dungeon", "MainMenu"
 
     private bool isTransitioning = false;
 
@@ -19,9 +19,7 @@ public class ScenePortalTrigger : MonoBehaviour
         if (!other.CompareTag("Player")) return;
 
         isTransitioning = true;
-        // 플레이어 입력 차단
-        SceneTransitionCarrier.Instance.TransitionScene(targetSceneName,targetSpawnPointID);
-    }
 
-   
+        SceneTransitionManager.Instance.TransitionScene(dungeonType,targetGameState);
+    }
 }

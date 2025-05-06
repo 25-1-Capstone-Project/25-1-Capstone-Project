@@ -37,7 +37,7 @@ public class Room : MonoBehaviour
         // 방 초기화 로직을 여기에 추가하세요.
 
         IsRoomCleared = false;
-        enemySpawnPointObject = enemySpawnParentObject.GetComponentsInChildren<Transform>();
+       // enemySpawnPointObject = enemySpawnParentObject.GetComponentsInChildren<Transform>();
     }
 
 

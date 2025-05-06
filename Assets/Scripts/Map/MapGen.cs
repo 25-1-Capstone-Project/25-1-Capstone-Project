@@ -103,7 +103,7 @@ public class MapGen : MonoBehaviour
                 GameObject room = Instantiate(roomPrefab, new Vector3(roomPos.x * roomSize.x, roomPos.y * roomSize.y, 0), Quaternion.identity, MapObject.transform);
 
                 MapManager.Instance.roomMap.Add(roomPos, room);
-                // room.SetActive(false);
+                 room.SetActive(false);
 
                 AddDoorIfNeighborExists(room, roomPos + Vector2Int.up, Direction.Up, new Vector3(0, roomSize.y / 2, 0));
                 AddDoorIfNeighborExists(room, roomPos + Vector2Int.down, Direction.Down, new Vector3(0, -roomSize.y / 2, 0));
