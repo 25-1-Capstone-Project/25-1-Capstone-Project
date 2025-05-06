@@ -1,5 +1,6 @@
+using System.Collections;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 // 게임 상태 기본 클래스
 public abstract class GameState : IState
 {
@@ -22,7 +23,8 @@ public class MainMenuState : GameState
 
     public override void Enter()
     {
-        Debug.Log("게임 시작 - 메인 메뉴");
+        SceneManager.LoadScene("MainMenu");
+        UIManager.Instance.SetActiveMainMenuUI(true);
     }
 
     public override void Update()
@@ -33,7 +35,7 @@ public class MainMenuState : GameState
 
     public override void Exit()
     {
-        Debug.Log("메인 메뉴 종료");
+
     }
 }
 
@@ -44,13 +46,22 @@ public class PlayingState : GameState
 
     public override void Enter()
     {
-        MapManager.Instance.mapGen.InitMap();
+        SceneManager.sceneLoaded += OnSceneLoaded;
+        SceneManager.LoadScene("CenterForestScene");
     }
 
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded; // 이벤트 제거
+
+        UIManager.Instance.SetActiveMainMenuUI(false);
+        UIManager.Instance.SetActiveInGameUI(true);
+        gameManager.InstancePlayer(GameManager.Instance.SearchSpawnPoint());
+        CameraManager.Instance.SetActiveCineCam(true);
+    }
     public override void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        gameManager.StateMachine.ChangeState<PlayingState>();
+
     }
 
     public override void Exit()

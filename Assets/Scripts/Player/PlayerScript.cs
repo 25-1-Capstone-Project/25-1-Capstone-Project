@@ -123,15 +123,17 @@ public class PlayerScript : Singleton<PlayerScript>
         Health = stats.maxHealth;
     }
 
-    #region GetFunction
+    #region GetSetFunction
     public PlayerRuntimeStats GetPlayerRuntimeStats() => stats;
     public bool GetIsDead() => isDead;
     public Transform GetPlayerTransform()
     {
         return transform;
     }
-
-
+    public void SetPlayerPosition(Vector2 target){
+        transform.position = target;
+    }
+   
     #endregion
 
     void Start()

@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
 public class ScenePortalTrigger : MonoBehaviour
 {
     [SerializeField] private string targetSceneName;
-    [SerializeField] private string targetSpawnPointID;
+    [SerializeField] private int targetSpawnPointID;
 
     private bool isTransitioning = false;
 
@@ -20,24 +20,8 @@ public class ScenePortalTrigger : MonoBehaviour
 
         isTransitioning = true;
         // 플레이어 입력 차단
-        StartCoroutine(TransitionScene());
+        SceneTransitionCarrier.Instance.TransitionScene(targetSceneName,targetSpawnPointID);
     }
 
-    private IEnumerator TransitionScene()
-    {
-        // 정보 전달
-        SceneTransitionCarrier.Instance.targetSceneName = targetSceneName;
-        SceneTransitionCarrier.Instance.spawnPointID = targetSpawnPointID;
-
-        // 페이드 아웃
-        yield return FadeController.Instance.FadeOut(Color.black, 1f);
-
-        // 씬 로딩
-        AsyncOperation loadOp = SceneManager.LoadSceneAsync(targetSceneName);
-        
-        while (!loadOp.isDone)
-            yield return null;
-       
-        
-    }
+   
 }

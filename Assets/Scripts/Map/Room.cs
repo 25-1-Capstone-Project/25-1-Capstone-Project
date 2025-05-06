@@ -27,14 +27,17 @@ public class Room : MonoBehaviour
             }
         }
     }
-    public Transform[] enemySpawnPointObject; // 적들
+    [SerializeField] public Transform enemySpawnParentObject; // 스폰포인트 부모 오브젝트
+    public Transform[] enemySpawnPointObject; // 스폰포인트
+
     List<GameObject> PortalPointObj = new List<GameObject>(); // 적 프리팹
 
     public void InitRoom()
     {
         // 방 초기화 로직을 여기에 추가하세요.
-        // 예를 들어, 적 스폰 포인트를 초기화하거나, 방의 상태를 설정하는 등의 작업을 수행할 수 있습니다.
+
         IsRoomCleared = false;
+        enemySpawnPointObject = enemySpawnParentObject.GetComponentsInChildren<Transform>();
     }
 
 

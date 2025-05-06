@@ -4,5 +4,5 @@ using UnityEngine;
 /// PortalTrigger와 ID를 맞춰야 합니다.
 /// </summary>
 public class PlayerSpawnPoint : MonoBehaviour {
-    public string spawnPointID;
+    public int spawnPointID;
 }

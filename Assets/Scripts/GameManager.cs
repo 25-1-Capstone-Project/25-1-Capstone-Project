@@ -9,7 +9,7 @@ public class GameManager : Singleton<GameManager>
 
     protected override void Awake()
     {
-        base.Awake(); 
+        base.Awake();
         Time.timeScale = 1f;
     }
 
@@ -37,12 +37,34 @@ public class GameManager : Singleton<GameManager>
     {
         Time.timeScale = timeScale;
     }
-    public void InstancePlayer(Vector3 spawnPoint)
+    public void InstancePlayer(Vector2 spawnPoint)
     {
         Instantiate(PlayerPrefab, spawnPoint, Quaternion.identity);
-         CameraManager.Instance.SetCameraPosition(spawnPoint);
-        
+        CameraManager.Instance.SetCameraPosition(spawnPoint);
+
     }
 
+    public void ChangeStateByName(string stateName)
+    {
+        if (stateName == "MainMenu")
+        {
+            StateMachine.ChangeState<MainMenuState>();
+        }
+        else if (stateName == "Playing")
+        {
+            StateMachine.ChangeState<PlayingState>();
+        }
+        else if (stateName == "Paused")
+        {
+            StateMachine.ChangeState<PausedState>();
+        }
+
+    }
+
+    public Vector2 SearchSpawnPoint()
+    {
+        Vector2 spawnT = GameObject.FindGameObjectWithTag("PlayerSpawnPoint").transform.position;
+        return spawnT;
+    }
 }
 

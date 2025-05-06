@@ -1,10 +1,12 @@
 using UnityEngine;
 using System.Collections;
+using Unity.Cinemachine;
 public class CameraManager : Singleton<CameraManager>
 {
-    public Camera mainCamera;
-    public float duration = 1f;
-    public float cameraZ = -10f; // 카메라의 Z축 위치
+    [SerializeField] private Camera mainCamera;
+    [SerializeField] private float duration = 1f;
+    [SerializeField] private float cameraZ = -10f; // 카메라의 Z축 위치
+    [SerializeField] CinemachineCamera cineCam;
     protected override void Awake()
     {
         base.Awake();
@@ -48,5 +50,15 @@ public class CameraManager : Singleton<CameraManager>
         }
 
         mainCamera.transform.localPosition = originalPosition;
+    }
+    public void SetActiveCineCam(bool active)
+    {
+        if (active == true)
+        {
+            cineCam.Follow = PlayerScript.Instance.GetPlayerTransform();
+            cineCam.gameObject.SetActive(true);
+        }
+        else { cineCam.gameObject.SetActive(false); }
+
     }
 }
