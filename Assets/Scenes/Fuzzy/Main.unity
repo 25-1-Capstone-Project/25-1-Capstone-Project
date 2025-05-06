@@ -760,6 +760,7 @@ MonoBehaviour:
   moveSpeed: 2
   health: 100
   StateText: {fileID: 874924782}
+  AttackText: {fileID: 0}
 --- !u!1 &1661919274
 GameObject:
   m_ObjectHideFlags: 0
