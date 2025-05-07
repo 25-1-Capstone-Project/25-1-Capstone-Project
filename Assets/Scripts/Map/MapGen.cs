@@ -17,13 +17,14 @@ using UnityEngine;
 public class MapGen : MonoBehaviour
 {
     [SerializeField] Vector2Int roomSize;
-    [SerializeField] int mapWidth ;
-    [SerializeField] int mapHeight ;
+    [SerializeField] int mapWidth;
+    [SerializeField] int mapHeight;
     [SerializeField] RoomData roomData;
     GameObject MapObject;
     [SerializeField] GameObject playerSpawnPoint;
     [SerializeField] int roomCount;
     int[] map;
+    int start;
     [SerializeField] GameObject doorPrefab;
     List<int> SpecialRoom;
     bool IsSameRow(int a, int b) => (a / mapWidth) == (b / mapWidth);
@@ -34,7 +35,8 @@ public class MapGen : MonoBehaviour
     }
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.L)){
+        if (Input.GetKeyDown(KeyCode.L))
+        {
             InitMap();
         }
     }
@@ -47,8 +49,9 @@ public class MapGen : MonoBehaviour
         MapCreate();
         SpawnRoom();
     }
-    public void CreatePlayerSpawnPoint(Vector2 pos){
-        Instantiate(playerSpawnPoint,pos, Quaternion.identity);
+    public void CreatePlayerSpawnPoint(Vector2 pos)
+    {
+        Instantiate(playerSpawnPoint, pos, Quaternion.identity);
     }
     //맵 생성
     public void MapCreate()
@@ -61,9 +64,9 @@ public class MapGen : MonoBehaviour
             int[] offsets = { mapWidth, -mapWidth, 1, -1 };
             Queue<int> roomQueue = new Queue<int>();
             SpecialRoom = new List<int>();
-            int start = mapWidth * mapHeight / 2 + mapWidth / 2;
+            start = mapWidth * mapHeight / 2 + mapWidth / 2;
             roomQueue.Enqueue(start);
-            map[start] = 1;
+            map[start] = 2;
             int _roomCount = roomCount - 1;
 
             while (roomQueue.Count > 0)
@@ -76,14 +79,14 @@ public class MapGen : MonoBehaviour
                     if (newIndex < 0 || newIndex >= map.Length) continue;
                     if ((offset == 1 || offset == -1) && !IsSameRow(index, newIndex)) continue;
                     if (_roomCount == 0) continue;
-                    if (map[newIndex] == 1) continue;
+                    if (map[newIndex] == 1 || map[newIndex] == 2) continue;
 
                     int count = 0;
                     foreach (int offset2 in offsets)
                     {
                         int neighbor = newIndex + offset2;
                         if (neighbor < 0 || neighbor >= map.Length) continue;
-                        if (map[neighbor] == 1) count++;
+                        if (map[neighbor] == 1 || map[neighbor] == 2) count++;
                     }
 
                     if (count != 1) continue;
@@ -114,6 +117,23 @@ public class MapGen : MonoBehaviour
             {
                 Vector2Int roomPos = new Vector2Int(i % mapWidth, i / mapWidth);
                 GameObject roomPrefab = roomData.GetRandomRoom();
+
+                GameObject room = Instantiate(roomPrefab, new Vector3(roomPos.x * roomSize.x, roomPos.y * roomSize.y, 0), Quaternion.identity, MapObject.transform);
+
+                MapManager.Instance.roomMap.Add(roomPos, room);
+                room.SetActive(false);
+
+                AddDoorIfNeighborExists(room, roomPos + Vector2Int.up, Direction.Up, new Vector3(0, roomSize.y / 2, 0));
+                AddDoorIfNeighborExists(room, roomPos + Vector2Int.down, Direction.Down, new Vector3(0, -roomSize.y / 2, 0));
+                AddDoorIfNeighborExists(room, roomPos + Vector2Int.left, Direction.Left, new Vector3(-roomSize.x / 2, 0, 0));
+                AddDoorIfNeighborExists(room, roomPos + Vector2Int.right, Direction.Right, new Vector3(roomSize.x / 2, 0, 0));
+                room.GetComponent<Room>().InitRoom();
+            }
+            if (map[i] == 2)
+            {
+                Vector2Int roomPos = new Vector2Int(i % mapWidth, i / mapWidth);
+                GameObject roomPrefab = roomData.GetStartRoom();
+
                 GameObject room = Instantiate(roomPrefab, new Vector3(roomPos.x * roomSize.x, roomPos.y * roomSize.y, 0), Quaternion.identity, MapObject.transform);
 
                 MapManager.Instance.roomMap.Add(roomPos, room);
@@ -128,20 +148,8 @@ public class MapGen : MonoBehaviour
         }
 
         // roomMap 중에서 중앙에 가장 가까운 방을 선택
-        Vector2Int centerPos = new Vector2Int(mapWidth / 2, mapHeight / 2);
-        Vector2Int startRoomPos = Vector2Int.zero;
-        float minDistance = float.MaxValue;
-
-        foreach (var kvp in MapManager.Instance.roomMap)
-        {
-            float dist = Vector2Int.Distance(kvp.Key, centerPos);
-            if (dist < minDistance)
-            {
-                minDistance = dist;
-                startRoomPos = kvp.Key;
-            }
-        }
-
+      
+        Vector2Int startRoomPos = new Vector2Int(start % mapWidth, start/ mapWidth);
         MapManager.Instance.currentRoomPos = startRoomPos;
         MapManager.Instance.roomMap[startRoomPos].SetActive(true);
 
@@ -167,6 +175,6 @@ public class MapGen : MonoBehaviour
             roomObj.GetComponent<Room>().AddPortalPointObj(door);
         }
     }
-   
+
 
 }

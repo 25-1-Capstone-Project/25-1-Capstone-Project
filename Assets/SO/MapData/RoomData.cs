@@ -5,8 +5,11 @@ public class RoomData : ScriptableObject
 {
     public string name;
     public GameObject[] Rooms;
-
-    public GameObject GetRandomRoom(){
-        return Rooms[Random.Range(0,Rooms.Length)];
+    public GameObject StartRoom;
+    public GameObject GetRandomRoom()
+    {
+        return Rooms[Random.Range(0, Rooms.Length)];
     }
+    public GameObject GetStartRoom()
+    { return StartRoom; }
 }

@@ -127,6 +127,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 101033950654369873, guid: 17b7ab8a32101994c80764524384575a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1599282952824750598, guid: 17b7ab8a32101994c80764524384575a, type: 3}
+      propertyPath: Lens.OrthographicSize
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2584613184641357590, guid: 17b7ab8a32101994c80764524384575a, type: 3}
+      propertyPath: orthographic size
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 3757602423443867534, guid: 17b7ab8a32101994c80764524384575a, type: 3}
       propertyPath: UpdateMethod
       value: 0
@@ -178,6 +190,18 @@ PrefabInstance:
     - target: {fileID: 6554748331832612429, guid: 17b7ab8a32101994c80764524384575a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6871518721122971044, guid: 17b7ab8a32101994c80764524384575a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8947432921597783450, guid: 17b7ab8a32101994c80764524384575a, type: 3}
+      propertyPath: CameraDistance
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 9024644349404813962, guid: 17b7ab8a32101994c80764524384575a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
