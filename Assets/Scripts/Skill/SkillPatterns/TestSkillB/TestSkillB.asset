@@ -20,4 +20,4 @@ MonoBehaviour:
   skillIcon: {fileID: 21300000, guid: 88d325a2ad48da54abede7be8a7eff05, type: 3}
   attackRange: 3
   attackAngle: 45
-  attackVFX: 0
+  attackVFXPrefab: {fileID: 3386701588590134645, guid: 5510f2ac45eb9454c8f76e28dc468bde, type: 3}

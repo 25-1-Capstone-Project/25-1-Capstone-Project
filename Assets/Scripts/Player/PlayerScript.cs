@@ -499,7 +499,7 @@ public class PlayerScript : Singleton<PlayerScript>
     void OnInventory(InputValue value)
     {
         //SkillSetting(1);
-        Time.timeScale = 0f;
+        GameManager.Instance.SetTimeScale(0f);
         UIManager.Instance.skillSelect.ShowSkillWindow(OnSkillSelected);
     }
 

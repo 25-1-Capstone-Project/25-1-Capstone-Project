@@ -17,7 +17,6 @@ public abstract class SkillPattern : ScriptableObject
     public Sprite skillIcon;
     
     // 패리스택 체크
-    // 궁 UI 관련해서 스킬 구조에 작은 이슈가 생김(-> UI갱신관련.. 패링에다가 때려박음) => 제대로 생각해 볼 것
     public SkillType ParryStackCheck()
     {
         if (PlayerScript.Instance.ParryStack >= ultimateCost)
