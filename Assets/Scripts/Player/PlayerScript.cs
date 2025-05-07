@@ -130,10 +130,11 @@ public class PlayerScript : Singleton<PlayerScript>
     {
         return transform;
     }
-    public void SetPlayerPosition(Vector2 target){
+    public void SetPlayerPosition(Vector2 target)
+    {
         transform.position = target;
     }
-   
+
     #endregion
 
     void Start()
@@ -250,8 +251,6 @@ public class PlayerScript : Singleton<PlayerScript>
         canUseAttack = false;
         rb.linearVelocity = Vector2.zero;
         playerAnim.PlayAttack();
-
-        yield return new WaitForSeconds(0.2f);
         EffectPooler.Instance.SpawnFromPool("AttackSlashParticle", arrow.transform.position, arrow.transform.rotation);
         Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, stats.attackRange, LayerMask.GetMask("Enemy"));
 
@@ -358,18 +357,8 @@ public class PlayerScript : Singleton<PlayerScript>
         isGod = false;
 
     }
-    //잠시 삭제 (쿨타임 하나로 묶어버림)
-    // public void ParryFailed()
-    // {
-    //     StopCoroutine(ParryRoutine);
-    //     Debug.Log("패리 실패");
-    //     isParrying = false;
-    //     canUseParry = false;
-
-    // }
 
 
-    // 패리 쿨다운 코루틴, 패리 쿨만큼 기다렸다가 패리가능여부 True;
     #endregion
 
     #region 데미지 처리

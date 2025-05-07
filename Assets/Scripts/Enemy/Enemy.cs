@@ -63,12 +63,13 @@ public class Enemy : MonoBehaviour
 
     public Vector2 GetDirectionVec() => PlayerScript.Instance.GetPlayerTransform().position - transform.position;
     public Vector2 GetDirectionNormalVec() => GetDirectionVec().normalized;
-
-
     #endregion
 
+    #region SetFunction
+    public void SetEnemyData(EnemyData enemyData) => this.enemyData = enemyData;
+    #endregion
     #region Initialize
-    void EnemyInit()
+    public void EnemyInit()
     {
         attackPattern = enemyData.attackPattern;
         enemyAnimController.SetAnimator(enemyData.animator);
@@ -100,7 +101,6 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         SetComponents();
-        EnemyInit();
         SetStateMachine();
     }
 
@@ -147,7 +147,7 @@ public class Enemy : MonoBehaviour
 
         if (!IsAttacking)
             StateMachine.ChangeState<DamagedState>();
-        
+
         FlashSprite(Color.red, 0.5f);
         Health -= damage;
         Debug.Log("적 아야");

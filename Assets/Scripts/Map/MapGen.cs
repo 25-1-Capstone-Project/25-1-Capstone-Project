@@ -19,7 +19,7 @@ public class MapGen : MonoBehaviour
     [SerializeField] Vector2Int roomSize;
     [SerializeField] int mapWidth;
     [SerializeField] int mapHeight;
-    [SerializeField] RoomData roomData;
+    [SerializeField] RoomReference roomData;
     GameObject MapObject;
     [SerializeField] GameObject playerSpawnPoint;
     [SerializeField] int roomCount;
@@ -29,7 +29,7 @@ public class MapGen : MonoBehaviour
     List<int> SpecialRoom;
     bool IsSameRow(int a, int b) => (a / mapWidth) == (b / mapWidth);
 
-    public void SetRoomData(RoomData roomData)
+    public void SetRoomData(RoomReference roomData)
     {
         this.roomData = roomData;
     }
@@ -115,46 +115,44 @@ public class MapGen : MonoBehaviour
         {
             if (map[i] == 1)
             {
-                Vector2Int roomPos = new Vector2Int(i % mapWidth, i / mapWidth);
+
                 GameObject roomPrefab = roomData.GetRandomRoom();
+                Vector2Int roomPos = new Vector2Int(i % mapWidth, i / mapWidth);
 
-                GameObject room = Instantiate(roomPrefab, new Vector3(roomPos.x * roomSize.x, roomPos.y * roomSize.y, 0), Quaternion.identity, MapObject.transform);
-
-                MapManager.Instance.roomMap.Add(roomPos, room);
-                room.SetActive(false);
-
-                AddDoorIfNeighborExists(room, roomPos + Vector2Int.up, Direction.Up, new Vector3(0, roomSize.y / 2, 0));
-                AddDoorIfNeighborExists(room, roomPos + Vector2Int.down, Direction.Down, new Vector3(0, -roomSize.y / 2, 0));
-                AddDoorIfNeighborExists(room, roomPos + Vector2Int.left, Direction.Left, new Vector3(-roomSize.x / 2, 0, 0));
-                AddDoorIfNeighborExists(room, roomPos + Vector2Int.right, Direction.Right, new Vector3(roomSize.x / 2, 0, 0));
-                room.GetComponent<Room>().InitRoom();
+                CreateRoom(roomPrefab, roomPos);
             }
             if (map[i] == 2)
             {
-                Vector2Int roomPos = new Vector2Int(i % mapWidth, i / mapWidth);
                 GameObject roomPrefab = roomData.GetStartRoom();
+                Vector2Int roomPos = new Vector2Int(i % mapWidth, i / mapWidth);
 
-                GameObject room = Instantiate(roomPrefab, new Vector3(roomPos.x * roomSize.x, roomPos.y * roomSize.y, 0), Quaternion.identity, MapObject.transform);
-
-                MapManager.Instance.roomMap.Add(roomPos, room);
-                room.SetActive(false);
-
-                AddDoorIfNeighborExists(room, roomPos + Vector2Int.up, Direction.Up, new Vector3(0, roomSize.y / 2, 0));
-                AddDoorIfNeighborExists(room, roomPos + Vector2Int.down, Direction.Down, new Vector3(0, -roomSize.y / 2, 0));
-                AddDoorIfNeighborExists(room, roomPos + Vector2Int.left, Direction.Left, new Vector3(-roomSize.x / 2, 0, 0));
-                AddDoorIfNeighborExists(room, roomPos + Vector2Int.right, Direction.Right, new Vector3(roomSize.x / 2, 0, 0));
-                room.GetComponent<Room>().InitRoom();
+                CreateRoom(roomPrefab, roomPos);
             }
         }
 
-        // roomMap 중에서 중앙에 가장 가까운 방을 선택
-      
-        Vector2Int startRoomPos = new Vector2Int(start % mapWidth, start/ mapWidth);
+        Vector2Int startRoomPos = new Vector2Int(start % mapWidth, start / mapWidth);
         MapManager.Instance.currentRoomPos = startRoomPos;
         MapManager.Instance.roomMap[startRoomPos].SetActive(true);
-
+         MapManager.Instance.roomMap[startRoomPos].GetComponent<Room>().ClearRoom();
         CreatePlayerSpawnPoint(MapManager.Instance.roomMap[startRoomPos].transform.position);
 
+    }
+
+    private void CreateRoom(GameObject roomPrefab, Vector2Int roomPos)
+    {
+        GameObject room = Instantiate(roomPrefab, new Vector3(roomPos.x * roomSize.x, roomPos.y * roomSize.y, 0), Quaternion.identity, MapObject.transform);
+
+        MapManager.Instance.roomMap.Add(roomPos, room);
+
+
+        AddDoorIfNeighborExists(room, roomPos + Vector2Int.up, Direction.Up, new Vector3(0, roomSize.y / 2, 0));
+        AddDoorIfNeighborExists(room, roomPos + Vector2Int.down, Direction.Down, new Vector3(0, -roomSize.y / 2, 0));
+        AddDoorIfNeighborExists(room, roomPos + Vector2Int.left, Direction.Left, new Vector3(-roomSize.x / 2, 0, 0));
+        AddDoorIfNeighborExists(room, roomPos + Vector2Int.right, Direction.Right, new Vector3(roomSize.x / 2, 0, 0));
+        room.GetComponent<Room>().InitRoom();
+        
+        // minimap 등록
+        MinimapManager.Instance.RegisterRoom(roomPos);
     }
 
     void AddDoorIfNeighborExists(GameObject roomObj, Vector2Int neighborPos, Direction dir, Vector3 localPos)

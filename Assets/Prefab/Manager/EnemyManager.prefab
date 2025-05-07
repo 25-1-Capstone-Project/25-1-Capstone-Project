@@ -208,7 +208,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8943201808950086864
 Transform:
   m_ObjectHideFlags: 0
@@ -239,6 +239,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnPosParent: {fileID: 6879550603608596994}
   enemyPrefab: {fileID: 6562499921600132831, guid: 67445b1cd71ab5d46b053e38f592af3c, type: 3}
+  enemyReference: {fileID: 11400000, guid: 85a4c860cbf6bc94e822dcc10b7b4130, type: 2}
   commonEnemyAttackPatterns:
   - {fileID: 11400000, guid: e046c09cf101f054c834b068de4af735, type: 2}
   - {fileID: 11400000, guid: 88202967312e349458158c3961c05dad, type: 2}

@@ -10,7 +10,7 @@ public class GameManager : Singleton<GameManager>
     public StateMachine<GameState> StateMachine { get; private set; }
     private GameObject playerObj;
     public EDungeonType currentDungeonType = EDungeonType.Null;
-    public MapData[] mapData;
+    public MapReference[] mapData;
     public int CurrentDungeonFloor { get; set; } = 0;
     public int MaxDungeonFloor { get; private set; } = 3;
 

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Room : MonoBehaviour
 {
+
     bool isRoomCleared = false;
     bool IsRoomCleared
     {
@@ -28,19 +29,26 @@ public class Room : MonoBehaviour
         }
     }
     [SerializeField] public Transform enemySpawnParentObject; // 스폰포인트 부모 오브젝트
-    public Transform[] enemySpawnPointObject; // 스폰포인트
+    public Transform[] enemySpawnPointsT; // 스폰포인트
 
     List<GameObject> PortalPointObj = new List<GameObject>(); // 적 프리팹
 
     public void InitRoom()
     {
         // 방 초기화 로직을 여기에 추가하세요.
-
         IsRoomCleared = false;
-       // enemySpawnPointObject = enemySpawnParentObject.GetComponentsInChildren<Transform>();
+        if(enemySpawnParentObject!=null)
+        enemySpawnPointsT = enemySpawnParentObject.GetComponentsInChildren<Transform>();
     }
-
-
+    void Awake()
+    {
+        gameObject.SetActive(false);
+    }
+    void OnEnable()
+    {
+        if (!isRoomCleared)
+            SpawnEnemies();
+    }
     public void AddPortalPointObj(GameObject obj)
     {
         PortalPointObj.Add(obj);
@@ -48,15 +56,21 @@ public class Room : MonoBehaviour
 
     public void SpawnEnemies()
     {
-        foreach (Transform spawnPoint in enemySpawnPointObject)
+        foreach (Transform spawnPoint in enemySpawnPointsT)
         {
-            // 적 스폰 로직을 여기에 추가하세요.
-            // 예를 들어, Instantiate(enemyPrefab, spawnPoint.transform.position, Quaternion.identity);
+                EnemyManager.Instance.EnemySpawn(spawnPoint.position);
         }
     }
+
     public void ClearRoom()
     {
-        IsRoomCleared = !IsRoomCleared;
+        IsRoomCleared = true;
     }
+
+
+
+
+
+
 
 }

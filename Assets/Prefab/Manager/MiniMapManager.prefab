@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5398574056034855121
+--- !u!1 &1493648985044870651
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,43 +8,42 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6107933875107746861}
-  - component: {fileID: 2240131865535586627}
+  - component: {fileID: 3862473479944033419}
+  - component: {fileID: 3358239058309313460}
   m_Layer: 0
-  m_Name: GameManager
+  m_Name: MiniMapManager
   m_TagString: Untagged
-  m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6107933875107746861
+--- !u!4 &3862473479944033419
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5398574056034855121}
+  m_GameObject: {fileID: 1493648985044870651}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.6595523, y: 0.45268604, z: 0.05178768}
+  m_LocalPosition: {x: 45.51735, y: 36.519875, z: 0.038617402}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2240131865535586627
+--- !u!114 &3358239058309313460
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5398574056034855121}
+  m_GameObject: {fileID: 1493648985044870651}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f58d5bdb23d95aa42a60c13969f1185c, type: 3}
+  m_Script: {fileID: 11500000, guid: 70d7e84c5fe95314b80938876f01582b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerPrefab: {fileID: 1043139584216896345, guid: 4569542ff57041d42827b0cbdb7bd76c, type: 3}
-  currentDungeonType: 0
-  mapData:
-  - {fileID: 11400000, guid: 50db21b234ff40b49b308ab57bfed972, type: 2}
+  minimapContainer: {fileID: 0}
+  minimapIconPrefab: {fileID: 6167411575471910846, guid: 8393f9bb448fefe40b831c651681ca06, type: 3}
+  roomGap: 26

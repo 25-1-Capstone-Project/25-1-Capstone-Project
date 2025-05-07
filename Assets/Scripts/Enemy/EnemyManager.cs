@@ -3,35 +3,39 @@ using UnityEngine;
 
 public class EnemyManager : Singleton<EnemyManager>
 {
+    int spawnedEnemy;
 
     public Transform spawnPosParent;
-    private Transform[] spawnPointsT;
     public GameObject enemyPrefab;
+    public EnemyReference enemyReference;
     public EnemyAttackPattern[] commonEnemyAttackPatterns;
     protected override void Awake()
     {
         base.Awake();
-        spawnPointsT = spawnPosParent.GetComponentsInChildren<Transform>();
+        spawnedEnemy = 0;
     }
 
-
-    void RoomEnemySpawn()
+    public void KillEnemy()
     {
-        StartCoroutine(SpawnRoutine());
-    }
+        spawnedEnemy--;
 
-    IEnumerator SpawnRoutine()
-    {
-        while (!PlayerScript.Instance.GetIsDead())
+        if (spawnedEnemy <= 0)
         {
-            Spawn();
-            yield return new WaitForSeconds(10);
+            spawnedEnemy = 0;
+            MapManager.Instance.GetCurrentRoom().ClearRoom();
         }
+
     }
-    void Spawn()
+
+
+    public void EnemySpawn(Vector2 spawnPos)
     {
-        int index = Random.Range(0, spawnPointsT.Length);
-        Instantiate(enemyPrefab, spawnPointsT[index].position, Quaternion.identity);
+        EnemyData enemyData = enemyReference.GetRandomEnemyPrefab();
+        GameObject enemyObj = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
+        Enemy enemy = enemyObj.GetComponent<Enemy>();
+        enemy.SetEnemyData(enemyData);
+        enemy.EnemyInit();
+        spawnedEnemy++;
     }
 
 }

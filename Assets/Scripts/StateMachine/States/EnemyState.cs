@@ -182,6 +182,7 @@ public class DeadState : EnemyState
     public IEnumerator DeadRoutine()
     {
         enemy.GetAnimatorController().PlayDeath();
+        EnemyManager.Instance.KillEnemy();
         yield return new WaitForSeconds(1f);
         Object.Destroy(enemy.gameObject);
     }

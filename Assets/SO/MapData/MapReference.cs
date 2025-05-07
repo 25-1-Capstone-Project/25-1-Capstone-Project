@@ -4,7 +4,7 @@ using UnityEditor.SearchService;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "MapData", menuName = "Map/MapData")]
-public class MapData : ScriptableObject
+public class MapReference : ScriptableObject
 {
 
     public SceneAsset[] sceneList;
