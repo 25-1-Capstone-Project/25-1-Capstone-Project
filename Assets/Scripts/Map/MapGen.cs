@@ -17,16 +17,27 @@ using UnityEngine;
 public class MapGen : MonoBehaviour
 {
     [SerializeField] Vector2Int roomSize;
-    [SerializeField] int mapWidth = 10;
-    [SerializeField] int mapHeight = 10;
-    [SerializeField] GameObject roomPrefab;
+    [SerializeField] int mapWidth ;
+    [SerializeField] int mapHeight ;
+    [SerializeField] RoomData roomData;
     GameObject MapObject;
+    [SerializeField] GameObject playerSpawnPoint;
     [SerializeField] int roomCount;
     int[] map;
     [SerializeField] GameObject doorPrefab;
     List<int> SpecialRoom;
     bool IsSameRow(int a, int b) => (a / mapWidth) == (b / mapWidth);
 
+    public void SetRoomData(RoomData roomData)
+    {
+        this.roomData = roomData;
+    }
+    void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.L)){
+            InitMap();
+        }
+    }
     //맵 초기화
     public void InitMap()
     {
@@ -36,7 +47,9 @@ public class MapGen : MonoBehaviour
         MapCreate();
         SpawnRoom();
     }
-
+    public void CreatePlayerSpawnPoint(Vector2 pos){
+        Instantiate(playerSpawnPoint,pos, Quaternion.identity);
+    }
     //맵 생성
     public void MapCreate()
     {
@@ -100,10 +113,11 @@ public class MapGen : MonoBehaviour
             if (map[i] == 1)
             {
                 Vector2Int roomPos = new Vector2Int(i % mapWidth, i / mapWidth);
+                GameObject roomPrefab = roomData.GetRandomRoom();
                 GameObject room = Instantiate(roomPrefab, new Vector3(roomPos.x * roomSize.x, roomPos.y * roomSize.y, 0), Quaternion.identity, MapObject.transform);
 
                 MapManager.Instance.roomMap.Add(roomPos, room);
-                 room.SetActive(false);
+                room.SetActive(false);
 
                 AddDoorIfNeighborExists(room, roomPos + Vector2Int.up, Direction.Up, new Vector3(0, roomSize.y / 2, 0));
                 AddDoorIfNeighborExists(room, roomPos + Vector2Int.down, Direction.Down, new Vector3(0, -roomSize.y / 2, 0));
@@ -131,7 +145,7 @@ public class MapGen : MonoBehaviour
         MapManager.Instance.currentRoomPos = startRoomPos;
         MapManager.Instance.roomMap[startRoomPos].SetActive(true);
 
-        GameManager.Instance.InstancePlayer(MapManager.Instance.roomMap[startRoomPos].transform.position);
+        CreatePlayerSpawnPoint(MapManager.Instance.roomMap[startRoomPos].transform.position);
 
     }
 
@@ -151,10 +165,8 @@ public class MapGen : MonoBehaviour
             trigger.direction = dir;
 
             roomObj.GetComponent<Room>().AddPortalPointObj(door);
-
-
         }
     }
-
+   
 
 }

@@ -41,18 +41,14 @@ public class GameManager : Singleton<GameManager>
         Time.timeScale = timeScale;
     }
 
-    public void SetCurrentDungeonType(EDungeonType eDungeonType){
+    public void SetCurrentDungeonType(EDungeonType eDungeonType)
+    {
         currentDungeonType = eDungeonType;
     }
-    public void InstancePlayer(Vector2 spawnPoint)
+    public void InstancePlayer()
     {
         if (playerObj == null)
-            playerObj = Instantiate(PlayerPrefab, spawnPoint, Quaternion.identity);
-        else
-        {
-            PlayerScript.Instance.SetPlayerPosition(spawnPoint);
-            CameraManager.Instance.SetCameraPosition(spawnPoint);
-        }
+            playerObj = Instantiate(PlayerPrefab);
     }
 
     public Vector2 SearchSpawnPoint()
@@ -105,10 +101,14 @@ public class GameManager : Singleton<GameManager>
 
     public void PlayerSpawn()
     {
-        Transform spawn = FindFirstObjectByType<PlayerSpawnPoint>().transform;
-
-        PlayerScript.Instance.SetPlayerPosition(spawn.transform.position);
-
+        Vector2 targetPos = SearchSpawnPoint();
+        PlayerScript.Instance.SetPlayerPosition(targetPos);
+        CameraManager.Instance.SetCameraPosition(targetPos);
+    }
+    public void SetPlayerPos(Vector2 pos)
+    {
+        PlayerScript.Instance.SetPlayerPosition(pos);
+        CameraManager.Instance.SetCameraPosition(pos);
     }
 
 }

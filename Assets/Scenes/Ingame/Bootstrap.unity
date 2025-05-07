@@ -379,9 +379,25 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1951943412611108154, guid: 5d9521cb6bd3a514ebfc8aafc24a2b68, type: 3}
+      propertyPath: roomData
+      value: 
+      objectReference: {fileID: 11400000, guid: 7f52cf2117b77fa49a8ca3496d07c8a0, type: 2}
+    - target: {fileID: 1951943412611108154, guid: 5d9521cb6bd3a514ebfc8aafc24a2b68, type: 3}
       propertyPath: roomPrefab
       value: 
       objectReference: {fileID: 4782711799272556954, guid: 0c2ceca0155471e4aa3a06119809a1d1, type: 3}
+    - target: {fileID: 1951943412611108154, guid: 5d9521cb6bd3a514ebfc8aafc24a2b68, type: 3}
+      propertyPath: roomSize.x
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 1951943412611108154, guid: 5d9521cb6bd3a514ebfc8aafc24a2b68, type: 3}
+      propertyPath: roomSize.y
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1951943412611108154, guid: 5d9521cb6bd3a514ebfc8aafc24a2b68, type: 3}
+      propertyPath: playerSpawnPoint
+      value: 
+      objectReference: {fileID: 6944638661161206903, guid: c44e3545a0200044a8a090da013fe8de, type: 3}
     - target: {fileID: 3350446380117234403, guid: 5d9521cb6bd3a514ebfc8aafc24a2b68, type: 3}
       propertyPath: m_Name
       value: MapGenManager

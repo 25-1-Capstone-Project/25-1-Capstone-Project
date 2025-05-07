@@ -8,7 +8,7 @@ public class MapManager : Singleton<MapManager>
     private MapGen mapGen;
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (Input.GetKeyDown(KeyCode.K))
         {
             roomMap[currentRoomPos].GetComponent<Room>().ClearRoom();
         }
