@@ -6,10 +6,14 @@ public class TestSkillB : SkillPattern
 {
     [SerializeField] float attackRange;
     [SerializeField] float attackAngle;
-    [SerializeField] float attackVFX;
+    [SerializeField] GameObject attackVFXPrefab;
 
     public override IEnumerator CommonSkill(PlayerScript player)
     {
+        float VFXangle = Mathf.Atan2(player.Direction.y, player.Direction.x) * Mathf.Rad2Deg;
+        Quaternion rotation = Quaternion.Euler(0, 0, VFXangle);
+        GameObject effect = EffectPooler.Instance.SpawnFromPool("AttackSlashParticle", player.transform.position, rotation);
+
         Collider2D[] hits = Physics2D.OverlapCircleAll(player.transform.position, attackRange, LayerMask.GetMask("Enemy"));
 
         foreach (var hit in hits)
@@ -31,6 +35,11 @@ public class TestSkillB : SkillPattern
 
     public override IEnumerator UltimateSkill(PlayerScript player)
     {
+        if (attackVFXPrefab != null)
+        {
+            GameObject vfx = GameObject.Instantiate(attackVFXPrefab, player.transform.position, Quaternion.identity);
+        }
+
         Collider2D[] hits = Physics2D.OverlapCircleAll(player.transform.position, attackRange, LayerMask.GetMask("Enemy"));
 
         foreach (var hit in hits)

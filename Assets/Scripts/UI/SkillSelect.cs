@@ -17,7 +17,7 @@ public class SkillSelect : MonoBehaviour
     {
         Debug.Log($"스킬 버튼 입력: {index}");
         skillSelectWindow.SetActive(false);
-        Time.timeScale = 1f; 
+        GameManager.Instance.SetTimeScale(1f);
 
         onSkillSelected?.Invoke(index);
         onSkillSelected = null;
