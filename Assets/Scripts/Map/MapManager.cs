@@ -42,7 +42,7 @@ public class MapManager : Singleton<MapManager>
 
         // 플레이어 위치 이동 (새 방의 반대편 문 위치로)
         Vector3 entryPoint = FindEntryPoint(nextPos, dir);
-        PlayerScript.Instance.transform.position = entryPoint;
+        PlayerScript.Instance.SetPlayerPosition(entryPoint);
         CameraManager.Instance.SetCameraPosition(roomMap[nextPos].transform.position);
         currentRoomPos = nextPos;
 

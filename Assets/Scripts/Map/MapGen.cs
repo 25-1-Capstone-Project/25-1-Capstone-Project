@@ -162,7 +162,7 @@ public class MapGen : MonoBehaviour
         if (MapManager.Instance.roomMap.ContainsKey(neighborPos) ||
             (neighborPos.x >= 0 && neighborPos.x < mapWidth &&
              neighborPos.y >= 0 && neighborPos.y < mapHeight &&
-             map[neighborPos.x + neighborPos.y * mapWidth] == 1))
+             (map[neighborPos.x + neighborPos.y * mapWidth] == 1 || map[neighborPos.x + neighborPos.y * mapWidth] == 2)))
         {
 
             GameObject door = Instantiate(doorPrefab, roomObj.transform);
