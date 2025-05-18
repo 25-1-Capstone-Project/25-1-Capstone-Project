@@ -4,7 +4,7 @@ using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BossA : Boss
+public class Boss_FSM : Boss
 {
     public enum State { Idle, Preparing, Attack, Cooldown, Move, Dead }
 
@@ -14,7 +14,7 @@ public class BossA : Boss
     public Text StateText;
     public Text AttackText;
 
-    
+
     private void Start()
     {
         _curState = State.Idle;
@@ -75,13 +75,13 @@ public class BossA : Boss
                 }
                 if (_fsm.CurrentState is Attack attackState && attackState.IsAttackFinished())
                 {
-                ChangeState(State.Cooldown);
+                    ChangeState(State.Cooldown);
                 }
                 break;
             case State.Cooldown:
                 if (_fsm.CurrentState is Cooldown cooldownState && cooldownState.IsCooldownComplete)
                 {
-                ChangeState(State.Idle);
+                    ChangeState(State.Idle);
                 }
                 break;
             case State.Move:
@@ -103,7 +103,7 @@ public class BossA : Boss
             ChangeState(State.Dead);
         }
         _fsm.UpdateState();
-  
+
     }
     private void ChangeState(State nextState)
     {
@@ -134,6 +134,11 @@ public class BossA : Boss
     public override bool IsPlayerInRange()
     {
         return Vector2.Distance(transform.position, player.position) <= attackRange;
+    }
+    
+    public override void ChangeState(BaseState newState)
+    {
+        _fsm.ChangeState(newState);
     }
 
 }
