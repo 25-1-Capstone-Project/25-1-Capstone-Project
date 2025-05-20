@@ -54,10 +54,6 @@ public class Boss_FSM : Boss
                         // Slash 스킬 실행
                         Debug.Log("Slash");
                         break;
-                    case SkillAction.Dash:
-                        // Dash 스킬 실행
-                        Debug.Log("Dash");
-                        break;
                     case SkillAction.Shot:
                         // Shot 스킬 실행
                         Debug.Log("Shot");
