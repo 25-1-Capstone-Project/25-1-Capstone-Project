@@ -2,53 +2,52 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+
 public class Boss_BT : MonoBehaviour
 {
-
     public Transform target;
     public Text currentSkillText;
     public Text currentHpText;
     public Text currentDistanceText;
     public float moveSpeed = 2f;
+
     bool IsAnimationRunning = false;
+    bool isAttackTurn = true;
     float currentDistance;
 
     Rigidbody2D rb;
     Vector2 dir;
+
     SelectorNode rootNode;
-    SelectorNode attackSelector;
-    INode.State state = INode.State.Success;
     SequenceNode attackSequence;
     SequenceNode moveSequence;
+
     Fuzzy fuzzy = new Fuzzy();
     SkillAction currentSkill = SkillAction.Slash;
-
-    Vector2 originPos;
-
     float currentHp = 100f;
 
-
-    // Start is called before the first frame update
+      
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
 
-        originPos = transform.position;
-
-        attackSequence = new SequenceNode(); // 공격 시퀀스 노드 생성
-        attackSequence.Add(new ActionNode(Cooldown)); // 쿨타임 체크 노드 추가
-        attackSequence.Add(new ActionNode(CheckAttackRange)); // 거리 체크 노드 추가
+        // 공격 시퀀스
+        attackSequence = new SequenceNode();
+        attackSequence.Add(new ActionNode(CheckPhase));
+        attackSequence.Add(new ActionNode(CheckAttackRange));
         attackSequence.Add(new ActionNode(IsAttacking));
         attackSequence.Add(new ActionNode(attackSelector_Evaluate));
+        
 
-        moveSequence = new SequenceNode(); // 이동 시퀀스 노드 생성
-        moveSequence.Add(new ActionNode(IsMoving)); // 이동 체크 노드 추가
-        moveSequence.Add(new ActionNode(move)); // 이동 액션
+        // 이동 시퀀스
+        moveSequence = new SequenceNode();
+        moveSequence.Add(new ActionNode(IsMoving));
+        moveSequence.Add(new ActionNode(move));
 
+        // 루트 노드
         rootNode = new SelectorNode();
-        rootNode.Add(attackSequence); // 루트 노드의 자식으로 공격 시퀀스
-        rootNode.Add(moveSequence); // 이동 시퀀스
-
+        rootNode.Add(attackSequence);
+        rootNode.Add(moveSequence);
     }
 
     void Update()
@@ -71,66 +70,70 @@ public class Boss_BT : MonoBehaviour
             currentHpText.text = "현재 HP: " + currentHp.ToString("F0");
     }
 
-    // 공격 액션 Slash, Shot, AreaAttack, JumpSmash
-    INode.State Cooldown()
+    // ================================
+    // 상태 체크 함수들
+    // ================================
+
+    INode.State CheckPhase()
     {
-        return INode.State.Success;
+        if (isAttackTurn)
+        {
+            return INode.State.Success;
+        }
+        else
+        {
+            return INode.State.Failed;
+        }
     }
+
     INode.State CheckAttackRange()
     {
         currentDistance = Vector2.Distance(transform.position, target.position);
-
         return INode.State.Success;
     }
+
     INode.State IsAttacking()
     {
-        if (IsAnimationRunning)
-        {
-            return INode.State.Run;
-        }
-
+        if (IsAnimationRunning) return INode.State.Run;
         return INode.State.Success;
-    }
-
-    INode.State attackSelector_Evaluate()
-    {
-        switch(currentSkill)
-    {
-        case SkillAction.Slash:
-            return Slash();
-        case SkillAction.Shot:
-            return Shot();
-        case SkillAction.AreaAttack:
-            return AreaAttack();
-        case SkillAction.JumpSmash:
-            return JumpSmash();
-        default:
-            return INode.State.Failed;
-    }
     }
 
     INode.State IsMoving()
     {
-        if (IsAnimationRunning)
-        {
-            Coroutine();
-            return INode.State.Run;
-        }
+        if (IsAnimationRunning) return INode.State.Failed;
 
-        return INode.State.Run;
+        return INode.State.Success;
     }
-        
+
+    // ================================
+    // 행동 함수들
+    // ================================
+
+    INode.State attackSelector_Evaluate()
+    {
+        switch (currentSkill)
+        {
+            case SkillAction.Slash: return Slash();
+            case SkillAction.Shot: return Shot();
+            case SkillAction.AreaAttack: return AreaAttack();
+            case SkillAction.JumpSmash: return JumpSmash();
+            default: return INode.State.Failed;
+        }
+    }
+
     INode.State move()
     {
-        Debug.Log("Move");
+        Debug.Log("Move 시작!");
 
-        if (IsAnimationRunning)
+        if (!IsAnimationRunning)
         {
-            Vector2 direction = (target.position - transform.position).normalized;
-            rb.MovePosition(rb.position + direction * moveSpeed * Time.deltaTime);
+            IsAnimationRunning = true;
 
-            return INode.State.Run;
+            StartCoroutine(Coroutine());
         }
+
+        Vector2 direction = (target.position - transform.position).normalized;
+        rb.MovePosition(rb.position + direction * moveSpeed * Time.deltaTime);
 
         return INode.State.Run;
     }
@@ -164,6 +167,7 @@ public class Boss_BT : MonoBehaviour
             IsAnimationRunning = true;
             Debug.Log("AreaAttack 공격 시작!");
             StartCoroutine(Coroutine());
+            
         }
         return INode.State.Run;
     }
@@ -179,10 +183,15 @@ public class Boss_BT : MonoBehaviour
         return INode.State.Run;
     }
 
+    // ================================
+    // 코루틴 (공격/이동 후 처리)
+    // ================================
+
     IEnumerator Coroutine()
     {
         Debug.Log("실행 중...");
         yield return new WaitForSeconds(2f);
         IsAnimationRunning = false;
+        isAttackTurn = !isAttackTurn;
     }
 }
