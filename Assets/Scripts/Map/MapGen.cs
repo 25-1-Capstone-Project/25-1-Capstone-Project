@@ -14,6 +14,13 @@ using UnityEngine;
 // Random 50% chance, give up
 // Otherwise, mark the neighbour cell as having a room in it, and add it to the queue.
 
+public enum ERoomType
+{
+    Empty,
+    BattleRoom,
+    StartRoom,
+    BossRoom,
+}
 public class MapGen : MonoBehaviour
 {
     [SerializeField] Vector2Int roomSize;
@@ -53,6 +60,22 @@ public class MapGen : MonoBehaviour
     {
         Instantiate(playerSpawnPoint, pos, Quaternion.identity);
     }
+    private bool IsNotEmptyRoom(int value)
+    {
+        if (value == ERoomType.BattleRoom.GetHashCode())
+        {
+            return true;
+        }
+        else if (value == ERoomType.StartRoom.GetHashCode())
+        {
+            return true;
+        }
+        else if (value == ERoomType.BossRoom.GetHashCode())
+        {
+            return true;
+        }
+        return false;
+    }
     //맵 생성
     public void MapCreate()
     {
@@ -66,7 +89,7 @@ public class MapGen : MonoBehaviour
             SpecialRoom = new List<int>();
             start = mapWidth * mapHeight / 2 + mapWidth / 2;
             roomQueue.Enqueue(start);
-            map[start] = 2;
+            map[start] = ERoomType.StartRoom.GetHashCode();
             int _roomCount = roomCount - 1;
 
             while (roomQueue.Count > 0)
@@ -79,14 +102,14 @@ public class MapGen : MonoBehaviour
                     if (newIndex < 0 || newIndex >= map.Length) continue;
                     if ((offset == 1 || offset == -1) && !IsSameRow(index, newIndex)) continue;
                     if (_roomCount == 0) continue;
-                    if (map[newIndex] == 1 || map[newIndex] == 2) continue;
+                    if (IsNotEmptyRoom(map[newIndex])) continue;
 
                     int count = 0;
                     foreach (int offset2 in offsets)
                     {
                         int neighbor = newIndex + offset2;
                         if (neighbor < 0 || neighbor >= map.Length) continue;
-                        if (map[neighbor] == 1 || map[neighbor] == 2) count++;
+                        if (IsNotEmptyRoom(map[neighbor])) count++;
                     }
 
                     if (count != 1) continue;
@@ -133,7 +156,7 @@ public class MapGen : MonoBehaviour
         Vector2Int startRoomPos = new Vector2Int(start % mapWidth, start / mapWidth);
         MapManager.Instance.currentRoomPos = startRoomPos;
         MapManager.Instance.roomMap[startRoomPos].SetActive(true);
-         MapManager.Instance.roomMap[startRoomPos].GetComponent<Room>().ClearRoom();
+        MapManager.Instance.roomMap[startRoomPos].GetComponent<Room>().ClearRoom();
         CreatePlayerSpawnPoint(MapManager.Instance.roomMap[startRoomPos].transform.position);
 
     }
@@ -150,7 +173,7 @@ public class MapGen : MonoBehaviour
         AddDoorIfNeighborExists(room, roomPos + Vector2Int.left, Direction.Left, new Vector3(-roomSize.x / 2, 0, 0));
         AddDoorIfNeighborExists(room, roomPos + Vector2Int.right, Direction.Right, new Vector3(roomSize.x / 2, 0, 0));
         room.GetComponent<Room>().InitRoom();
-        
+
         // minimap 등록
         MinimapManager.Instance.RegisterRoom(roomPos);
     }

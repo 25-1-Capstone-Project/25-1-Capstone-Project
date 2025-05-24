@@ -43,7 +43,7 @@ public class CameraManager : Singleton<CameraManager>
             float x = Random.Range(-1f, 1f) * magnitude;
             float y = Random.Range(-1f, 1f) * magnitude;
 
-            mainCamera.transform.localPosition = new Vector3(x, y, originalPosition.z);
+            mainCamera.transform.localPosition = originalPosition + new Vector3(x, y, 0f);
 
             elapsed += Time.deltaTime;
             yield return null;
