@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5c02bb70996b49eba31d0c206e28da24, type: 3}
-  m_Name: Damaged Blackboard
+  m_Name: Attack Blackboard
   m_EditorClassIdentifier: 
-  VersionTimestamp: 638833011055425783
+  VersionTimestamp: 638833787712425445
   AssetID:
-    m_Value0: 0
-    m_Value1: 0
+    m_Value0: 16433770369335464776
+    m_Value1: 985152192835813755
   m_Blackboard:
     m_Variables:
     - rid: 8126540364664537324
@@ -41,7 +41,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5b27bb6d9a2c8d540a10dff10acc543e, type: 3}
-  m_Name: Damaged Debug Info
+  m_Name: Attack Debug Info
   m_EditorClassIdentifier: 
   m_CodeBreakPointsList: []
 --- !u!114 &-375707358430366506
@@ -54,14 +54,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2dd922ae02c94c87a66e46a10a7319b9, type: 3}
-  m_Name: Damaged Blackboard
+  m_Name: Attack Blackboard
   m_EditorClassIdentifier: 
   AssetID:
-    m_Value0: 0
-    m_Value1: 0
+    m_Value0: 16433770369335464776
+    m_Value1: 985152192835813755
   m_Variables:
   - rid: 8126540364664537321
-  m_VersionTimestamp: 638833011055425783
+  m_VersionTimestamp: 638833787712425445
   m_CommandBuffer:
     m_Commands: []
   m_RuntimeBlackboardAsset: {fileID: -5521838167752967600}
@@ -88,19 +88,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: db920e62f70f420bb33c771449926fa4, type: 3}
-  m_Name: Damaged
+  m_Name: Attack
   m_EditorClassIdentifier: 
   Graphs:
-  - rid: 8126540364664537325
+  - rid: 8126540385076904617
   RootGraph:
-    rid: 8126540364664537325
+    rid: 8126540385076904617
   m_DebugInfo: {fileID: -4443663534643115028}
   references:
     version: 2
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 8126540364664537325
+    - rid: 8126540385076904617
       type: {class: BehaviorGraphModule, ns: Unity.Behavior, asm: Unity.Behavior}
       data:
         AuthoringAssetID:
@@ -108,49 +108,49 @@ MonoBehaviour:
           m_Value1: 985152192835813755
         m_DebugInfo: {fileID: 0}
         Root:
-          rid: 8126540364664537326
+          rid: 8126540385076904618
         BlackboardReference:
-          rid: 8126540364664537327
+          rid: 8126540385076904619
         BlackboardGroupReferences: []
         m_ActiveNodes: []
         m_NodesToTick: []
         m_NodesToEnd:
-          rid: 8126540364664537328
+          rid: 8126540385076904620
         m_EndedNodes:
-          rid: 8126540364664537329
-        m_VersionTimestamp: 638833011080455395
-    - rid: 8126540364664537326
+          rid: 8126540385076904621
+        m_VersionTimestamp: 638833787718136213
+    - rid: 8126540385076904618
       type: {class: Start, ns: Unity.Behavior, asm: Unity.Behavior}
       data:
         ID:
-          m_Value0: 16829046429661201693
-          m_Value1: 7067152674996688
+          m_Value0: 14658983081923966049
+          m_Value1: 8232958707359804473
         Graph:
-          rid: 8126540364664537325
+          rid: 8126540385076904617
         m_Parent:
           rid: -2
         m_Child:
           rid: -2
         Repeat: 1
         AllowMultipleRepeatsPerTick: 0
-    - rid: 8126540364664537327
+    - rid: 8126540385076904619
       type: {class: BlackboardReference, ns: Unity.Behavior, asm: Unity.Behavior}
       data:
         m_Blackboard:
-          rid: 8126540364664537330
+          rid: 8126540385076904622
         m_Source: {fileID: -5521838167752967600}
-    - rid: 8126540364664537328
+    - rid: 8126540385076904620
       type: {class: 'Stack`1[[Unity.Behavior.Node, Unity.Behavior]]', ns: System.Collections.Generic, asm: mscorlib}
       data: 
-    - rid: 8126540364664537329
+    - rid: 8126540385076904621
       type: {class: 'HashSet`1[[Unity.Behavior.Node, Unity.Behavior]]', ns: System.Collections.Generic, asm: System.Core}
       data: 
-    - rid: 8126540364664537330
+    - rid: 8126540385076904622
       type: {class: Blackboard, ns: Unity.Behavior, asm: Unity.Behavior}
       data:
         m_Variables:
-        - rid: 8126540364664537331
-    - rid: 8126540364664537331
+        - rid: 8126540385076904623
+    - rid: 8126540385076904623
       type: {class: 'BlackboardVariable`1[[UnityEngine.GameObject, UnityEngine.CoreModule]]', ns: Unity.Behavior, asm: Unity.Behavior}
       data:
         GUID:
@@ -168,13 +168,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bad8f2220607dac4db5082ff333fafb8, type: 3}
-  m_Name: Damaged
+  m_Name: Attack
   m_EditorClassIdentifier: 
   Blackboard: {fileID: -375707358430366506}
   m_Description: 
   m_Nodes:
-  - rid: 8126540364664537322
-  m_VersionTimestamp: 638833011080455395
+  - rid: 8126540384991182998
+  m_VersionTimestamp: 638833787718136213
   m_DebugInfo: {fileID: -4443663534643115028}
   m_RuntimeGraph: {fileID: -253951527148930257}
   AssetID:
@@ -192,6 +192,42 @@ MonoBehaviour:
       m_Value1: 11549843281177505721
     Variables: []
     NamedChildren: []
+  - Name: Run Subgraph
+    Story: 
+    RuntimeTypeID:
+      m_Value0: 9965463903622711961
+      m_Value1: 5344335246744595133
+    Variables: []
+    NamedChildren: []
+  - Name: Switch
+    Story: 
+    RuntimeTypeID:
+      m_Value0: 7697158487413557231
+      m_Value1: 14836087705204215232
+    Variables:
+    - Name: EnumVariable
+      Type:
+        m_SerializableType: Unity.Behavior.BlackboardVariable, Unity.Behavior, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      Tooltip: 
+    NamedChildren: []
+  - Name: Set Variable Value
+    Story: 'Set [Variable] value to [Value]'
+    RuntimeTypeID:
+      m_Value0: 5494721648866555964
+      m_Value1: 18024545711220129068
+    Variables:
+    - Name: Variable
+      Type:
+        m_SerializableType: Unity.Behavior.BlackboardVariable, Unity.Behavior, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      Tooltip: 
+    - Name: Value
+      Type:
+        m_SerializableType: Unity.Behavior.BlackboardVariable, Unity.Behavior, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      Tooltip: 
+    NamedChildren: []
   m_Blackboards: []
   m_MainBlackboardAuthoringAsset: {fileID: -375707358430366506}
   m_CommandBuffer:
@@ -200,16 +236,16 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 8126540364664537322
+    - rid: 8126540384991182998
       type: {class: StartNodeModel, ns: Unity.Behavior, asm: Unity.Behavior.Authoring}
       data:
         Position: {x: 0, y: 0}
         ID:
-          m_Value0: 16829046429661201693
-          m_Value1: 7067152674996688
+          m_Value0: 14658983081923966049
+          m_Value1: 8232958707359804473
         Parents: []
         PortModels:
-        - rid: 8126540364664537323
+        - rid: 8126540384991182999
         NodeType:
           m_SerializableType: Unity.Behavior.Start, Unity.Behavior, Version=0.0.0.0,
             Culture=neutral, PublicKeyToken=null
@@ -219,12 +255,12 @@ MonoBehaviour:
         m_FieldValues: []
         Repeat: 1
         AllowMultipleRepeatsPerTick: 0
-    - rid: 8126540364664537323
+    - rid: 8126540384991182999
       type: {class: PortModel, ns: Unity.Behavior.GraphFramework, asm: Unity.Behavior.GraphFramework}
       data:
         m_Name: OutputPort
         m_PortDataFlowType: 1
         m_IsFloating: 0
         m_NodeModel:
-          rid: 8126540364664537322
+          rid: 8126540384991182998
         m_Connections: []
