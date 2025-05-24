@@ -372,6 +372,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1951943412611108154, guid: 5d9521cb6bd3a514ebfc8aafc24a2b68, type: 3}
+      propertyPath: roomCount
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 1951943412611108154, guid: 5d9521cb6bd3a514ebfc8aafc24a2b68, type: 3}
       propertyPath: roomSize.x
       value: 23
       objectReference: {fileID: 0}

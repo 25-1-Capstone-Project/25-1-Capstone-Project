@@ -35,7 +35,7 @@ public class MapGen : MonoBehaviour
     [SerializeField] GameObject doorPrefab;
     List<int> SpecialRoom;
     bool IsSameRow(int a, int b) => (a / mapWidth) == (b / mapWidth);
-
+    int[] depthMap;
     public void SetRoomData(RoomReference roomData)
     {
         this.roomData = roomData;
@@ -85,9 +85,11 @@ public class MapGen : MonoBehaviour
         {
             map = new int[mapWidth * mapHeight];
             int[] offsets = { mapWidth, -mapWidth, 1, -1 };
+            depthMap = new int[map.Length];
             Queue<int> roomQueue = new Queue<int>();
             SpecialRoom = new List<int>();
             start = mapWidth * mapHeight / 2 + mapWidth / 2;
+            depthMap[start] = 0;
             roomQueue.Enqueue(start);
             map[start] = ERoomType.StartRoom.GetHashCode();
             int _roomCount = roomCount - 1;
@@ -95,6 +97,7 @@ public class MapGen : MonoBehaviour
             while (roomQueue.Count > 0)
             {
                 int index = roomQueue.Dequeue();
+                int currentDepth = depthMap[index];
                 bool isRoomCreated = false;
                 foreach (int offset in offsets)
                 {
@@ -116,6 +119,7 @@ public class MapGen : MonoBehaviour
                     if (Random.value > 0.5f) continue;
 
                     map[newIndex] = 1;
+                    depthMap[newIndex] = currentDepth + 1;
                     roomQueue.Enqueue(newIndex);
                     isRoomCreated = true;
                     _roomCount--;
@@ -136,17 +140,16 @@ public class MapGen : MonoBehaviour
 
         for (int i = 0; i < map.Length; i++)
         {
-            if (map[i] == 1)
+            if (map[i] == ERoomType.BattleRoom.GetHashCode())
             {
-
-                GameObject roomPrefab = roomData.GetRandomRoom();
+                GameObject roomPrefab = roomData.GetRandomRoom(depthMap[i]);
                 Vector2Int roomPos = new Vector2Int(i % mapWidth, i / mapWidth);
 
                 CreateRoom(roomPrefab, roomPos);
             }
-            if (map[i] == 2)
+            if (map[i] == ERoomType.StartRoom.GetHashCode())
             {
-                GameObject roomPrefab = roomData.GetStartRoom();
+                GameObject roomPrefab = roomData.GetRandomRoom(depthMap[i]);
                 Vector2Int roomPos = new Vector2Int(i % mapWidth, i / mapWidth);
 
                 CreateRoom(roomPrefab, roomPos);
