@@ -25,7 +25,7 @@ public class Boss_FSM : Boss
     private void Update()
     {
         StateText.text = _fsm.CurrentState.GetType().Name;
-        AttackText.text = fuzzy.DecideSkillFuzzy(Vector2.Distance(transform.position, player.position), health).ToString();
+        AttackText.text = fuzzy.DecideSkillFuzzy(Vector2.Distance(transform.position, player.position), health, playerHp, playerVelocity).ToString();
 
         switch (_curState)
         {
@@ -47,7 +47,7 @@ public class Boss_FSM : Boss
                 break;
             case State.Attack:
                 // 보스의 체력과 거리 정보를 기반으로 스킬 결정
-                SkillAction action = fuzzy.DecideSkillFuzzy(Vector2.Distance(transform.position, player.position), health);
+                SkillAction action = fuzzy.DecideSkillFuzzy(Vector2.Distance(transform.position, player.position), health, playerHp, playerVelocity);
                 switch (action)
                 {
                     case SkillAction.Slash:

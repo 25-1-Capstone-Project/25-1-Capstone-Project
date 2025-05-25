@@ -15,6 +15,10 @@ public abstract class Boss : MonoBehaviour
     public float health = 100f;
     public float moveSpeed = 5f;
 
+    public float playerHp = 100f; // 플레이어 HP (BossA에서 할당해줘야 함)
+
+    public float playerVelocity = 0f; // 플레이어 속도 (BossA에서 할당해줘야 함)
+
     // 공격 사정거리
     public float attackRange = 3f;
 

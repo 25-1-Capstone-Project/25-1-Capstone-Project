@@ -25,6 +25,8 @@ public class Boss_BT : MonoBehaviour
     Fuzzy fuzzy = new Fuzzy();
     SkillAction currentSkill = SkillAction.Slash;
     float currentHp = 100f;
+    float playerHp = 100f;
+    float playerVelocity = 0f;
 
       
     void Start()
@@ -54,7 +56,7 @@ public class Boss_BT : MonoBehaviour
     {
         if (target != null)
         {
-            currentSkill = fuzzy.DecideSkillFuzzy(currentDistance, currentHp);
+            currentSkill = fuzzy.DecideSkillFuzzy(currentDistance, currentHp, playerHp, playerVelocity);
         }
         else
         {
