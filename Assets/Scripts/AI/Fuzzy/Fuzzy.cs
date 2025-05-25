@@ -5,47 +5,56 @@ public enum SkillAction { Slash, Shot, AreaAttack, JumpSmash }
 public class Fuzzy
 {
     // Gaussian 멤버십 함수
-    private float Gaussian(float x, float c, float sigma)
+    private float Gaussian(float x, float center, float sigma)
     {
-        return Mathf.Exp(-Mathf.Pow(x - c, 2f) / (2f * Mathf.Pow(sigma, 2f)));
+        return Mathf.Exp(-Mathf.Pow(x - center, 2f) / (2f * Mathf.Pow(sigma, 2f)));
     }
 
     /// <summary>
-    /// 보스의 체력(hp)과 거리(distance)를 기준으로 사용할 스킬을 퍼지 논리로 결정합니다.
+    /// 거리, 보스 체력, 플레이어 체력, 플레이어 속도 기반으로 스킬 결정
     /// </summary>
-    public SkillAction DecideSkillFuzzy(float distance, float hp)
+    public SkillAction DecideSkillFuzzy(float distance, float hp, float playerHp, float playerVelocity)
     {
-        // 거리 멤버십 함수
-        float near = Gaussian(distance, 1f, 1f);    // 근거리: 중심 1, 폭 1
-        float mid = Gaussian(distance, 4f, 1f);     // 중거리: 중심 4
-        float far = Gaussian(distance, 8f, 1.5f);   // 원거리: 중심 8
+        // 1. 거리 멤버십 함수
+        float distNear = Gaussian(distance, 1f, 1f);
+        float distMid = Gaussian(distance, 4f, 1.5f);
+        float distFar = Gaussian(distance, 8f, 2f);
 
-        // 체력 멤버십 함수
-        float low = Gaussian(hp, 20f, 10f);         // 저체력
-        float medium = Gaussian(hp, 50f, 10f);      // 중간체력
-        float high = Gaussian(hp, 80f, 10f);        // 고체력
+        // 2. 보스 체력 멤버십 함수
+        float hpLow = Gaussian(hp, 20f, 10f);
+        float hpMed = Gaussian(hp, 50f, 10f);
+        float hpHigh = Gaussian(hp, 80f, 10f);
 
-        // 각 스킬에 대한 퍼지 규칙 적용 (rule strength × weight)
-        float slash = Mathf.Min(near, high) * 4f;         // 근거리 + 고체력
-        float shot = Mathf.Min(far, high) * 3f;           // 원거리 + 고체력
-        float aoe = Mathf.Min(mid, low) * 2f;             // 중거리 + 저체력
-        float jumpSmash = Mathf.Min(near, low) * 1.5f;    // 근거리 + 저체력
+        // 3. 플레이어 체력 멤버십 함수
+        float playerWeak = Gaussian(playerHp, 20f, 10f);
+        float playerNormal = Gaussian(playerHp, 50f, 10f);
+        float playerStrong = Gaussian(playerHp, 80f, 10f);
 
-        // 가중 평균 기반 defuzzification
-        float total = slash + shot + aoe + jumpSmash + 0.0001f; // 0으로 나누는 것 방지
+        // 4. 플레이어 속도 멤버십 함수
+        float playerSlow = Gaussian(playerVelocity, 0.5f, 0.7f);
+        float playerMedium = Gaussian(playerVelocity, 2.5f, 1.0f);
+        float playerFast = Gaussian(playerVelocity, 5f, 1.5f);
 
-        float weightedAvg = (
-            slash * 5f +
-            shot * 3f +
-            aoe * 2f +
-            jumpSmash * 1.5f
-        ) / total;
+        // 5. 퍼지 규칙 평가 (Min 연산 + 우선순위 가중치)
+        float scoreSlash = Mathf.Min(distNear, hpHigh, playerWeak, playerSlow) * 4f;
+        float scoreShot = Mathf.Min(distFar, hpHigh, playerStrong, playerFast) * 3f;
+        float scoreAOE = Mathf.Min(distMid, hpLow, playerStrong, playerFast) * 3.5f;
+        float scoreJumpSmash = Mathf.Min(distNear, hpLow, playerWeak, playerMedium) * 5f;
 
-        // 출력 스킬 결정
-        if (weightedAvg >= 3.5f) return SkillAction.Slash;
-        if (weightedAvg >= 2.5f) return SkillAction.Shot;
-        if (weightedAvg >= 1.5f) return SkillAction.AreaAttack;
-        if (weightedAvg >= 1.0f) return SkillAction.JumpSmash;
+        // 6. Defuzzification
+        float totalScore = scoreSlash + scoreShot + scoreAOE + scoreJumpSmash + 0.0001f;
+
+        float weightedAverage = (
+            scoreSlash * 5f +
+            scoreShot * 3f +
+            scoreAOE * 4f +
+            scoreJumpSmash * 6f
+        ) / totalScore;
+
+        // 7. 최종 스킬 선택
+        if (weightedAverage >= 5.5f) return SkillAction.JumpSmash;
+        if (weightedAverage >= 4f) return SkillAction.AreaAttack;
+        if (weightedAverage >= 2.5f) return SkillAction.Shot;
         return SkillAction.Slash;
     }
 }
