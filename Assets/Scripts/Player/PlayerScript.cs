@@ -1,6 +1,8 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System;
+using System.Collections.Generic;
 
 /// <summary>
 /// 플레이어의 이동, 공격, 패링, 대시 등을 처리하는 스크립트입니다.
@@ -85,6 +87,22 @@ public class PlayerScript : Singleton<PlayerScript>
     }
     public void SetParryStack(int max) { stats.maxParryStack = max; UIManager.Instance.parryStackUI.SetMaxParryStack(); }
 
+    // 증강
+    public event Action OnParrySuccess;
+    private List<PlayerAbility> equipAbilities = new List<PlayerAbility>();
+
+    public void EquipAbility(PlayerAbility ability)
+    {
+        equipAbilities.Add(ability);
+        ability.OnEquip(this);
+    }
+
+    public void UnequipAbility(PlayerAbility ability)
+    {
+        ability.OnUnequip(this);
+        equipAbilities.Remove(ability);
+    }
+
 
     [Header("=====대시 옵션=====")]
     [SerializeField] float dashDistance = 5f;
@@ -111,6 +129,9 @@ public class PlayerScript : Singleton<PlayerScript>
     private SpriteRenderer[] spriteRenderers;
     public PlayerRuntimeStats stats = new PlayerRuntimeStats();
 
+    // 어빌 테스트용
+    [SerializeField] private PlayerAbility[] defaultAbilities;
+
     public void InitPlayer()
     {
         stats.ApplyBase(playerData); // 원본 데이터를 복사
@@ -118,6 +139,12 @@ public class PlayerScript : Singleton<PlayerScript>
         // 스킬 불러오기?
 
         SkillSetting(0);
+
+        foreach (var abilityPrefab in defaultAbilities)
+        {
+            var ability = Instantiate(abilityPrefab);
+            EquipAbility(ability);
+        }
 
         isDead = false;
         Health = stats.maxHealth;
@@ -141,10 +168,6 @@ public class PlayerScript : Singleton<PlayerScript>
     {
         InitPlayer();
         SetComponent();
-
-
-        // 체력 UI 테스트
-
     }
 
     void LateUpdate()
@@ -336,6 +359,8 @@ public class PlayerScript : Singleton<PlayerScript>
             }
         }
 
+        OnParrySuccess?.Invoke();
+
         isParrying = false;
         canUseParry = true;
         enemy?.StateMachine.ChangeState<ParryState>();
@@ -394,6 +419,11 @@ public class PlayerScript : Singleton<PlayerScript>
         Health -= damage;
         yield return new WaitForSeconds(1f);
         isGod = false;
+    }
+
+    public void abilTestPlayerHealth(int h)
+    {
+        Health += h;
     }
     #endregion
 
