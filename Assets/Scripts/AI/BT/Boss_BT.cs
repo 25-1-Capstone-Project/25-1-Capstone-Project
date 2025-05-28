@@ -56,7 +56,7 @@ public class Boss_BT : MonoBehaviour
     {
         if (target != null)
         {
-            currentSkill = fuzzy.DecideSkillFuzzy(currentDistance, currentHp, playerHp, playerVelocity);
+            currentSkill = fuzzy.DecideSkill(currentDistance, currentHp, playerHp, playerVelocity);
         }
         else
         {
