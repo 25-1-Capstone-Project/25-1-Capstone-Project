@@ -47,7 +47,7 @@ public class MapManager : Singleton<MapManager>
     private Vector3 FindEntryPoint(Vector2Int roomPos, Direction fromDirection)
     {
         GameObject room = roomMap[roomPos];
-
+      //  PlayerScript.Instance.SetGroundTilemap(room.GetComponent<Room>().GroundTileMap);
         string entryDoorName = fromDirection
         switch
         {

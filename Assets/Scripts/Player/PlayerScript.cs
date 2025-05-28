@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System;
 using System.Collections.Generic;
+using UnityEngine.Tilemaps;
 
 /// <summary>
 /// 플레이어의 이동, 공격, 패링, 대시 등을 처리하는 스크립트입니다.
@@ -214,24 +215,70 @@ public class PlayerScript : Singleton<PlayerScript>
         StartCoroutine(DashCoroutine());
     }
 
+    Vector3 lastSafePosition;
+
     IEnumerator DashCoroutine()
     {
         isDashing = true;
         canUseDash = false;
-        playerAnim.PlayDash(moveVec);
-        // 대시 방향과 힘 설정
-        rb.linearVelocity = moveVec.normalized * (dashDistance / dashDuration);
 
-        // playerAnim.PlayDash();
+        // 1. 마지막 안전한 위치 저장
+        lastSafePosition = transform.position;
+
+        playerAnim.PlayDash(moveVec);
+        rb.linearVelocity = moveVec.normalized * (dashDistance / dashDuration);
 
         yield return new WaitForSeconds(dashDuration);
 
         rb.linearVelocity = Vector2.zero;
         isDashing = false;
 
+        // // 2. 바닥이 없으면 낙하 시작
+        // if (!IsGroundBelow())
+        // {
+        //     StartCoroutine(FallAndReturnCoroutine());
+        //     yield break;
+        // }
+
+        // 3. 쿨다운
         yield return new WaitForSeconds(dashCooldown);
         canUseDash = true;
     }
+
+    
+    // bool isFalling = false;
+    // public Tilemap groundTilemap;
+    // public void SetGroundTilemap(Tilemap tilemap)
+    // {
+    //     groundTilemap = tilemap;
+    // }
+    // bool IsGroundBelow()
+    // {
+    //     Vector3Int cell = groundTilemap.WorldToCell(transform.position);
+    //     return groundTilemap.HasTile(cell);
+    // }
+    // IEnumerator FallAndReturnCoroutine()
+    // {
+    //     isFalling = true;
+      
+    //     float fallTime = 1.5f;
+
+    //     float timer = 0f;
+    //     while (timer < fallTime)
+    //     {
+    //         transform.localScale = timer % fallTime * Vector3.one; // Scale down while falling
+    //         timer += Time.deltaTime;
+    //         yield return null;
+    //     }
+    //     transform.localScale =  Vector3.one;
+    //     // 복귀
+    //     transform.position = lastSafePosition;
+
+    //     // 상태 복원
+    //     isFalling = false;
+    //     canUseDash = true;
+    // }
+
     #endregion
 
     #region 방향
@@ -368,7 +415,7 @@ public class PlayerScript : Singleton<PlayerScript>
 
     }
 
-      public void ParrySuccess(EnemyAttack enemyAttack)
+    public void ParrySuccess(EnemyAttack enemyAttack)
     {
         StopCoroutine(ParryRoutine);
 
@@ -441,7 +488,7 @@ public class PlayerScript : Singleton<PlayerScript>
         else
             StartCoroutine(DamagedRoutine(enemy.GetDamage()));
     }
-     // 원거리 대미지 처리 함수.
+    // 원거리 대미지 처리 함수.
 
     public void TakeDamage(EnemyAttack enemyAttack)
     {

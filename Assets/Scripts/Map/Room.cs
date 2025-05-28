@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class Room : MonoBehaviour
 {
@@ -30,11 +31,12 @@ public class Room : MonoBehaviour
     }
     [SerializeField] public Transform enemySpawnParentObject; // 스폰포인트 부모 오브젝트
     public Transform[] enemySpawnPointsT; // 스폰포인트
-
+    public Tilemap GroundTileMap; // 방 타일맵
     List<GameObject> PortalPointObj = new List<GameObject>(); // 적 프리팹
 
     public void InitRoom()
     {
+        GroundTileMap = GetComponentInChildren<Tilemap>();
         // 방 초기화 로직을 여기에 추가하세요.
         IsRoomCleared = false;
         if(enemySpawnParentObject!=null)

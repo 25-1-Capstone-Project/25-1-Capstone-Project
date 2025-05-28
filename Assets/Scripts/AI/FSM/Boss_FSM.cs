@@ -25,7 +25,7 @@ public class Boss_FSM : Boss
     private void Update()
     {
         StateText.text = _fsm.CurrentState.GetType().Name;
-        AttackText.text = fuzzy.DecideSkillFuzzy(Vector2.Distance(transform.position, player.position), health, playerHp, playerVelocity).ToString();
+       // AttackText.text = fuzzy.DecideSkillFuzzy(Vector2.Distance(transform.position, player.position), health, playerHp, playerVelocity).ToString();
 
         switch (_curState)
         {
@@ -45,30 +45,30 @@ public class Boss_FSM : Boss
                     ChangeState(State.Attack);
                 }
                 break;
-            case State.Attack:
-                // 보스의 체력과 거리 정보를 기반으로 스킬 결정
-                SkillAction action = fuzzy.DecideSkillFuzzy(Vector2.Distance(transform.position, player.position), health, playerHp, playerVelocity);
-                switch (action)
-                {
-                    case SkillAction.Slash:
-                        // Slash 스킬 실행
-                        Debug.Log("Slash");
-                        break;
-                    case SkillAction.Shot:
-                        // Shot 스킬 실행
-                        Debug.Log("Shot");
-                        break;
-                    case SkillAction.AreaAttack:
-                        // AreaAttack 스킬 실행
-                        Debug.Log("AreaAttack");
-                        break;
-                    case SkillAction.JumpSmash:
-                        // JumpSmash 스킬 실행
-                        Debug.Log("JumpSmash");
-                        break;
-                    default:
-                        break;
-                }
+            // case State.Attack:
+            //     // 보스의 체력과 거리 정보를 기반으로 스킬 결정
+            //     SkillAction action = fuzzy.DecideSkillFuzzy(Vector2.Distance(transform.position, player.position), health, playerHp, playerVelocity);
+            //     switch (action)
+            //     {
+            //         case SkillAction.Slash:
+            //             // Slash 스킬 실행
+            //             Debug.Log("Slash");
+            //             break;
+            //         case SkillAction.Shot:
+            //             // Shot 스킬 실행
+            //             Debug.Log("Shot");
+            //             break;
+            //         case SkillAction.AreaAttack:
+            //             // AreaAttack 스킬 실행
+            //             Debug.Log("AreaAttack");
+            //             break;
+            //         case SkillAction.JumpSmash:
+            //             // JumpSmash 스킬 실행
+            //             Debug.Log("JumpSmash");
+            //             break;
+            //         default:
+            //             break;
+            //     }
                 if (_fsm.CurrentState is Attack attackState && attackState.IsAttackFinished())
                 {
                     ChangeState(State.Cooldown);
