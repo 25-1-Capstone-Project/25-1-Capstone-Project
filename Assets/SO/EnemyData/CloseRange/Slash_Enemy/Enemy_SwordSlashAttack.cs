@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-[CreateAssetMenu(menuName = "Enemy/AttackPattern/Enmey/Enemy_SwordSlash")]
+[CreateAssetMenu(menuName = "Enemy/AttackPattern/Enemy/Enemy_SwordSlash")]
 public class Enemy_SwordSlash : EnemyAttackPattern
 {
     public int damage = 0;

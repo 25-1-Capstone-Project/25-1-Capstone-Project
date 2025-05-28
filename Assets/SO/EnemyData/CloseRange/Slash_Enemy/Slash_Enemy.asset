@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48cb4d560ee21ee43a9cd094eafa310c, type: 3}
   m_Name: Slash_Enemy
   m_EditorClassIdentifier: 
-  eEnemyType: 1
   monsterName: Bot
   maxHealth: 5
   moveSpeed: 3
@@ -21,3 +20,6 @@ MonoBehaviour:
   attackDamage: 1
   animator: {fileID: 9100000, guid: e56e2e4e5b46f8d41bea3bccd2515ab9, type: 2}
   attackPattern: {fileID: 11400000, guid: e046c09cf101f054c834b068de4af735, type: 2}
+  closeAttackType: 0
+  longAttackType: 0
+  eEnemyType: 0

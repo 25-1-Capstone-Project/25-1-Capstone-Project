@@ -169,35 +169,35 @@ public class Enemy : MonoBehaviour
         yield return new WaitForSeconds(duration);
         enemySprite.color = Color.white;
     }
-#if UNITY_EDITOR
-    private void OnDrawGizmos()
-    {
-        switch (enemyData.eEnemyType)
-        {
-            case EEnemyType.Sword:
-                Gizmos.color = Color.blue;
-                Vector2 attackDir = GetDirectionNormalVec();
-                float attackAngle = Mathf.Atan2(attackDir.y, attackDir.x) * Mathf.Rad2Deg;
+// #if UNITY_EDITOR
+//     private void OnDrawGizmos()
+//     {
+//         switch (enemyData.eEnemyType)
+//         {
+//             case EEnemyType.Sword:
+//                 Gizmos.color = Color.blue;
+//                 Vector2 attackDir = GetDirectionNormalVec();
+//                 float attackAngle = Mathf.Atan2(attackDir.y, attackDir.x) * Mathf.Rad2Deg;
 
-                Vector2 boxCenter = (Vector2)transform.position + attackDir * 0.5f;
-                Vector2 boxSize = new Vector2(1f, 1f); // 혹은 sword.range 등에서 계산
+//                 Vector2 boxCenter = (Vector2)transform.position + attackDir * 0.5f;
+//                 Vector2 boxSize = new Vector2(1f, 1f); // 혹은 sword.range 등에서 계산
 
-                Gizmos.color = Color.red;
+//                 Gizmos.color = Color.red;
 
-                // 회전 매트릭스로 회전 적용
-                Matrix4x4 rot = Matrix4x4.TRS(boxCenter, Quaternion.Euler(0, 0, attackAngle), Vector3.one);
-                Gizmos.matrix = rot;
-                Gizmos.DrawWireCube(Vector2.zero, new Vector2(boxSize.x, boxSize.y));
+//                 // 회전 매트릭스로 회전 적용
+//                 Matrix4x4 rot = Matrix4x4.TRS(boxCenter, Quaternion.Euler(0, 0, attackAngle), Vector3.one);
+//                 Gizmos.matrix = rot;
+//                 Gizmos.DrawWireCube(Vector2.zero, new Vector2(boxSize.x, boxSize.y));
 
-                break;
-            case EEnemyType.Spear:
-                Gizmos.DrawSphere(transform.position, 0.5f);
+//                 break;
+//             case EEnemyType.Spear:
+//                 Gizmos.DrawSphere(transform.position, 0.5f);
 
-                break;
-        }
+//                 break;
+//         }
 
 
-    }
-#endif
+//     }
+// #endif
 
 }

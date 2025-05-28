@@ -8,7 +8,8 @@ public class EnemyManager : Singleton<EnemyManager>
     public Transform spawnPosParent;
     public GameObject enemyPrefab;
     public EnemyReference enemyReference;
-    public EnemyAttackPattern[] commonEnemyAttackPatterns;
+    public EnemyAttackPattern[] CloseEnemyAttackPatterns;
+    public EnemyAttackPattern[] LongenemyAttackPatterns;
     protected override void Awake()
     {
         base.Awake();
@@ -26,7 +27,6 @@ public class EnemyManager : Singleton<EnemyManager>
         }
 
     }
-
 
     public void EnemySpawn(Vector2 spawnPos)
     {

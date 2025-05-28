@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 022ad613e0d41d040823fb8dc8450496, type: 3}
-  m_Name: Enemy_Spear Attack
+  m_Script: {fileID: 11500000, guid: 7efa58a6f6c000642bc62392f0213d67, type: 3}
+  m_Name: Enemy_Multi Gun Attack
   m_EditorClassIdentifier: 
-  attackDistance: 5
-  attackChargeSec: 1
-  attackDuration: 0.5
-  attackPostDelay: 0.5
-  hitboxSize: {x: 1, y: 1}
+  attackDistance: 0
+  attackChargeSec: 0
+  attackDuration: 0
+  attackPostDelay: 0
+  effectWidth: 0.4
