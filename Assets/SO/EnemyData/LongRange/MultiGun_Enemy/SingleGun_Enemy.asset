@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: SingleGun_Enemy
   m_EditorClassIdentifier: 
   monsterName: 
-  maxHealth: 0
-  moveSpeed: 0
-  attackSpeed: 0
-  attackRange: 0
-  attackDamage: 0
+  maxHealth: 5
+  moveSpeed: 1
+  attackSpeed: 1
+  attackRange: 2
+  attackDamage: 1
   animator: {fileID: 9100000, guid: e56e2e4e5b46f8d41bea3bccd2515ab9, type: 2}
-  attackPattern: {fileID: 0}
+  attackPattern: {fileID: 11400000, guid: a242bfceff7c0e648b64cbfc2abaa05e, type: 2}
   closeAttackType: 0
   longAttackType: 0
-  eEnemyType: 0
+  eEnemyType: 1

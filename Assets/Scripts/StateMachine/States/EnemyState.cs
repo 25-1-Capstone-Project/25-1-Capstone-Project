@@ -30,7 +30,7 @@ public class IdleState : EnemyState
     public override void Update()
     {
         // 플레이어가 일정 거리 안에 있으면 추격 상태로 전환
-        if (enemy.GetDirectionVec().magnitude < 5f)
+        if (enemy.GetDirectionToPlayerVec().magnitude < 5f)
         {
             enemy.StateMachine.ChangeState<ChaseState>();
         }
@@ -64,7 +64,7 @@ public class ChaseState : EnemyState, IFixedUpdateState, ILateUpdateState
         if (enemy.CheckAttackRange())
             return;
 
-        Vector2 direction = enemy.GetDirectionNormalVec();
+        Vector2 direction = enemy.GetDirectionToPlayerNormalVec();
         enemy.GetRigidbody().linearVelocity = direction * enemy.GetSpeed();
     }
 

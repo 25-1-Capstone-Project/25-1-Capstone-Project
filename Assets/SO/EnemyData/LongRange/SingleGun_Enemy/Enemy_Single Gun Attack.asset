@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b4174fd3452b784389bad27718d014b, type: 3}
   m_Name: Enemy_Single Gun Attack
   m_EditorClassIdentifier: 
-  attackDistance: 0
-  attackChargeSec: 0
+  attackDistance: 2
+  attackChargeSec: 1
   attackDuration: 0
-  attackPostDelay: 0
+  attackPostDelay: 1
   effectWidth: 0.4

@@ -20,51 +20,21 @@ public class EnemyData : ScriptableObject
     public ELongAttackType longAttackType;
     public EEnemyType eEnemyType;
 
-    public EnemyData()
+    public void AttackPatternSet()
     {
         switch (eEnemyType)
         {
             case EEnemyType.CloseRange:
-                ChoooseCloseAttackType();
+                attackPattern = EnemyManager.Instance.CloseEnemyAttackPatterns[(int)closeAttackType];
+
                 break;
             case EEnemyType.LongRange:
-                ChoooseLongAttackType();
-                break;
-            default:
+                attackPattern = EnemyManager.Instance.LongenemyAttackPatterns[(int)longAttackType];
 
                 break;
         }
     }
-    public void ChoooseCloseAttackType()
-    {
-        switch (closeAttackType)
-        {
-            case ECloseAttackType.Slash:
-               
-                break;
-            case ECloseAttackType.Sting:
-               
-                break;
+  
+    
 
-            default:
-                Debug.LogError("Invalid close attack type selected.");
-                break;
-        }
-    }
-    public void ChoooseLongAttackType()
-    {
-
-        switch (longAttackType)
-        {
-            case ELongAttackType.SingleShot:
-                attackPattern = Resources.Load<EnemyAttackPattern>("Enemy/AttackPattern/Enemy/Enemy_SpearAttack");
-                break;
-            case ELongAttackType.MultiShot:
-                attackPattern = Resources.Load<EnemyAttackPattern>("Enemy/AttackPattern/Enemy/Enemy_BowAttack");
-                break;
-            default:
-                Debug.LogError("Invalid long attack type selected.");
-                break;
-        }
-    }
 }

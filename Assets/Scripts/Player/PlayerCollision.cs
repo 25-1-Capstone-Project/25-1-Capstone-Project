@@ -12,9 +12,10 @@ public class PlayerCollision : MonoBehaviour
         switch (other.tag)
         {
             case "EnemyAttack":
-                other.tag = "Enemy";
                 EnemyAttack enemyAttack = other.GetComponent<EnemyAttack>();
-                PlayerScript.Instance.TakeDamage(enemyAttack.GetDamage(), enemyAttack.GetDirectionNormalVec());
+                other.gameObject.SetActive(false);
+                PlayerScript.Instance.TakeDamage(enemyAttack);
+
                 break;
         }
 

@@ -61,8 +61,8 @@ public class Enemy : MonoBehaviour
     public EnemyAnimatorController GetAnimatorController() => enemyAnimController;
     public Transform GetPlayer() => PlayerScript.Instance.GetPlayerTransform();
 
-    public Vector2 GetDirectionVec() => PlayerScript.Instance.GetPlayerTransform().position - transform.position;
-    public Vector2 GetDirectionNormalVec() => GetDirectionVec().normalized;
+    public Vector2 GetDirectionToPlayerVec() => PlayerScript.Instance.GetPlayerTransform().position - transform.position;
+    public Vector2 GetDirectionToPlayerNormalVec() => GetDirectionToPlayerVec().normalized;
     #endregion
 
     #region SetFunction
@@ -71,11 +71,12 @@ public class Enemy : MonoBehaviour
     #region Initialize
     public void EnemyInit()
     {
+        enemyData.AttackPatternSet();
         attackPattern = enemyData.attackPattern;
         enemyAnimController.SetAnimator(enemyData.animator);
         speed = enemyData.moveSpeed;
         health = enemyData.maxHealth;
-        GetComponent<EnemyAttack>().SetDamage(GetDamage());
+       
     }
     void SetComponents()
     {
@@ -132,7 +133,7 @@ public class Enemy : MonoBehaviour
     public bool CheckAttackRange()
     {
         // 플레이어가 가까우면 공격 상태로 전환
-        if (GetDirectionVec().magnitude < enemyData.attackRange)
+        if (GetDirectionToPlayerVec().magnitude < enemyData.attackRange)
             return true;
         else
             return false;
@@ -155,7 +156,7 @@ public class Enemy : MonoBehaviour
     public void KnockBack(float knockBackForce)
     {
         enemyAnimController.PlayKnockBack();
-        rb.linearVelocity = -GetDirectionNormalVec() * knockBackForce;
+        rb.linearVelocity = -GetDirectionToPlayerNormalVec() * knockBackForce;
     }
 
     public void FlashSprite(Color color, float duration)
@@ -169,35 +170,35 @@ public class Enemy : MonoBehaviour
         yield return new WaitForSeconds(duration);
         enemySprite.color = Color.white;
     }
-// #if UNITY_EDITOR
-//     private void OnDrawGizmos()
-//     {
-//         switch (enemyData.eEnemyType)
-//         {
-//             case EEnemyType.Sword:
-//                 Gizmos.color = Color.blue;
-//                 Vector2 attackDir = GetDirectionNormalVec();
-//                 float attackAngle = Mathf.Atan2(attackDir.y, attackDir.x) * Mathf.Rad2Deg;
+    // #if UNITY_EDITOR
+    //     private void OnDrawGizmos()
+    //     {
+    //         switch (enemyData.eEnemyType)
+    //         {
+    //             case EEnemyType.Sword:
+    //                 Gizmos.color = Color.blue;
+    //                 Vector2 attackDir = GetDirectionNormalVec();
+    //                 float attackAngle = Mathf.Atan2(attackDir.y, attackDir.x) * Mathf.Rad2Deg;
 
-//                 Vector2 boxCenter = (Vector2)transform.position + attackDir * 0.5f;
-//                 Vector2 boxSize = new Vector2(1f, 1f); // 혹은 sword.range 등에서 계산
+    //                 Vector2 boxCenter = (Vector2)transform.position + attackDir * 0.5f;
+    //                 Vector2 boxSize = new Vector2(1f, 1f); // 혹은 sword.range 등에서 계산
 
-//                 Gizmos.color = Color.red;
+    //                 Gizmos.color = Color.red;
 
-//                 // 회전 매트릭스로 회전 적용
-//                 Matrix4x4 rot = Matrix4x4.TRS(boxCenter, Quaternion.Euler(0, 0, attackAngle), Vector3.one);
-//                 Gizmos.matrix = rot;
-//                 Gizmos.DrawWireCube(Vector2.zero, new Vector2(boxSize.x, boxSize.y));
+    //                 // 회전 매트릭스로 회전 적용
+    //                 Matrix4x4 rot = Matrix4x4.TRS(boxCenter, Quaternion.Euler(0, 0, attackAngle), Vector3.one);
+    //                 Gizmos.matrix = rot;
+    //                 Gizmos.DrawWireCube(Vector2.zero, new Vector2(boxSize.x, boxSize.y));
 
-//                 break;
-//             case EEnemyType.Spear:
-//                 Gizmos.DrawSphere(transform.position, 0.5f);
+    //                 break;
+    //             case EEnemyType.Spear:
+    //                 Gizmos.DrawSphere(transform.position, 0.5f);
 
-//                 break;
-//         }
+    //                 break;
+    //         }
 
 
-//     }
-// #endif
+    //     }
+    // #endif
 
 }

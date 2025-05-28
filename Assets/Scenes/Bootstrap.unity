@@ -658,6 +658,38 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6827409029111095557, guid: 07f1e104642059a429d41139e8ecd9ae, type: 3}
+      propertyPath: LongenemyAttackPatterns.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6827409029111095557, guid: 07f1e104642059a429d41139e8ecd9ae, type: 3}
+      propertyPath: CloseEnemyAttackPatterns.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6827409029111095557, guid: 07f1e104642059a429d41139e8ecd9ae, type: 3}
+      propertyPath: commonEnemyAttackPatterns.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6827409029111095557, guid: 07f1e104642059a429d41139e8ecd9ae, type: 3}
+      propertyPath: 'LongenemyAttackPatterns.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: a242bfceff7c0e648b64cbfc2abaa05e, type: 2}
+    - target: {fileID: 6827409029111095557, guid: 07f1e104642059a429d41139e8ecd9ae, type: 3}
+      propertyPath: 'LongenemyAttackPatterns.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 6135d1cbdc5e5e640ae6c635d2515237, type: 2}
+    - target: {fileID: 6827409029111095557, guid: 07f1e104642059a429d41139e8ecd9ae, type: 3}
+      propertyPath: 'CloseEnemyAttackPatterns.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: e046c09cf101f054c834b068de4af735, type: 2}
+    - target: {fileID: 6827409029111095557, guid: 07f1e104642059a429d41139e8ecd9ae, type: 3}
+      propertyPath: 'CloseEnemyAttackPatterns.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 88202967312e349458158c3961c05dad, type: 2}
+    - target: {fileID: 6827409029111095557, guid: 07f1e104642059a429d41139e8ecd9ae, type: 3}
+      propertyPath: 'commonEnemyAttackPatterns.Array.data[2]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 88202967312e349458158c3961c05dad, type: 2}
     - target: {fileID: 7059341653294800209, guid: 07f1e104642059a429d41139e8ecd9ae, type: 3}
       propertyPath: m_Name
       value: EnemyManager
@@ -703,7 +735,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 5530233385508817137, guid: 07f1e104642059a429d41139e8ecd9ae, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 07f1e104642059a429d41139e8ecd9ae, type: 3}
@@ -758,6 +791,10 @@ PrefabInstance:
     - target: {fileID: 1252674177885724664, guid: 4741b474fb1ea444f9aad06fe4526b9e, type: 3}
       propertyPath: m_Name
       value: EffectPooler
+      objectReference: {fileID: 0}
+    - target: {fileID: 3392107579056649435, guid: 4741b474fb1ea444f9aad06fe4526b9e, type: 3}
+      propertyPath: pools.Array.data[3].tag
+      value: EnemyAttackProjectile1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

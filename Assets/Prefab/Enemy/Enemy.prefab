@@ -5057,9 +5057,9 @@ GameObject:
   - component: {fileID: 4731020011784265818}
   - component: {fileID: 3819584823824354200}
   - component: {fileID: 8931452177821660155}
-  - component: {fileID: 7631478283850709374}
   - component: {fileID: 1271979707003504873}
-  - component: {fileID: 1488254166091403467}
+  - component: {fileID: 7631478283850709374}
+  - component: {fileID: -2833255135379681415}
   m_Layer: 6
   m_Name: Enemy
   m_TagString: Enemy
@@ -5147,25 +5147,6 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.29
---- !u!114 &7631478283850709374
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6562499921600132831}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d84031b5247769488d60dac111cc2ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyData: {fileID: 11400000, guid: fe069fc829c907f4c8345e0939402a0d, type: 2}
-  enemySprite: {fileID: 6823296138178529082}
-  enemyAnimController: {fileID: 1213534254612820977}
-  attackPattern: {fileID: 0}
-  attackParticle: {fileID: 3584909397277161193}
-  flashDuration: 0.1
-  IsAttacking: 0
 --- !u!212 &1271979707003504873
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5221,7 +5202,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1488254166091403467
+--- !u!114 &7631478283850709374
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5230,6 +5211,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 6562499921600132831}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9382eba21835af845bdf883da1a21630, type: 3}
+  m_Script: {fileID: 11500000, guid: 9d84031b5247769488d60dac111cc2ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyData: {fileID: 11400000, guid: fe069fc829c907f4c8345e0939402a0d, type: 2}
+  enemySprite: {fileID: 6823296138178529082}
+  enemyAnimController: {fileID: 1213534254612820977}
+  attackPattern: {fileID: 0}
+  attackParticle: {fileID: 3584909397277161193}
+  flashDuration: 0.1
+  IsAttacking: 0
+--- !u!114 &-2833255135379681415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6562499921600132831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 202a16f9eba131142aa2885553c4ff01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

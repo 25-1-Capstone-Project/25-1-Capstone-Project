@@ -31,7 +31,7 @@ public class TestSkillA : SkillPattern
         GameObject fireball = Instantiate(fireballPrefab, player.transform.position, rotation, SkillManager.Instance.skillObjectsParent);
         fireball.GetComponent<Rigidbody2D>().linearVelocity = direction * fireballSpeed;
 
-        fireball.GetComponent<SkillTestBall>().damage = damage; 
+        fireball.GetComponent<PlayerAttack>().damage = damage; 
     }
 
 }

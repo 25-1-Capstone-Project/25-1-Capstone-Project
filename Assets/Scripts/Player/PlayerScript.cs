@@ -338,7 +338,7 @@ public class PlayerScript : Singleton<PlayerScript>
         canUseParry = true;
     }
 
-    // 패리 성공|실패 여부에 따라 패리가능 변수 처리, 패리중→패리중X, 패리 실패 시 쿨다운 코루틴 호출
+    // 패리 성공|실패 여부에 따라 패리가능 변수 처리, 패리중→패리중X
     public void ParrySuccess(Enemy enemy)
     {
         StopCoroutine(ParryRoutine);
@@ -367,6 +367,37 @@ public class PlayerScript : Singleton<PlayerScript>
         StartCoroutine(ParryEffect());
 
     }
+
+      public void ParrySuccess(EnemyAttack enemyAttack)
+    {
+        StopCoroutine(ParryRoutine);
+
+        if (ParryStack < stats.maxParryStack)
+        {
+            ParryStack++;
+        }
+        // 주먹구구식으로 땜질해 뒀는데 고찰이 필요...
+        if (ParryStack == stats.maxParryStack)
+        {
+            currentSkill.ResetCooldown();
+            if (cooldownRoutine != null)
+            {
+                StopCoroutine(cooldownRoutine);
+                cooldownRoutine = null;
+                UIManager.Instance.skillUI.UpdateCooldown(0f);
+            }
+        }
+
+        OnParrySuccess?.Invoke();
+        enemyAttack.gameObject.SetActive(true); // 공격 오브젝트 비활성화
+        enemyAttack.gameObject.tag = "PlayerAttack"; // 태그 제거
+        enemyAttack.SetDirectionVec(direction); // 방향 반전
+
+        isParrying = false;
+        canUseParry = true;
+        StartCoroutine(ParryEffect());
+
+    }
     public IEnumerator ParryEffect()
     {
 
@@ -389,14 +420,14 @@ public class PlayerScript : Singleton<PlayerScript>
     #region 데미지 처리
 
     // 대미지 처리 함수. 적 스크립트에서 플레이어와 적 충돌 발생 시 호출
-    public void TakeDamage(int damage, Vector2 enemyDir, Enemy enemy = null)
+    public void TakeDamage(Enemy enemy)
     {
         if (isDead) return;
         if (isGod) return;
 
         if (isParrying)
         {
-            float parryDot = Vector2.Dot(direction, -enemyDir);
+            float parryDot = Vector2.Dot(direction, -enemy.GetDirectionToPlayerNormalVec());
             float threshold = Mathf.Cos(45f * Mathf.Deg2Rad); // 90도 시야
             Debug.Log(parryDot);
             if (parryDot >= threshold)
@@ -404,11 +435,34 @@ public class PlayerScript : Singleton<PlayerScript>
             else
             {
                 // ParryFailed();
-                StartCoroutine(DamagedRoutine(damage));
+                StartCoroutine(DamagedRoutine(enemy.GetDamage()));
             }
         }
         else
-            StartCoroutine(DamagedRoutine(damage));
+            StartCoroutine(DamagedRoutine(enemy.GetDamage()));
+    }
+     // 원거리 대미지 처리 함수.
+
+    public void TakeDamage(EnemyAttack enemyAttack)
+    {
+        if (isDead) return;
+        if (isGod) return;
+
+        if (isParrying)
+        {
+            float parryDot = Vector2.Dot(direction, -enemyAttack.GetDirectionNormalVec());
+            float threshold = Mathf.Cos(45f * Mathf.Deg2Rad); // 90도 시야
+            Debug.Log(parryDot);
+            if (parryDot >= threshold)
+                ParrySuccess(enemyAttack);
+            else
+            {
+                // ParryFailed();
+                StartCoroutine(DamagedRoutine(enemyAttack.GetDamage()));
+            }
+        }
+        else
+            StartCoroutine(DamagedRoutine(enemyAttack.GetDamage()));
     }
     public IEnumerator DamagedRoutine(int damage)
     {

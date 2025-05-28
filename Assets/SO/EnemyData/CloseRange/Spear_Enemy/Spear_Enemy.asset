@@ -20,6 +20,6 @@ MonoBehaviour:
   attackDamage: 1
   animator: {fileID: 9100000, guid: e56e2e4e5b46f8d41bea3bccd2515ab9, type: 2}
   attackPattern: {fileID: 11400000, guid: 88202967312e349458158c3961c05dad, type: 2}
-  closeAttackType: 2
+  closeAttackType: 1
   longAttackType: 0
-  eEnemyType: 1
+  eEnemyType: 0
