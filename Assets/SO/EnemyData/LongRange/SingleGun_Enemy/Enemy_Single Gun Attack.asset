@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b4174fd3452b784389bad27718d014b, type: 3}
   m_Name: Enemy_Single Gun Attack
   m_EditorClassIdentifier: 
-  attackDistance: 2
+  attackDistance: 5
   attackChargeSec: 1
   attackDuration: 0
   attackPostDelay: 1

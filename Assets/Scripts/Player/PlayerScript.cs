@@ -47,6 +47,10 @@ public class PlayerScript : Singleton<PlayerScript>
                 health = 0;
                 Dead();
             }
+            if (health > stats.maxHealth)
+            {
+                health = stats.maxHealth;
+            }
             UIManager.Instance.playerStatUI.UI_HPBarUpdate();
         }
     }
@@ -245,7 +249,7 @@ public class PlayerScript : Singleton<PlayerScript>
         canUseDash = true;
     }
 
-    
+
     // bool isFalling = false;
     // public Tilemap groundTilemap;
     // public void SetGroundTilemap(Tilemap tilemap)
@@ -260,7 +264,7 @@ public class PlayerScript : Singleton<PlayerScript>
     // IEnumerator FallAndReturnCoroutine()
     // {
     //     isFalling = true;
-      
+
     //     float fallTime = 1.5f;
 
     //     float timer = 0f;
@@ -307,13 +311,13 @@ public class PlayerScript : Singleton<PlayerScript>
     #endregion
 
     #region 공격
-    void OnAttack()
-    {
-        if (!canUseAttack || isDead || isDashing || isParrying)
-            return;
+    // void OnAttack()
+    // {
+    //     if (!canUseAttack || isDead || isDashing || isParrying)
+    //         return;
 
-        StartCoroutine(AttackRoutine());
-    }
+    //     StartCoroutine(AttackRoutine());
+    // }
     IEnumerator AttackRoutine()
     {
 
@@ -410,7 +414,8 @@ public class PlayerScript : Singleton<PlayerScript>
 
         isParrying = false;
         canUseParry = true;
-        enemy?.StateMachine.ChangeState<ParryState>();
+        enemy.TakeDamage(stats.damage); // 적에게 대미지 주기
+        //enemy?.StateMachine.ChangeState<ParryState>();
         StartCoroutine(ParryEffect());
 
     }
