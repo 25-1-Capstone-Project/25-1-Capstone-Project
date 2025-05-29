@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: BlueDragon1F
   m_EditorClassIdentifier: 
   name: BlueDragon1F
-  Rooms:
-  - {fileID: 2521365868005272557, guid: 7fe84e1423b537b4d9daf3713d19260b, type: 3}
-  - {fileID: 2521365868005272557, guid: 66a6e652e7937884b8665c7cfaf572ce, type: 3}
+  Level1_Rooms:
   - {fileID: 2521365868005272557, guid: d0731c6399c717f42ab53dc1056ae153, type: 3}
+  Level2_Rooms:
   - {fileID: 2521365868005272557, guid: 9f50c6d89cc8d477ea314d28d9101341, type: 3}
-  - {fileID: 2521365868005272557, guid: 495e9f10a5cba45409f10da584436490, type: 3}
-  - {fileID: 2521365868005272557, guid: cb6bbac30d38f423abb5c7f6e13a74ee, type: 3}
-  - {fileID: 2521365868005272557, guid: 2e0ca7e0efbaf44788c5fea82651108a, type: 3}
+  Level3_Rooms:
+  - {fileID: 2521365868005272557, guid: 66a6e652e7937884b8665c7cfaf572ce, type: 3}
+  BossRooms: []
+  ShopRooms: []
   StartRoom: {fileID: 2521365868005272557, guid: e6927933b0b1049dd9d896b450ba5698, type: 3}

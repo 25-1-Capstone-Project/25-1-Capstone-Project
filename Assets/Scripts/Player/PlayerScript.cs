@@ -448,15 +448,15 @@ public class PlayerScript : Singleton<PlayerScript>
         isParrying = false;
         canUseParry = true;
         StartCoroutine(ParryEffect());
-
+        
     }
     public IEnumerator ParryEffect()
     {
-
+        CameraManager.Instance.CameraShake(0.1f, 0.1f);
         EffectPooler.Instance.SpawnFromPool("ParryEffect", transform.position + (direction / 2), Quaternion.identity);
         AudioManager.Instance.PlaySFX("ParrySuccess");
         isGod = true;
-        GameManager.Instance.SetTimeScale(0.5f);
+        GameManager.Instance.SetTimeScale(0);
         yield return FadeController.Instance.FadeOut(Color.white, 0.05f, 0.01f);
         yield return FadeController.Instance.FadeIn(Color.white, 0.05f, 0.01f);
         GameManager.Instance.SetTimeScale(1);
