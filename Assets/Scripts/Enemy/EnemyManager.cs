@@ -5,7 +5,6 @@ public class EnemyManager : Singleton<EnemyManager>
 {
     int spawnedEnemy;
 
-    public Transform spawnPosParent;
     public GameObject enemyPrefab;
     public EnemyReference enemyReference;
     public EnemyAttackPattern[] CloseEnemyAttackPatterns;

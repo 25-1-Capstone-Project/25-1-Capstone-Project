@@ -14,11 +14,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: BlueDragon1F
   Level1_Rooms:
+  - {fileID: 2521365868005272557, guid: 3c0b536d3b4424c3fb0cb7294bfb94c0, type: 3}
+  - {fileID: 2521365868005272557, guid: 4135620734ebe426296aa282423909ca, type: 3}
   - {fileID: 2521365868005272557, guid: d0731c6399c717f42ab53dc1056ae153, type: 3}
+  - {fileID: 2521365868005272557, guid: b5f13aeab885646f281481ecf6dc9de2, type: 3}
+  - {fileID: 2521365868005272557, guid: 5529a831558a44d7abd44e7a1b41323d, type: 3}
   Level2_Rooms:
+  - {fileID: 2521365868005272557, guid: d15389abd8391469ab9819eade6dbf09, type: 3}
+  - {fileID: 2521365868005272557, guid: 2e0ca7e0efbaf44788c5fea82651108a, type: 3}
   - {fileID: 2521365868005272557, guid: 9f50c6d89cc8d477ea314d28d9101341, type: 3}
-  Level3_Rooms:
+  - {fileID: 2521365868005272557, guid: 7fe84e1423b537b4d9daf3713d19260b, type: 3}
+  - {fileID: 2521365868005272557, guid: 24691f67cfda94d30bead56f2a8ab10e, type: 3}
   - {fileID: 2521365868005272557, guid: 66a6e652e7937884b8665c7cfaf572ce, type: 3}
+  - {fileID: 2521365868005272557, guid: c10c80aeccd2d45b8a61e62db9eb42e6, type: 3}
+  Level3_Rooms:
+  - {fileID: 2521365868005272557, guid: ca90ff2ae7dbb4dcaa1d34ebace5bf43, type: 3}
+  - {fileID: 2521365868005272557, guid: 656a340ff060b4783a4d1878b1009218, type: 3}
+  - {fileID: 2521365868005272557, guid: 54dc6dc10254c4ccc97f6beefad5e108, type: 3}
+  - {fileID: 2521365868005272557, guid: cb6bbac30d38f423abb5c7f6e13a74ee, type: 3}
+  - {fileID: 2521365868005272557, guid: e3d7cfea2a31b49a4a8b6fe5de089738, type: 3}
+  - {fileID: 2521365868005272557, guid: 0b0ebe7a1cc74419a8a663efcc1f2194, type: 3}
   BossRooms: []
   ShopRooms: []
   StartRoom: {fileID: 2521365868005272557, guid: e6927933b0b1049dd9d896b450ba5698, type: 3}

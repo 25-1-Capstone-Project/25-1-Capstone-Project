@@ -1606,8 +1606,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c9893efa2e7b634999b81e03b05370d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemySpawnParentObject: {fileID: 0}
+  enemySpawnParentObject: {fileID: 2534323208016255048}
   enemySpawnPointsT: []
+  GroundTileMap: {fileID: 0}
 --- !u!1 &6714218680059358339
 GameObject:
   m_ObjectHideFlags: 0

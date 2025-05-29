@@ -34,7 +34,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2454787731970319888}
+  m_Father: {fileID: 3110312805329868993}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1839735485 &3413118477264195673
 Tilemap:
@@ -1354,9 +1354,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 4413728581020194505}
-  - {fileID: 6823593486890170220}
-  - {fileID: 3825673085152057868}
+  - {fileID: 3110312805329868993}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!156049354 &7252503008042598069
@@ -1395,8 +1393,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c9893efa2e7b634999b81e03b05370d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemySpawnParentObject: {fileID: 0}
+  enemySpawnParentObject: {fileID: 3825673085152057868}
   enemySpawnPointsT: []
+  GroundTileMap: {fileID: 0}
+--- !u!1 &4907855823715577978
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3110312805329868993}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3110312805329868993
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4907855823715577978}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -6, y: 2, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 4413728581020194505}
+  - {fileID: 6823593486890170220}
+  - {fileID: 3825673085152057868}
+  m_Father: {fileID: 2454787731970319888}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6714218680059358339
 GameObject:
   m_ObjectHideFlags: 0
@@ -1428,7 +1461,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2454787731970319888}
+  m_Father: {fileID: 3110312805329868993}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1839735485 &6826637340062885853
 Tilemap:
@@ -4241,7 +4274,7 @@ Transform:
   - {fileID: 7460538096816175116}
   - {fileID: 4573742074165301762}
   - {fileID: 7739580958051461357}
-  m_Father: {fileID: 2454787731970319888}
+  m_Father: {fileID: 3110312805329868993}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &495639049590953136
 PrefabInstance:

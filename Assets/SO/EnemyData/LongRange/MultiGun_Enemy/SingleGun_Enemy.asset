@@ -16,7 +16,7 @@ MonoBehaviour:
   maxHealth: 5
   moveSpeed: 1
   attackSpeed: 1
-  attackRange: 2
+  attackRange: 6
   attackDamage: 1
   animator: {fileID: 9100000, guid: e56e2e4e5b46f8d41bea3bccd2515ab9, type: 2}
   attackPattern: {fileID: 11400000, guid: a242bfceff7c0e648b64cbfc2abaa05e, type: 2}

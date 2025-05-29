@@ -1445,6 +1445,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemySpawnParentObject: {fileID: 2594934402025391887}
   enemySpawnPointsT: []
+  GroundTileMap: {fileID: 0}
 --- !u!1 &6714218680059358339
 GameObject:
   m_ObjectHideFlags: 0

@@ -149,7 +149,7 @@ public class MapGen : MonoBehaviour
             }
             if (map[i] == ERoomType.StartRoom.GetHashCode())
             {
-                GameObject roomPrefab = roomData.GetRandomRoom(depthMap[i]);
+                GameObject roomPrefab = roomData.GetStartRoom();
                 Vector2Int roomPos = new Vector2Int(i % mapWidth, i / mapWidth);
 
                 CreateRoom(roomPrefab, roomPos);
