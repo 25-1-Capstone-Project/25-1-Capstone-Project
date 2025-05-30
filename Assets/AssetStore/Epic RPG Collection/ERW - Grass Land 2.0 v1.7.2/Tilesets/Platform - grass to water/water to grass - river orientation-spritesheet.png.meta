@@ -1,0 +1,905 @@
+fileFormatVersion: 2
+guid: 9231f02ece90e114c9133e5617ba7a7f
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -274214543255839690
+    second: water to grass - river orientation-spritesheet_0
+  - first:
+      213: -5919368557338500906
+    second: water to grass - river orientation-spritesheet_1
+  - first:
+      213: 5962764733529887344
+    second: water to grass - river orientation-spritesheet_2
+  - first:
+      213: 7325870334290059500
+    second: water to grass - river orientation-spritesheet_3
+  - first:
+      213: 1883331895178746357
+    second: water to grass - river orientation-spritesheet_4
+  - first:
+      213: 2929536988203724596
+    second: water to grass - river orientation-spritesheet_5
+  - first:
+      213: -5617822163181180523
+    second: water to grass - river orientation-spritesheet_6
+  - first:
+      213: -1229029737827805437
+    second: water to grass - river orientation-spritesheet_7
+  - first:
+      213: 8563514683471860971
+    second: water to grass - river orientation-spritesheet_8
+  - first:
+      213: -4949674142460229728
+    second: water to grass - river orientation-spritesheet_9
+  - first:
+      213: 3337973266727813762
+    second: water to grass - river orientation-spritesheet_10
+  - first:
+      213: 336718257678789412
+    second: water to grass - river orientation-spritesheet_11
+  - first:
+      213: 2836980713833397624
+    second: water to grass - river orientation-spritesheet_12
+  - first:
+      213: 4371730664743324532
+    second: water to grass - river orientation-spritesheet_13
+  - first:
+      213: -8484478899220625392
+    second: water to grass - river orientation-spritesheet_14
+  - first:
+      213: 3496033820706784552
+    second: water to grass - river orientation-spritesheet_15
+  - first:
+      213: 138968354560414603
+    second: water to grass - river orientation-spritesheet_16
+  - first:
+      213: -8411760928051304161
+    second: water to grass - river orientation-spritesheet_17
+  - first:
+      213: -178003804970990285
+    second: water to grass - river orientation-spritesheet_18
+  - first:
+      213: 1216384080274210277
+    second: water to grass - river orientation-spritesheet_19
+  - first:
+      213: -518911871692278319
+    second: water to grass - river orientation-spritesheet_20
+  - first:
+      213: -974406739293638775
+    second: water to grass - river orientation-spritesheet_21
+  - first:
+      213: 3318849078251035223
+    second: water to grass - river orientation-spritesheet_22
+  - first:
+      213: 6742088167459019857
+    second: water to grass - river orientation-spritesheet_23
+  - first:
+      213: -2038674586038749133
+    second: water to grass - river orientation-spritesheet_24
+  - first:
+      213: -4823256057363101257
+    second: water to grass - river orientation-spritesheet_25
+  - first:
+      213: 6236456719139793968
+    second: water to grass - river orientation-spritesheet_26
+  - first:
+      213: -4130175207214025862
+    second: water to grass - river orientation-spritesheet_27
+  - first:
+      213: -1497273460798201195
+    second: water to grass - river orientation-spritesheet_28
+  - first:
+      213: -5229967937148002069
+    second: water to grass - river orientation-spritesheet_29
+  - first:
+      213: -3140306169790841902
+    second: water to grass - river orientation-spritesheet_30
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: water to grass - river orientation-spritesheet_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 704
+        width: 385
+        height: 194
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 63c5df4635bc13cf0800000000000000
+      internalID: -274214543255839690
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: water to grass - river orientation-spritesheet_1
+      rect:
+        serializedVersion: 2
+        x: 415
+        y: 704
+        width: 226
+        height: 194
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6d0e835c8ad2adda0800000000000000
+      internalID: -5919368557338500906
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: water to grass - river orientation-spritesheet_2
+      rect:
+        serializedVersion: 2
+        x: 671
+        y: 704
+        width: 226
+        height: 194
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 072964ddeeeffb250800000000000000
+      internalID: 5962764733529887344
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: water to grass - river orientation-spritesheet_3
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 676
+        width: 23
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ce06ee14148baa560800000000000000
+      internalID: 7325870334290059500
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: water to grass - river orientation-spritesheet_4
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 683
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5f9da4e5160f22a10800000000000000
+      internalID: 1883331895178746357
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: water to grass - river orientation-spritesheet_5
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 683
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 43f20429e5ec7a820800000000000000
+      internalID: 2929536988203724596
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: water to grass - river orientation-spritesheet_6
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 683
+        width: 14
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 599e440d18c7902b0800000000000000
+      internalID: -5617822163181180523
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: water to grass - river orientation-spritesheet_7
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 683
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 307d16217fb91fee0800000000000000
+      internalID: -1229029737827805437
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: water to grass - river orientation-spritesheet_8
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 683
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: be49e21bb37b7d670800000000000000
+      internalID: 8563514683471860971
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: water to grass - river orientation-spritesheet_9
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 683
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0a7c8b887993f4bb0800000000000000
+      internalID: -4949674142460229728
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: water to grass - river orientation-spritesheet_10
+      rect:
+        serializedVersion: 2
+        x: 85
+        y: 676
+        width: 843
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 282cf01300dd25e20800000000000000
+      internalID: 3337973266727813762
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: water to grass - river orientation-spritesheet_11
+      rect:
+        serializedVersion: 2
+        x: 95
+        y: 480
+        width: 258
+        height: 194
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 42b255aa8734ca400800000000000000
+      internalID: 336718257678789412
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: water to grass - river orientation-spritesheet_12
+      rect:
+        serializedVersion: 2
+        x: 383
+        y: 480
+        width: 258
+        height: 194
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 87d7ca2adeafe5720800000000000000
+      internalID: 2836980713833397624
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: water to grass - river orientation-spritesheet_13
+      rect:
+        serializedVersion: 2
+        x: 671
+        y: 480
+        width: 258
+        height: 194
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 47b45bd80e18bac30800000000000000
+      internalID: 4371730664743324532
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: water to grass - river orientation-spritesheet_14
+      rect:
+        serializedVersion: 2
+        x: 577
+        y: 64
+        width: 11
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 01848a3d463114a80800000000000000
+      internalID: -8484478899220625392
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: water to grass - river orientation-spritesheet_15
+      rect:
+        serializedVersion: 2
+        x: 588
+        y: 64
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 825caf5bc38648030800000000000000
+      internalID: 3496033820706784552
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: water to grass - river orientation-spritesheet_16
+      rect:
+        serializedVersion: 2
+        x: 593
+        y: 52
+        width: 10
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b8318907bf6bde100800000000000000
+      internalID: 138968354560414603
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: water to grass - river orientation-spritesheet_17
+      rect:
+        serializedVersion: 2
+        x: 594
+        y: 64
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f19edfbd00c634b80800000000000000
+      internalID: -8411760928051304161
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: water to grass - river orientation-spritesheet_18
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 64
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 33549048b7a978df0800000000000000
+      internalID: -178003804970990285
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: water to grass - river orientation-spritesheet_19
+      rect:
+        serializedVersion: 2
+        x: 610
+        y: 64
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5ed3f2750e671e010800000000000000
+      internalID: 1216384080274210277
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: water to grass - river orientation-spritesheet_20
+      rect:
+        serializedVersion: 2
+        x: 617
+        y: 64
+        width: 11
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1d57c0ae6647cc8f0800000000000000
+      internalID: -518911871692278319
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: water to grass - river orientation-spritesheet_21
+      rect:
+        serializedVersion: 2
+        x: 627
+        y: 64
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 98fe7a5bb363a72f0800000000000000
+      internalID: -974406739293638775
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: water to grass - river orientation-spritesheet_22
+      rect:
+        serializedVersion: 2
+        x: 636
+        y: 64
+        width: 17
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 75a194417abee0e20800000000000000
+      internalID: 3318849078251035223
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: water to grass - river orientation-spritesheet_23
+      rect:
+        serializedVersion: 2
+        x: 651
+        y: 48
+        width: 17
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 15c52c99775b09d50800000000000000
+      internalID: 6742088167459019857
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: water to grass - river orientation-spritesheet_24
+      rect:
+        serializedVersion: 2
+        x: 671
+        y: 32
+        width: 258
+        height: 418
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3383b8ee34c25b3e0800000000000000
+      internalID: -2038674586038749133
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: water to grass - river orientation-spritesheet_25
+      rect:
+        serializedVersion: 2
+        x: 587
+        y: 52
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7b90f18ab2a501db0800000000000000
+      internalID: -4823256057363101257
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: water to grass - river orientation-spritesheet_26
+      rect:
+        serializedVersion: 2
+        x: 606
+        y: 52
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 03cec6908585c8650800000000000000
+      internalID: 6236456719139793968
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: water to grass - river orientation-spritesheet_27
+      rect:
+        serializedVersion: 2
+        x: 617
+        y: 52
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a73f1e9188baea6c0800000000000000
+      internalID: -4130175207214025862
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: water to grass - river orientation-spritesheet_28
+      rect:
+        serializedVersion: 2
+        x: 627
+        y: 52
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 592e08568bd983be0800000000000000
+      internalID: -1497273460798201195
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: water to grass - river orientation-spritesheet_29
+      rect:
+        serializedVersion: 2
+        x: 634
+        y: 52
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: be06c97eedb6b67b0800000000000000
+      internalID: -5229967937148002069
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: water to grass - river orientation-spritesheet_30
+      rect:
+        serializedVersion: 2
+        x: 641
+        y: 52
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2db36a73d246b64d0800000000000000
+      internalID: -3140306169790841902
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable: {}
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

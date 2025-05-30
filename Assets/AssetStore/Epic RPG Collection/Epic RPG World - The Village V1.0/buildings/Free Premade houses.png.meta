@@ -1,0 +1,705 @@
+fileFormatVersion: 2
+guid: d4b888fd483c48b4b8dbf856af7eb50e
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 53322072736825538
+    second: Free Premade houses_0
+  - first:
+      213: 5603794057810299836
+    second: Free Premade houses_1
+  - first:
+      213: 8972924961618506770
+    second: Free Premade houses_2
+  - first:
+      213: -8280464342955952032
+    second: Free Premade houses_3
+  - first:
+      213: 6195999612812770644
+    second: Free Premade houses_4
+  - first:
+      213: 7214560526610281057
+    second: Free Premade houses_5
+  - first:
+      213: 8833416341077994928
+    second: Free Premade houses_6
+  - first:
+      213: 108426999256748954
+    second: Free Premade houses_7
+  - first:
+      213: 7573576952345727753
+    second: Free Premade houses_8
+  - first:
+      213: 5706884691149977068
+    second: Free Premade houses_9
+  - first:
+      213: -1384874185705671587
+    second: Free Premade houses_10
+  - first:
+      213: 1491527345113789105
+    second: Free Premade houses_11
+  - first:
+      213: 7125498872127667130
+    second: Free Premade houses_12
+  - first:
+      213: -1656844310902885006
+    second: Free Premade houses_13
+  - first:
+      213: -334987574984156220
+    second: Free Premade houses_14
+  - first:
+      213: 7887722479413229893
+    second: Free Premade houses_15
+  - first:
+      213: 1157021799910116702
+    second: Free Premade houses_16
+  - first:
+      213: -3789712131804207027
+    second: Free Premade houses_17
+  - first:
+      213: -512108746843619923
+    second: Free Premade houses_18
+  - first:
+      213: 6340843542465006274
+    second: Free Premade houses_19
+  - first:
+      213: -1184438719861653232
+    second: Free Premade houses_20
+  - first:
+      213: 1994668765273533279
+    second: Free Premade houses_21
+  - first:
+      213: 4252923373216475081
+    second: Free Premade houses_22
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Free Premade houses_0
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 1166
+        width: 421
+        height: 335
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2c08a2484207db000800000000000000
+      internalID: 53322072736825538
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Free Premade houses_1
+      rect:
+        serializedVersion: 2
+        x: 485
+        y: 1218
+        width: 375
+        height: 283
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cbb4a32610da4cd40800000000000000
+      internalID: 5603794057810299836
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Free Premade houses_2
+      rect:
+        serializedVersion: 2
+        x: 863
+        y: 1279
+        width: 50
+        height: 234
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 214b18546bb368c70800000000000000
+      internalID: 8972924961618506770
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Free Premade houses_3
+      rect:
+        serializedVersion: 2
+        x: 927
+        y: 1279
+        width: 50
+        height: 241
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 06872d64d81e51d80800000000000000
+      internalID: -8280464342955952032
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Free Premade houses_4
+      rect:
+        serializedVersion: 2
+        x: 1025
+        y: 1225
+        width: 318
+        height: 248
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 45db92ee1dc9cf550800000000000000
+      internalID: 6195999612812770644
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Free Premade houses_5
+      rect:
+        serializedVersion: 2
+        x: 1439
+        y: 1279
+        width: 386
+        height: 245
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 162392713944f1460800000000000000
+      internalID: 7214560526610281057
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Free Premade houses_6
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 1195
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0bda51b5c59969a70800000000000000
+      internalID: 8833416341077994928
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Free Premade houses_7
+      rect:
+        serializedVersion: 2
+        x: 1025
+        y: 1046
+        width: 318
+        height: 171
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a9392c608c5318100800000000000000
+      internalID: 108426999256748954
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Free Premade houses_8
+      rect:
+        serializedVersion: 2
+        x: 1424
+        y: 904
+        width: 416
+        height: 364
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 90317a39c10ca1960800000000000000
+      internalID: 7573576952345727753
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Free Premade houses_9
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 1177
+        width: 10
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ce5fb16e36de23f40800000000000000
+      internalID: 5706884691149977068
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Free Premade houses_10
+      rect:
+        serializedVersion: 2
+        x: 485
+        y: 982
+        width: 375
+        height: 199
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d54b766f340f7cce0800000000000000
+      internalID: -1384874185705671587
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Free Premade houses_11
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 903
+        width: 382
+        height: 246
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1b2f94ac738f2b410800000000000000
+      internalID: 1491527345113789105
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Free Premade houses_12
+      rect:
+        serializedVersion: 2
+        x: 521
+        y: 745
+        width: 303
+        height: 189
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: abbbd90c87bd2e260800000000000000
+      internalID: 7125498872127667130
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Free Premade houses_13
+      rect:
+        serializedVersion: 2
+        x: 852
+        y: 838
+        width: 17
+        height: 84
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 275b188a0e4b109e0800000000000000
+      internalID: -1656844310902885006
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Free Premade houses_14
+      rect:
+        serializedVersion: 2
+        x: 923
+        y: 838
+        width: 17
+        height: 84
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4cb56ec4392e95bf0800000000000000
+      internalID: -334987574984156220
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Free Premade houses_15
+      rect:
+        serializedVersion: 2
+        x: 1033
+        y: 713
+        width: 303
+        height: 221
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 549f948ddc1d67d60800000000000000
+      internalID: 7887722479413229893
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Free Premade houses_16
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 622
+        width: 383
+        height: 216
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e5d860562319e0010800000000000000
+      internalID: 1157021799910116702
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Free Premade houses_17
+      rect:
+        serializedVersion: 2
+        x: 863
+        y: 770
+        width: 66
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d4862d615ec386bc0800000000000000
+      internalID: -3789712131804207027
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Free Premade houses_18
+      rect:
+        serializedVersion: 2
+        x: 1443
+        y: 575
+        width: 379
+        height: 277
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dadf30adecf94e8f0800000000000000
+      internalID: -512108746843619923
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Free Premade houses_19
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 651
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2cac4fc4b933ff750800000000000000
+      internalID: 6340843542465006274
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Free Premade houses_20
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 633
+        width: 10
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0118d6c7247009fe0800000000000000
+      internalID: -1184438719861653232
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Free Premade houses_21
+      rect:
+        serializedVersion: 2
+        x: 1443
+        y: 255
+        width: 379
+        height: 277
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f5b22be7cac7eab10800000000000000
+      internalID: 1994668765273533279
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Free Premade houses_22
+      rect:
+        serializedVersion: 2
+        x: 1424
+        y: 40
+        width: 416
+        height: 196
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9c72685664b650b30800000000000000
+      internalID: 4252923373216475081
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable: {}
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,730 @@
+fileFormatVersion: 2
+guid: 5aff3dcae2273d64089b439966a87775
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -3217688198314650311
+    second: atk1 fx-energy ish fx-pack_0
+  - first:
+      213: -474005681418846278
+    second: atk1 fx-energy ish fx-pack_1
+  - first:
+      213: 4399698454546262362
+    second: atk1 fx-energy ish fx-pack_2
+  - first:
+      213: -6141207389660686153
+    second: atk1 fx-energy ish fx-pack_3
+  - first:
+      213: -4594003751095946042
+    second: atk1 fx-energy ish fx-pack_4
+  - first:
+      213: -7844666869281462138
+    second: atk1 fx-energy ish fx-pack_5
+  - first:
+      213: -7065983007580346894
+    second: atk1 fx-energy ish fx-pack_6
+  - first:
+      213: -4727755330085790186
+    second: atk1 fx-energy ish fx-pack_7
+  - first:
+      213: -4023766062042245965
+    second: atk1 fx-energy ish fx-pack_8
+  - first:
+      213: -3121153932837558423
+    second: atk1 fx-energy ish fx-pack_9
+  - first:
+      213: -2174117690907462203
+    second: atk1 fx-energy ish fx-pack_10
+  - first:
+      213: 7666471225838601495
+    second: atk1 fx-energy ish fx-pack_11
+  - first:
+      213: 5716871031362136707
+    second: atk1 fx-energy ish fx-pack_12
+  - first:
+      213: 4923091723738424202
+    second: atk1 fx-energy ish fx-pack_13
+  - first:
+      213: -5765914179419349381
+    second: atk1 fx-energy ish fx-pack_14
+  - first:
+      213: 1386803657799567511
+    second: atk1 fx-energy ish fx-pack_15
+  - first:
+      213: 3101055816704766983
+    second: atk1 fx-energy ish fx-pack_16
+  - first:
+      213: -3220261622792185744
+    second: atk1 fx-energy ish fx-pack_17
+  - first:
+      213: -2278446949212207081
+    second: atk1 fx-energy ish fx-pack_18
+  - first:
+      213: -1618062725608803944
+    second: atk1 fx-energy ish fx-pack_19
+  - first:
+      213: 7610097527256723209
+    second: atk1 fx-energy ish fx-pack_20
+  - first:
+      213: 6359715584394544873
+    second: atk1 fx-energy ish fx-pack_21
+  - first:
+      213: 4535162478797933962
+    second: atk1 fx-energy ish fx-pack_22
+  - first:
+      213: -8441647832492146812
+    second: atk1 fx-energy ish fx-pack_23
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: atk1 fx-energy ish fx-pack_0
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 104
+        width: 207
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9351d75b1a97853d0800000000000000
+      internalID: -3217688198314650311
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: atk1 fx-energy ish fx-pack_1
+      rect:
+        serializedVersion: 2
+        x: 394
+        y: 94
+        width: 26
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: abf3389185efb69f0800000000000000
+      internalID: -474005681418846278
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: atk1 fx-energy ish fx-pack_2
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 118
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a59a01e0f6ede0d30800000000000000
+      internalID: 4399698454546262362
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: atk1 fx-energy ish fx-pack_3
+      rect:
+        serializedVersion: 2
+        x: 586
+        y: 109
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7b85547aa6c06caa0800000000000000
+      internalID: -6141207389660686153
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: atk1 fx-energy ish fx-pack_4
+      rect:
+        serializedVersion: 2
+        x: 459
+        y: 41
+        width: 61
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6c43d1fade1de30c0800000000000000
+      internalID: -4594003751095946042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: atk1 fx-energy ish fx-pack_5
+      rect:
+        serializedVersion: 2
+        x: 615
+        y: 31
+        width: 61
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 688e3339b05222390800000000000000
+      internalID: -7844666869281462138
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: atk1 fx-energy ish fx-pack_6
+      rect:
+        serializedVersion: 2
+        x: 633
+        y: 35
+        width: 88
+        height: 82
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2f52a3c44e590fd90800000000000000
+      internalID: -7065983007580346894
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: atk1 fx-energy ish fx-pack_7
+      rect:
+        serializedVersion: 2
+        x: 796
+        y: 25
+        width: 81
+        height: 83
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61ed6457393a36eb0800000000000000
+      internalID: -4727755330085790186
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: atk1 fx-energy ish fx-pack_8
+      rect:
+        serializedVersion: 2
+        x: 856
+        y: 49
+        width: 39
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3b413bcd516b828c0800000000000000
+      internalID: -4023766062042245965
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: atk1 fx-energy ish fx-pack_9
+      rect:
+        serializedVersion: 2
+        x: 1013
+        y: 40
+        width: 45
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 96767efd80f6fa4d0800000000000000
+      internalID: -3121153932837558423
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: atk1 fx-energy ish fx-pack_10
+      rect:
+        serializedVersion: 2
+        x: 1057
+        y: 69
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5c57195aa7bf3d1e0800000000000000
+      internalID: -2174117690907462203
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: atk1 fx-energy ish fx-pack_11
+      rect:
+        serializedVersion: 2
+        x: 1214
+        y: 60
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7150dd016f6c46a60800000000000000
+      internalID: 7666471225838601495
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: atk1 fx-energy ish fx-pack_12
+      rect:
+        serializedVersion: 2
+        x: 1643
+        y: 28
+        width: 49
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 38aaf0be9e7665f40800000000000000
+      internalID: 5716871031362136707
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: atk1 fx-energy ish fx-pack_13
+      rect:
+        serializedVersion: 2
+        x: 1806
+        y: 18
+        width: 417
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a83281ec6d5525440800000000000000
+      internalID: 4923091723738424202
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: atk1 fx-energy ish fx-pack_14
+      rect:
+        serializedVersion: 2
+        x: 893
+        y: 32
+        width: 24
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b7e525a5a9b5bffa0800000000000000
+      internalID: -5765914179419349381
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: atk1 fx-energy ish fx-pack_15
+      rect:
+        serializedVersion: 2
+        x: 1067
+        y: 46
+        width: 24
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7980b54449aee3310800000000000000
+      internalID: 1386803657799567511
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: atk1 fx-energy ish fx-pack_16
+      rect:
+        serializedVersion: 2
+        x: 1077
+        y: 28
+        width: 39
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 704b85fc5d9290b20800000000000000
+      internalID: 3101055816704766983
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: atk1 fx-energy ish fx-pack_17
+      rect:
+        serializedVersion: 2
+        x: 1230
+        y: 40
+        width: 24
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 07816a1ad155f43d0800000000000000
+      internalID: -3220261622792185744
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: atk1 fx-energy ish fx-pack_18
+      rect:
+        serializedVersion: 2
+        x: 1251
+        y: 27
+        width: 58
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 71842a842945160e0800000000000000
+      internalID: -2278446949212207081
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: atk1 fx-energy ish fx-pack_19
+      rect:
+        serializedVersion: 2
+        x: 1414
+        y: 17
+        width: 90
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 89179cf168c7b89e0800000000000000
+      internalID: -1618062725608803944
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: atk1 fx-energy ish fx-pack_20
+      rect:
+        serializedVersion: 2
+        x: 1605
+        y: 17
+        width: 65
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 90f273a816f7c9960800000000000000
+      internalID: 7610097527256723209
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: atk1 fx-energy ish fx-pack_21
+      rect:
+        serializedVersion: 2
+        x: 1795
+        y: 32
+        width: 15
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9e64a58f0af324850800000000000000
+      internalID: 6359715584394544873
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: atk1 fx-energy ish fx-pack_22
+      rect:
+        serializedVersion: 2
+        x: 1049
+        y: 22
+        width: 24
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a8d4e630f3220fe30800000000000000
+      internalID: 4535162478797933962
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: atk1 fx-energy ish fx-pack_23
+      rect:
+        serializedVersion: 2
+        x: 1233
+        y: 18
+        width: 39
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 48ffb59a50e39da80800000000000000
+      internalID: -8441647832492146812
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable: {}
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

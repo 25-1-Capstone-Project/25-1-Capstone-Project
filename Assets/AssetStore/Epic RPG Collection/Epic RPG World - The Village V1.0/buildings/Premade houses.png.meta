@@ -1,0 +1,730 @@
+fileFormatVersion: 2
+guid: d50653584197f474f9aadede26571dc6
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -1091403818125079138
+    second: Premade houses_0
+  - first:
+      213: -3529196803153489471
+    second: Premade houses_1
+  - first:
+      213: -728349032117644639
+    second: Premade houses_2
+  - first:
+      213: -5072763710521658538
+    second: Premade houses_3
+  - first:
+      213: 4348305465662982584
+    second: Premade houses_4
+  - first:
+      213: -8847662211108458412
+    second: Premade houses_5
+  - first:
+      213: -5406948777651325016
+    second: Premade houses_6
+  - first:
+      213: -1838430176064982949
+    second: Premade houses_7
+  - first:
+      213: 341574899693413833
+    second: Premade houses_8
+  - first:
+      213: -1376296858228689402
+    second: Premade houses_9
+  - first:
+      213: 675352537440451725
+    second: Premade houses_10
+  - first:
+      213: 8269790365975908631
+    second: Premade houses_11
+  - first:
+      213: 9015019629252612945
+    second: Premade houses_12
+  - first:
+      213: -2809195736176019749
+    second: Premade houses_13
+  - first:
+      213: -2702435202229058488
+    second: Premade houses_14
+  - first:
+      213: -5424597736576101216
+    second: Premade houses_15
+  - first:
+      213: -7253057187035778592
+    second: Premade houses_16
+  - first:
+      213: 7628595692434234802
+    second: Premade houses_17
+  - first:
+      213: -5287734674391988254
+    second: Premade houses_18
+  - first:
+      213: -1005828411178489256
+    second: Premade houses_19
+  - first:
+      213: -1552480627339065832
+    second: Premade houses_20
+  - first:
+      213: -6738376028060361197
+    second: Premade houses_21
+  - first:
+      213: -5976675238252791728
+    second: Premade houses_22
+  - first:
+      213: -5557486284777008139
+    second: Premade houses_23
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Premade houses_0
+      rect:
+        serializedVersion: 2
+        x: 25
+        y: 1636
+        width: 398
+        height: 381
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e9d462a820e8ad0f0800000000000000
+      internalID: -1091403818125079138
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Premade houses_1
+      rect:
+        serializedVersion: 2
+        x: 484
+        y: 1641
+        width: 376
+        height: 384
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1c1979db436c50fc0800000000000000
+      internalID: -3529196803153489471
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Premade houses_2
+      rect:
+        serializedVersion: 2
+        x: 869
+        y: 1650
+        width: 439
+        height: 363
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1a2d02c0a6264e5f0800000000000000
+      internalID: -728349032117644639
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Premade houses_3
+      rect:
+        serializedVersion: 2
+        x: 1311
+        y: 1599
+        width: 418
+        height: 408
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6533ddc284ce999b0800000000000000
+      internalID: -5072763710521658538
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Premade houses_4
+      rect:
+        serializedVersion: 2
+        x: 1799
+        y: 1673
+        width: 176
+        height: 250
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8b94bbf58c8485c30800000000000000
+      internalID: 4348305465662982584
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Premade houses_5
+      rect:
+        serializedVersion: 2
+        x: 25
+        y: 1375
+        width: 398
+        height: 258
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 450bb3e881ac63580800000000000000
+      internalID: -8847662211108458412
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Premade houses_6
+      rect:
+        serializedVersion: 2
+        x: 484
+        y: 1311
+        width: 376
+        height: 298
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8a73c55ebb8a6f4b0800000000000000
+      internalID: -5406948777651325016
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Premade houses_7
+      rect:
+        serializedVersion: 2
+        x: 869
+        y: 1311
+        width: 439
+        height: 254
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b50b94bce759c76e0800000000000000
+      internalID: -1838430176064982949
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Premade houses_8
+      rect:
+        serializedVersion: 2
+        x: 1407
+        y: 1279
+        width: 322
+        height: 312
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9c56a60cf848db400800000000000000
+      internalID: 341574899693413833
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Premade houses_9
+      rect:
+        serializedVersion: 2
+        x: 1793
+        y: 1385
+        width: 190
+        height: 250
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 606fac3ac4966ece0800000000000000
+      internalID: -1376296858228689402
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Premade houses_10
+      rect:
+        serializedVersion: 2
+        x: 135
+        y: 1105
+        width: 177
+        height: 244
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d8cfb4cfd855f5900800000000000000
+      internalID: 675352537440451725
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Premade houses_11
+      rect:
+        serializedVersion: 2
+        x: 521
+        y: 1065
+        width: 303
+        height: 195
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 71111fac58234c270800000000000000
+      internalID: 8269790365975908631
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Premade houses_12
+      rect:
+        serializedVersion: 2
+        x: 935
+        y: 1042
+        width: 304
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 15396c4d698cb1d70800000000000000
+      internalID: 9015019629252612945
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Premade houses_13
+      rect:
+        serializedVersion: 2
+        x: 1311
+        y: 1055
+        width: 408
+        height: 199
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bd6bfa89c5bb309d0800000000000000
+      internalID: -2809195736176019749
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Premade houses_14
+      rect:
+        serializedVersion: 2
+        x: 1792
+        y: 1032
+        width: 192
+        height: 309
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 84440ae60850f7ad0800000000000000
+      internalID: -2702435202229058488
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Premade houses_15
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 919
+        width: 322
+        height: 141
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0a45efd6915f7b4b0800000000000000
+      internalID: -5424597736576101216
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Premade houses_16
+      rect:
+        serializedVersion: 2
+        x: 1122
+        y: 521
+        width: 605
+        height: 487
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0e1732faae6f75b90800000000000000
+      internalID: -7253057187035778592
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Premade houses_17
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 681
+        width: 303
+        height: 189
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2bd1e9e3d573ed960800000000000000
+      internalID: 7628595692434234802
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Premade houses_18
+      rect:
+        serializedVersion: 2
+        x: 475
+        y: 723
+        width: 6
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2e7895a44513e96b0800000000000000
+      internalID: -5287734674391988254
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Premade houses_19
+      rect:
+        serializedVersion: 2
+        x: 1825
+        y: 599
+        width: 190
+        height: 138
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 85ae5be93649a02f0800000000000000
+      internalID: -1005828411178489256
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Premade houses_20
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 580
+        width: 310
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 81687c6481b747ae0800000000000000
+      internalID: -1552480627339065832
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Premade houses_21
+      rect:
+        serializedVersion: 2
+        x: 802
+        y: 159
+        width: 601
+        height: 337
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 31e547434ba7c72a0800000000000000
+      internalID: -6738376028060361197
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Premade houses_22
+      rect:
+        serializedVersion: 2
+        x: 1417
+        y: 199
+        width: 590
+        height: 293
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 058b11e59859e0da0800000000000000
+      internalID: -5976675238252791728
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Premade houses_23
+      rect:
+        serializedVersion: 2
+        x: 1699
+        y: 105
+        width: 313
+        height: 67
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5f3d2c73ba7dfd2b0800000000000000
+      internalID: -5557486284777008139
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable: {}
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,655 @@
+fileFormatVersion: 2
+guid: 6b77b1ec19eb4034da3c26e653f6ee4e
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 1228181704028530550
+    second: orc mage hand fx only-atk1_0
+  - first:
+      213: -2910820919401558567
+    second: orc mage hand fx only-atk1_1
+  - first:
+      213: 6498576205135807278
+    second: orc mage hand fx only-atk1_2
+  - first:
+      213: 1547566959627221801
+    second: orc mage hand fx only-atk1_3
+  - first:
+      213: 5037072849260586923
+    second: orc mage hand fx only-atk1_4
+  - first:
+      213: 1262963940000263018
+    second: orc mage hand fx only-atk1_5
+  - first:
+      213: -7662484581026675620
+    second: orc mage hand fx only-atk1_6
+  - first:
+      213: -4669924498715215105
+    second: orc mage hand fx only-atk1_7
+  - first:
+      213: 8681198453333213530
+    second: orc mage hand fx only-atk1_8
+  - first:
+      213: -2724443493236761094
+    second: orc mage hand fx only-atk1_9
+  - first:
+      213: 1813091400572941671
+    second: orc mage hand fx only-atk1_10
+  - first:
+      213: 1769853270440264275
+    second: orc mage hand fx only-atk1_11
+  - first:
+      213: -1579438373513355772
+    second: orc mage hand fx only-atk1_12
+  - first:
+      213: 6792362713053408252
+    second: orc mage hand fx only-atk1_13
+  - first:
+      213: 7017088523337923197
+    second: orc mage hand fx only-atk1_14
+  - first:
+      213: -2895708825019373925
+    second: orc mage hand fx only-atk1_15
+  - first:
+      213: 6169444668386540519
+    second: orc mage hand fx only-atk1_16
+  - first:
+      213: -1007047252639494683
+    second: orc mage hand fx only-atk1_17
+  - first:
+      213: 3608245594615975823
+    second: orc mage hand fx only-atk1_18
+  - first:
+      213: -3848992655244325000
+    second: orc mage hand fx only-atk1_19
+  - first:
+      213: 3161220364862417460
+    second: orc mage hand fx only-atk1_20
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: orc mage hand fx only-atk1_0
+      rect:
+        serializedVersion: 2
+        x: 95
+        y: 109
+        width: 22
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 677214ca0c06b0110800000000000000
+      internalID: 1228181704028530550
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: orc mage hand fx only-atk1_1
+      rect:
+        serializedVersion: 2
+        x: 349
+        y: 112
+        width: 22
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9dd4b46cbcfaa97d0800000000000000
+      internalID: -2910820919401558567
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: orc mage hand fx only-atk1_2
+      rect:
+        serializedVersion: 2
+        x: 603
+        y: 118
+        width: 22
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e230deca0a49f2a50800000000000000
+      internalID: 6498576205135807278
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: orc mage hand fx only-atk1_3
+      rect:
+        serializedVersion: 2
+        x: 858
+        y: 114
+        width: 22
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 92b36be43ff0a7510800000000000000
+      internalID: 1547566959627221801
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: orc mage hand fx only-atk1_4
+      rect:
+        serializedVersion: 2
+        x: 1112
+        y: 112
+        width: 24
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ba721ff911747e540800000000000000
+      internalID: 5037072849260586923
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: orc mage hand fx only-atk1_5
+      rect:
+        serializedVersion: 2
+        x: 1368
+        y: 110
+        width: 24
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a6be7df0303f68110800000000000000
+      internalID: 1262963940000263018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: orc mage hand fx only-atk1_6
+      rect:
+        serializedVersion: 2
+        x: 1628
+        y: 110
+        width: 19
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c544ff20fd269a590800000000000000
+      internalID: -7662484581026675620
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: orc mage hand fx only-atk1_7
+      rect:
+        serializedVersion: 2
+        x: 1886
+        y: 122
+        width: 21
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ffa7f262968113fb0800000000000000
+      internalID: -4669924498715215105
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: orc mage hand fx only-atk1_8
+      rect:
+        serializedVersion: 2
+        x: 2140
+        y: 121
+        width: 38
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a51c8939fffc97870800000000000000
+      internalID: 8681198453333213530
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: orc mage hand fx only-atk1_9
+      rect:
+        serializedVersion: 2
+        x: 2174
+        y: 119
+        width: 18
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: afd9ffed315d03ad0800000000000000
+      internalID: -2724443493236761094
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: orc mage hand fx only-atk1_10
+      rect:
+        serializedVersion: 2
+        x: 2395
+        y: 109
+        width: 59
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 765377cc505692910800000000000000
+      internalID: 1813091400572941671
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: orc mage hand fx only-atk1_11
+      rect:
+        serializedVersion: 2
+        x: 2429
+        y: 118
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 352c7212c28cf8810800000000000000
+      internalID: 1769853270440264275
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: orc mage hand fx only-atk1_12
+      rect:
+        serializedVersion: 2
+        x: 2652
+        y: 119
+        width: 35
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 40e9d12ea25b41ae0800000000000000
+      internalID: -1579438373513355772
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: orc mage hand fx only-atk1_13
+      rect:
+        serializedVersion: 2
+        x: 2687
+        y: 107
+        width: 22
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cfb282966e1534e50800000000000000
+      internalID: 6792362713053408252
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: orc mage hand fx only-atk1_14
+      rect:
+        serializedVersion: 2
+        x: 2933
+        y: 107
+        width: 32
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d7af60775d4b16160800000000000000
+      internalID: 7017088523337923197
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: orc mage hand fx only-atk1_15
+      rect:
+        serializedVersion: 2
+        x: 3189
+        y: 107
+        width: 32
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b96a1cf6a2060d7d0800000000000000
+      internalID: -2895708825019373925
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: orc mage hand fx only-atk1_16
+      rect:
+        serializedVersion: 2
+        x: 3452
+        y: 111
+        width: 18
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7eb7b902d354e9550800000000000000
+      internalID: 6169444668386540519
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: orc mage hand fx only-atk1_17
+      rect:
+        serializedVersion: 2
+        x: 3694
+        y: 109
+        width: 33
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5edc36afbdf3602f0800000000000000
+      internalID: -1007047252639494683
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: orc mage hand fx only-atk1_18
+      rect:
+        serializedVersion: 2
+        x: 3932
+        y: 109
+        width: 51
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f8f04714040131230800000000000000
+      internalID: 3608245594615975823
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: orc mage hand fx only-atk1_19
+      rect:
+        serializedVersion: 2
+        x: 4194
+        y: 110
+        width: 35
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 87f0319a291a59ac0800000000000000
+      internalID: -3848992655244325000
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: orc mage hand fx only-atk1_20
+      rect:
+        serializedVersion: 2
+        x: 4449
+        y: 109
+        width: 30
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 43aea584c29eedb20800000000000000
+      internalID: 3161220364862417460
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable: {}
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
