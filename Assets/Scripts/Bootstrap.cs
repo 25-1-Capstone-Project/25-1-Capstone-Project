@@ -6,6 +6,10 @@ public class BootStrap : MonoBehaviour
 
     void Awake()
     {
+        if (SaveManager.Instance == null)
+        {
+            gameObject.AddComponent<SaveManager>();
+        }
 
         SceneManager.LoadScene(firstSceneName);
     }
