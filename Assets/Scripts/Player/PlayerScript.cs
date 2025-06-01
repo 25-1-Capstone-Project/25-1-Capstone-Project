@@ -103,6 +103,10 @@ public class PlayerScript : Singleton<PlayerScript>
         equipAbilities.Remove(ability);
     }
 
+    private List<AbilityData> unlockedAbilities = new List<AbilityData>();
+    public void RegisterUnlockedAbility(AbilityData data) => unlockedAbilities.Add(data);
+    public List<AbilityData> GetUnlockedAbilities() => unlockedAbilities;
+
 
     [Header("=====대시 옵션=====")]
     [SerializeField] float dashDistance = 5f;
@@ -525,6 +529,11 @@ public class PlayerScript : Singleton<PlayerScript>
     void OnSkillSelected(int index)
     {
         SkillSetting(index);
+    }
+
+    void OnAbilityTest(InputValue value)
+    {
+        UIManager.Instance.abilityUI.ShowAbilityChoices();
     }
 
     #endregion
