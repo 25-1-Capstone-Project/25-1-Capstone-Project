@@ -15,6 +15,8 @@ public class UIManager : Singleton<UIManager>
     public SkillUI skillUI;
     public SkillSelect skillSelect;
 
+    public AbilityRewardSystem abilityUI;
+
     protected override void Awake()
     {
         base.Awake();

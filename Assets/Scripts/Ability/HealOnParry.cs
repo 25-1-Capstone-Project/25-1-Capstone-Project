@@ -6,7 +6,7 @@ public class HealOnParry : PlayerAbility
 
     public override void OnEquip(PlayerScript player)
     {
-        Debug.Log("ÀåÂø¿Ï.");
+        Debug.Log("Èú¾îºô¸®Æ¼ ÀåÂøµÊ");
         this.player = player;
         player.OnParrySuccess += HealAbility;
     }

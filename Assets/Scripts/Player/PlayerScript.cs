@@ -41,7 +41,10 @@ public class PlayerScript : Singleton<PlayerScript>
         set
         {
             health = value;
-
+            if(health > stats.maxHealth)
+            {
+                health = stats.maxHealth;
+            }
             if (health <= 0)
             {
                 health = 0;
@@ -108,6 +111,10 @@ public class PlayerScript : Singleton<PlayerScript>
         equipAbilities.Remove(ability);
     }
 
+    private List<AbilityData> unlockedAbilities = new List<AbilityData>();
+    public void RegisterUnlockedAbility(AbilityData data) => unlockedAbilities.Add(data);
+    public List<AbilityData> GetUnlockedAbilities() => unlockedAbilities;
+
 
     [Header("=====대시 옵션=====")]
     [SerializeField] float dashDistance = 5f;
@@ -134,9 +141,6 @@ public class PlayerScript : Singleton<PlayerScript>
     private SpriteRenderer[] spriteRenderers;
     public PlayerRuntimeStats stats = new PlayerRuntimeStats();
 
-    // 어빌 테스트용
-    [SerializeField] private PlayerAbility[] defaultAbilities;
-
     public void InitPlayer()
     {
         stats.ApplyBase(playerData); // 원본 데이터를 복사
@@ -144,12 +148,6 @@ public class PlayerScript : Singleton<PlayerScript>
         // 스킬 불러오기?
 
         SkillSetting(0);
-
-        foreach (var abilityPrefab in defaultAbilities)
-        {
-            var ability = Instantiate(abilityPrefab);
-            EquipAbility(ability);
-        }
 
         isDead = false;
         Health = stats.maxHealth;
@@ -631,6 +629,11 @@ public class PlayerScript : Singleton<PlayerScript>
     void OnSkillSelected(int index)
     {
         SkillSetting(index);
+    }
+
+    void OnAbilityTest(InputValue value)
+    {
+        UIManager.Instance.abilityUI.ShowAbilityChoices();
     }
 
     #endregion

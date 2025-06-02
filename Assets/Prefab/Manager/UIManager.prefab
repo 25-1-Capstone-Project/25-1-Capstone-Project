@@ -51,6 +51,7 @@ MonoBehaviour:
   parryStackUI: {fileID: 3101714524455845474}
   skillUI: {fileID: 7328131335259420974}
   skillSelect: {fileID: 4302704396364622747}
+  abilityUI: {fileID: 8493590788639606972}
 --- !u!1001 &991503740670575822
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -399,3 +400,14 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5392019371842215600, guid: 40ab0909b5b4fd849a5a176ab1b355fa, type: 3}
   m_PrefabInstance: {fileID: 4128689632184568778}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8493590788639606972 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5517831530238952310, guid: 40ab0909b5b4fd849a5a176ab1b355fa, type: 3}
+  m_PrefabInstance: {fileID: 4128689632184568778}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcf6ed410be57884f9326eb8a67626cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
