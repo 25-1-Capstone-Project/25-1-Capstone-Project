@@ -145,7 +145,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bceae4ff42a88fd4a8c0e851362f48f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  abilityIcon: {fileID: 0}
+  abilityIcon: {fileID: 3064368532777836835}
 --- !u!1 &777467663867442085
 GameObject:
   m_ObjectHideFlags: 0
@@ -660,7 +660,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bceae4ff42a88fd4a8c0e851362f48f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  abilityIcon: {fileID: 0}
+  abilityIcon: {fileID: 121484360476189254}
 --- !u!1 &2014425128416878047
 GameObject:
   m_ObjectHideFlags: 0
@@ -1207,7 +1207,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   database: {fileID: 11400000, guid: 33dcd3267ba7d774481a5087fa4eb9c9, type: 2}
   abilityWindow: {fileID: 2732836047153469325}
-  choiceButtons: []
+  choiceButtons:
+  - {fileID: 2402040065843193303}
+  - {fileID: 2852643884997206269}
+  - {fileID: 6106257980849550938}
 --- !u!1 &4175012282974295030
 GameObject:
   m_ObjectHideFlags: 0
@@ -3168,7 +3171,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bceae4ff42a88fd4a8c0e851362f48f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  abilityIcon: {fileID: 0}
+  abilityIcon: {fileID: 8103608997694412283}
 --- !u!1 &8584632448476999986
 GameObject:
   m_ObjectHideFlags: 0
