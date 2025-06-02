@@ -127,7 +127,7 @@ public class Enemy : MonoBehaviour
 
     public void SpriteFlip()
     {
-        enemySprite.flipX = rb.linearVelocityX == 0 ? enemySprite.flipX : rb.linearVelocityX > 0;
+        enemySprite.flipX = GetDirectionToPlayerNormalVec().x < 0;
 
     }
     public bool CheckAttackRange()
