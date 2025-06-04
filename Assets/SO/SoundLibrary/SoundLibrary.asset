@@ -17,5 +17,13 @@ MonoBehaviour:
     sounds:
     - key: ParrySuccess
       clip: {fileID: 8300000, guid: dbcae1af84c683a44ad60494e4b36df8, type: 3}
-  - name: 
+    - key: Hit
+      clip: {fileID: 8300000, guid: 032d012624b17804f9322b00a546a37b, type: 3}
+    - key: Parry
+      clip: {fileID: 8300000, guid: ff7dfa9c3527a9f47951ac0c7bf9bea5, type: 3}
+    - key: Dash
+      clip: {fileID: 8300000, guid: cd22e15a08b96e346b86a201d174b0ed, type: 3}
+    - key: AttackHit
+      clip: {fileID: 8300000, guid: c1899094da49fda46a4b0c39e6d5efbd, type: 3}
+  - name: enemy
     sounds: []

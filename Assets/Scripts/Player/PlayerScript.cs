@@ -60,7 +60,7 @@ public class PlayerScript : Singleton<PlayerScript>
             UIManager.Instance.playerStatUI.UI_HPBarUpdate(stats.currentHealth, stats.maxHealth);
         }
     }
-  
+
     [Header("=====패링 옵션=====")]
     [SerializeField] bool canUseParry = true;
     public float ParryCooldownRatio => parryCooldownTimer / stats.attackCooldownSec;
@@ -219,6 +219,7 @@ public class PlayerScript : Singleton<PlayerScript>
         if (isDead || !canUseDash || moveVec == Vector2.zero)
             return;
         StartCoroutine(DashCoroutine());
+        AudioManager.Instance.PlaySFX("Dash");
     }
 
     Vector3 lastSafePosition;
@@ -375,6 +376,7 @@ public class PlayerScript : Singleton<PlayerScript>
             return;
 
         playerAnim.PlayParry();
+        AudioManager.Instance.PlaySFX("Parry");
         FlashParry();
         ParryRoutine = StartCoroutine(Parry());
     }
@@ -465,7 +467,7 @@ public class PlayerScript : Singleton<PlayerScript>
         yield return FadeController.Instance.FadeIn(Color.white, 0.05f, 0.01f);
         GameManager.Instance.SetTimeScale(1);
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.1f);
         isGod = false;
 
     }
@@ -522,12 +524,13 @@ public class PlayerScript : Singleton<PlayerScript>
     }
     public IEnumerator DamagedRoutine(int damage)
     {
+        AudioManager.Instance.PlaySFX("Hit");
         isGod = true;
         playerAnim.PlayKnockBack();
         FlashOnDamage();
-        Debug.Log("아야!");
+    
         Health -= damage;
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.4f);
         isGod = false;
     }
 

@@ -139,6 +139,7 @@ public class Enemy : MonoBehaviour
     {
         if (isDead) return;
 
+        AudioManager.Instance.PlaySFX("AttackHit");
         if (!IsAttacking)
             StateMachine.ChangeState<DamagedState>();
 
