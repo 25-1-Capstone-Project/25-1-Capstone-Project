@@ -9,6 +9,7 @@ public class EnemyData : ScriptableObject
 
     public string monsterName;
     public int maxHealth;
+    public int currentHealth;
     public float moveSpeed;
     public float attackSpeed;
     public float attackRange;

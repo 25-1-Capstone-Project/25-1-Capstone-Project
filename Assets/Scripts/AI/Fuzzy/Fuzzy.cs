@@ -1,6 +1,5 @@
 using UnityEngine;
 
-public enum SkillAction { Slash, Shot, AreaAttack, JumpSmash }
 
 public class Fuzzy
 {
@@ -12,7 +11,7 @@ public class Fuzzy
     /// <summary>
     /// Sugeno 방식으로 스킬 결정
     /// </summary>
-    public SkillAction DecideSkill(float distance, float hp, float playerHp, float playerVelocity)
+    public EBossSkillAction DecideSkill(float distance, float hp, float playerHp, float playerVelocity)
     {
         // 1. 퍼지 멤버십 계산
         float distNear = Gaussian(distance, 1f, 1f);
@@ -46,9 +45,9 @@ public class Fuzzy
         float output = numerator / denominator;
 
         // 5. 출력값 기반 스킬 결정
-        if (output > 4.5f) return SkillAction.JumpSmash;
-        if (output > 3.5f) return SkillAction.AreaAttack;
-        if (output > 2.5f) return SkillAction.Shot;
-        return SkillAction.Slash;
+        if (output > 4.5f) return EBossSkillAction.JumpSmash;
+        if (output > 3.5f) return EBossSkillAction.AreaAttack;
+        if (output > 2.5f) return EBossSkillAction.Shot;
+        return EBossSkillAction.Slash;
     }
 }

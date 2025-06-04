@@ -23,7 +23,7 @@ public class Boss_BT : MonoBehaviour
     SequenceNode moveSequence;
 
     Fuzzy fuzzy = new Fuzzy();
-    SkillAction currentSkill = SkillAction.Slash;
+    EBossSkillAction currentSkill = EBossSkillAction.Slash;
     float currentHp = 100f;
     float playerHp = 100f;
     float playerVelocity = 0f;
@@ -60,7 +60,7 @@ public class Boss_BT : MonoBehaviour
         }
         else
         {
-            currentSkill = SkillAction.Slash;
+            currentSkill = EBossSkillAction.Slash;
         }
 
         rootNode.Evaluate();
@@ -115,10 +115,10 @@ public class Boss_BT : MonoBehaviour
     {
         switch (currentSkill)
         {
-            case SkillAction.Slash: return Slash();
-            case SkillAction.Shot: return Shot();
-            case SkillAction.AreaAttack: return AreaAttack();
-            case SkillAction.JumpSmash: return JumpSmash();
+            case EBossSkillAction.Slash: return Slash();
+            case EBossSkillAction.Shot: return Shot();
+            case EBossSkillAction.AreaAttack: return AreaAttack();
+            case EBossSkillAction.JumpSmash: return JumpSmash();
             default: return INode.State.Failed;
         }
     }

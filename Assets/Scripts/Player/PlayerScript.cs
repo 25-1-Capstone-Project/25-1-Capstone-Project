@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System;
 using System.Collections.Generic;
-using UnityEngine.Tilemaps;
+
 
 /// <summary>
 /// 플레이어의 이동, 공격, 패링, 대시 등을 처리하는 스크립트입니다.
@@ -34,14 +34,15 @@ public class PlayerScript : Singleton<PlayerScript>
     bool isGod = false; // 무적 상태
 
     [Header("=====체력=====")]
-    int health;
-    int Health
+
+    public int Health
     {
-        get { return health; }
+        get { return stats.currentHealth; }
         set
         {
-            health = value;
-            if(health > stats.maxHealth)
+            int health = value;
+
+            if (health > stats.maxHealth)
             {
                 health = stats.maxHealth;
             }
@@ -54,12 +55,12 @@ public class PlayerScript : Singleton<PlayerScript>
             {
                 health = stats.maxHealth;
             }
-            UIManager.Instance.playerStatUI.UI_HPBarUpdate();
+            stats.currentHealth = health;
+
+            UIManager.Instance.playerStatUI.UI_HPBarUpdate(stats.currentHealth, stats.maxHealth);
         }
     }
-    public int UIHealth => health;
-    public int UIMaxHealth => stats.maxHealth;
-
+  
     [Header("=====패링 옵션=====")]
     [SerializeField] bool canUseParry = true;
     public float ParryCooldownRatio => parryCooldownTimer / stats.attackCooldownSec;
@@ -164,7 +165,10 @@ public class PlayerScript : Singleton<PlayerScript>
     {
         transform.position = target;
     }
-
+    public Rigidbody2D GetRigidbody()
+    {
+        return rb;
+    }
     #endregion
 
     void Start()
@@ -448,7 +452,7 @@ public class PlayerScript : Singleton<PlayerScript>
         isParrying = false;
         canUseParry = true;
         StartCoroutine(ParryEffect());
-        
+
     }
     public IEnumerator ParryEffect()
     {

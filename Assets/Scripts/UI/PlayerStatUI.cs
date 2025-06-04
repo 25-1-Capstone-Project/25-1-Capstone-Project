@@ -9,9 +9,9 @@ public class PlayerStatUI : MonoBehaviour
     [SerializeField] private Slider hpBar;
     [SerializeField] private Image cooldownImage;
 
-    public void UI_HPBarUpdate()
+    public void UI_HPBarUpdate(int currentHealth, int maxHealth)
     {
-        hpBar.value = (float)PlayerScript.Instance.UIHealth / (float)PlayerScript.Instance.UIMaxHealth;
+        hpBar.value = (float)currentHealth / (float)maxHealth;
     }
   
     public void UI_ParryCooldownUpdate()
