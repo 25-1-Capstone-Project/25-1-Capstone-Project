@@ -1,4 +1,6 @@
 
+using System;
+using System.Runtime.InteropServices.WindowsRuntime;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,16 +11,15 @@ public class Boss : Enemy
     private Fuzzy fuzzy;
     public Text StateText;
     public Text AttackText;
-    EBossSkillAction skilltype;
-    BossAnimatorController bossAnimController;
-  
-    public override void Init(){
-        bossAnimController = GetComponent<BossAnimatorController>();
-     
+    float cooldownTime = 2.0f;
+
+    public override void Init()
+    {
+        enemyAnimController = GetComponent<BossAnimatorController>();
         fuzzy = new Fuzzy();
-     
+
     }
-    
+
     protected override void SetState()
     {
         StateMachine = new StateMachine<IState>();
@@ -28,19 +29,26 @@ public class Boss : Enemy
         StateMachine.AddState(new BossCooldown(this));
         StateMachine.AddState(new BossMove(this));
         StateMachine.AddState(new BossDead(this));
-        StateMachine.ChangeState<BossIdle>();
+       
     }
-   
+    public void StartFSM()
+    {
+        StateMachine.ChangeState<BossIdle>();
+        Debug.Log("Boss FSM Started");
+    }  
     public void DecideSkill()
     {
-
         EBossSkillAction skilltype = fuzzy.DecideSkill(Vector2.Distance(transform.position, PlayerScript.Instance.GetPlayerTransform().position),
         data.currentHealth, PlayerScript.Instance.Health, PlayerScript.Instance.GetRigidbody().linearVelocity.magnitude);
-        AttackText.text = skilltype.ToString();
+      
+        data.AttackPatternSet((int)skilltype);
+        
     }
 
-
-
+    public bool CheckCooldownComplete(float timer)
+    {
+        return timer >= cooldownTime;
+    }
 }
 
 

@@ -6,7 +6,7 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField] protected EnemyBaseData data;
     [SerializeField] SpriteRenderer enemySprite;
-    [SerializeField] EnemyAnimatorController enemyAnimController;
+    [SerializeField] protected EnemyAnimatorController enemyAnimController;
     [SerializeField] ParticleSystem attackParticle;
     private Rigidbody2D rb;
 
@@ -61,7 +61,7 @@ public class Enemy : MonoBehaviour
     #endregion
 
     #region SetFunction
-    public void SetEnemyData(EnemyData enemyData) => this.data = enemyData;
+    public void SetEnemyData(EnemyBaseData data) => this.data = data;
     #endregion
     #region Initialize
     public virtual void Init()
@@ -144,7 +144,6 @@ public class Enemy : MonoBehaviour
 
         FlashSprite(Color.red, 0.5f);
         Health -= damage;
-        Debug.Log("적 아야");
     }
     public void KnockBack(float knockBackForce)
     {

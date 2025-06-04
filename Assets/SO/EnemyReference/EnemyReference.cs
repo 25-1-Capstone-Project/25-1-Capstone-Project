@@ -7,23 +7,31 @@ public class EnemyReference : ScriptableObject
     public EDungeonType eDungeonType;
 
     [System.Serializable]
-    public class EnemyFloorSet
+    public class FloorSpawnSet
     {
         public EnemyData[] enemyDatas;
+        public BossData[] bossDatas;
     }
 
-    [SerializeField] EnemyFloorSet[] enemyPrefabSet;
+    [SerializeField] FloorSpawnSet[] enemyPrefabSet;
 
-    public EnemyData GetRandomEnemyPrefab()
+    public EnemyData GetRandomEnemyData()
     {
         int floor = GameManager.Instance.CurrentDungeonFloor;
-        if (floor < enemyPrefabSet.Length && enemyPrefabSet[floor].enemyDatas.Length > 0)
-        {
-            var prefabs = enemyPrefabSet[floor].enemyDatas;
-            return prefabs[Random.Range(0, prefabs.Length)];
-        }
 
-        Debug.LogWarning("No enemy prefab available for floor: " + floor);
-        return null;
+        EnemyData[] enemydatas = enemyPrefabSet[floor].enemyDatas;
+        return enemydatas[Random.Range(0, enemydatas.Length)];
+
     }
+
+    public BossData GetRandomBossData()
+    {
+        int floor = GameManager.Instance.CurrentDungeonFloor;
+
+       BossData[] bossDatas = enemyPrefabSet[floor].bossDatas;
+        return bossDatas[Random.Range(0, bossDatas.Length)];
+
+
+    }
+
 }

@@ -16,7 +16,7 @@ public class MapManager : Singleton<MapManager>
     public Room GetCurrentRoom() => roomMap[currentRoomPos].GetComponent<Room>();
     public void CreateMap()
     {
-        mapGen.InitMap();
+        mapGen.GenerateMap();
     }
     public void MoveToRoom(Direction dir)
     {

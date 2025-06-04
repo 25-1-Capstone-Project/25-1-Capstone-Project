@@ -14,7 +14,7 @@ public abstract class EnemyBaseData : ScriptableObject
     public EnemyAttackPattern attackPattern;
     public EEnemyType eEnemyType;
 
-    public abstract void AttackPatternSet();
+    public abstract void AttackPatternSet(int index = 0);
  
     
 

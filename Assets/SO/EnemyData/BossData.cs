@@ -6,9 +6,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "EnemyData", menuName = "Enemy/BossData")]
 public class BossData : EnemyBaseData
 {
-    public override void AttackPatternSet()
+    EnemyAttackPattern[] attackPatterns;
+    public override void AttackPatternSet(int index = 0)
     {
-        // 공격 패턴 설정 로직
+        attackPattern = attackPatterns[index];
     }
 
 

@@ -9,6 +9,13 @@ public class MinimapManager : Singleton<MinimapManager>
     [SerializeField] float roomGap;
 
     private Dictionary<Vector2Int, GameObject> minimapIcons = new Dictionary<Vector2Int, GameObject>();
+    public void InitMiniMap()
+    {
+        
+        foreach (var icon in minimapIcons.Values)
+            Destroy(icon);
+        minimapIcons.Clear();
+    }
     public void RegisterRoom(Vector2Int roomPos)
     {
         GameObject icon = Instantiate(minimapIconPrefab, minimapContainer);

@@ -1,6 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+public enum ERoomType
+{
+    Empty,
+    BattleRoom,
+    StartRoom,
+    BossRoom,
+}
 /// <summary>
 /// 아이작의 맵 생성 알고리즘으로 만든 클래스
 /// </summary>
@@ -14,13 +21,6 @@ using UnityEngine;
 // Random 50% chance, give up
 // Otherwise, mark the neighbour cell as having a room in it, and add it to the queue.
 
-public enum ERoomType
-{
-    Empty,
-    BattleRoom,
-    StartRoom,
-    BossRoom,
-}
 public class MapGen : MonoBehaviour
 {
     [SerializeField] Vector2Int roomSize;
@@ -44,11 +44,11 @@ public class MapGen : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.L))
         {
-            InitMap();
+            GenerateMap();
         }
     }
     //맵 초기화
-    public void InitMap()
+    public void GenerateMap()
     {
         if (MapObject != null) Destroy(MapObject);
         MapObject = new GameObject("GeneratedMap");
@@ -136,8 +136,9 @@ public class MapGen : MonoBehaviour
     //방 생성
     public void SpawnRoom()
     {
+        MinimapManager.Instance.InitMiniMap();
         MapManager.Instance.roomMap.Clear();
-
+        Debug.Log("SpawnRoom");
         for (int i = 0; i < map.Length; i++)
         {
             if (map[i] == ERoomType.BattleRoom.GetHashCode())

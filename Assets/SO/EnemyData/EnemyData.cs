@@ -8,7 +8,7 @@ public class EnemyData : EnemyBaseData
 {
     public ECloseAttackType closeAttackType;
     public ELongAttackType longAttackType;
-    public override void AttackPatternSet()
+    public override void AttackPatternSet(int index)
     {
         switch (eEnemyType)
         {

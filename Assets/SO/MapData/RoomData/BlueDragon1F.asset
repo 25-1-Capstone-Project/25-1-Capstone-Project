@@ -34,6 +34,7 @@ MonoBehaviour:
   - {fileID: 2521365868005272557, guid: cb6bbac30d38f423abb5c7f6e13a74ee, type: 3}
   - {fileID: 2521365868005272557, guid: e3d7cfea2a31b49a4a8b6fe5de089738, type: 3}
   - {fileID: 2521365868005272557, guid: 0b0ebe7a1cc74419a8a663efcc1f2194, type: 3}
-  BossRooms: []
+  BossRooms:
+  - {fileID: 0}
   ShopRooms: []
   StartRoom: {fileID: 2521365868005272557, guid: e6927933b0b1049dd9d896b450ba5698, type: 3}

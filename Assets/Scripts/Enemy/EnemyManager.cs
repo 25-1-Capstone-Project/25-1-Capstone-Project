@@ -29,12 +29,21 @@ public class EnemyManager : Singleton<EnemyManager>
 
     public void EnemySpawn(Vector2 spawnPos)
     {
-        EnemyData enemyData = enemyReference.GetRandomEnemyPrefab();
+        EnemyData enemyData = enemyReference.GetRandomEnemyData();
         GameObject enemyObj = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
         Enemy enemy = enemyObj.GetComponent<Enemy>();
         enemy.SetEnemyData(enemyData);
         enemy.Init();
         spawnedEnemy++;
     }
-
+    
+    public void BossSpawn(Vector2 spawnPos)
+    {
+        BossData bossData = enemyReference.GetRandomBossData();
+        GameObject bossObj = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
+        Boss boss = bossObj.GetComponent<Boss>();
+        boss.SetEnemyData(bossData);
+        boss.Init();
+        spawnedEnemy++;
+    }
 }

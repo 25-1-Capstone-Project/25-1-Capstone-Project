@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class EnemyAnimatorController : MonoBehaviour
 {
-    Animator animator;
+    protected Animator animator;
 
     void Awake()
     {
@@ -10,7 +10,7 @@ public class EnemyAnimatorController : MonoBehaviour
     }
 
     public void SetAnimator(RuntimeAnimatorController animator)
-    { 
+    {
         this.animator.runtimeAnimatorController = animator;
     }
     public void PlayIdle()
@@ -22,8 +22,16 @@ public class EnemyAnimatorController : MonoBehaviour
     {
         SetTrigger("Chase");
     }
+    public void PlayCooldown()
+    {
+        SetTrigger("Cooldown");
+    }
+    public void EndAttack()
+    {
+        SetTrigger("endAttack");
+    }
 
-    public void PlayAttack()
+    public virtual void PlayAttack(int attackIndex=0)
     {
         SetTrigger("Attack");
     }
@@ -38,7 +46,7 @@ public class EnemyAnimatorController : MonoBehaviour
         SetTrigger("KnockBack");
     }
 
-    private void SetTrigger(string triggerName)
+    protected virtual void SetTrigger(string triggerName)
     {
         animator.ResetTrigger("Idle");
         animator.ResetTrigger("Chase");
