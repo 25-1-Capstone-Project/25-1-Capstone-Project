@@ -33,7 +33,7 @@ public class EnemyManager : Singleton<EnemyManager>
         GameObject enemyObj = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
         Enemy enemy = enemyObj.GetComponent<Enemy>();
         enemy.SetEnemyData(enemyData);
-        enemy.EnemyInit();
+        enemy.Init();
         spawnedEnemy++;
     }
 

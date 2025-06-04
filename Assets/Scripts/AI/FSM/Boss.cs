@@ -1,29 +1,27 @@
 
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 public enum EBossSkillAction { Slash, Shot, AreaAttack, JumpSmash }
 
-public enum EBoss_State { Idle, Preparing, Attack, Cooldown, Move, Dead }
-public class Boss : MonoBehaviour
+public class Boss : Enemy
 {
-    [SerializeField] BossData bossData;
-    private EBoss_State _curState;
     private Fuzzy fuzzy;
     public Text StateText;
     public Text AttackText;
-
-    public StateMachine<BossState> StateMachine { get; private set; }
-
-    private void Start()
-    {
-        SetStateMachine();
+    EBossSkillAction skilltype;
+    BossAnimatorController bossAnimController;
+  
+    public override void Init(){
+        bossAnimController = GetComponent<BossAnimatorController>();
+     
         fuzzy = new Fuzzy();
- 
-
+     
     }
-    private void SetStateMachine()
+    
+    protected override void SetState()
     {
-        StateMachine = new StateMachine<BossState>();
+        StateMachine = new StateMachine<IState>();
         StateMachine.AddState(new BossIdle(this));
         StateMachine.AddState(new BossPreparing(this));
         StateMachine.AddState(new BossAttack(this));
@@ -32,12 +30,12 @@ public class Boss : MonoBehaviour
         StateMachine.AddState(new BossDead(this));
         StateMachine.ChangeState<BossIdle>();
     }
-
-    private void Update()
+   
+    public void DecideSkill()
     {
-        StateText.text = _curState.ToString();
+
         EBossSkillAction skilltype = fuzzy.DecideSkill(Vector2.Distance(transform.position, PlayerScript.Instance.GetPlayerTransform().position),
-        bossData.currentHealth, PlayerScript.Instance.Health, PlayerScript.Instance.GetRigidbody().linearVelocity.magnitude);
+        data.currentHealth, PlayerScript.Instance.Health, PlayerScript.Instance.GetRigidbody().linearVelocity.magnitude);
         AttackText.text = skilltype.ToString();
     }
 

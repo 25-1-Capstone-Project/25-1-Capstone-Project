@@ -5214,7 +5214,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d84031b5247769488d60dac111cc2ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyData: {fileID: 11400000, guid: fe069fc829c907f4c8345e0939402a0d, type: 2}
+  data: {fileID: 11400000, guid: 7b31b1a268ce7fa449cac152533836c0, type: 2}
   enemySprite: {fileID: 6823296138178529082}
   enemyAnimController: {fileID: 1213534254612820977}
   attackPattern: {fileID: 0}

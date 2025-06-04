@@ -9,17 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 48cb4d560ee21ee43a9cd094eafa310c, type: 3}
+  m_Script: {fileID: 11500000, guid: 263e27cb71b88f845aed894261fa039f, type: 3}
   m_Name: Slash_Enemy
   m_EditorClassIdentifier: 
-  monsterName: Bot
-  maxHealth: 5
+  monsterName: sword
+  maxHealth: 3
+  currentHealth: 0
   moveSpeed: 3
-  attackSpeed: 0
-  attackRange: 1
   attackDamage: 1
   animator: {fileID: 22100000, guid: a0056520e7cde014d8cee514bdf28a44, type: 2}
   attackPattern: {fileID: 11400000, guid: e046c09cf101f054c834b068de4af735, type: 2}
+  eEnemyType: 0
   closeAttackType: 0
   longAttackType: 0
-  eEnemyType: 0

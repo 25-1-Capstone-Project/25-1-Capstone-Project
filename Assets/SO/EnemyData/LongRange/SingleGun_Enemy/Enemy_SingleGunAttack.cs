@@ -4,10 +4,6 @@ using System.Collections;
 [CreateAssetMenu(menuName = "Enemy/AttackPattern/Enemy/Enemy_SingleGunAttack")]
 public class Enemy_SingleGunAttack : EnemyAttackPattern
 {
-    public float attackDistance;
-    public float attackChargeSec;
-    public float attackDuration;
-    public float attackPostDelay;
     public float effectWidth = 0.4f;
 
     public override IEnumerator Execute(Enemy enemy)

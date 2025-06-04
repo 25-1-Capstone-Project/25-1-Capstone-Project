@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75957c8fc8ff32d4bb9a8de73795a18f, type: 3}
   m_Name: Enemy_SwordSlashAttack
   m_EditorClassIdentifier: 
-  damage: 7
-  delay: 0.5
-  range: 1
-  cooldown: 1
+  attackRange: 1
+  attackChargeSec: 1
+  attackDuration: 0
+  attackPostDelay: 1

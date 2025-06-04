@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7efa58a6f6c000642bc62392f0213d67, type: 3}
   m_Name: Enemy_Multi Gun Attack
   m_EditorClassIdentifier: 
-  attackDistance: 0
-  attackChargeSec: 0
-  attackDuration: 0
-  attackPostDelay: 0
-  effectWidth: 0.4
+  attackRange: 5
+  attackChargeSec: 2
+  attackDuration: 1
+  attackPostDelay: 2

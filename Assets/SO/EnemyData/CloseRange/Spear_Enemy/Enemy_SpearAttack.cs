@@ -5,11 +5,7 @@ using System.Collections;
 public class Enemy_SpearAttack : EnemyAttackPattern
 {
     public float attackDistance;
-    public float attackChargeSec;
-    public float attackDuration;
-    public float attackPostDelay;
     public float effectWidth = 0.4f;
-
 
     public override IEnumerator Execute(Enemy enemy)
     {

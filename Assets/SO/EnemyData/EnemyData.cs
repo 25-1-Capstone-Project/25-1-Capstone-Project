@@ -4,23 +4,11 @@ using UnityEngine;
 
 
 [CreateAssetMenu(fileName = "EnemyData", menuName = "Enemy/EnemyData")]
-public class EnemyData : ScriptableObject
+public class EnemyData : EnemyBaseData
 {
-
-    public string monsterName;
-    public int maxHealth;
-    public int currentHealth;
-    public float moveSpeed;
-    public float attackSpeed;
-    public float attackRange;
-    public int attackDamage;
-    public RuntimeAnimatorController animator;
-    public EnemyAttackPattern attackPattern;
     public ECloseAttackType closeAttackType;
     public ELongAttackType longAttackType;
-    public EEnemyType eEnemyType;
-
-    public void AttackPatternSet()
+    public override void AttackPatternSet()
     {
         switch (eEnemyType)
         {
@@ -34,7 +22,7 @@ public class EnemyData : ScriptableObject
                 break;
         }
     }
-  
-    
+
+
 
 }

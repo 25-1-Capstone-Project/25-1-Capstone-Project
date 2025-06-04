@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 022ad613e0d41d040823fb8dc8450496, type: 3}
   m_Name: Enemy_SpearAttack
   m_EditorClassIdentifier: 
-  attackDistance: 5
+  attackRange: 3
   attackChargeSec: 1
   attackDuration: 0.5
   attackPostDelay: 0.5
-  hitboxSize: {x: 1, y: 1}
+  attackDistance: 5
+  effectWidth: 0.4

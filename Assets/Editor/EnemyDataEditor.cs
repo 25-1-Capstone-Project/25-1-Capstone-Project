@@ -24,8 +24,6 @@ public class EnemyDataEditor : Editor
         data.monsterName = EditorGUILayout.TextField("Monster Name", data.monsterName);
         data.maxHealth = EditorGUILayout.IntField("Max Health", data.maxHealth);
         data.moveSpeed = EditorGUILayout.FloatField("Move Speed", data.moveSpeed);
-        data.attackSpeed = EditorGUILayout.FloatField("Attack Speed", data.attackSpeed);
-        data.attackRange = EditorGUILayout.FloatField("Attack Range", data.attackRange);
         data.attackDamage = EditorGUILayout.IntField("Attack Damage", data.attackDamage);
         data.animator = (RuntimeAnimatorController)EditorGUILayout.ObjectField("Animator", data.animator, typeof(RuntimeAnimatorController), false);
         data.attackPattern = (EnemyAttackPattern)EditorGUILayout.ObjectField("Attack Pattern", data.attackPattern, typeof(EnemyAttackPattern), false);

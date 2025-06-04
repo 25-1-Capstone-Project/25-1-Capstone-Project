@@ -1,32 +1,28 @@
 using System.Collections;
-using UnityEditor;
 using UnityEngine;
 
 
 public class Enemy : MonoBehaviour
 {
-
-    [SerializeField] EnemyData enemyData;
+    [SerializeField] protected EnemyBaseData data;
     [SerializeField] SpriteRenderer enemySprite;
     [SerializeField] EnemyAnimatorController enemyAnimController;
-    [SerializeField] EnemyAttackPattern attackPattern;
     [SerializeField] ParticleSystem attackParticle;
     private Rigidbody2D rb;
 
     // StateMachine Property
-    public StateMachine<EnemyState> StateMachine { get; private set; }
+    public StateMachine<IState> StateMachine { get; protected set; }
+   
     [SerializeField] private float flashDuration = 0.1f;
     public bool IsAttacking;
     private bool isDead;
-    private float speed;
-
-    int health;
     int Health
     {
-        get { return health; }
+        get { return data.currentHealth; }
         set
         {
-            health = value;
+            data.currentHealth = value;
+            int health = data.currentHealth;
 
             if (health <= 0)
             {
@@ -54,38 +50,36 @@ public class Enemy : MonoBehaviour
     #endregion
 
     #region GetFunction
-    public EnemyAttackPattern GetAttackPattern() => attackPattern;
-    public int GetDamage() => enemyData.attackDamage;
+    public EnemyAttackPattern GetAttackPattern() => data.attackPattern;
+    public int GetDamage() => data.attackDamage;
     public Rigidbody2D GetRigidbody() => rb;
-    public float GetSpeed() => speed;
+    public float GetSpeed() => data.moveSpeed;
     public EnemyAnimatorController GetAnimatorController() => enemyAnimController;
-    public Transform GetPlayer() => PlayerScript.Instance.GetPlayerTransform();
 
     public Vector2 GetDirectionToPlayerVec() => PlayerScript.Instance.GetPlayerTransform().position - transform.position;
     public Vector2 GetDirectionToPlayerNormalVec() => GetDirectionToPlayerVec().normalized;
     #endregion
 
     #region SetFunction
-    public void SetEnemyData(EnemyData enemyData) => this.enemyData = enemyData;
+    public void SetEnemyData(EnemyData enemyData) => this.data = enemyData;
     #endregion
     #region Initialize
-    public void EnemyInit()
+    public virtual void Init()
     {
-        enemyData.AttackPatternSet();
-        attackPattern = enemyData.attackPattern;
-        enemyAnimController.SetAnimator(enemyData.animator);
-        speed = enemyData.moveSpeed;
-        health = enemyData.maxHealth;
-       
+        SetComponents();
+        SetState();
+        data.AttackPatternSet();
+        enemyAnimController.SetAnimator(data.animator);
+        data.currentHealth = data.maxHealth;
     }
     void SetComponents()
     {
         rb = GetComponent<Rigidbody2D>();
     }
-    private void SetStateMachine()
+    protected virtual void SetState()
     {
         // Initialize StateMachine
-        StateMachine = new StateMachine<EnemyState>();
+        StateMachine = new StateMachine<IState>();
         StateMachine.AddState(new IdleState(this));
         StateMachine.AddState(new ChaseState(this));
         StateMachine.AddState(new AttackState(this));
@@ -101,8 +95,7 @@ public class Enemy : MonoBehaviour
     #region Unity LifeCycle
     void Start()
     {
-        SetComponents();
-        SetStateMachine();
+        Init();
     }
 
     void Update()
@@ -133,14 +126,14 @@ public class Enemy : MonoBehaviour
     public bool CheckAttackRange()
     {
         // 플레이어가 가까우면 공격 상태로 전환
-        if (GetDirectionToPlayerVec().magnitude < enemyData.attackRange)
+        if (GetDirectionToPlayerVec().magnitude < data.attackPattern.attackRange)
             return true;
         else
             return false;
     }
     public void Attack()
     {
-        StartCoroutine(attackPattern.Execute(this));
+        StartCoroutine( data.attackPattern.Execute(this));
     }
     public void TakeDamage(int damage)
     {
