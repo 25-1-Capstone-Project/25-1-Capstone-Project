@@ -221,6 +221,7 @@ public class PlayerScript : Singleton<PlayerScript>
 
     IEnumerator DashCoroutine()
     {
+        gameObject.layer = LayerMask.NameToLayer("PlayerDash"); // 대시 중 플레이어 레이어 변경
         isDashing = true;
         canUseDash = false;
 
@@ -245,6 +246,7 @@ public class PlayerScript : Singleton<PlayerScript>
         // 3. 쿨다운
         yield return new WaitForSeconds(dashCooldown);
         canUseDash = true;
+        gameObject.layer = LayerMask.NameToLayer("Player"); // 대시 후 플레이어 레이어 복원
     }
 
 

@@ -41,7 +41,7 @@ public class Enemy_SpearAttack : EnemyAttackPattern
         spearEffect.gameObject.SetActive(false);
         time = 0f;
         bool hasDealtDamage = false;
-
+        enemy.gameObject.layer = LayerMask.NameToLayer("EnemyAttack");
         while (time < attackDuration)
         {
             float t = time / attackDuration;
@@ -60,10 +60,10 @@ public class Enemy_SpearAttack : EnemyAttackPattern
 
             }
 
-            time += Time.deltaTime;
-            yield return null;
+            time += Time.fixedDeltaTime;
+            yield return new WaitForFixedUpdate();
         }
-
+        enemy.gameObject.layer = LayerMask.NameToLayer("Enemy");
         yield return new WaitForSeconds(attackPostDelay);
 
 
