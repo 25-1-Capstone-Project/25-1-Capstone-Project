@@ -70,16 +70,21 @@ public class HubState : GameState
 public class DungeonState : GameState
 {
     public DungeonState(GameManager manager) : base(manager) { }
-
+    bool isFirstEnter = true;
     public override void Enter()
     {
-        SceneManager.sceneLoaded += OnSceneLoaded;
+        if (isFirstEnter)
+        {
+            isFirstEnter = false;
+            SceneManager.sceneLoaded += OnSceneLoaded;
 
-        string sceneName =
-        gameManager.mapData[(int)gameManager.currentDungeonType]
-        .sceneNames[gameManager.CurrentDungeonFloor];
+            string sceneName =
+            gameManager.mapData[(int)gameManager.currentDungeonType]
+            .sceneNames[gameManager.CurrentDungeonFloor];
 
-        SceneManager.LoadScene(sceneName);
+            SceneManager.LoadScene(sceneName);
+        }
+
     }
 
 
