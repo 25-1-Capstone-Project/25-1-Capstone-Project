@@ -377,7 +377,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1951943412611108154, guid: 5d9521cb6bd3a514ebfc8aafc24a2b68, type: 3}
       propertyPath: roomSize.x
-      value: 23
+      value: 21
+      objectReference: {fileID: 0}
+    - target: {fileID: 1951943412611108154, guid: 5d9521cb6bd3a514ebfc8aafc24a2b68, type: 3}
+      propertyPath: roomSize.y
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 3350446380117234403, guid: 5d9521cb6bd3a514ebfc8aafc24a2b68, type: 3}
       propertyPath: m_Name
