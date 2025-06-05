@@ -21,9 +21,9 @@ public class RoomReference : ScriptableObject
 
     private GameObject SelectLevelRoom(int depth)
     {
-        if (depth > 4)
+        if (depth > 3)
             return Level3_Rooms[Random.Range(0, Level3_Rooms.Length)];
-        else if (depth > 2)
+        else if (depth > 1)
             return Level2_Rooms[Random.Range(0, Level2_Rooms.Length)];
         else if (depth >= 0)
             return Level1_Rooms[Random.Range(0, Level1_Rooms.Length)];

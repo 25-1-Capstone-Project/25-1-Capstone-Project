@@ -36,7 +36,17 @@ public class Room : MonoBehaviour
 
     public void InitRoom()
     {
-        GroundTileMap = GetComponentInChildren<Tilemap>();
+        // 부모(자기 자신)는 제외하고 자식들만 할당
+        if (enemySpawnParentObject != null)
+        {
+            List<Transform> spawnPoints = new List<Transform>();
+            foreach (Transform t in enemySpawnParentObject.GetComponentsInChildren<Transform>())
+            {
+                if (t != enemySpawnParentObject)
+                    spawnPoints.Add(t);
+            }
+            enemySpawnPointsT = spawnPoints.ToArray();
+        }
         // 방 초기화 로직을 여기에 추가하세요.
         IsRoomCleared = false;
         if(enemySpawnParentObject!=null)

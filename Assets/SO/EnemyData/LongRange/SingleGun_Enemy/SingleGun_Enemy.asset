@@ -17,7 +17,7 @@ MonoBehaviour:
   currentHealth: 2
   moveSpeed: 3
   attackDamage: 1
-  animator: {fileID: 9100000, guid: dbf98183cfad6914d8e86c9749508abc, type: 2}
+  animator: {fileID: 22100000, guid: 5fec08a1de579ec4c845e06c87b6444d, type: 2}
   attackPattern: {fileID: 11400000, guid: a242bfceff7c0e648b64cbfc2abaa05e, type: 2}
   eEnemyType: 1
   closeAttackType: 0

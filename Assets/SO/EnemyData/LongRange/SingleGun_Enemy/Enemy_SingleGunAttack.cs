@@ -8,6 +8,7 @@ public class Enemy_SingleGunAttack : EnemyAttackPattern
 
     public override IEnumerator Execute(Enemy enemy)
     {
+        enemy.GetAnimatorController().PlayAttack();
         yield return new WaitForSeconds(attackChargeSec);
         GameObject attackProjectile = EffectPooler.Instance.SpawnFromPool("EnemyAttackProjectile1", enemy.transform.position, Quaternion.identity);
         attackProjectile.tag = "EnemyAttack";

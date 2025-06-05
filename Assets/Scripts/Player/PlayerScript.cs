@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System;
 using System.Collections.Generic;
+using UnityEngine.Tilemaps;
 
 
 /// <summary>
@@ -176,7 +177,12 @@ public class PlayerScript : Singleton<PlayerScript>
         InitPlayer();
         SetComponent();
     }
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.F1))
+            Health = stats.maxHealth;
 
+    }
     void LateUpdate()
     {
         if (isDead || isAttacking || isParrying || isDashing) return;
@@ -241,12 +247,12 @@ public class PlayerScript : Singleton<PlayerScript>
         rb.linearVelocity = Vector2.zero;
         isDashing = false;
 
-        // // 2. 바닥이 없으면 낙하 시작
-        // if (!IsGroundBelow())
-        // {
-        //     StartCoroutine(FallAndReturnCoroutine());
-        //     yield break;
-        // }
+
+        if (IsGroundBelow() )
+        {
+            StartCoroutine(FallAndReturnCoroutine());
+            yield break;
+        }
 
         // 3. 쿨다운
         yield return new WaitForSeconds(dashCooldown);
@@ -255,38 +261,41 @@ public class PlayerScript : Singleton<PlayerScript>
     }
 
 
-    // bool isFalling = false;
-    // public Tilemap groundTilemap;
-    // public void SetGroundTilemap(Tilemap tilemap)
-    // {
-    //     groundTilemap = tilemap;
-    // }
-    // bool IsGroundBelow()
-    // {
-    //     Vector3Int cell = groundTilemap.WorldToCell(transform.position);
-    //     return groundTilemap.HasTile(cell);
-    // }
-    // IEnumerator FallAndReturnCoroutine()
-    // {
-    //     isFalling = true;
+    bool isFalling = false;
+    public Tilemap fallTilemap;
+    public void SetGroundTilemap(Tilemap tilemap)
+    {
+        fallTilemap = tilemap;
+    }
+    bool IsGroundBelow()
+    {
+        if(fallTilemap == null)
+            return false;
 
-    //     float fallTime = 1.5f;
+        Vector3Int cell = fallTilemap.WorldToCell(transform.position);
+        return fallTilemap.HasTile(cell);
+    }
+    IEnumerator FallAndReturnCoroutine()
+    {
+        isFalling = true;
 
-    //     float timer = 0f;
-    //     while (timer < fallTime)
-    //     {
-    //         transform.localScale = timer % fallTime * Vector3.one; // Scale down while falling
-    //         timer += Time.deltaTime;
-    //         yield return null;
-    //     }
-    //     transform.localScale =  Vector3.one;
-    //     // 복귀
-    //     transform.position = lastSafePosition;
+        float fallTime = 1.5f;
 
-    //     // 상태 복원
-    //     isFalling = false;
-    //     canUseDash = true;
-    // }
+        float timer = 0f;
+        while (timer < fallTime)
+        {
+            transform.localScale = timer % fallTime * Vector3.one; // Scale down while falling
+            timer += Time.deltaTime;
+            yield return null;
+        }
+        transform.localScale = Vector3.one;
+        // 복귀
+        transform.position = lastSafePosition;
+
+        // 상태 복원
+        isFalling = false;
+        canUseDash = true;
+    }
 
     #endregion
 
@@ -528,7 +537,7 @@ public class PlayerScript : Singleton<PlayerScript>
         isGod = true;
         playerAnim.PlayKnockBack();
         FlashOnDamage();
-    
+
         Health -= damage;
         yield return new WaitForSeconds(0.4f);
         isGod = false;

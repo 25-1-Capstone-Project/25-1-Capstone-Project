@@ -366,7 +366,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 4096
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -410,10 +410,10 @@ TextureImporter:
       name: orc mage - with hand fx - all anims_0
       rect:
         serializedVersion: 2
-        x: 94
-        y: 1383
-        width: 71
-        height: 54
+        x: 0
+        y: 1280
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -432,10 +432,10 @@ TextureImporter:
       name: orc mage - with hand fx - all anims_1
       rect:
         serializedVersion: 2
-        x: 350
-        y: 1383
-        width: 71
-        height: 53
+        x: 256
+        y: 1280
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -454,10 +454,10 @@ TextureImporter:
       name: orc mage - with hand fx - all anims_2
       rect:
         serializedVersion: 2
-        x: 608
-        y: 1383
-        width: 69
-        height: 53
+        x: 512
+        y: 1280
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -476,10 +476,10 @@ TextureImporter:
       name: orc mage - with hand fx - all anims_3
       rect:
         serializedVersion: 2
-        x: 861
-        y: 1383
-        width: 72
-        height: 53
+        x: 768
+        y: 1280
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -498,10 +498,10 @@ TextureImporter:
       name: orc mage - with hand fx - all anims_4
       rect:
         serializedVersion: 2
-        x: 1115
-        y: 1383
-        width: 74
-        height: 54
+        x: 1024
+        y: 1280
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -520,10 +520,10 @@ TextureImporter:
       name: orc mage - with hand fx - all anims_5
       rect:
         serializedVersion: 2
-        x: 1370
-        y: 1383
-        width: 75
-        height: 55
+        x: 1280
+        y: 1280
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -542,10 +542,10 @@ TextureImporter:
       name: orc mage - with hand fx - all anims_6
       rect:
         serializedVersion: 2
-        x: 1634
-        y: 1383
-        width: 67
-        height: 55
+        x: 1536
+        y: 1280
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -564,10 +564,10 @@ TextureImporter:
       name: orc mage - with hand fx - all anims_7
       rect:
         serializedVersion: 2
-        x: 1888
-        y: 1383
-        width: 69
-        height: 55
+        x: 1792
+        y: 1280
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -586,10 +586,10 @@ TextureImporter:
       name: orc mage - with hand fx - all anims_8
       rect:
         serializedVersion: 2
-        x: 95
-        y: 1127
-        width: 70
-        height: 55
+        x: 0
+        y: 1024
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -608,10 +608,10 @@ TextureImporter:
       name: orc mage - with hand fx - all anims_9
       rect:
         serializedVersion: 2
-        x: 351
-        y: 1127
-        width: 69
-        height: 54
+        x: 256
+        y: 1024
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -630,10 +630,10 @@ TextureImporter:
       name: orc mage - with hand fx - all anims_10
       rect:
         serializedVersion: 2
-        x: 609
-        y: 1127
-        width: 61
-        height: 56
+        x: 512
+        y: 1024
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -652,10 +652,10 @@ TextureImporter:
       name: orc mage - with hand fx - all anims_11
       rect:
         serializedVersion: 2
-        x: 865
-        y: 1127
-        width: 56
-        height: 56
+        x: 768
+        y: 1024
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -674,10 +674,10 @@ TextureImporter:
       name: orc mage - with hand fx - all anims_12
       rect:
         serializedVersion: 2
-        x: 1128
-        y: 1127
-        width: 50
-        height: 56
+        x: 1024
+        y: 1024
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -696,10 +696,10 @@ TextureImporter:
       name: orc mage - with hand fx - all anims_13
       rect:
         serializedVersion: 2
-        x: 1388
-        y: 1127
-        width: 51
-        height: 55
+        x: 1280
+        y: 1024
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -718,10 +718,10 @@ TextureImporter:
       name: orc mage - with hand fx - all anims_14
       rect:
         serializedVersion: 2
-        x: 1644
-        y: 1127
-        width: 55
-        height: 54
+        x: 1536
+        y: 1024
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -740,10 +740,10 @@ TextureImporter:
       name: orc mage - with hand fx - all anims_15
       rect:
         serializedVersion: 2
-        x: 1890
-        y: 1127
-        width: 66
-        height: 55
+        x: 1792
+        y: 1024
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -762,10 +762,10 @@ TextureImporter:
       name: orc mage - with hand fx - all anims_16
       rect:
         serializedVersion: 2
-        x: 95
-        y: 871
-        width: 70
-        height: 54
+        x: 0
+        y: 768
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -784,10 +784,10 @@ TextureImporter:
       name: orc mage - with hand fx - all anims_17
       rect:
         serializedVersion: 2
-        x: 349
-        y: 871
-        width: 72
-        height: 54
+        x: 256
+        y: 768
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -806,10 +806,10 @@ TextureImporter:
       name: orc mage - with hand fx - all anims_18
       rect:
         serializedVersion: 2
-        x: 603
-        y: 871
-        width: 75
-        height: 54
+        x: 512
+        y: 768
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -828,10 +828,10 @@ TextureImporter:
       name: orc mage - with hand fx - all anims_19
       rect:
         serializedVersion: 2
-        x: 858
-        y: 871
-        width: 76
-        height: 54
+        x: 768
+        y: 768
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -850,10 +850,10 @@ TextureImporter:
       name: orc mage - with hand fx - all anims_20
       rect:
         serializedVersion: 2
-        x: 1112
-        y: 871
-        width: 78
-        height: 54
+        x: 1024
+        y: 768
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -872,10 +872,10 @@ TextureImporter:
       name: orc mage - with hand fx - all anims_21
       rect:
         serializedVersion: 2
-        x: 1368
-        y: 871
-        width: 77
-        height: 54
+        x: 1280
+        y: 768
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -894,10 +894,10 @@ TextureImporter:
       name: orc mage - with hand fx - all anims_22
       rect:
         serializedVersion: 2
-        x: 1628
-        y: 871
-        width: 71
-        height: 54
+        x: 1536
+        y: 768
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -916,10 +916,10 @@ TextureImporter:
       name: orc mage - with hand fx - all anims_23
       rect:
         serializedVersion: 2
-        x: 1886
-        y: 871
-        width: 67
-        height: 56
+        x: 1792
+        y: 768
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -938,10 +938,10 @@ TextureImporter:
       name: orc mage - with hand fx - all anims_24
       rect:
         serializedVersion: 2
-        x: 2140
-        y: 871
-        width: 55
-        height: 68
+        x: 2048
+        y: 768
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -960,10 +960,10 @@ TextureImporter:
       name: orc mage - with hand fx - all anims_25
       rect:
         serializedVersion: 2
-        x: 2395
-        y: 871
-        width: 59
-        height: 68
+        x: 2304
+        y: 768
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -982,10 +982,10 @@ TextureImporter:
       name: orc mage - with hand fx - all anims_26
       rect:
         serializedVersion: 2
-        x: 2652
-        y: 871
-        width: 57
-        height: 68
+        x: 2560
+        y: 768
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1004,10 +1004,10 @@ TextureImporter:
       name: orc mage - with hand fx - all anims_27
       rect:
         serializedVersion: 2
-        x: 2926
-        y: 871
-        width: 39
-        height: 68
+        x: 2816
+        y: 768
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1026,10 +1026,10 @@ TextureImporter:
       name: orc mage - with hand fx - all anims_28
       rect:
         serializedVersion: 2
-        x: 3182
-        y: 871
-        width: 39
-        height: 67
+        x: 3072
+        y: 768
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1048,10 +1048,10 @@ TextureImporter:
       name: orc mage - with hand fx - all anims_29
       rect:
         serializedVersion: 2
-        x: 3438
-        y: 871
-        width: 39
-        height: 64
+        x: 3328
+        y: 768
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1070,10 +1070,10 @@ TextureImporter:
       name: orc mage - with hand fx - all anims_30
       rect:
         serializedVersion: 2
-        x: 3692
-        y: 871
-        width: 53
-        height: 56
+        x: 3584
+        y: 768
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1092,10 +1092,10 @@ TextureImporter:
       name: orc mage - with hand fx - all anims_31
       rect:
         serializedVersion: 2
-        x: 3932
-        y: 871
-        width: 73
-        height: 54
+        x: 3840
+        y: 768
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1114,10 +1114,10 @@ TextureImporter:
       name: orc mage - with hand fx - all anims_32
       rect:
         serializedVersion: 2
-        x: 4194
-        y: 871
-        width: 67
-        height: 54
+        x: 4096
+        y: 768
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1136,10 +1136,10 @@ TextureImporter:
       name: orc mage - with hand fx - all anims_33
       rect:
         serializedVersion: 2
-        x: 4449
-        y: 871
-        width: 68
-        height: 54
+        x: 4352
+        y: 768
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1158,10 +1158,10 @@ TextureImporter:
       name: orc mage - with hand fx - all anims_34
       rect:
         serializedVersion: 2
-        x: 94
-        y: 615
-        width: 71
-        height: 54
+        x: 0
+        y: 512
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1180,10 +1180,10 @@ TextureImporter:
       name: orc mage - with hand fx - all anims_35
       rect:
         serializedVersion: 2
-        x: 351
-        y: 615
-        width: 69
-        height: 54
+        x: 256
+        y: 512
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1202,10 +1202,10 @@ TextureImporter:
       name: orc mage - with hand fx - all anims_36
       rect:
         serializedVersion: 2
-        x: 604
-        y: 615
-        width: 61
-        height: 54
+        x: 512
+        y: 512
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1224,10 +1224,10 @@ TextureImporter:
       name: orc mage - with hand fx - all anims_37
       rect:
         serializedVersion: 2
-        x: 859
-        y: 615
-        width: 58
-        height: 54
+        x: 768
+        y: 512
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1246,10 +1246,10 @@ TextureImporter:
       name: orc mage - with hand fx - all anims_38
       rect:
         serializedVersion: 2
-        x: 1122
-        y: 615
-        width: 50
-        height: 54
+        x: 1024
+        y: 512
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1268,10 +1268,10 @@ TextureImporter:
       name: orc mage - with hand fx - all anims_39
       rect:
         serializedVersion: 2
-        x: 1379
-        y: 615
-        width: 46
-        height: 54
+        x: 1280
+        y: 512
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1290,10 +1290,10 @@ TextureImporter:
       name: orc mage - with hand fx - all anims_40
       rect:
         serializedVersion: 2
-        x: 1634
-        y: 615
-        width: 46
-        height: 54
+        x: 1536
+        y: 512
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1312,10 +1312,10 @@ TextureImporter:
       name: orc mage - with hand fx - all anims_41
       rect:
         serializedVersion: 2
-        x: 1888
-        y: 613
-        width: 89
-        height: 59
+        x: 1792
+        y: 512
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1334,10 +1334,10 @@ TextureImporter:
       name: orc mage - with hand fx - all anims_42
       rect:
         serializedVersion: 2
-        x: 2144
-        y: 615
-        width: 68
-        height: 56
+        x: 2048
+        y: 512
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1356,10 +1356,10 @@ TextureImporter:
       name: orc mage - with hand fx - all anims_43
       rect:
         serializedVersion: 2
-        x: 2210
-        y: 619
-        width: 23
-        height: 48
+        x: 2304
+        y: 512
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1378,10 +1378,10 @@ TextureImporter:
       name: orc mage - with hand fx - all anims_44
       rect:
         serializedVersion: 2
-        x: 2404
-        y: 615
-        width: 66
-        height: 54
+        x: 2560
+        y: 512
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1400,10 +1400,10 @@ TextureImporter:
       name: orc mage - with hand fx - all anims_45
       rect:
         serializedVersion: 2
-        x: 2657
-        y: 615
-        width: 71
-        height: 55
+        x: 2816
+        y: 512
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1422,10 +1422,10 @@ TextureImporter:
       name: orc mage - with hand fx - all anims_46
       rect:
         serializedVersion: 2
-        x: 2912
-        y: 615
-        width: 67
-        height: 59
+        x: 3072
+        y: 512
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1444,10 +1444,10 @@ TextureImporter:
       name: orc mage - with hand fx - all anims_47
       rect:
         serializedVersion: 2
-        x: 3168
-        y: 615
-        width: 68
-        height: 62
+        x: 3328
+        y: 512
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1466,10 +1466,10 @@ TextureImporter:
       name: orc mage - with hand fx - all anims_48
       rect:
         serializedVersion: 2
-        x: 3419
-        y: 615
-        width: 73
-        height: 61
+        x: 3584
+        y: 512
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1488,10 +1488,10 @@ TextureImporter:
       name: orc mage - with hand fx - all anims_49
       rect:
         serializedVersion: 2
-        x: 3683
-        y: 615
-        width: 66
-        height: 54
+        x: 3840
+        y: 512
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1510,10 +1510,10 @@ TextureImporter:
       name: orc mage - with hand fx - all anims_50
       rect:
         serializedVersion: 2
-        x: 3937
-        y: 615
-        width: 68
-        height: 54
+        x: 0
+        y: 256
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1532,10 +1532,10 @@ TextureImporter:
       name: orc mage - with hand fx - all anims_51
       rect:
         serializedVersion: 2
-        x: 93
-        y: 359
-        width: 54
-        height: 64
+        x: 256
+        y: 256
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1554,10 +1554,10 @@ TextureImporter:
       name: orc mage - with hand fx - all anims_52
       rect:
         serializedVersion: 2
-        x: 349
-        y: 359
-        width: 56
-        height: 64
+        x: 512
+        y: 256
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1576,10 +1576,10 @@ TextureImporter:
       name: orc mage - with hand fx - all anims_53
       rect:
         serializedVersion: 2
-        x: 604
-        y: 359
-        width: 64
-        height: 56
+        x: 768
+        y: 256
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1598,10 +1598,10 @@ TextureImporter:
       name: orc mage - with hand fx - all anims_54
       rect:
         serializedVersion: 2
-        x: 860
-        y: 359
-        width: 69
-        height: 54
+        x: 1024
+        y: 256
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1620,10 +1620,10 @@ TextureImporter:
       name: orc mage - with hand fx - all anims_55
       rect:
         serializedVersion: 2
-        x: 1115
-        y: 359
-        width: 73
-        height: 54
+        x: 1280
+        y: 256
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1642,10 +1642,10 @@ TextureImporter:
       name: orc mage - with hand fx - all anims_56
       rect:
         serializedVersion: 2
-        x: 1370
-        y: 359
-        width: 75
-        height: 54
+        x: 1536
+        y: 256
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1664,10 +1664,10 @@ TextureImporter:
       name: orc mage - with hand fx - all anims_57
       rect:
         serializedVersion: 2
-        x: 1633
-        y: 359
-        width: 68
-        height: 54
+        x: 0
+        y: 0
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1686,10 +1686,10 @@ TextureImporter:
       name: orc mage - with hand fx - all anims_58
       rect:
         serializedVersion: 2
-        x: 93
-        y: 103
-        width: 54
-        height: 64
+        x: 256
+        y: 0
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1708,10 +1708,10 @@ TextureImporter:
       name: orc mage - with hand fx - all anims_59
       rect:
         serializedVersion: 2
-        x: 341
-        y: 105
-        width: 60
-        height: 54
+        x: 512
+        y: 0
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1730,10 +1730,10 @@ TextureImporter:
       name: orc mage - with hand fx - all anims_60
       rect:
         serializedVersion: 2
-        x: 397
-        y: 117
-        width: 20
-        height: 53
+        x: 768
+        y: 0
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1752,10 +1752,10 @@ TextureImporter:
       name: orc mage - with hand fx - all anims_61
       rect:
         serializedVersion: 2
-        x: 588
-        y: 109
-        width: 61
-        height: 54
+        x: 1024
+        y: 0
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1774,10 +1774,10 @@ TextureImporter:
       name: orc mage - with hand fx - all anims_62
       rect:
         serializedVersion: 2
-        x: 656
-        y: 119
-        width: 20
-        height: 53
+        x: 1280
+        y: 0
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1796,10 +1796,10 @@ TextureImporter:
       name: orc mage - with hand fx - all anims_63
       rect:
         serializedVersion: 2
-        x: 844
-        y: 110
-        width: 59
-        height: 53
+        x: 1536
+        y: 0
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1818,10 +1818,10 @@ TextureImporter:
       name: orc mage - with hand fx - all anims_64
       rect:
         serializedVersion: 2
-        x: 912
-        y: 119
-        width: 23
-        height: 53
+        x: 1792
+        y: 0
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1840,10 +1840,10 @@ TextureImporter:
       name: orc mage - with hand fx - all anims_65
       rect:
         serializedVersion: 2
-        x: 1098
-        y: 113
-        width: 60
-        height: 51
+        x: 2048
+        y: 0
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1862,10 +1862,10 @@ TextureImporter:
       name: orc mage - with hand fx - all anims_66
       rect:
         serializedVersion: 2
-        x: 1169
-        y: 118
-        width: 23
-        height: 53
+        x: 2304
+        y: 0
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1884,10 +1884,10 @@ TextureImporter:
       name: orc mage - with hand fx - all anims_67
       rect:
         serializedVersion: 2
-        x: 1355
-        y: 116
-        width: 57
-        height: 49
+        x: 2560
+        y: 0
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1906,10 +1906,10 @@ TextureImporter:
       name: orc mage - with hand fx - all anims_68
       rect:
         serializedVersion: 2
-        x: 1431
-        y: 107
-        width: 20
-        height: 53
+        x: 2816
+        y: 0
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1928,10 +1928,10 @@ TextureImporter:
       name: orc mage - with hand fx - all anims_69
       rect:
         serializedVersion: 2
-        x: 1612
-        y: 117
-        width: 54
-        height: 48
+        x: 3072
+        y: 0
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1950,10 +1950,10 @@ TextureImporter:
       name: orc mage - with hand fx - all anims_70
       rect:
         serializedVersion: 2
-        x: 1689
-        y: 109
-        width: 16
-        height: 58
+        x: 3328
+        y: 0
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1972,10 +1972,10 @@ TextureImporter:
       name: orc mage - with hand fx - all anims_71
       rect:
         serializedVersion: 2
-        x: 1879
-        y: 117
-        width: 41
-        height: 48
+        x: 3584
+        y: 0
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1994,10 +1994,10 @@ TextureImporter:
       name: orc mage - with hand fx - all anims_72
       rect:
         serializedVersion: 2
-        x: 1951
-        y: 111
-        width: 44
-        height: 39
+        x: 3840
+        y: 0
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2016,10 +2016,10 @@ TextureImporter:
       name: orc mage - with hand fx - all anims_73
       rect:
         serializedVersion: 2
-        x: 2134
-        y: 132
-        width: 37
-        height: 33
+        x: 4096
+        y: 0
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2034,561 +2034,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: orc mage - with hand fx - all anims_74
-      rect:
-        serializedVersion: 2
-        x: 2391
-        y: 137
-        width: 31
-        height: 26
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: f404f014b10eb74d0800000000000000
-      internalID: -3135666307873161137
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: orc mage - with hand fx - all anims_75
-      rect:
-        serializedVersion: 2
-        x: 2663
-        y: 140
-        width: 14
-        height: 14
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: ee1da8a1bb2ce6a00800000000000000
-      internalID: 751752296677429742
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: orc mage - with hand fx - all anims_76
-      rect:
-        serializedVersion: 2
-        x: 2922
-        y: 146
-        width: 7
-        height: 7
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 2172328d553037f60800000000000000
-      internalID: 8030766227765012242
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: orc mage - with hand fx - all anims_77
-      rect:
-        serializedVersion: 2
-        x: 3179
-        y: 147
-        width: 6
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 47808743f3b1225a0800000000000000
-      internalID: -6547640949966108556
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: orc mage - with hand fx - all anims_78
-      rect:
-        serializedVersion: 2
-        x: 1871
-        y: 132
-        width: 12
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 73596850a00a11820800000000000000
-      internalID: 2887264801024021815
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: orc mage - with hand fx - all anims_79
-      rect:
-        serializedVersion: 2
-        x: 2210
-        y: 114
-        width: 53
-        height: 21
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: a730aca44a1255e80800000000000000
-      internalID: -8190603357790272646
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: orc mage - with hand fx - all anims_80
-      rect:
-        serializedVersion: 2
-        x: 2406
-        y: 133
-        width: 7
-        height: 7
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 785624fefedac3180800000000000000
-      internalID: -9134234698191313529
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: orc mage - with hand fx - all anims_81
-      rect:
-        serializedVersion: 2
-        x: 2663
-        y: 134
-        width: 6
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 8420e8f85f5005a40800000000000000
-      internalID: 5354786509177094728
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: orc mage - with hand fx - all anims_82
-      rect:
-        serializedVersion: 2
-        x: 2142
-        y: 114
-        width: 20
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 50a7acbc266aac970800000000000000
-      internalID: 8776009767140882949
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: orc mage - with hand fx - all anims_83
-      rect:
-        serializedVersion: 2
-        x: 2398
-        y: 109
-        width: 20
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 4ace69de8fb649be0800000000000000
-      internalID: -1471432461361156956
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: orc mage - with hand fx - all anims_84
-      rect:
-        serializedVersion: 2
-        x: 2470
-        y: 104
-        width: 52
-        height: 19
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 88250573bd76800c0800000000000000
-      internalID: -4609320027390193016
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: orc mage - with hand fx - all anims_85
-      rect:
-        serializedVersion: 2
-        x: 2655
-        y: 103
-        width: 19
-        height: 15
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: df97b526b54da6bf0800000000000000
-      internalID: -330218133701035523
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: orc mage - with hand fx - all anims_86
-      rect:
-        serializedVersion: 2
-        x: 2727
-        y: 106
-        width: 52
-        height: 18
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 5c93cfc9b41b0b070800000000000000
-      internalID: 8120185066463443397
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: orc mage - with hand fx - all anims_87
-      rect:
-        serializedVersion: 2
-        x: 2911
-        y: 101
-        width: 19
-        height: 13
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: cb038e3d4d6b11eb0800000000000000
-      internalID: -4750815106694631236
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: orc mage - with hand fx - all anims_88
-      rect:
-        serializedVersion: 2
-        x: 2983
-        y: 104
-        width: 52
-        height: 19
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 90b27b3bf468df520800000000000000
-      internalID: 2737491825386793737
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: orc mage - with hand fx - all anims_89
-      rect:
-        serializedVersion: 2
-        x: 3167
-        y: 101
-        width: 18
-        height: 14
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 04294646279417610800000000000000
-      internalID: 1617154496862130752
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: orc mage - with hand fx - all anims_90
-      rect:
-        serializedVersion: 2
-        x: 3239
-        y: 104
-        width: 52
-        height: 19
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 72962d7c13cfef3b0800000000000000
-      internalID: -5476662806099891929
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: orc mage - with hand fx - all anims_91
-      rect:
-        serializedVersion: 2
-        x: 3424
-        y: 101
-        width: 17
-        height: 14
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 4236d9456dd858690800000000000000
-      internalID: -7600512844435725532
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: orc mage - with hand fx - all anims_92
-      rect:
-        serializedVersion: 2
-        x: 3495
-        y: 104
-        width: 52
-        height: 19
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 9f114a3f7e65d3630800000000000000
-      internalID: 3908375605852508665
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: orc mage - with hand fx - all anims_93
-      rect:
-        serializedVersion: 2
-        x: 3680
-        y: 101
-        width: 18
-        height: 14
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 644f93a37742ca150800000000000000
-      internalID: 5885118907562980422
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: orc mage - with hand fx - all anims_94
-      rect:
-        serializedVersion: 2
-        x: 3751
-        y: 104
-        width: 52
-        height: 19
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 93e0deb8c02ef04c0800000000000000
-      internalID: -4318984974109962695
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: orc mage - with hand fx - all anims_95
-      rect:
-        serializedVersion: 2
-        x: 3936
-        y: 101
-        width: 18
-        height: 14
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: f3310e9a13006fac0800000000000000
-      internalID: -3821867020473855169
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: orc mage - with hand fx - all anims_96
-      rect:
-        serializedVersion: 2
-        x: 4007
-        y: 104
-        width: 52
-        height: 19
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 72fbb36a680916ed0800000000000000
-      internalID: -2422496216559665369
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: orc mage - with hand fx - all anims_97
-      rect:
-        serializedVersion: 2
-        x: 4192
-        y: 101
-        width: 18
-        height: 14
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 4f637ad084d9ddbf0800000000000000
-      internalID: -297909067544316172
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: orc mage - with hand fx - all anims_98
-      rect:
-        serializedVersion: 2
-        x: 4263
-        y: 104
-        width: 52
-        height: 19
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 4124f2c02502e7840800000000000000
-      internalID: 5223648154560184852
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 08fd0c962b52d154e8e9a35ecd9b347a
     internalID: 0
     vertices: []
     indices: 
@@ -2670,33 +2120,8 @@ TextureImporter:
       orc mage - with hand fx - all anims_71: 4060272632096839237
       orc mage - with hand fx - all anims_72: 6200162941605696224
       orc mage - with hand fx - all anims_73: -2190037077522519940
-      orc mage - with hand fx - all anims_74: -3135666307873161137
-      orc mage - with hand fx - all anims_75: 751752296677429742
-      orc mage - with hand fx - all anims_76: 8030766227765012242
-      orc mage - with hand fx - all anims_77: -6547640949966108556
-      orc mage - with hand fx - all anims_78: 2887264801024021815
-      orc mage - with hand fx - all anims_79: -8190603357790272646
       orc mage - with hand fx - all anims_8: 2064165893557369793
-      orc mage - with hand fx - all anims_80: -9134234698191313529
-      orc mage - with hand fx - all anims_81: 5354786509177094728
-      orc mage - with hand fx - all anims_82: 8776009767140882949
-      orc mage - with hand fx - all anims_83: -1471432461361156956
-      orc mage - with hand fx - all anims_84: -4609320027390193016
-      orc mage - with hand fx - all anims_85: -330218133701035523
-      orc mage - with hand fx - all anims_86: 8120185066463443397
-      orc mage - with hand fx - all anims_87: -4750815106694631236
-      orc mage - with hand fx - all anims_88: 2737491825386793737
-      orc mage - with hand fx - all anims_89: 1617154496862130752
       orc mage - with hand fx - all anims_9: -4075434406922373130
-      orc mage - with hand fx - all anims_90: -5476662806099891929
-      orc mage - with hand fx - all anims_91: -7600512844435725532
-      orc mage - with hand fx - all anims_92: 3908375605852508665
-      orc mage - with hand fx - all anims_93: 5885118907562980422
-      orc mage - with hand fx - all anims_94: -4318984974109962695
-      orc mage - with hand fx - all anims_95: -3821867020473855169
-      orc mage - with hand fx - all anims_96: -2422496216559665369
-      orc mage - with hand fx - all anims_97: -297909067544316172
-      orc mage - with hand fx - all anims_98: 5223648154560184852
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

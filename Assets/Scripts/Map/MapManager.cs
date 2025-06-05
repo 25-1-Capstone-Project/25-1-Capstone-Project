@@ -6,12 +6,12 @@ public class MapManager : Singleton<MapManager>
     public Dictionary<Vector2Int, GameObject> roomMap = new Dictionary<Vector2Int, GameObject>();
     public Vector2Int currentRoomPos;
     private MapGen mapGen;
-   
+
     protected override void Awake()
     {
         base.Awake();
         mapGen = GetComponent<MapGen>();
-       
+
     }
     public Room GetCurrentRoom() => roomMap[currentRoomPos].GetComponent<Room>();
     public void CreateMap()
@@ -34,7 +34,7 @@ public class MapManager : Singleton<MapManager>
 
         // 활성화
         roomMap[nextPos].SetActive(true);
-        
+
         // 플레이어 위치 이동 (새 방의 반대편 문 위치로)
         MinimapManager.Instance.RevealRoom(nextPos);
         Vector3 entryPoint = FindEntryPoint(nextPos, dir);
@@ -47,7 +47,16 @@ public class MapManager : Singleton<MapManager>
     private Vector3 FindEntryPoint(Vector2Int roomPos, Direction fromDirection)
     {
         GameObject room = roomMap[roomPos];
-      //  PlayerScript.Instance.SetGroundTilemap(room.GetComponent<Room>().GroundTileMap);
+        var tile = room.GetComponent<Room>().GroundTileMap;
+        if (tile == null)
+        {
+            PlayerScript.Instance.SetGroundTilemap(null);
+        }
+        else
+        {
+            PlayerScript.Instance.SetGroundTilemap(tile);
+        }
+
         string entryDoorName = fromDirection
         switch
         {
@@ -66,7 +75,8 @@ public class MapManager : Singleton<MapManager>
             _ => Vector3.zero
         };
     }
-    public void SetActiveMapManager(bool active){
-            gameObject.SetActive(active);
+    public void SetActiveMapManager(bool active)
+    {
+        gameObject.SetActive(active);
     }
 }
