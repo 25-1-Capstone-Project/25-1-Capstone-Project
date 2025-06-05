@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="25" height="16" tilewidth="32" tileheight="32" infinite="0" nextlayerid="7" nextobjectid="6">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="25" height="16" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="24">
  <tileset firstgid="1" source="../../../../AssetStore/Epic RPG Collection/EPIC RPG World Pack - Grass Land V. 1.6/TiledMap Editor/tilesets/Animated water tiles.tsx"/>
  <tileset firstgid="737" source="../../../../AssetStore/Epic RPG Collection/EPIC RPG World Pack - Grass Land V. 1.6/TiledMap Editor/tilesets/Terrain.tsx"/>
  <tileset firstgid="3275" source="../../../../AssetStore/Epic RPG Collection/EPIC RPG World Pack - Grass Land V. 1.6/TiledMap Editor/tilesets/Atlas-Props-Sprites.tsx"/>
@@ -84,6 +84,26 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
+ <objectgroup id="7" name="DashWall">
+  <object id="6" x="513.396" y="130.467" width="30.4988" height="29.6516"/>
+  <object id="7" x="512.549" y="129.62" width="31.346" height="27.11"/>
+  <object id="8" x="479.509" y="161.813" width="33.8875" height="28.8044"/>
+  <object id="9" x="447.315" y="193.159" width="33.8875" height="30.4988"/>
+  <object id="10" x="415.97" y="224.505" width="33.0403" height="30.4988"/>
+  <object id="11" x="382.929" y="255.851" width="33.8875" height="32.1932"/>
+  <object id="12" x="416.817" y="290.586" width="30.4988" height="27.9572"/>
+  <object id="13" x="478.661" y="349.889" width="34.7347" height="36.4291"/>
+  <object id="14" x="446.468" y="317.696" width="33.0403" height="33.0403"/>
+  <object id="15" x="415.122" y="286.35" width="33.0403" height="32.1932"/>
+  <object id="16" x="351.583" y="288.044" width="33.8875" height="30.4988"/>
+  <object id="17" x="319.39" y="319.39" width="33.0403" height="33.0403"/>
+  <object id="18" x="287.197" y="351.583" width="33.8875" height="31.346"/>
+  <object id="19" x="255.004" y="383.776" width="33.0403" height="32.1932"/>
+  <object id="20" x="351.583" y="223.658" width="33.8875" height="33.8875"/>
+  <object id="21" x="318.543" y="191.465" width="33.0403" height="32.1932"/>
+  <object id="22" x="288.044" y="159.271" width="30.4988" height="32.1932"/>
+  <object id="23" x="255.004" y="127.078" width="33.0403" height="32.1932"/>
+ </objectgroup>
  <objectgroup id="5" name="collision">
   <object id="2" x="713.464" y="45.1689" width="70.8331" height="443.477"/>
   <object id="3" x="79.0456" y="11.2922" width="640.577" height="73.9128"/>
