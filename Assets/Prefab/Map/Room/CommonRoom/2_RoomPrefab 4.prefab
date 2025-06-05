@@ -74,6 +74,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: 2_Prefab 4
       objectReference: {fileID: 0}
+    - target: {fileID: 1817729896428790828, guid: 3667285e29fc4254ea71855f13179bff, type: 3}
+      propertyPath: m_TagString
+      value: Wall
+      objectReference: {fileID: 0}
     - target: {fileID: 9109579290344618037, guid: 3667285e29fc4254ea71855f13179bff, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
