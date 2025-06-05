@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: TestSkillA
   m_EditorClassIdentifier: 
   skillType: -1
-  damage: 5
+  damage: 2
+  ultimateDamage: 5
   commonCost: 1
   ultimateCost: 3
   cooldown: 10

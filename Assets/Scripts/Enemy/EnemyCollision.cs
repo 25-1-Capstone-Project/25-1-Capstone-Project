@@ -9,7 +9,10 @@ public class EnemyCollision : MonoBehaviour
             case "PlayerAttack":
                 PlayerAttack playerAttack = other.GetComponent<PlayerAttack>();
                 int damage = playerAttack.GetDamage();
-                playerAttack.gameObject.SetActive(false); // 플레이어 공격 오브젝트 비활성화
+
+                // 플레이어 공격 오브젝트 비활성화(부메랑류 분기 추가)
+                if (playerAttack.disableOnEnemyHit)
+                    playerAttack.gameObject.SetActive(false);
 
                 // 적에게 데미지 적용
                 GetComponent<Enemy>().TakeDamage(damage);
