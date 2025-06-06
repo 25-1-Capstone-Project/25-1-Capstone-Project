@@ -6,13 +6,13 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField] protected EnemyBaseData data;
     [SerializeField] SpriteRenderer enemySprite;
-    [SerializeField] protected EnemyAnimatorController enemyAnimController;
-   
+    [SerializeField] protected EnemyAnimatorController animController;
+
     private Rigidbody2D rb;
 
     // StateMachine Property
-    public StateMachine<IState> StateMachine { get; protected set; }
-   
+    public StateMachine<IEnemyState> StateMachine { get; protected set; }
+
     [SerializeField] private float flashDuration = 0.1f;
     public bool IsAttacking;
     private bool isDead;
@@ -28,7 +28,7 @@ public class Enemy : MonoBehaviour
             {
                 health = 0;
                 Dead();
-            }
+            }else{ StateMachine.ChangeState<DamagedState>();}
         }
     }
     public void Dead()
@@ -54,7 +54,7 @@ public class Enemy : MonoBehaviour
     public int GetDamage() => data.attackDamage;
     public Rigidbody2D GetRigidbody() => rb;
     public float GetSpeed() => data.moveSpeed;
-    public EnemyAnimatorController GetAnimatorController() => enemyAnimController;
+    public EnemyAnimatorController GetAnimatorController() => animController;
 
     public Vector2 GetDirectionToPlayerVec() => PlayerScript.Instance.GetPlayerTransform().position - transform.position;
     public Vector2 GetDirectionToPlayerNormalVec() => GetDirectionToPlayerVec().normalized;
@@ -64,26 +64,32 @@ public class Enemy : MonoBehaviour
     public void SetEnemyData(EnemyBaseData data) => this.data = data;
     #endregion
     #region Initialize
-    public virtual void Init()
+    public virtual void Init(bool autoStartState = true)
     {
-        SetComponents();
+        InitShared();
         SetState();
+
+    }
+    protected void InitShared()
+    {
+      
+        SetComponents();
         data.AttackPatternSet();
-        enemyAnimController.SetAnimator(data.animator);
+        animController.SetAnimator(data.animator);
         data.currentHealth = data.maxHealth;
     }
-    void SetComponents()
+    protected void SetComponents()
     {
         rb = GetComponent<Rigidbody2D>();
     }
     protected virtual void SetState()
     {
         // Initialize StateMachine
-        StateMachine = new StateMachine<IState>();
+        StateMachine = new StateMachine<IEnemyState>();
         StateMachine.AddState(new IdleState(this));
         StateMachine.AddState(new ChaseState(this));
         StateMachine.AddState(new AttackState(this));
-        StateMachine.AddState(new ParryState(this));
+        StateMachine.AddState(new KnockBackState(this));
         StateMachine.AddState(new DamagedState(this));
         StateMachine.AddState(new DeadState(this));
 
@@ -112,7 +118,6 @@ public class Enemy : MonoBehaviour
     }
     void OnDestroy()
     {
-
         ClearAttackEffect();
     }
     #endregion
@@ -140,15 +145,15 @@ public class Enemy : MonoBehaviour
         if (isDead) return;
 
         AudioManager.Instance.PlaySFX("AttackHit");
-        if (!IsAttacking)
-            StateMachine.ChangeState<DamagedState>();
+        Health -= damage;
+       
 
         FlashSprite(Color.red, 0.5f);
-        Health -= damage;
+       
     }
     public void KnockBack(float knockBackForce)
     {
-        enemyAnimController.PlayKnockBack();
+        animController.PlayKnockBack();
         rb.linearVelocity = -GetDirectionToPlayerNormalVec() * knockBackForce;
     }
 

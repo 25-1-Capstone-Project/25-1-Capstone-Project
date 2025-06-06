@@ -24,7 +24,7 @@ public class Enemy_SpearAttack : EnemyAttackPattern
         spearEffect.startWidth = effectWidth;
         spearEffect.endWidth = effectWidth;
         enemy.CurrentSpearIndicator = spearEffect;
-
+        enemy.GetAnimatorController().PlayAttack();
         float time = 0f;
         while (time < attackChargeSec)
         {

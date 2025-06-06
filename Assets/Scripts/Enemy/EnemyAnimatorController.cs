@@ -35,7 +35,10 @@ public class EnemyAnimatorController : MonoBehaviour
     {
         SetTrigger("Attack");
     }
-
+    public void PlayDamage()
+    {
+        SetTrigger("Damage");
+    }
     public void PlayDeath()
     {
         SetTrigger("Death");
@@ -52,7 +55,7 @@ public class EnemyAnimatorController : MonoBehaviour
         animator.ResetTrigger("Chase");
         animator.ResetTrigger("Attack");
         animator.ResetTrigger("Death");
-        animator.ResetTrigger("KnockBack");
+        animator.ResetTrigger("Damage");
 
         animator.SetTrigger(triggerName);
     }

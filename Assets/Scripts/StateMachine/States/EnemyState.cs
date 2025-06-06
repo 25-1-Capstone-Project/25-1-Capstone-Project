@@ -1,9 +1,9 @@
 using System.Collections;
 using UnityEngine;
-
+public interface IEnemyState : IState { }
 
 // 몬스터 상태 기본 클래스
-public abstract class EnemyState : IState
+public abstract class EnemyState : IEnemyState
 {
     protected Enemy enemy;
 
@@ -89,11 +89,12 @@ public class AttackState : EnemyState
 
     public override void Enter()
     {
+        enemy.GetRigidbody().linearVelocity = Vector2.zero;
         enemy.IsAttacking = true;
         attackRoutine = enemy.StartCoroutine(AttackSequence());
     }
-    public override void Update(){}
-    
+    public override void Update() { }
+
     public override void Exit()
     {
         if (attackRoutine != null)
@@ -117,14 +118,15 @@ public class AttackState : EnemyState
     }
 }
 
-public class ParryState : EnemyState
+public class KnockBackState : EnemyState
 {
     WaitForSeconds KnockBackDelaySec = new WaitForSeconds(0.5f);
 
-    public ParryState(Enemy enemy) : base(enemy) { }
+    public KnockBackState(Enemy enemy) : base(enemy) { }
 
     public override void Enter()
     {
+        enemy.GetRigidbody().linearVelocity = Vector2.zero;
         enemy.StopAllCoroutines();
         enemy.StartCoroutine(KnockBack());
     }
@@ -137,8 +139,6 @@ public class ParryState : EnemyState
     public override void Update() { }
     public override void Exit() { }
 }
-//패링 당했을때
-
 
 public class DamagedState : EnemyState
 {
@@ -146,8 +146,7 @@ public class DamagedState : EnemyState
 
     public override void Enter()
     {
-        enemy.StopAllCoroutines();
-        // enemy.GetAnimatorController().PlayDamaged();
+        enemy.GetAnimatorController().PlayDamage();
         enemy.StartCoroutine(DamagedRoutine());
     }
     public IEnumerator DamagedRoutine()

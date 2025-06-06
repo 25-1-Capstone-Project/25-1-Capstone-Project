@@ -2,13 +2,13 @@ using UnityEngine;
 
 public class BossAnimatorController : EnemyAnimatorController
 {
-    public void StartBattle()
+    public void PlayStartBattle()
     {
-        SetTrigger("endAttack");
+        SetTrigger("StartBattle");
     }
      public void PlaySpawn()
     {
-        SetTrigger("endAttack");
+        SetTrigger("Spawn");
     }
     public override void PlayAttack(int attackIndex)
     {
@@ -22,10 +22,11 @@ public class BossAnimatorController : EnemyAnimatorController
         animator.ResetTrigger("Attack");
         animator.ResetTrigger("Death");
         animator.ResetTrigger("KnockBack");
-        animator.ResetTrigger("endAttack");
-        animator.ResetTrigger("Cooldown");
-        animator.ResetTrigger("JumpSmash");
-    
+        animator.ResetTrigger("AttackEnd");
+
+
+        animator.ResetTrigger("Spawn");
+
         animator.SetTrigger(triggerName);
     }
 }

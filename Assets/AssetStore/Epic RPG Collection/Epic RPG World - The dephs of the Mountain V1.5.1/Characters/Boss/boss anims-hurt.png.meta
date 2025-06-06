@@ -93,7 +93,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 4096
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -137,10 +137,10 @@ TextureImporter:
       name: boss anims-hurt_0
       rect:
         serializedVersion: 2
-        x: 123
-        y: 51
-        width: 59
-        height: 90
+        x: 0
+        y: 0
+        width: 351
+        height: 207
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -159,10 +159,10 @@ TextureImporter:
       name: boss anims-hurt_1
       rect:
         serializedVersion: 2
-        x: 473
-        y: 51
-        width: 53
-        height: 103
+        x: 351
+        y: 0
+        width: 351
+        height: 207
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -181,10 +181,10 @@ TextureImporter:
       name: boss anims-hurt_2
       rect:
         serializedVersion: 2
-        x: 824
-        y: 51
-        width: 53
-        height: 103
+        x: 702
+        y: 0
+        width: 351
+        height: 207
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -203,10 +203,10 @@ TextureImporter:
       name: boss anims-hurt_3
       rect:
         serializedVersion: 2
-        x: 1177
-        y: 51
-        width: 52
-        height: 106
+        x: 1053
+        y: 0
+        width: 351
+        height: 207
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -225,10 +225,10 @@ TextureImporter:
       name: boss anims-hurt_4
       rect:
         serializedVersion: 2
-        x: 1527
-        y: 51
-        width: 59
-        height: 94
+        x: 1404
+        y: 0
+        width: 351
+        height: 207
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -247,10 +247,10 @@ TextureImporter:
       name: boss anims-hurt_5
       rect:
         serializedVersion: 2
-        x: 1877
-        y: 51
-        width: 59
-        height: 90
+        x: 1755
+        y: 0
+        width: 351
+        height: 207
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -269,10 +269,10 @@ TextureImporter:
       name: boss anims-hurt_6
       rect:
         serializedVersion: 2
-        x: 2229
-        y: 51
-        width: 59
-        height: 91
+        x: 2106
+        y: 0
+        width: 351
+        height: 207
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -291,10 +291,10 @@ TextureImporter:
       name: boss anims-hurt_7
       rect:
         serializedVersion: 2
-        x: 2580
-        y: 51
-        width: 59
-        height: 90
+        x: 2457
+        y: 0
+        width: 351
+        height: 207
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -313,7 +313,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 0d8605b46be548348add00da0a4990b4
     internalID: 0
     vertices: []
     indices: 

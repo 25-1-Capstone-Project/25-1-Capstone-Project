@@ -93,7 +93,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 4096
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -137,17 +137,17 @@ TextureImporter:
       name: boss anims-idle_0
       rect:
         serializedVersion: 2
-        x: 123
-        y: 51
-        width: 59
-        height: 90
+        x: 0
+        y: 0
+        width: 351
+        height: 207
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
       spriteID: 0950667afafff56f0800000000000000
       internalID: -693554687698926192
@@ -159,17 +159,17 @@ TextureImporter:
       name: boss anims-idle_1
       rect:
         serializedVersion: 2
-        x: 474
-        y: 51
-        width: 58
-        height: 92
+        x: 351
+        y: 0
+        width: 351
+        height: 207
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
       spriteID: 0da6b57d324046fb0800000000000000
       internalID: -4655591562810791216
@@ -181,17 +181,17 @@ TextureImporter:
       name: boss anims-idle_2
       rect:
         serializedVersion: 2
-        x: 824
-        y: 51
-        width: 58
-        height: 90
+        x: 702
+        y: 0
+        width: 351
+        height: 207
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
       spriteID: 94e2f4d9d705d15e0800000000000000
       internalID: -1937303764259099063
@@ -203,17 +203,17 @@ TextureImporter:
       name: boss anims-idle_3
       rect:
         serializedVersion: 2
-        x: 1177
-        y: 51
-        width: 54
-        height: 89
+        x: 1053
+        y: 0
+        width: 351
+        height: 207
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
       spriteID: 606e4dd9b3d89feb0800000000000000
       internalID: -4685558650111728122
@@ -225,17 +225,17 @@ TextureImporter:
       name: boss anims-idle_4
       rect:
         serializedVersion: 2
-        x: 1528
-        y: 51
-        width: 54
-        height: 87
+        x: 1404
+        y: 0
+        width: 351
+        height: 207
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
       spriteID: 0feba0fbf92401370800000000000000
       internalID: 8291200167861468912
@@ -247,17 +247,17 @@ TextureImporter:
       name: boss anims-idle_5
       rect:
         serializedVersion: 2
-        x: 1879
-        y: 51
-        width: 55
-        height: 86
+        x: 1755
+        y: 0
+        width: 351
+        height: 207
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
       spriteID: 09314c779e3ded3d0800000000000000
       internalID: -3179871287186812016
@@ -269,17 +269,17 @@ TextureImporter:
       name: boss anims-idle_6
       rect:
         serializedVersion: 2
-        x: 2229
-        y: 51
-        width: 56
-        height: 87
+        x: 2106
+        y: 0
+        width: 351
+        height: 207
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
       spriteID: e66bc355bb7a59a20800000000000000
       internalID: 3068543144153626222
@@ -291,17 +291,17 @@ TextureImporter:
       name: boss anims-idle_7
       rect:
         serializedVersion: 2
-        x: 2580
-        y: 51
-        width: 58
-        height: 88
+        x: 2457
+        y: 0
+        width: 351
+        height: 207
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
       spriteID: bbc3f1c67d3b01250800000000000000
       internalID: 5913424048550788283
@@ -313,7 +313,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 73ae855f90a3d264e93b62174013796f
     internalID: 0
     vertices: []
     indices: 

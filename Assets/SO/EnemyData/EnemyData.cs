@@ -6,6 +6,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "EnemyData", menuName = "Enemy/EnemyData")]
 public class EnemyData : EnemyBaseData
 {
+    public EEnemyType eEnemyType;
     public ECloseAttackType closeAttackType;
     public ELongAttackType longAttackType;
     public override void AttackPatternSet(int index)
@@ -14,11 +15,9 @@ public class EnemyData : EnemyBaseData
         {
             case EEnemyType.CloseRange:
                 attackPattern = EnemyManager.Instance.CloseEnemyAttackPatterns[(int)closeAttackType];
-
                 break;
             case EEnemyType.LongRange:
                 attackPattern = EnemyManager.Instance.LongenemyAttackPatterns[(int)longAttackType];
-
                 break;
         }
     }

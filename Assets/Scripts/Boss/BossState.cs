@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public abstract class BossState : IState
+public abstract class BossState : IEnemyState
 {
     protected Boss boss;
 
@@ -17,46 +17,25 @@ public abstract class BossState : IState
 
 public class BossIdle : BossState
 {
-    private float _timer = 0f;
-    public BossIdle(Boss monster) : base(monster) { }
+    float _timer = 0f;
+    public BossIdle(Boss boss) : base(boss) { }
 
     public override void Enter()
     {
-        Debug.Log("Entering Idle State");
-        _timer = 0f;
+        boss.StateMachine.ChangeState<BossMove>(); // Idle 상태에서 바로 이동 상태로 변경
+        // boss.GetRigidbody().linearVelocity = Vector2.zero; // 정지
+        // boss.GetAnimatorController().PlayIdle();
     }
 
     public override void Update()
     {
-        _timer += Time.deltaTime;
-        if (_timer > 2f) // 2초 후에 상태 변경
-        {
-            boss.StateMachine.ChangeState<BossPreparing>();
-        }
-        Debug.Log("In Idle State");
-    }
+        // _timer += Time.deltaTime;
 
-    public override void Exit()
-    {
-        Debug.Log("Exiting Idle State");
-    }
-}
-public class BossPreparing : BossState
-{
-    private float _timer = 0f;
-    private float prepareTime = 2f; // 준비 시간
-    public bool IsPreparingComplete() => _timer >= prepareTime;
-    public BossPreparing(Boss monster) : base(monster) { }
-
-    public override void Enter()
-    {
-        _timer = 0f;
-
-    }
-
-    public override void Update()
-    {
-        _timer += Time.deltaTime;
+        // if (boss.CheckCooldownComplete(_timer))
+        // {
+        //     boss.StateMachine.ChangeState<BossMove>(); // 쿨타임이 끝나면 이동 상태로 변경
+        //     _timer = 0f; // 타이머 초기화
+        // }
 
     }
 
@@ -65,32 +44,46 @@ public class BossPreparing : BossState
 
     }
 }
+
 public class BossAttack : BossState
 {
-    private float _timer;
-    private float attackTime = 3f; // 공격 시간
-    public BossAttack(Boss monster) : base(monster) { }
+    private Coroutine attackRoutine;
+
+    public BossAttack(Boss boss) : base(boss) { }
 
     public override void Enter()
     {
+        boss.GetRigidbody().linearVelocity = Vector2.zero;
         boss.DecideSkill();
         boss.Attack();
+        attackRoutine = boss.StartCoroutine(AttackSequence());
     }
 
-    public override void Update()
-    {
-       
-    }
+
+    public override void Update() { }
 
     public override void Exit()
     {
+        if (attackRoutine != null)
+        {
+            boss.StopCoroutine(attackRoutine);
+            attackRoutine = null;
+        }
 
+        boss.IsAttacking = false;
+        boss.ClearAttackEffect(); // 예고선 정리
     }
 
-    public bool IsAttackFinished()
+    private IEnumerator AttackSequence()
     {
-        return _timer >= attackTime;
+        yield return boss.GetAttackPattern().Execute(boss);
+
+        if (boss.CheckAttackRange())
+            boss.StateMachine.ChangeState<BossAttack>();
+        else
+            boss.StateMachine.ChangeState<BossMove>();
     }
+
 }
 
 public class BossCooldown : BossState
@@ -102,7 +95,7 @@ public class BossCooldown : BossState
     public override void Enter()
     {
         _timer = 0f;
-        boss.GetAnimatorController().PlayChase();
+        boss.GetAnimatorController().PlayIdle();
     }
 
     public override void Update()
@@ -124,23 +117,29 @@ public class BossMove : BossState, IFixedUpdateState
 {
     public BossMove(Boss monster) : base(monster) { }
 
+    float _timer = 0f;
     public override void Enter()
     {
+        _timer = 0f;
         boss.GetAnimatorController().PlayChase();
     }
 
     public override void Update()
     {
-        //일정 시간이 지나면 공격하게 변경예정
-        // if (boss.CheckAttackRange())
-        //     boss.StateMachine.ChangeState<AttackState>(); // 공격 범위 체크
+        // _timer += Time.deltaTime;
+        // if (_timer > Random.Range(2f, 4f))
+        // {
+        //     boss.StateMachine.ChangeState<BossAttack>(); // 일정 시간 후 준비 상태로 전환
+        //     _timer = 0f; // 타이머 초기화
+        // }
+        if (boss.GetDirectionToPlayerVec().magnitude < 5f)
+        {
+            boss.StateMachine.ChangeState<BossAttack>();
+        }
     }
 
     public void FixedUpdate()
     {
-        if (boss.CheckAttackRange())
-            return;
-
         Vector2 direction = boss.GetDirectionToPlayerNormalVec();
         boss.GetRigidbody().linearVelocity = direction * boss.GetSpeed();
     }
@@ -159,7 +158,7 @@ public class BossMove : BossState, IFixedUpdateState
 
 public class BossDead : BossState
 {
-    public BossDead(Boss monster) : base(monster) { }
+    public BossDead(Boss boss) : base(boss) { }
 
     Coroutine coroutine;
     public override void Enter()

@@ -231,7 +231,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: -4468117985238082246, guid: 72762476625e7264cad664d07d7f7fad, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1273020994}
   m_SourcePrefab: {fileID: -2695619058785784247, guid: 72762476625e7264cad664d07d7f7fad, type: 3}
 --- !u!1001 &599193384
 PrefabInstance:
@@ -247,7 +250,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5492158486105698243, guid: f08255698489b8141b7de463bc5b4a31, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 4.54
       objectReference: {fileID: 0}
     - target: {fileID: 5492158486105698243, guid: f08255698489b8141b7de463bc5b4a31, type: 3}
       propertyPath: m_LocalPosition.z
@@ -281,14 +284,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6058944968916375881, guid: f08255698489b8141b7de463bc5b4a31, type: 3}
-      propertyPath: m_Name
-      value: BossAnimator
-      objectReference: {fileID: 0}
-    - target: {fileID: 7322199121564673016, guid: f08255698489b8141b7de463bc5b4a31, type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 8f2d48ac40576554cbd8eea3739a19e9, type: 2}
     - target: {fileID: 7877747108722916276, guid: f08255698489b8141b7de463bc5b4a31, type: 3}
       propertyPath: m_Name
       value: BossObj
@@ -298,10 +293,27 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f08255698489b8141b7de463bc5b4a31, type: 3}
+--- !u!1 &1273020990 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -4468117985238082246, guid: 72762476625e7264cad664d07d7f7fad, type: 3}
+  m_PrefabInstance: {fileID: 360663711}
+  m_PrefabAsset: {fileID: 0}
+--- !u!210 &1273020994
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1273020990}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_SortAtRoot: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 66315359}
-  - {fileID: 360663711}
   - {fileID: 599193384}
+  - {fileID: 360663711}

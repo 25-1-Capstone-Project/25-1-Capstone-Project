@@ -496,7 +496,7 @@ public class PlayerScript : Singleton<PlayerScript>
         {
             float parryDot = Vector2.Dot(direction, -enemy.GetDirectionToPlayerNormalVec());
             float threshold = Mathf.Cos(45f * Mathf.Deg2Rad); // 90도 시야
-            Debug.Log(parryDot);
+          
             if (parryDot >= threshold)
                 ParrySuccess(enemy);
             else
@@ -519,7 +519,7 @@ public class PlayerScript : Singleton<PlayerScript>
         {
             float parryDot = Vector2.Dot(direction, -enemyAttack.GetDirectionNormalVec());
             float threshold = Mathf.Cos(45f * Mathf.Deg2Rad); // 90도 시야
-            Debug.Log(parryDot);
+           
             if (parryDot >= threshold)
                 ParrySuccess(enemyAttack);
             else

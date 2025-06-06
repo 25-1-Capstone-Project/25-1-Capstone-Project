@@ -12,7 +12,7 @@ public abstract class EnemyBaseData : ScriptableObject
     public int attackDamage;
     public RuntimeAnimatorController animator;
     public EnemyAttackPattern attackPattern;
-    public EEnemyType eEnemyType;
+ 
 
     public abstract void AttackPatternSet(int index = 0);
  

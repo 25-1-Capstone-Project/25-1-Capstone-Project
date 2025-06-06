@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Enemy_Single Gun Attack
   m_EditorClassIdentifier: 
   attackRange: 4
-  attackChargeSec: 1
+  attackChargeSec: 0.7
   attackDuration: 0
   attackPostDelay: 1
   effectWidth: 0.4
