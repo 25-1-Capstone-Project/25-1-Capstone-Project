@@ -57,3 +57,9 @@ MonoBehaviour:
   - tag: EnemyAttackProjectile1
     prefab: {fileID: 2149256603058294964, guid: a18fbe8890b2e8642bd9465fce983ebf, type: 3}
     size: 0
+  - tag: playerAttackFireball
+    prefab: {fileID: 6986725825239899581, guid: 987176123172fe14488869561d516ccf, type: 3}
+    size: 0
+  - tag: playerAttackBoomerang
+    prefab: {fileID: 1740914747221749175, guid: b2161d5b51d6ccb4088e38b65458e79b, type: 3}
+    size: 0

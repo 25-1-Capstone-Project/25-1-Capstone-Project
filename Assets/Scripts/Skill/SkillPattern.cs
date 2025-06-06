@@ -11,6 +11,7 @@ public abstract class SkillPattern : ScriptableObject
 {
     public SkillType skillType = SkillType.Common;
     public int damage = 0;
+    public int ultimateDamage = 0;
     public int commonCost = 0;
     public int ultimateCost = 0;
     public int cooldown = 0;
