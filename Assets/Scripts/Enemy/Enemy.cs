@@ -7,7 +7,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] protected EnemyBaseData data;
     [SerializeField] SpriteRenderer enemySprite;
     [SerializeField] protected EnemyAnimatorController enemyAnimController;
-    [SerializeField] ParticleSystem attackParticle;
+   
     private Rigidbody2D rb;
 
     // StateMachine Property

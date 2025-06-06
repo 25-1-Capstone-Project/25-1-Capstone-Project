@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75957c8fc8ff32d4bb9a8de73795a18f, type: 3}
   m_Name: Enemy_SwordSlashAttack
   m_EditorClassIdentifier: 
-  attackRange: 2
+  attackRange: 1
   attackChargeSec: 0.5
   attackDuration: 0
   attackPostDelay: 0.5
