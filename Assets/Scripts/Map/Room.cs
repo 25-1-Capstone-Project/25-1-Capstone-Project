@@ -32,7 +32,7 @@ public class Room : MonoBehaviour
     [SerializeField] public Transform enemySpawnParentObject; // 스폰포인트 부모 오브젝트
     public Transform[] enemySpawnPointsT; // 스폰포인트
     public Tilemap GroundTileMap; // 방 타일맵
-    List<GameObject> PortalPointObj = new List<GameObject>(); // 적 프리팹
+    List<GameObject> PortalPointObj = new List<GameObject>(); 
 
     public void InitRoom()
     {

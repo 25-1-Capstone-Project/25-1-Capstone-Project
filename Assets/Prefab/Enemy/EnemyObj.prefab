@@ -5096,7 +5096,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 4
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 0
@@ -5217,7 +5217,6 @@ MonoBehaviour:
   data: {fileID: 11400000, guid: 7b31b1a268ce7fa449cac152533836c0, type: 2}
   enemySprite: {fileID: 6823296138178529082}
   enemyAnimController: {fileID: 1213534254612820977}
-  attackPattern: {fileID: 0}
   attackParticle: {fileID: 3584909397277161193}
   flashDuration: 0.1
   IsAttacking: 0

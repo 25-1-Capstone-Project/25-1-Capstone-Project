@@ -24,6 +24,7 @@ public enum ERoomType
 public class MapGen : MonoBehaviour
 {
     [SerializeField] Vector2Int roomSize;
+    [SerializeField] Vector2Int roomgap;
     [SerializeField] int mapWidth;
     [SerializeField] int mapHeight;
     [SerializeField] RoomReference roomData;
@@ -167,7 +168,7 @@ public class MapGen : MonoBehaviour
 
     private void CreateRoom(GameObject roomPrefab, Vector2Int roomPos)
     {
-        GameObject room = Instantiate(roomPrefab, new Vector3(roomPos.x * roomSize.x, roomPos.y * roomSize.y, 0), Quaternion.identity, MapObject.transform);
+        GameObject room = Instantiate(roomPrefab, new Vector3(roomPos.x * (roomgap.x + roomgap.x), roomPos.y * (roomSize.y+roomgap.y), 0), Quaternion.identity, MapObject.transform);
 
         MapManager.Instance.roomMap.Add(roomPos, room);
 
