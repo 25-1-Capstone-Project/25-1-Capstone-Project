@@ -15,6 +15,10 @@ public class BossAnimatorController : EnemyAnimatorController
         SetTrigger("Attack");
         animator.SetInteger("AttackIndex", attackIndex);
     }
+    public void SetAttackIndex(int attackIndex)
+    {
+        animator.SetInteger("AttackIndex", attackIndex);
+    }
     protected override void SetTrigger(string triggerName)
     {
         animator.ResetTrigger("Idle");

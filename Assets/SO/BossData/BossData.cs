@@ -13,9 +13,5 @@ public class BossData : EnemyBaseData
     {
         attackPattern = attackPatterns[index];
     }
-    public void SetrandomAttackPattern()
-    {
-        int randomIndex = Random.Range(0, attackPatterns.Length);
-        attackPattern = attackPatterns[randomIndex];
-    }
+   
 }

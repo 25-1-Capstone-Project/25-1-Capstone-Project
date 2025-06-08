@@ -12,10 +12,8 @@ public class PlayerCollision : MonoBehaviour
         switch (other.tag)
         {
             case "EnemyAttack":
-                EnemyAttack enemyAttack = other.GetComponent<EnemyAttack>();
-                other.gameObject.SetActive(false);
+                EnemyAttackBase enemyAttack = other.GetComponent<EnemyAttackBase>();
                 PlayerScript.Instance.TakeDamage(enemyAttack);
-
                 break;
         }
 

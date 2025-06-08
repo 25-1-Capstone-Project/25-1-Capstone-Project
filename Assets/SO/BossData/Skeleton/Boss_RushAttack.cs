@@ -58,6 +58,7 @@ class Boss_RushAttack : EnemyAttackPattern
                 }
 
                 time += Time.fixedDeltaTime;
+             
                 yield return new WaitForFixedUpdate();
             }
             boss.gameObject.layer = LayerMask.NameToLayer("Enemy");

@@ -45,9 +45,9 @@ public class Fuzzy
         float output = numerator / denominator;
 
         // 5. 출력값 기반 스킬 결정
-        if (output > 4.5f) return EBossSkillAction.JumpSmash;
-        if (output > 3.5f) return EBossSkillAction.AreaAttack;
-        if (output > 2.5f) return EBossSkillAction.Shot;
-        return EBossSkillAction.Slash;
+        // if (output > 4.5f) return EBossSkillAction.JumpSmash;
+        // if (output > 3.5f) return 
+        // if (output > 2.5f) return EBossSkillAction.Spear;
+        return EBossSkillAction.Meteo;
     }
 }

@@ -14,20 +14,69 @@ public class EffectPooler : Singleton<EffectPooler>
     protected override void Awake() => base.Awake();
 
     [Serializable]
+    public class PoolGroup
+    {
+        public string groupName;
+        public Pool[] pools;
+    }
+
+    [Serializable]
     public class Pool
     {
         public string tag;
         public GameObject prefab;
         public int size;
     }
-    [SerializeField] Pool[] pools;
-    List<GameObject> spawnObjects;
-    Dictionary<string, Queue<GameObject>> poolDictionary;
 
+    [SerializeField] private PoolGroup[] groupedPools;
+  
+    private List<GameObject> spawnObjects;
+    private Dictionary<string, Queue<GameObject>> poolDictionary;
+    private Dictionary<string, Pool> poolInfoLookup;
+
+    void Start()
+    {
+        spawnObjects = new List<GameObject>();
+        poolDictionary = new Dictionary<string, Queue<GameObject>>();
+        poolInfoLookup = new Dictionary<string, Pool>();
+
+        foreach (var group in groupedPools)
+        {
+            foreach (var pool in group.pools)
+            {
+                if (poolDictionary.ContainsKey(pool.tag))
+                {
+                    Debug.LogWarning($"Duplicate pool tag: {pool.tag}. Skipping.");
+                    continue;
+                }
+
+                poolDictionary.Add(pool.tag, new Queue<GameObject>());
+                poolInfoLookup.Add(pool.tag, pool);
+
+                for (int i = 0; i < pool.size; i++)
+                {
+                    var obj = CreateNewObject(pool.tag, pool.prefab);
+                    ArrangePool(obj);
+                }
+
+                if (poolDictionary[pool.tag].Count != pool.size)
+                    Debug.LogError($"{pool.tag} ReturnToPool mismatch");
+            }
+        }
+    }
 
     public GameObject SpawnFromPool(string tag, Vector3 position = default, Quaternion rotation = default) =>
         _SpawnFromPool(tag, position, rotation);
 
+    public T SpawnFromPool<T>(string tag, Vector3 position = default, Quaternion rotation = default) where T : Component
+    {
+        GameObject obj = _SpawnFromPool(tag, position, rotation);
+        if (obj.TryGetComponent(out T component))
+            return component;
+
+        obj.SetActive(false);
+        throw new Exception($"Component of type {typeof(T)} not found on object with tag {tag}");
+    }
 
     public List<GameObject> GetAllPools(string tag)
     {
@@ -37,27 +86,16 @@ public class EffectPooler : Singleton<EffectPooler>
         return spawnObjects.FindAll(x => x.name == tag);
     }
 
-  
-    public T SpawnFromPool<T>(string tag, Vector3 position = default, Quaternion rotation = default) where T : Component
-    {
-        GameObject obj = _SpawnFromPool(tag, position, rotation);
-        if (obj.TryGetComponent(out T component))
-            return component;
-        else
-        {
-            obj.SetActive(false);
-            throw new Exception($"Component not found");
-        }
-    }
     public List<T> GetAllPools<T>(string tag) where T : Component
     {
-        List<GameObject> objects = GetAllPools(tag);
+        var objects = GetAllPools(tag);
 
-        if (!objects[0].TryGetComponent(out T component))
-            throw new Exception("Component not found");
+        if (objects.Count == 0 || !objects[0].TryGetComponent(out T _))
+            throw new Exception($"Component of type {typeof(T)} not found in pool with tag {tag}");
 
         return objects.ConvertAll(x => x.GetComponent<T>());
     }
+
     public void ReturnToPool(GameObject obj)
     {
         if (!poolDictionary.ContainsKey(obj.name))
@@ -65,16 +103,18 @@ public class EffectPooler : Singleton<EffectPooler>
 
         poolDictionary[obj.name].Enqueue(obj);
     }
-    GameObject _SpawnFromPool(string tag, Vector3 position, Quaternion rotation)
+
+    private GameObject _SpawnFromPool(string tag, Vector3 position, Quaternion rotation)
     {
         if (!poolDictionary.ContainsKey(tag))
             throw new Exception($"Pool with tag {tag} doesn't exist.");
 
-
         Queue<GameObject> poolQueue = poolDictionary[tag];
         if (poolQueue.Count <= 0)
         {
-            Pool pool = Array.Find(pools, x => x.tag == tag);
+            if (!poolInfoLookup.TryGetValue(tag, out var pool))
+                throw new Exception($"No pool info found for tag: {tag}");
+
             var obj = CreateNewObject(pool.tag, pool.prefab);
             ArrangePool(obj);
         }
@@ -86,33 +126,16 @@ public class EffectPooler : Singleton<EffectPooler>
 
         return objectToSpawn;
     }
-    void Start()
-    {
-        spawnObjects = new List<GameObject>();
-        poolDictionary = new Dictionary<string, Queue<GameObject>>();
 
-
-        foreach (Pool pool in pools)
-        {
-            poolDictionary.Add(pool.tag, new Queue<GameObject>());
-            for (int i = 0; i < pool.size; i++)
-            {
-                var obj = CreateNewObject(pool.tag, pool.prefab);
-                ArrangePool(obj);
-            }
-
-            if (poolDictionary[pool.tag].Count != pool.size)
-                Debug.LogError($"{pool.tag} ReturnToPool");
-        }
-    }
-    GameObject CreateNewObject(string tag, GameObject prefab)
+    private GameObject CreateNewObject(string tag, GameObject prefab)
     {
         var obj = Instantiate(prefab, transform);
         obj.name = tag;
         obj.SetActive(false);
         return obj;
     }
-    void ArrangePool(GameObject obj)
+
+    private void ArrangePool(GameObject obj)
     {
         bool isFind = false;
         for (int i = 0; i < transform.childCount; i++)
@@ -132,17 +155,20 @@ public class EffectPooler : Singleton<EffectPooler>
                 break;
             }
         }
+
+        poolDictionary[obj.name].Enqueue(obj);
     }
-
-
 
     [ContextMenu("GetSpawnObjectsInfo")]
     void GetSpawnObjectsInfo()
     {
-        foreach (var pool in pools)
+        foreach (var group in groupedPools)
         {
-            int count = spawnObjects.FindAll(x => x.name == pool.tag).Count;
-            Debug.Log($"{pool.tag} count : {count}");
+            foreach (var pool in group.pools)
+            {
+                int count = spawnObjects.FindAll(x => x.name == pool.tag).Count;
+                Debug.Log($"{pool.tag} count : {count}");
+            }
         }
     }
 }

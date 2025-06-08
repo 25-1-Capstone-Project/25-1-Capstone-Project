@@ -18,10 +18,9 @@ MonoBehaviour:
   moveSpeed: 2
   attackDamage: 2
   animator: {fileID: 22100000, guid: a23a945046c5f3e46be99a986eae11cb, type: 2}
-  attackPattern: {fileID: 11400000, guid: 88202967312e349458158c3961c05dad, type: 2}
+  attackPattern: {fileID: 11400000, guid: 52f4821032e9b2541a8033f483feb370, type: 2}
   postAttackPauseTime: 1.5
   attackCooldown: 3
   attackPatterns:
-  - {fileID: 11400000, guid: e046c09cf101f054c834b068de4af735, type: 2}
-  - {fileID: 11400000, guid: a242bfceff7c0e648b64cbfc2abaa05e, type: 2}
+  - {fileID: 11400000, guid: 52f4821032e9b2541a8033f483feb370, type: 2}
   - {fileID: 11400000, guid: 6c41bbbf2b88e9143818fd42008b2bb2, type: 2}

@@ -1,199 +1,199 @@
-using Unity.VisualScripting;
-using UnityEngine;
-using UnityEngine.UI;
-using System.Collections;
+// using Unity.VisualScripting;
+// using UnityEngine;
+// using UnityEngine.UI;
+// using System.Collections;
 
-public class Boss_BT : MonoBehaviour
-{
-    public Transform target;
-    public Text currentSkillText;
-    public Text currentHpText;
-    public Text currentDistanceText;
-    public float moveSpeed = 2f;
+// public class Boss_BT : MonoBehaviour
+// {
+//     public Transform target;
+//     public Text currentSkillText;
+//     public Text currentHpText;
+//     public Text currentDistanceText;
+//     public float moveSpeed = 2f;
 
-    bool IsAnimationRunning = false;
-    bool isAttackTurn = true;
-    float currentDistance;
+//     bool IsAnimationRunning = false;
+//     bool isAttackTurn = true;
+//     float currentDistance;
 
-    Rigidbody2D rb;
-    Vector2 dir;
+//     Rigidbody2D rb;
+//     Vector2 dir;
 
-    SelectorNode rootNode;
-    SequenceNode attackSequence;
-    SequenceNode moveSequence;
+//     SelectorNode rootNode;
+//     SequenceNode attackSequence;
+//     SequenceNode moveSequence;
 
-    Fuzzy fuzzy = new Fuzzy();
-    EBossSkillAction currentSkill = EBossSkillAction.Slash;
-    float currentHp = 100f;
-    float playerHp = 100f;
-    float playerVelocity = 0f;
+//     Fuzzy fuzzy = new Fuzzy();
+//     // EBossSkillAction currentSkill = EBossSkillAction.Slash;
+//     float currentHp = 100f;
+//     float playerHp = 100f;
+//     float playerVelocity = 0f;
 
       
-    void Start()
-    {
-        rb = GetComponent<Rigidbody2D>();
+//     void Start()
+//     {
+//         rb = GetComponent<Rigidbody2D>();
 
-        // 공격 시퀀스
-        attackSequence = new SequenceNode();
-        attackSequence.Add(new ActionNode(CheckPhase));
-        attackSequence.Add(new ActionNode(CheckAttackRange));
-        attackSequence.Add(new ActionNode(IsAttacking));
-        attackSequence.Add(new ActionNode(attackSelector_Evaluate));
+//         // 공격 시퀀스
+//         attackSequence = new SequenceNode();
+//         attackSequence.Add(new ActionNode(CheckPhase));
+//         attackSequence.Add(new ActionNode(CheckAttackRange));
+//         attackSequence.Add(new ActionNode(IsAttacking));
+//         attackSequence.Add(new ActionNode(attackSelector_Evaluate));
         
 
-        // 이동 시퀀스
-        moveSequence = new SequenceNode();
-        moveSequence.Add(new ActionNode(IsMoving));
-        moveSequence.Add(new ActionNode(move));
+//         // 이동 시퀀스
+//         moveSequence = new SequenceNode();
+//         moveSequence.Add(new ActionNode(IsMoving));
+//         moveSequence.Add(new ActionNode(move));
 
-        // 루트 노드
-        rootNode = new SelectorNode();
-        rootNode.Add(attackSequence);
-        rootNode.Add(moveSequence);
-    }
+//         // 루트 노드
+//         rootNode = new SelectorNode();
+//         rootNode.Add(attackSequence);
+//         rootNode.Add(moveSequence);
+//     }
 
-    void Update()
-    {
-        if (target != null)
-        {
-            currentSkill = fuzzy.DecideSkill(currentDistance, currentHp, playerHp, playerVelocity);
-        }
-        else
-        {
-            currentSkill = EBossSkillAction.Slash;
-        }
+//     void Update()
+//     {
+//         if (target != null)
+//         {
+//             currentSkill = fuzzy.DecideSkill(currentDistance, currentHp, playerHp, playerVelocity);
+//         }
+//         else
+//         {
+//             // currentSkill = EBossSkillAction.Slash;
+//         }
 
-        rootNode.Evaluate();
+//         rootNode.Evaluate();
 
-        if (currentSkillText != null)
-            currentSkillText.text = "현재 스킬: " + currentSkill.ToString();
+//         if (currentSkillText != null)
+//             currentSkillText.text = "현재 스킬: " + currentSkill.ToString();
 
-        if (currentHpText != null)
-            currentHpText.text = "현재 HP: " + currentHp.ToString("F0");
-    }
+//         if (currentHpText != null)
+//             currentHpText.text = "현재 HP: " + currentHp.ToString("F0");
+//     }
 
-    // ================================
-    // 상태 체크 함수들
-    // ================================
+//     // ================================
+//     // 상태 체크 함수들
+//     // ================================
 
-    INode.State CheckPhase()
-    {
-        if (isAttackTurn)
-        {
-            return INode.State.Success;
-        }
-        else
-        {
-            return INode.State.Failed;
-        }
-    }
+//     INode.State CheckPhase()
+//     {
+//         if (isAttackTurn)
+//         {
+//             return INode.State.Success;
+//         }
+//         else
+//         {
+//             return INode.State.Failed;
+//         }
+//     }
 
-    INode.State CheckAttackRange()
-    {
-        currentDistance = Vector2.Distance(transform.position, target.position);
-        return INode.State.Success;
-    }
+//     INode.State CheckAttackRange()
+//     {
+//         currentDistance = Vector2.Distance(transform.position, target.position);
+//         return INode.State.Success;
+//     }
 
-    INode.State IsAttacking()
-    {
-        if (IsAnimationRunning) return INode.State.Run;
-        return INode.State.Success;
-    }
+//     INode.State IsAttacking()
+//     {
+//         if (IsAnimationRunning) return INode.State.Run;
+//         return INode.State.Success;
+//     }
 
-    INode.State IsMoving()
-    {
-        if (IsAnimationRunning) return INode.State.Failed;
+//     INode.State IsMoving()
+//     {
+//         if (IsAnimationRunning) return INode.State.Failed;
 
-        return INode.State.Success;
-    }
+//         return INode.State.Success;
+//     }
 
-    // ================================
-    // 행동 함수들
-    // ================================
+//     // ================================
+//     // 행동 함수들
+//     // ================================
 
-    INode.State attackSelector_Evaluate()
-    {
-        switch (currentSkill)
-        {
-            case EBossSkillAction.Slash: return Slash();
-            case EBossSkillAction.Shot: return Shot();
-            case EBossSkillAction.AreaAttack: return AreaAttack();
-            case EBossSkillAction.JumpSmash: return JumpSmash();
-            default: return INode.State.Failed;
-        }
-    }
+//     INode.State attackSelector_Evaluate()
+//     {
+//         // switch (currentSkill)
+//         // {
+//         //     case EBossSkillAction.Slash: return Slash();
+//         //     case EBossSkillAction.Meteo: return Shot();
+//         //     case EBossSkillAction.Spear: return AreaAttack();
+//         //     case EBossSkillAction.JumpSmash: return JumpSmash();
+//         //     default: return INode.State.Failed;
+//         // }
+//     }
 
-    INode.State move()
-    {
-        Debug.Log("Move 시작!");
+//     INode.State move()
+//     {
+//         Debug.Log("Move 시작!");
 
-        if (!IsAnimationRunning)
-        {
-            IsAnimationRunning = true;
+//         if (!IsAnimationRunning)
+//         {
+//             IsAnimationRunning = true;
 
-            StartCoroutine(Coroutine());
-        }
+//             StartCoroutine(Coroutine());
+//         }
 
-        Vector2 direction = (target.position - transform.position).normalized;
-        rb.MovePosition(rb.position + direction * moveSpeed * Time.deltaTime);
+//         Vector2 direction = (target.position - transform.position).normalized;
+//         rb.MovePosition(rb.position + direction * moveSpeed * Time.deltaTime);
 
-        return INode.State.Run;
-    }
+//         return INode.State.Run;
+//     }
 
-    INode.State Slash()
-    {
-        if (!IsAnimationRunning)
-        {
-            IsAnimationRunning = true;
-            Debug.Log("Slash 공격 시작!");
-            StartCoroutine(Coroutine());
-        }
-        return INode.State.Run;
-    }
+//     INode.State Slash()
+//     {
+//         if (!IsAnimationRunning)
+//         {
+//             IsAnimationRunning = true;
+//             Debug.Log("Slash 공격 시작!");
+//             StartCoroutine(Coroutine());
+//         }
+//         return INode.State.Run;
+//     }
 
-    INode.State Shot()
-    {
-        if (!IsAnimationRunning)
-        {
-            IsAnimationRunning = true;
-            Debug.Log("Shot 공격 시작!");
-            StartCoroutine(Coroutine());
-        }
-        return INode.State.Run;
-    }
+//     INode.State Shot()
+//     {
+//         if (!IsAnimationRunning)
+//         {
+//             IsAnimationRunning = true;
+//             Debug.Log("Shot 공격 시작!");
+//             StartCoroutine(Coroutine());
+//         }
+//         return INode.State.Run;
+//     }
 
-    INode.State AreaAttack()
-    {
-        if (!IsAnimationRunning)
-        {
-            IsAnimationRunning = true;
-            Debug.Log("AreaAttack 공격 시작!");
-            StartCoroutine(Coroutine());
+//     INode.State AreaAttack()
+//     {
+//         if (!IsAnimationRunning)
+//         {
+//             IsAnimationRunning = true;
+//             Debug.Log("AreaAttack 공격 시작!");
+//             StartCoroutine(Coroutine());
             
-        }
-        return INode.State.Run;
-    }
+//         }
+//         return INode.State.Run;
+//     }
 
-    INode.State JumpSmash()
-    {
-        if (!IsAnimationRunning)
-        {
-            IsAnimationRunning = true;
-            Debug.Log("JumpSmash 공격 시작!");
-            StartCoroutine(Coroutine());
-        }
-        return INode.State.Run;
-    }
+//     INode.State JumpSmash()
+//     {
+//         if (!IsAnimationRunning)
+//         {
+//             IsAnimationRunning = true;
+//             Debug.Log("JumpSmash 공격 시작!");
+//             StartCoroutine(Coroutine());
+//         }
+//         return INode.State.Run;
+//     }
 
-    // ================================
-    // 코루틴 (공격/이동 후 처리)
-    // ================================
+//     // ================================
+//     // 코루틴 (공격/이동 후 처리)
+//     // ================================
 
-    IEnumerator Coroutine()
-    {
-        Debug.Log("실행 중...");
-        yield return new WaitForSeconds(2f);
-        IsAnimationRunning = false;
-        isAttackTurn = !isAttackTurn;
-    }
-}
+//     IEnumerator Coroutine()
+//     {
+//         Debug.Log("실행 중...");
+//         yield return new WaitForSeconds(2f);
+//         IsAnimationRunning = false;
+//         isAttackTurn = !isAttackTurn;
+//     }
+// }

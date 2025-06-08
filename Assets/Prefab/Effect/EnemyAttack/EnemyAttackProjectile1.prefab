@@ -10,11 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1157595583022062423}
   - component: {fileID: -3426701205572076524}
-  - component: {fileID: 7201303599053663712}
   - component: {fileID: 5500339868277186892}
   - component: {fileID: 6460571120153808944}
   - component: {fileID: 4349527696693398294}
   - component: {fileID: 972756837323060020}
+  - component: {fileID: 7729924794496396831}
   m_Layer: 0
   m_Name: EnemyAttackProjectile1
   m_TagString: EnemyAttack
@@ -49,19 +49,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6a3b374a8c2a964f9eb1b7c1fb7ec3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7201303599053663712
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2149256603058294964}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9382eba21835af845bdf883da1a21630, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerAttack: {fileID: 0}
 --- !u!114 &5500339868277186892
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -75,6 +62,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 0
+  disableOnEnemyHit: 0
 --- !u!212 &6460571120153808944
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -193,3 +181,17 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.4
+--- !u!114 &7729924794496396831
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2149256603058294964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00876eaff7ede8d4ea188f9e40853672, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canParry: 1
+  playerAttack: {fileID: 0}

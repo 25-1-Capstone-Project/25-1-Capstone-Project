@@ -202,12 +202,9 @@ public class BossDamaged : BossState
 
     private IEnumerator DamagedRoutine()
     {
-        // 넉백 처리
-        boss.KnockBack(1f);
-        
+ 
         yield return new WaitForSeconds(0.5f); // 피격 후 대기 시간
 
-        // Chase 상태로 전환
-        boss.StateMachine.ChangeState<BossMove>();
+ 
     }
 }
