@@ -49,7 +49,7 @@ public class BoomerangProjectile : MonoBehaviour
             isWall = true;
         }
 
-        if (other.gameObject.layer == 3 && returning)
+        if (other.gameObject.CompareTag("Player") && returning)
         {
 
             gameObject.SetActive(false);
