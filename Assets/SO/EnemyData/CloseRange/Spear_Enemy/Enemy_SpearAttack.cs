@@ -7,7 +7,7 @@ public class Enemy_SpearAttack : EnemyAttackPattern
     public float attackDistance;
     public float effectWidth = 0.4f;
 
-    public override IEnumerator Execute(Enemy enemy)
+    public override IEnumerator Execute(EnemyBase enemy)
     {
         enemy.GetRigidbody().linearVelocity = Vector2.zero;
         enemy.FlashSprite(Color.blue, attackChargeSec);

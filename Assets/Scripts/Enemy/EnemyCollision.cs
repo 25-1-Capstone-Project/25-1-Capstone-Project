@@ -15,7 +15,7 @@ public class EnemyCollision : MonoBehaviour
                     playerAttack.gameObject.SetActive(false);
 
                 // 적에게 데미지 적용
-                GetComponent<Enemy>().TakeDamage(damage);
+                GetComponent<EnemyBase>().TakeDamage(damage);
                 break;
 
         }

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe7b41882d911124dbfce8033bbdb6dc, type: 3}
-  m_Name: BossData
+  m_Name: SkeletonData
   m_EditorClassIdentifier: 
   monsterName: skeleton
   maxHealth: 10
@@ -18,9 +18,10 @@ MonoBehaviour:
   moveSpeed: 2
   attackDamage: 2
   animator: {fileID: 22100000, guid: a23a945046c5f3e46be99a986eae11cb, type: 2}
-  attackPattern: {fileID: 11400000, guid: e046c09cf101f054c834b068de4af735, type: 2}
+  attackPattern: {fileID: 11400000, guid: 88202967312e349458158c3961c05dad, type: 2}
+  postAttackPauseTime: 1.5
+  attackCooldown: 3
   attackPatterns:
   - {fileID: 11400000, guid: e046c09cf101f054c834b068de4af735, type: 2}
-  - {fileID: 11400000, guid: 88202967312e349458158c3961c05dad, type: 2}
   - {fileID: 11400000, guid: a242bfceff7c0e648b64cbfc2abaa05e, type: 2}
-  - {fileID: 11400000, guid: e046c09cf101f054c834b068de4af735, type: 2}
+  - {fileID: 11400000, guid: 6c41bbbf2b88e9143818fd42008b2bb2, type: 2}

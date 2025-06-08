@@ -78,15 +78,15 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -6486419780738374814, guid: 2ae1b7912ed56f74aac00b28f584f29a, type: 3}
+  m_Sprite: {fileID: -2406094694242329964, guid: ac3fa33b8ce7b5744bfeb876893020fe, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.23, y: 0.24}
+  m_Size: {x: 10.96875, y: 6.46875}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!95 &7322199121564673016
@@ -138,7 +138,7 @@ GameObject:
   - component: {fileID: 7981818660492228447}
   - component: {fileID: 2617221747615979821}
   m_Layer: 6
-  m_Name: BossObj
+  m_Name: SkeletonBossObj
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -272,7 +272,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 10.96875, y: 6.46875}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
@@ -305,8 +305,7 @@ MonoBehaviour:
   data: {fileID: 11400000, guid: 1649a12e60d7fa74d9c3e9b91b1db6c7, type: 2}
   enemySprite: {fileID: 2849954821475874090}
   animController: {fileID: 2694127021961254135}
-  flashDuration: 0.1
-  IsAttacking: 0
+  postAttackPauseTime: 1.5
+  skillGlobalCooldown: 3
   StateText: {fileID: 0}
   AttackText: {fileID: 0}
-  cooldownTime: 2

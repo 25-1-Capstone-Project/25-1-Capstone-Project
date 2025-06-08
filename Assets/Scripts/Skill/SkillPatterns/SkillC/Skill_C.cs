@@ -22,7 +22,7 @@ public class Skill_Dash : SkillPattern
             Collider2D[] hits = Physics2D.OverlapCircleAll(player.transform.position, hitRadius, LayerMask.GetMask("Enemy"));
             foreach (var hit in hits)
             {
-                hit.GetComponent<Enemy>()?.TakeDamage(damage);
+                hit.GetComponent<EnemyBase>()?.TakeDamage(damage);
             }
 
             yield return null;
@@ -43,7 +43,7 @@ public class Skill_Dash : SkillPattern
             Collider2D[] hits = Physics2D.OverlapCircleAll(player.transform.position, hitRadius, LayerMask.GetMask("Enemy"));
             foreach (var hit in hits)
             {
-                hit.GetComponent<Enemy>()?.TakeDamage((damage + 10));
+                hit.GetComponent<EnemyBase>()?.TakeDamage((damage + 10));
             }
 
             yield return null;

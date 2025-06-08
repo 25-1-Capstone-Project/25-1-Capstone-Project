@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 public class StateMachine<T> where T : IState
 {
@@ -13,7 +14,7 @@ public class StateMachine<T> where T : IState
 
     public void ChangeState<TState>() where TState : T
     {
-      
+
         currentState?.Exit();
 
         currentState = states[typeof(TState)];

@@ -31,7 +31,7 @@ public class EnemyManager : Singleton<EnemyManager>
     {
         EnemyData enemyData = enemyReference.GetRandomEnemyData();
         GameObject enemyObj = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
-        Enemy enemy = enemyObj.GetComponent<Enemy>();
+        EnemyBase enemy = enemyObj.GetComponent<EnemyBase>();
         enemy.SetEnemyData(enemyData);
         enemy.Init();
         spawnedEnemy++;

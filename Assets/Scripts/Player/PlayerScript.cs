@@ -137,10 +137,9 @@ public class PlayerScript : Singleton<PlayerScript>
     [SerializeField] GameObject ammo;
     [SerializeField] Rigidbody2D rb;
     [SerializeField] Transform PlayerModel;
-    [SerializeField] ParticleSystem attackSlashParticle;
     [SerializeField] PlayerAnimatorController playerAnim;
     SkillPattern currentSkill;
-    private SpriteRenderer[] spriteRenderers;
+    [SerializeField] private SpriteRenderer spriteRenderer;
     public PlayerRuntimeStats stats = new PlayerRuntimeStats();
 
     public void InitPlayer()
@@ -193,7 +192,7 @@ public class PlayerScript : Singleton<PlayerScript>
 
     void SetComponent()
     {
-        spriteRenderers = PlayerModel.GetComponentsInChildren<SpriteRenderer>();
+        spriteRenderer = PlayerModel.GetComponentInChildren<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
         playerAnim = GetComponent<PlayerAnimatorController>();
     }
@@ -248,7 +247,7 @@ public class PlayerScript : Singleton<PlayerScript>
         isDashing = false;
 
 
-        if (IsGroundBelow() )
+        if (IsGroundBelow())
         {
             StartCoroutine(FallAndReturnCoroutine());
             yield break;
@@ -269,7 +268,7 @@ public class PlayerScript : Singleton<PlayerScript>
     }
     bool IsGroundBelow()
     {
-        if(fallTilemap == null)
+        if (fallTilemap == null)
             return false;
 
         Vector3Int cell = fallTilemap.WorldToCell(transform.position);
@@ -349,7 +348,7 @@ public class PlayerScript : Singleton<PlayerScript>
 
             if (angle <= stats.attackAngle / 2f)
             {
-                hit.GetComponent<Enemy>()?.TakeDamage(stats.damage);
+                hit.GetComponent<EnemyBase>()?.TakeDamage(stats.damage);
             }
         }
 
@@ -405,7 +404,7 @@ public class PlayerScript : Singleton<PlayerScript>
     }
 
     // 패리 성공|실패 여부에 따라 패리가능 변수 처리, 패리중→패리중X
-    public void ParrySuccess(Enemy enemy)
+    public void ParrySuccess(EnemyBase enemy)
     {
         StopCoroutine(ParryRoutine);
 
@@ -487,7 +486,7 @@ public class PlayerScript : Singleton<PlayerScript>
     #region 데미지 처리
 
     // 대미지 처리 함수. 적 스크립트에서 플레이어와 적 충돌 발생 시 호출
-    public void TakeDamage(Enemy enemy)
+    public void TakeDamage(EnemyBase enemy)
     {
         if (isDead) return;
         if (isGod) return;
@@ -496,7 +495,7 @@ public class PlayerScript : Singleton<PlayerScript>
         {
             float parryDot = Vector2.Dot(direction, -enemy.GetDirectionToPlayerNormalVec());
             float threshold = Mathf.Cos(45f * Mathf.Deg2Rad); // 90도 시야
-          
+
             if (parryDot >= threshold)
                 ParrySuccess(enemy);
             else
@@ -519,7 +518,7 @@ public class PlayerScript : Singleton<PlayerScript>
         {
             float parryDot = Vector2.Dot(direction, -enemyAttack.GetDirectionNormalVec());
             float threshold = Mathf.Cos(45f * Mathf.Deg2Rad); // 90도 시야
-           
+
             if (parryDot >= threshold)
                 ParrySuccess(enemyAttack);
             else
@@ -668,18 +667,14 @@ public class PlayerScript : Singleton<PlayerScript>
     private IEnumerator FlashRoutine(Color color)
     {
 
-        for (int i = 0; i < spriteRenderers.Length; i++)
-        {
+        spriteRenderer.color = color;
 
-            spriteRenderers[i].color = color;
-        }
 
         yield return new WaitForSeconds(flashDuration);
 
-        for (int i = 0; i < spriteRenderers.Length; i++)
-        {
-            spriteRenderers[i].color = Color.white;
-        }
+
+        spriteRenderer.color = Color.white;
+
     }
     public void FlashParry()
     {

@@ -1,6 +1,17 @@
 using System.Collections;
 using UnityEngine;
 
+/*
+ * =====================================================================================
+ *  이 파일은 Boss 클래스 전용 상태들을 정의합니다.
+ *  EnemyBase를 상속받는 Boss 클래스와 함께 사용됩니다.
+ * =====================================================================================
+ */
+
+/// <summary>
+/// 모든 보스 상태의 기반이 되는 추상 클래스.
+/// 생성자에서 Boss 타입을 받습니다.
+/// </summary>
 public abstract class BossState : IEnemyState
 {
     protected Boss boss;
@@ -10,33 +21,59 @@ public abstract class BossState : IEnemyState
         this.boss = boss;
     }
 
-    public virtual void Enter() { } //상태 진입 시 호출
-    public virtual void Update() { } //매 프레임 마다 호출
-    public virtual void Exit() { } // 상태가 변경되면 호출
+    public virtual void Enter() { }
+    public virtual void Update() { }
+    public virtual void Exit() { }
 }
 
+// -------------------------------------------------------------------------------------
+
+/// <summary>
+/// 보스가 전투 시작 시 진입하는 초기 상태. 즉시 Move 상태로 전환됩니다.
+/// </summary>
 public class BossIdle : BossState
 {
-    float _timer = 0f;
     public BossIdle(Boss boss) : base(boss) { }
 
     public override void Enter()
     {
-        boss.StateMachine.ChangeState<BossMove>(); // Idle 상태에서 바로 이동 상태로 변경
-        // boss.GetRigidbody().linearVelocity = Vector2.zero; // 정지
-        // boss.GetAnimatorController().PlayIdle();
+        // 전투 시작 시 바로 이동 상태로 전환
+        boss.StateMachine.ChangeState<BossMove>();
+    }
+}
+
+// -------------------------------------------------------------------------------------
+
+/// <summary>
+/// 플레이어를 추적하고, 공격 범위에 들어오면 공격을 결정하는 상태.
+/// </summary>
+public class BossMove : BossState, IFixedUpdateState
+{
+    public BossMove(Boss boss) : base(boss) { }
+
+    public override void Enter()
+    {
+        boss.GetAnimatorController().PlayChase();
     }
 
     public override void Update()
     {
-        // _timer += Time.deltaTime;
+        boss.UpdateSkillCooldown();
+        
+    }
 
-        // if (boss.CheckCooldownComplete(_timer))
-        // {
-        //     boss.StateMachine.ChangeState<BossMove>(); // 쿨타임이 끝나면 이동 상태로 변경
-        //     _timer = 0f; // 타이머 초기화
-        // }
+    public void FixedUpdate()
+    {
+        // 플레이어를 향해 이동
+        Vector2 direction = boss.GetDirectionToPlayerNormalVec();
+        boss.GetRigidbody().linearVelocity = direction * boss.GetSpeed();
+    }
 
+    public void LateUpdate()
+    {
+        // 플레이어 방향에 따라 스프라이트 뒤집기
+        // (EnemyBase에 SpriteFlip()이 구현되어 있어야 함)
+        // boss.SpriteFlip(); 
     }
 
     public override void Exit()
@@ -45,22 +82,28 @@ public class BossIdle : BossState
     }
 }
 
-public class BossAttack : BossState
+// -------------------------------------------------------------------------------------
+
+
+/// <summary>
+/// 보스의 스킬 공격을 수행하는 상태.
+/// </summary>
+public class BossSkillAttack : BossState
 {
     private Coroutine attackRoutine;
 
-    public BossAttack(Boss boss) : base(boss) { }
+    public BossSkillAttack(Boss boss) : base(boss) { }
 
     public override void Enter()
     {
+        Debug.Log($"BossSkillAttack: {boss.GetAttackPattern().name} called");
         boss.GetRigidbody().linearVelocity = Vector2.zero;
+
+        // 1. 퍼지 로직으로 사용할 스킬 결정
         boss.DecideSkill();
-        boss.Attack();
+        
         attackRoutine = boss.StartCoroutine(AttackSequence());
     }
-
-
-    public override void Update() { }
 
     public override void Exit()
     {
@@ -69,28 +112,30 @@ public class BossAttack : BossState
             boss.StopCoroutine(attackRoutine);
             attackRoutine = null;
         }
-
         boss.IsAttacking = false;
-        boss.ClearAttackEffect(); // 예고선 정리
+        boss.ClearAttackEffect();
     }
 
     private IEnumerator AttackSequence()
     {
+        // EnemyBase의 공격 실행 메서드 호출
         yield return boss.GetAttackPattern().Execute(boss);
 
-        if (boss.CheckAttackRange())
-            boss.StateMachine.ChangeState<BossAttack>();
-        else
-            boss.StateMachine.ChangeState<BossMove>();
+        // 공격이 끝나면, 짧은 대기(Cooldown) 상태로 전환
+        boss.StateMachine.ChangeState<BossCooldown>();
     }
-
 }
 
+// -------------------------------------------------------------------------------------
+
+/// <summary>
+/// 공격(기본/스킬) 이후 다음 행동 전까지 잠시 대기하는 상태.
+/// </summary>
 public class BossCooldown : BossState
 {
-
     private float _timer = 0f;
-    public BossCooldown(Boss monster) : base(monster) { }
+
+    public BossCooldown(Boss boss) : base(boss) { }
 
     public override void Enter()
     {
@@ -101,86 +146,68 @@ public class BossCooldown : BossState
     public override void Update()
     {
         _timer += Time.deltaTime;
-        if (boss.CheckCooldownComplete(_timer))
+
+        // Boss 클래스에 설정된 '공격 후 대기 시간'이 지나면
+        if (boss.CheckPostAttackPauseComplete(_timer))
         {
-            boss.StateMachine.ChangeState<BossMove>(); // 쿨타임이 끝나면 이동 상태로 변경
-        }
-
-    }
-
-    public override void Exit()
-    {
-    }
-}
-
-public class BossMove : BossState, IFixedUpdateState
-{
-    public BossMove(Boss monster) : base(monster) { }
-
-    float _timer = 0f;
-    public override void Enter()
-    {
-        _timer = 0f;
-        boss.GetAnimatorController().PlayChase();
-    }
-
-    public override void Update()
-    {
-        // _timer += Time.deltaTime;
-        // if (_timer > Random.Range(2f, 4f))
-        // {
-        //     boss.StateMachine.ChangeState<BossAttack>(); // 일정 시간 후 준비 상태로 전환
-        //     _timer = 0f; // 타이머 초기화
-        // }
-        if (boss.GetDirectionToPlayerVec().magnitude < 5f)
-        {
-            boss.StateMachine.ChangeState<BossAttack>();
+            // 다시 이동 상태로 전환하여 다음 행동을 준비
+            boss.StateMachine.ChangeState<BossMove>();
         }
     }
 
-    public void FixedUpdate()
-    {
-        Vector2 direction = boss.GetDirectionToPlayerNormalVec();
-        boss.GetRigidbody().linearVelocity = direction * boss.GetSpeed();
-    }
-
-    public void LateUpdate()
-    {
-        boss.SpriteFlip();
-    }
-
-
-    public override void Exit()
-    {
-        boss.GetRigidbody().linearVelocity = Vector2.zero; // 추격 종료 시 정지
-    }
+    public override void Exit() { }
 }
 
+// -------------------------------------------------------------------------------------
+
+/// <summary>
+/// 보스가 사망했을 때의 상태.
+/// </summary>
 public class BossDead : BossState
 {
+    private Coroutine coroutine;
+
     public BossDead(Boss boss) : base(boss) { }
 
-    Coroutine coroutine;
     public override void Enter()
     {
-        if (coroutine != null)
-            return;
+        if (coroutine != null) return;
+
         boss.GetRigidbody().linearVelocity = Vector2.zero;
-        boss.GetRigidbody().simulated = false; // 상호작용 비활성화
+        boss.GetRigidbody().simulated = false;
 
         boss.StopAllCoroutines();
-
         coroutine = boss.StartCoroutine(DeadRoutine());
     }
+
     public IEnumerator DeadRoutine()
     {
         boss.GetAnimatorController().PlayDeath();
-        EnemyManager.Instance.KillEnemy();
-        yield return new WaitForSeconds(1f);
+        // EnemyManager가 있다면 사용, 없다면 주석 처리
+        // EnemyManager.Instance.KillEnemy(); 
+        yield return new WaitForSeconds(2f); // 보스 소멸 연출 시간
         Object.Destroy(boss.gameObject);
     }
-    public override void Update() { }
-    public override void Exit() { }
+}
 
+public class BossDamaged : BossState
+{
+    public BossDamaged(Boss boss) : base(boss) { }
 
+    public override void Enter()
+    {
+        boss.GetAnimatorController().PlayDamage();
+        boss.StartCoroutine(DamagedRoutine());
+    }
+
+    private IEnumerator DamagedRoutine()
+    {
+        // 넉백 처리
+        boss.KnockBack(1f);
+        
+        yield return new WaitForSeconds(0.5f); // 피격 후 대기 시간
+
+        // Chase 상태로 전환
+        boss.StateMachine.ChangeState<BossMove>();
+    }
 }

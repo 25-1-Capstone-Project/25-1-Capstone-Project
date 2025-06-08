@@ -5,7 +5,7 @@ using System.Collections;
 public class Enemy_SwordSlash : EnemyAttackPattern
 {
   
-    public override IEnumerator Execute(Enemy enemy)
+    public override IEnumerator Execute(EnemyBase enemy)
     {
         enemy.IsAttacking = true;
         enemy.GetAnimatorController().PlayAttack();

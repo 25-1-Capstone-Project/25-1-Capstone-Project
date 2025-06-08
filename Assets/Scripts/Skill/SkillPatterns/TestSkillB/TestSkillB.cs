@@ -25,7 +25,7 @@ public class TestSkillB : SkillPattern
 
                 if (angle <= attackAngle / 2f)
                 {
-                    hit.GetComponent<Enemy>()?.TakeDamage(damage);
+                    hit.GetComponent<EnemyBase>()?.TakeDamage(damage);
                 }
             }
         }
@@ -46,7 +46,7 @@ public class TestSkillB : SkillPattern
         {
             if (hit != null)
             {
-                hit.GetComponent<Enemy>().TakeDamage(damage + 10);
+                hit.GetComponent<EnemyBase>().TakeDamage(damage + 10);
             }
         }
 
