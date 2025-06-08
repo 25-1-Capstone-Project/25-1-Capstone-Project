@@ -434,7 +434,7 @@ public class PlayerScript : Singleton<PlayerScript>
 
     }
 
-    public void ParrySuccess(EnemyAttack enemyAttack)
+    public void ParrySuccess(EnemyAttackBase enemyAttack)
     {
         StopCoroutine(ParryRoutine);
 
@@ -455,8 +455,8 @@ public class PlayerScript : Singleton<PlayerScript>
         }
 
         OnParrySuccess?.Invoke();
-        enemyAttack.gameObject.SetActive(true); // 공격 오브젝트 비활성화
-        enemyAttack.gameObject.tag = "PlayerAttack"; // 태그 제거
+        enemyAttack.gameObject.SetActive(true);
+        enemyAttack.gameObject.tag = "PlayerAttack";
         enemyAttack.SetDirectionVec(direction); // 방향 반전
 
         isParrying = false;
@@ -509,12 +509,12 @@ public class PlayerScript : Singleton<PlayerScript>
     }
     // 원거리 대미지 처리 함수.
 
-    public void TakeDamage(EnemyAttack enemyAttack)
+    public void TakeDamage(EnemyAttackBase enemyAttack)
     {
         if (isDead) return;
         if (isGod) return;
 
-        if (isParrying)
+        if (isParrying && enemyAttack.CanParry)
         {
             float parryDot = Vector2.Dot(direction, -enemyAttack.GetDirectionNormalVec());
             float threshold = Mathf.Cos(45f * Mathf.Deg2Rad); // 90도 시야
@@ -523,12 +523,19 @@ public class PlayerScript : Singleton<PlayerScript>
                 ParrySuccess(enemyAttack);
             else
             {
-                // ParryFailed();
+                if (enemyAttack is ProjectileEnemyAttack)
+                {
+                    enemyAttack.gameObject.SetActive(false);
+                }
                 StartCoroutine(DamagedRoutine(enemyAttack.GetDamage()));
             }
         }
         else
-            StartCoroutine(DamagedRoutine(enemyAttack.GetDamage()));
+            if (enemyAttack is ProjectileEnemyAttack)
+        {
+            enemyAttack.gameObject.SetActive(false);
+        }
+        StartCoroutine(DamagedRoutine(enemyAttack.GetDamage()));
     }
     public IEnumerator DamagedRoutine(int damage)
     {

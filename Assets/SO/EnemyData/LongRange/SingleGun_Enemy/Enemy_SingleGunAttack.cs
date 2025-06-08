@@ -12,7 +12,7 @@ public class Enemy_SingleGunAttack : EnemyAttackPattern
         yield return new WaitForSeconds(attackChargeSec);
         GameObject attackProjectile = EffectPooler.Instance.SpawnFromPool("EnemyAttackProjectile1", enemy.transform.position, Quaternion.identity);
         attackProjectile.tag = "EnemyAttack";
-        EnemyAttack enemyAttack = attackProjectile.GetComponent<EnemyAttack>();
+        ProjectileEnemyAttack enemyAttack = attackProjectile.GetComponent<ProjectileEnemyAttack>();
         enemyAttack.SetDamage(enemy.GetDamage());
         enemyAttack.SetDirectionVec(enemy.GetDirectionToPlayerNormalVec());
         enemy.SpriteFlip();

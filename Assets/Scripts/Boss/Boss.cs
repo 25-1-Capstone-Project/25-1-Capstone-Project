@@ -2,10 +2,10 @@ using UnityEngine;
 using UnityEngine.UI;
 public enum EBossSkillAction
 {
-    Slash,         // 근접 공격
-    Shot,          // 원거리 공격
-    AreaAttack,    // 광역 공격
-    JumpSmash      // 점프 후 강타
+    Rush = 0,
+    Meteo = 1,
+    MAX
+
 }
 public class Boss : EnemyBase
 {
@@ -51,7 +51,7 @@ public class Boss : EnemyBase
         StateMachine.AddState(new BossDead(this));
         StateMachine.AddState(new BossDamaged(this)); // DamagedState는 공용 상태를 사용한다고 가정
  
-            bossAnim.PlaySpawn();
+        bossAnim.PlaySpawn();
         
         Invoke("StartFSM",5f);
     }
@@ -65,16 +65,20 @@ public class Boss : EnemyBase
         
     }
 
+    protected override void OnDamaged()
+    {
+          StateMachine.ChangeState<BossDamaged>();
+    }
     // 스킬 쿨타임 관리 로직
     public void UpdateSkillCooldown()
     {
-    
+
 
         _skillCooldownTimer += Time.deltaTime;
         if (_skillCooldownTimer >= bossData.attackCooldown)
         {
             StateMachine.ChangeState<BossSkillAttack>();
-               _skillCooldownTimer = 0f;
+            _skillCooldownTimer = 0f;
         }
     }
 
@@ -85,8 +89,15 @@ public class Boss : EnemyBase
         // EBossSkillAction skillType = fuzzy.DecideSkill(Vector2.Distance(transform.position, PlayerScript.Instance.GetPlayerTransform().position),
         // data.currentHealth, PlayerScript.Instance.Health, PlayerScript.Instance.GetRigidbody().linearVelocity.magnitude);
 
-        // bossData.AttackPatternSet((int)skillType);
-        bossData.SetrandomAttackPattern();
+        EBossSkillAction skillType = Random.Range(0, (int)EBossSkillAction.MAX) switch
+        {
+            0 => EBossSkillAction.Rush,
+            1 => EBossSkillAction.Meteo,
+            _ => throw new System.NotImplementedException(),
+        };
+        bossAnim.SetAttackIndex((int)skillType);
+        bossData.AttackPatternSet((int)skillType);
+     
     }
 
     // 보스 전용 Getter

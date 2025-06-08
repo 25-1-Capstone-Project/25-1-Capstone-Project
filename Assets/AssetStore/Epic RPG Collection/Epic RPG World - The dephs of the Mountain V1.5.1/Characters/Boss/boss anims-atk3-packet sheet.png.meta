@@ -185,10 +185,10 @@ TextureImporter:
       name: boss anims-atk3-packet sheet_0
       rect:
         serializedVersion: 2
-        x: 123
-        y: 879
-        width: 59
-        height: 91
+        x: 0
+        y: 828
+        width: 351
+        height: 207
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -207,10 +207,10 @@ TextureImporter:
       name: boss anims-atk3-packet sheet_1
       rect:
         serializedVersion: 2
-        x: 477
-        y: 879
-        width: 52
-        height: 103
+        x: 351
+        y: 828
+        width: 351
+        height: 207
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -229,10 +229,10 @@ TextureImporter:
       name: boss anims-atk3-packet sheet_2
       rect:
         serializedVersion: 2
-        x: 824
-        y: 879
-        width: 56
-        height: 107
+        x: 702
+        y: 828
+        width: 351
+        height: 207
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -251,10 +251,10 @@ TextureImporter:
       name: boss anims-atk3-packet sheet_3
       rect:
         serializedVersion: 2
-        x: 1175
-        y: 879
-        width: 56
-        height: 111
+        x: 1053
+        y: 828
+        width: 351
+        height: 207
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -273,10 +273,10 @@ TextureImporter:
       name: boss anims-atk3-packet sheet_4
       rect:
         serializedVersion: 2
-        x: 1526
-        y: 879
-        width: 56
-        height: 110
+        x: 1404
+        y: 828
+        width: 351
+        height: 207
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -295,10 +295,10 @@ TextureImporter:
       name: boss anims-atk3-packet sheet_5
       rect:
         serializedVersion: 2
-        x: 99
-        y: 672
-        width: 79
-        height: 96
+        x: 0
+        y: 621
+        width: 351
+        height: 207
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -317,10 +317,10 @@ TextureImporter:
       name: boss anims-atk3-packet sheet_6
       rect:
         serializedVersion: 2
-        x: 447
-        y: 668
-        width: 81
-        height: 87
+        x: 351
+        y: 621
+        width: 351
+        height: 207
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -339,10 +339,10 @@ TextureImporter:
       name: boss anims-atk3-packet sheet_7
       rect:
         serializedVersion: 2
-        x: 824
-        y: 667
-        width: 54
-        height: 74
+        x: 702
+        y: 621
+        width: 351
+        height: 207
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -361,10 +361,10 @@ TextureImporter:
       name: boss anims-atk3-packet sheet_8
       rect:
         serializedVersion: 2
-        x: 1177
-        y: 657
-        width: 52
-        height: 84
+        x: 1053
+        y: 621
+        width: 351
+        height: 207
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -383,10 +383,10 @@ TextureImporter:
       name: boss anims-atk3-packet sheet_9
       rect:
         serializedVersion: 2
-        x: 1525
-        y: 650
-        width: 55
-        height: 91
+        x: 1404
+        y: 621
+        width: 351
+        height: 207
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -405,10 +405,10 @@ TextureImporter:
       name: boss anims-atk3-packet sheet_10
       rect:
         serializedVersion: 2
-        x: 122
-        y: 444
-        width: 53
-        height: 90
+        x: 0
+        y: 414
+        width: 351
+        height: 207
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -427,10 +427,10 @@ TextureImporter:
       name: boss anims-atk3-packet sheet_11
       rect:
         serializedVersion: 2
-        x: 479
-        y: 450
-        width: 47
-        height: 84
+        x: 351
+        y: 414
+        width: 351
+        height: 207
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -449,10 +449,10 @@ TextureImporter:
       name: boss anims-atk3-packet sheet_12
       rect:
         serializedVersion: 2
-        x: 839
-        y: 453
-        width: 37
-        height: 81
+        x: 702
+        y: 414
+        width: 351
+        height: 207
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -471,10 +471,10 @@ TextureImporter:
       name: boss anims-atk3-packet sheet_13
       rect:
         serializedVersion: 2
-        x: 1192
-        y: 456
-        width: 35
-        height: 79
+        x: 1053
+        y: 414
+        width: 351
+        height: 207
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -493,10 +493,10 @@ TextureImporter:
       name: boss anims-atk3-packet sheet_14
       rect:
         serializedVersion: 2
-        x: 1543
-        y: 459
-        width: 35
-        height: 79
+        x: 1404
+        y: 414
+        width: 351
+        height: 207
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -515,10 +515,10 @@ TextureImporter:
       name: boss anims-atk3-packet sheet_15
       rect:
         serializedVersion: 2
-        x: 139
-        y: 254
-        width: 35
-        height: 79
+        x: 0
+        y: 207
+        width: 351
+        height: 207
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -537,10 +537,10 @@ TextureImporter:
       name: boss anims-atk3-packet sheet_16
       rect:
         serializedVersion: 2
-        x: 490
-        y: 256
-        width: 35
-        height: 79
+        x: 351
+        y: 207
+        width: 351
+        height: 207
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -559,10 +559,10 @@ TextureImporter:
       name: boss anims-atk3-packet sheet_17
       rect:
         serializedVersion: 2
-        x: 843
-        y: 258
-        width: 33
-        height: 79
+        x: 702
+        y: 207
+        width: 351
+        height: 207
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -581,10 +581,10 @@ TextureImporter:
       name: boss anims-atk3-packet sheet_18
       rect:
         serializedVersion: 2
-        x: 1194
-        y: 258
-        width: 33
-        height: 78
+        x: 1053
+        y: 207
+        width: 351
+        height: 207
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -603,10 +603,10 @@ TextureImporter:
       name: boss anims-atk3-packet sheet_19
       rect:
         serializedVersion: 2
-        x: 1546
-        y: 248
-        width: 32
-        height: 81
+        x: 1404
+        y: 207
+        width: 351
+        height: 207
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -625,10 +625,10 @@ TextureImporter:
       name: boss anims-atk3-packet sheet_20
       rect:
         serializedVersion: 2
-        x: 140
-        y: 41
-        width: 37
-        height: 62
+        x: 0
+        y: 0
+        width: 351
+        height: 207
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -647,10 +647,10 @@ TextureImporter:
       name: boss anims-atk3-packet sheet_21
       rect:
         serializedVersion: 2
-        x: 492
-        y: 41
-        width: 34
-        height: 65
+        x: 351
+        y: 0
+        width: 351
+        height: 207
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -669,10 +669,10 @@ TextureImporter:
       name: boss anims-atk3-packet sheet_22
       rect:
         serializedVersion: 2
-        x: 843
-        y: 41
-        width: 34
-        height: 65
+        x: 702
+        y: 0
+        width: 351
+        height: 207
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -691,10 +691,10 @@ TextureImporter:
       name: boss anims-atk3-packet sheet_23
       rect:
         serializedVersion: 2
-        x: 1194
-        y: 41
-        width: 34
-        height: 64
+        x: 1053
+        y: 0
+        width: 351
+        height: 207
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -713,7 +713,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 7f9653041a60820419b4bd0a7b3bfd5b
     internalID: 0
     vertices: []
     indices: 

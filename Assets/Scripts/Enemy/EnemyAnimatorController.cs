@@ -28,7 +28,7 @@ public class EnemyAnimatorController : MonoBehaviour
     }
     public void EndAttack()
     {
-        SetTrigger("endAttack");
+        SetTrigger("AttackEnd");
     }
 
     public virtual void PlayAttack(int attackIndex=0)
