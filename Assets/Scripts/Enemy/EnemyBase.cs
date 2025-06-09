@@ -129,16 +129,17 @@ public abstract class EnemyBase : MonoBehaviour
     }
 
     /// <summary>
-    /// 피격 시 호출되는 메서드. 자식 클래스에서 오버라이드하여
-    /// 피격 상태(DamagedState)나 넉백 상태(KnockBackState)로 전환할 수 있습니다.
+    /// 피격 시 호출되는 메서드. 자식 클래스에서 오버라이드
     /// </summary>
     protected virtual void OnDamaged()
     {
 
         StateMachine.ChangeState<DamagedState>();
-
     }
-
+    public virtual void Parried()
+    {
+        StateMachine.ChangeState<ParriedState>();
+    }
     protected virtual void Dead()
     {
         isDead = true;

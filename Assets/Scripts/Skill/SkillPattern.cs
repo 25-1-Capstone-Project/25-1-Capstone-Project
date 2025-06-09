@@ -17,21 +17,21 @@ public abstract class SkillPattern : ScriptableObject
     public int cooldown = 0;
     public Sprite skillIcon;
     
-    // ÆÐ¸®½ºÅÃ Ã¼Å©
+    // ï¿½Ð¸ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼Å©
     public SkillType ParryStackCheck()
     {
         if (PlayerScript.Instance.ParryStack >= ultimateCost)
         {
             return SkillType.Ultimate;
         }
-        else if (PlayerScript.Instance.ParryStack >= commonCost)
-        {
-            return SkillType.Common;
-        }
+        // else if (PlayerScript.Instance.ParryStack >= commonCost)
+        // {
+        //     return SkillType.Common;
+        // }
         return SkillType.Empty;
     }
 
-    // ½ºÅ³ ÄðÅ¸ÀÓ Ã¼Å©
+    // ï¿½ï¿½Å³ ï¿½ï¿½Å¸ï¿½ï¿½ Ã¼Å©
     [System.NonSerialized]
     public float lastUseTime = -Mathf.Infinity;
 
@@ -45,7 +45,7 @@ public abstract class SkillPattern : ScriptableObject
         lastUseTime = Time.time;
     }
 
-    //Äð´Ù¿î ¸®¼Â...
+    //ï¿½ï¿½Ù¿ï¿½ ï¿½ï¿½ï¿½ï¿½...
     public void ResetCooldown()
     {
         lastUseTime = lastUseTime - cooldown;

@@ -20,7 +20,7 @@ public class NormalEnemy : EnemyBase
         StateMachine.AddState(new IdleState(this));
         StateMachine.AddState(new ChaseState(this));
         StateMachine.AddState(new AttackState(this));
-        StateMachine.AddState(new KnockBackState(this));
+        StateMachine.AddState(new ParriedState(this));
         StateMachine.AddState(new DamagedState(this));
         StateMachine.AddState(new DeadState(this));
 

@@ -17,7 +17,7 @@ MonoBehaviour:
   ultimateDamage: 2
   commonCost: 1
   ultimateCost: 3
-  cooldown: 5
+  cooldown: 1
   skillIcon: {fileID: 5718304784226621280, guid: 806d328dd63fabf4386a5c78ec1cbf63, type: 3}
   boomerangPrefab: {fileID: 1740914747221749175, guid: b2161d5b51d6ccb4088e38b65458e79b, type: 3}
   travelDistanceCommon: 6

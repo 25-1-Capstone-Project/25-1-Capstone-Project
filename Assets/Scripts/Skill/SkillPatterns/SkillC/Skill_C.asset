@@ -14,9 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillType: 0
   damage: 1
+  ultimateDamage: 0
   commonCost: 1
   ultimateCost: 3
-  cooldown: 5
+  cooldown: 1
   skillIcon: {fileID: -5567377737409704016, guid: 2cc366c7e71944c4f8686040cf610f35, type: 3}
   dashDistance: 5
   dashSpeed: 20

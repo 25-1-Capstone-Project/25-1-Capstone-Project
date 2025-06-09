@@ -118,11 +118,11 @@ public class AttackState : EnemyState
     }
 }
 
-public class KnockBackState : EnemyState
+public class ParriedState : EnemyState
 {
     WaitForSeconds KnockBackDelaySec = new WaitForSeconds(0.5f);
 
-    public KnockBackState(EnemyBase enemy) : base(enemy) { }
+    public ParriedState(EnemyBase enemy) : base(enemy) { }
 
     public override void Enter()
     {
@@ -134,6 +134,8 @@ public class KnockBackState : EnemyState
     {
         enemy.KnockBack(2);
         yield return KnockBackDelaySec;
+        enemy.GetRigidbody().linearVelocity = Vector2.zero;
+        yield return new WaitForSeconds(1f);
         enemy.StateMachine.ChangeState<ChaseState>();
     }
     public override void Update() { }

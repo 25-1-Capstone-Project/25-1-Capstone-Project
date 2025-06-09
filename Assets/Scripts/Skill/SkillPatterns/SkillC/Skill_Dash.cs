@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using Unity.Mathematics;
 
 [CreateAssetMenu(menuName = "Player/Skill/SkillC")]
 public class Skill_Dash : SkillPattern
@@ -10,23 +11,22 @@ public class Skill_Dash : SkillPattern
 
     public override IEnumerator CommonSkill(PlayerScript player)
     {
-        Vector2 start = player.transform.position;
-        Vector2 direction = player.Direction.normalized;
-        Vector2 target = start + direction * dashDistance;
+        //슬래시 일반공격
+        EffectPooler.Instance.SpawnFromPool("AttackSlashParticle", player.Direction.normalized + Vector3.right, Quaternion.LookRotation(player.Direction) );
+        Collider2D[] hits = Physics2D.OverlapCircleAll(player.transform.position, player.Stats.attackRange, LayerMask.GetMask("Enemy"));
 
-        while ((Vector2)player.transform.position != target)
+        foreach (var hit in hits)
         {
-            Vector2 newPos = Vector2.MoveTowards(player.transform.position, target, dashSpeed * Time.deltaTime);
-            player.transform.position = newPos;
+            Vector2 toTarget = (hit.transform.position - player.transform.position).normalized;
+            float angle = Vector2.Angle(player.Direction, toTarget);
 
-            Collider2D[] hits = Physics2D.OverlapCircleAll(player.transform.position, hitRadius, LayerMask.GetMask("Enemy"));
-            foreach (var hit in hits)
+            if (angle <= player.Stats.attackAngle / 2f)
             {
-                hit.GetComponent<EnemyBase>()?.TakeDamage(damage);
+                hit.GetComponent<EnemyBase>()?.TakeDamage(player.Stats.damage);
             }
-
-            yield return null;
         }
+
+        yield return new WaitForSeconds(player.Stats.attackCooldownSec);
     }
 
     public override IEnumerator UltimateSkill(PlayerScript player)

@@ -11,8 +11,22 @@ public class Skill_boomerang : SkillPattern
 
     public override IEnumerator CommonSkill(PlayerScript player)
     {
-        SpawnBoomerang(player, travelDistanceCommon, damage);
-        yield return null;
+        EffectPooler.Instance.SpawnFromPool("AttackSlashParticle", player.Direction.normalized + Vector3.right, Quaternion.LookRotation(player.Direction) );
+        Collider2D[] hits = Physics2D.OverlapCircleAll(player.transform.position, player.Stats.attackRange, LayerMask.GetMask("Enemy"));
+
+        foreach (var hit in hits)
+        {
+            Vector2 toTarget = (hit.transform.position - player.transform.position).normalized;
+            float angle = Vector2.Angle(player.Direction, toTarget);
+
+            if (angle <= player.Stats.attackAngle / 2f)
+            {
+                hit.GetComponent<EnemyBase>()?.TakeDamage(player.Stats.damage);
+            }
+        }
+
+        yield return new WaitForSeconds(player.Stats.attackCooldownSec);
+       
     }
 
     public override IEnumerator UltimateSkill(PlayerScript player)
@@ -23,7 +37,7 @@ public class Skill_boomerang : SkillPattern
 
     private void SpawnBoomerang(PlayerScript player, float distance, int damage)
     {
-        Debug.Log("ºÎ¸Þ¶û»ý¼ºµÊ");
+        Debug.Log("ï¿½Î¸Þ¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
         Vector2 dir = player.Direction.normalized;
         Vector3 spawnPos = player.transform.position;
 

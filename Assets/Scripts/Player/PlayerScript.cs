@@ -140,8 +140,8 @@ public class PlayerScript : Singleton<PlayerScript>
     [SerializeField] PlayerAnimatorController playerAnim;
     SkillPattern currentSkill;
     [SerializeField] private SpriteRenderer spriteRenderer;
-    public PlayerRuntimeStats stats = new PlayerRuntimeStats();
-
+    private PlayerRuntimeStats stats = new PlayerRuntimeStats();
+    public PlayerRuntimeStats Stats => stats;
     public void InitPlayer()
     {
         stats.ApplyBase(playerData); // 원본 데이터를 복사
@@ -209,7 +209,7 @@ public class PlayerScript : Singleton<PlayerScript>
     }
     void Move()
     {
-        if (isDashing || isDead || isAttacking || isParrying)
+        if (isDashing || isDead || isParrying)
             return;
 
         rb.linearVelocity = moveVec * stats.speed;
@@ -283,7 +283,7 @@ public class PlayerScript : Singleton<PlayerScript>
         float timer = 0f;
         while (timer < fallTime)
         {
-            transform.localScale = timer / fallTime * Vector3.one; // Scale down while falling
+            transform.localScale = Vector3.one / (timer % fallTime); // Scale down while falling
             timer += Time.deltaTime;
             yield return null;
         }
@@ -324,35 +324,22 @@ public class PlayerScript : Singleton<PlayerScript>
     #endregion
 
     #region 공격
-    // void OnAttack()
-    // {
-    //     if (!canUseAttack || isDead || isDashing || isParrying)
-    //         return;
-
-    //     StartCoroutine(AttackRoutine());
-    // }
+    void OnAttack()
+    {
+        if (!canUseAttack || isDead || isDashing || isParrying || isAttacking)
+            return;
+        if (!currentSkill.IsCooldownReady())
+            return;
+        StartCoroutine(AttackRoutine());
+    }
     IEnumerator AttackRoutine()
     {
-
         isAttacking = true;
         canUseAttack = false;
         rb.linearVelocity = Vector2.zero;
         playerAnim.PlayAttack();
-        EffectPooler.Instance.SpawnFromPool("AttackSlashParticle", arrow.transform.position, arrow.transform.rotation);
-        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, stats.attackRange, LayerMask.GetMask("Enemy"));
+        yield return StartCoroutine(currentSkill.CommonSkill(this));
 
-        foreach (var hit in hits)
-        {
-            Vector2 toTarget = (hit.transform.position - transform.position).normalized;
-            float angle = Vector2.Angle(direction, toTarget);
-
-            if (angle <= stats.attackAngle / 2f)
-            {
-                hit.GetComponent<EnemyBase>()?.TakeDamage(stats.damage);
-            }
-        }
-
-        yield return new WaitForSeconds(stats.attackCooldownSec);
         isAttacking = false;
         canUseAttack = true;
     }
@@ -416,19 +403,19 @@ public class PlayerScript : Singleton<PlayerScript>
         if (ParryStack == stats.maxParryStack)
         {
             currentSkill.ResetCooldown();
-            if (cooldownRoutine != null)
-            {
-                StopCoroutine(cooldownRoutine);
-                cooldownRoutine = null;
-                UIManager.Instance.skillUI.UpdateCooldown(0f);
-            }
+            //     if (cooldownRoutine != null)
+            //     {
+            //         StopCoroutine(cooldownRoutine);
+            //         cooldownRoutine = null;
+            //         UIManager.Instance.skillUI.UpdateCooldown(0f);
+            //     }
         }
 
         OnParrySuccess?.Invoke();
 
         isParrying = false;
         canUseParry = true;
-        enemy.TakeDamage(stats.damage); // 적에게 대미지 주기
+        enemy.Parried(); // 적에게 대미지 주기
         //enemy?.StateMachine.ChangeState<ParryState>();
         StartCoroutine(ParryEffect());
 
@@ -442,17 +429,17 @@ public class PlayerScript : Singleton<PlayerScript>
         {
             ParryStack++;
         }
-        // 주먹구구식으로 땜질해 뒀는데 고찰이 필요...
-        if (ParryStack == stats.maxParryStack)
-        {
-            currentSkill.ResetCooldown();
-            if (cooldownRoutine != null)
-            {
-                StopCoroutine(cooldownRoutine);
-                cooldownRoutine = null;
-                UIManager.Instance.skillUI.UpdateCooldown(0f);
-            }
-        }
+        // // 주먹구구식으로 땜질해 뒀는데 고찰이 필요...
+        // if (ParryStack == stats.maxParryStack)
+        // {
+        //     currentSkill.ResetCooldown();
+        //     if (cooldownRoutine != null)
+        //     {
+        //         StopCoroutine(cooldownRoutine);
+        //         cooldownRoutine = null;
+        //         UIManager.Instance.skillUI.UpdateCooldown(0f);
+        //     }
+        // }
 
         OnParrySuccess?.Invoke();
         enemyAttack.gameObject.SetActive(true);
@@ -531,11 +518,13 @@ public class PlayerScript : Singleton<PlayerScript>
             }
         }
         else
-            if (enemyAttack is ProjectileEnemyAttack)
         {
-            enemyAttack.gameObject.SetActive(false);
+            if (enemyAttack is ProjectileEnemyAttack)
+            {
+                enemyAttack.gameObject.SetActive(false);
+            }
+            StartCoroutine(DamagedRoutine(enemyAttack.GetDamage()));
         }
-        StartCoroutine(DamagedRoutine(enemyAttack.GetDamage()));
     }
     public IEnumerator DamagedRoutine(int damage)
     {
@@ -593,26 +582,31 @@ public class PlayerScript : Singleton<PlayerScript>
         if (!currentSkill.IsCooldownReady())
             return;
 
-        switch (skillType)
-        {
-            case SkillType.Common:
-                ParryStack -= currentSkill.commonCost;
-                currentSkill.SetCooldown();
-                StartCoroutine(currentSkill.CommonSkill(this));
-                if (cooldownRoutine != null)
-                    StopCoroutine(cooldownRoutine);
-                cooldownRoutine = StartCoroutine(CooldownRoutine());
-                break;
-            case SkillType.Ultimate:
-                ParryStack -= currentSkill.ultimateCost;
-                currentSkill.ResetCooldown();
-                StartCoroutine(currentSkill.UltimateSkill(this));
-                break;
-                //case SkillType.Empty:
-                //    Debug.Log("스킬 사용 불가");
-                //    break;
+        ParryStack -= currentSkill.ultimateCost;
+        //currentSkill.ResetCooldown();
+        StartCoroutine(currentSkill.UltimateSkill(this));
+        currentSkill.SetCooldown();
 
-        }
+        // switch (skillType)
+        // {
+        //     case SkillType.Common:
+        //         ParryStack -= currentSkill.commonCost;
+        //         currentSkill.SetCooldown();
+        //         StartCoroutine(currentSkill.CommonSkill(this));
+        //         if (cooldownRoutine != null)
+        //             StopCoroutine(cooldownRoutine);
+        //         cooldownRoutine = StartCoroutine(CooldownRoutine());
+        //         break;
+        //     case SkillType.Ultimate:
+        //         ParryStack -= currentSkill.ultimateCost;
+        //         currentSkill.ResetCooldown();
+        //         StartCoroutine(currentSkill.UltimateSkill(this));
+        //         break;
+        //         //case SkillType.Empty:
+        //         //    Debug.Log("스킬 사용 불가");
+        //         //    break;
+
+        // }
     }
 
     IEnumerator CooldownRoutine()

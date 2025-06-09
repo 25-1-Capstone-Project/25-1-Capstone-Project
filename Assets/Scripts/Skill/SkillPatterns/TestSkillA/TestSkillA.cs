@@ -10,7 +10,7 @@ public class TestSkillA : SkillPattern
     public override IEnumerator CommonSkill(PlayerScript player)
     {
         SpawnFireball(player.Direction, player, damage);
-        yield return null;
+        yield return new WaitForSeconds(cooldown);
     }
 
     public override IEnumerator UltimateSkill(PlayerScript player)
@@ -19,7 +19,7 @@ public class TestSkillA : SkillPattern
         SpawnFireball(Quaternion.Euler(0, 0, -30f) * player.Direction, player, ultimateDamage);
         SpawnFireball(player.Direction, player, ultimateDamage);
         
-        yield return null;
+         yield return new WaitForSeconds(cooldown);
     }
 
     private void SpawnFireball(Vector2 direction, PlayerScript player, int damage)

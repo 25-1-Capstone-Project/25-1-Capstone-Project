@@ -30,7 +30,7 @@ public class TestSkillB : SkillPattern
             }
         }
 
-        yield return null;
+        yield return new WaitForSeconds(cooldown);
     }
 
     public override IEnumerator UltimateSkill(PlayerScript player)
@@ -46,10 +46,10 @@ public class TestSkillB : SkillPattern
         {
             if (hit != null)
             {
-                hit.GetComponent<EnemyBase>().TakeDamage(damage + 10);
+                hit.GetComponent<EnemyBase>().TakeDamage(ultimateDamage + 10);
             }
         }
 
-        yield return null;
+        yield return new WaitForSeconds(cooldown);
     }
 }
