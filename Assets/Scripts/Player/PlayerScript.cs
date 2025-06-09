@@ -283,7 +283,7 @@ public class PlayerScript : Singleton<PlayerScript>
         float timer = 0f;
         while (timer < fallTime)
         {
-            transform.localScale = timer % fallTime * Vector3.one; // Scale down while falling
+            transform.localScale = timer / fallTime * Vector3.one; // Scale down while falling
             timer += Time.deltaTime;
             yield return null;
         }

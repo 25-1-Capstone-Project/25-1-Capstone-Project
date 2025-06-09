@@ -1,0 +1,692 @@
+fileFormatVersion: 2
+guid: 232028a4025d91145bcf93f453e931e1
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -5429809809884845880
+    second: Free_Premade_houses_0
+  - first:
+      213: 7930307115245778353
+    second: Free_Premade_houses_1
+  - first:
+      213: -4703454087965268869
+    second: Free_Premade_houses_2
+  - first:
+      213: -6015620276148398249
+    second: Free_Premade_houses_3
+  - first:
+      213: -2965831763504975015
+    second: Free_Premade_houses_4
+  - first:
+      213: -7609684058312475878
+    second: Free_Premade_houses_5
+  - first:
+      213: 7337320670955257880
+    second: Free_Premade_houses_6
+  - first:
+      213: -2235057926430886009
+    second: Free_Premade_houses_7
+  - first:
+      213: -3584779484047330244
+    second: Free_Premade_houses_8
+  - first:
+      213: -5433394919974739715
+    second: Free_Premade_houses_9
+  - first:
+      213: -6752561866673574733
+    second: Free_Premade_houses_10
+  - first:
+      213: 8636269592437507669
+    second: Free_Premade_houses_11
+  - first:
+      213: -4240906845856640415
+    second: Free_Premade_houses_12
+  - first:
+      213: 7409838525963714789
+    second: Free_Premade_houses_13
+  - first:
+      213: -4283648279367310760
+    second: Free_Premade_houses_14
+  - first:
+      213: 5383508081047329294
+    second: Free_Premade_houses_15
+  - first:
+      213: -7700480042887153475
+    second: Free_Premade_houses_16
+  - first:
+      213: 8691242947488038227
+    second: Free_Premade_houses_17
+  - first:
+      213: 1577293427682509718
+    second: Free_Premade_houses_18
+  - first:
+      213: -5718901157129775131
+    second: Free_Premade_houses_19
+  - first:
+      213: -6562780067945022814
+    second: Free_Premade_houses_20
+  - first:
+      213: -5224954406632556159
+    second: Free_Premade_houses_21
+  - first:
+      213: -9063058582029329158
+    second: Free_Premade_houses_22
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Free_Premade_houses_0
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 1166
+        width: 421
+        height: 335
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8c8e1eb0fb075a4b0800000000000000
+      internalID: -5429809809884845880
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Free_Premade_houses_1
+      rect:
+        serializedVersion: 2
+        x: 485
+        y: 1218
+        width: 375
+        height: 283
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1b53af30e4c1e0e60800000000000000
+      internalID: 7930307115245778353
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Free_Premade_houses_2
+      rect:
+        serializedVersion: 2
+        x: 863
+        y: 1279
+        width: 50
+        height: 234
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b74a87d4d69f9beb0800000000000000
+      internalID: -4703454087965268869
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Free_Premade_houses_3
+      rect:
+        serializedVersion: 2
+        x: 927
+        y: 1279
+        width: 50
+        height: 241
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 75799802b39348ca0800000000000000
+      internalID: -6015620276148398249
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Free_Premade_houses_4
+      rect:
+        serializedVersion: 2
+        x: 1025
+        y: 1225
+        width: 318
+        height: 248
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 95337b889bf37d6d0800000000000000
+      internalID: -2965831763504975015
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Free_Premade_houses_5
+      rect:
+        serializedVersion: 2
+        x: 1439
+        y: 1279
+        width: 386
+        height: 245
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a1bf453baa8f46690800000000000000
+      internalID: -7609684058312475878
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Free_Premade_houses_6
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 1195
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8104b63864663d560800000000000000
+      internalID: 7337320670955257880
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Free_Premade_houses_7
+      rect:
+        serializedVersion: 2
+        x: 1025
+        y: 1046
+        width: 318
+        height: 171
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7877aa268aa7bf0e0800000000000000
+      internalID: -2235057926430886009
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Free_Premade_houses_8
+      rect:
+        serializedVersion: 2
+        x: 1424
+        y: 904
+        width: 416
+        height: 364
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c34304f5d0e404ec0800000000000000
+      internalID: -3584779484047330244
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Free_Premade_houses_9
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 1177
+        width: 10
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: df06e7e8b14b894b0800000000000000
+      internalID: -5433394919974739715
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Free_Premade_houses_10
+      rect:
+        serializedVersion: 2
+        x: 485
+        y: 982
+        width: 375
+        height: 199
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3bca21542c41a42a0800000000000000
+      internalID: -6752561866673574733
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Free_Premade_houses_11
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 903
+        width: 382
+        height: 246
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 556ceb9ff613ad770800000000000000
+      internalID: 8636269592437507669
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Free_Premade_houses_12
+      rect:
+        serializedVersion: 2
+        x: 521
+        y: 745
+        width: 303
+        height: 189
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 162513761b54525c0800000000000000
+      internalID: -4240906845856640415
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Free_Premade_houses_13
+      rect:
+        serializedVersion: 2
+        x: 852
+        y: 838
+        width: 17
+        height: 84
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5e0421f51e805d660800000000000000
+      internalID: 7409838525963714789
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Free_Premade_houses_14
+      rect:
+        serializedVersion: 2
+        x: 923
+        y: 838
+        width: 17
+        height: 84
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 852299de59c6d84c0800000000000000
+      internalID: -4283648279367310760
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Free_Premade_houses_15
+      rect:
+        serializedVersion: 2
+        x: 1033
+        y: 713
+        width: 303
+        height: 221
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e0a5540a31016ba40800000000000000
+      internalID: 5383508081047329294
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Free_Premade_houses_16
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 622
+        width: 383
+        height: 216
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: db8f9bb2336622590800000000000000
+      internalID: -7700480042887153475
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Free_Premade_houses_17
+      rect:
+        serializedVersion: 2
+        x: 863
+        y: 770
+        width: 66
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 35db4ad996f7d9870800000000000000
+      internalID: 8691242947488038227
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Free_Premade_houses_18
+      rect:
+        serializedVersion: 2
+        x: 1443
+        y: 575
+        width: 379
+        height: 277
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 693039ff30ca3e510800000000000000
+      internalID: 1577293427682509718
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Free_Premade_houses_19
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 651
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5e795b792b162a0b0800000000000000
+      internalID: -5718901157129775131
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Free_Premade_houses_20
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 633
+        width: 10
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2aa7f1f9c425ce4a0800000000000000
+      internalID: -6562780067945022814
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Free_Premade_houses_21
+      rect:
+        serializedVersion: 2
+        x: 1443
+        y: 255
+        width: 379
+        height: 277
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 189fd0176ab3d77b0800000000000000
+      internalID: -5224954406632556159
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Free_Premade_houses_22
+      rect:
+        serializedVersion: 2
+        x: 1424
+        y: 40
+        width: 416
+        height: 196
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: afc169fdc3c893280800000000000000
+      internalID: -9063058582029329158
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable: {}
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
