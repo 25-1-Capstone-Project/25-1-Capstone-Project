@@ -1,84 +1,102 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-from sklearn.model_selection import train_test_split
 from sklearn.cluster import KMeans
-from sklearn.linear_model import LinearRegression
-from sklearn.preprocessing import MinMaxScaler, OneHotEncoder
+from sklearn.linear_model import LinearRegression, Ridge
+from sklearn.preprocessing import MinMaxScaler
+from sklearn.mixture import GaussianMixture
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_squared_error
+import seaborn as sns
 import json
 
-# 1. 소속함수 정의 (경량 삼각형 소속함수 예시)
-import numpy as np
+# 2. 데이터 읽기
+df = pd.read_csv('fuzzy_attack_training_data.csv')
 
 # 가우시안 소속함수 정의
 def gaussian_mf(x, mean, sigma):
     return np.exp(-0.5 * ((x - mean) / (sigma + 1e-10))**2)
 
+# 2. 분위수 기반 가우시안 퍼지 분할
+def quantile_fuzzy_partition(data, feature, n_components=3):
+    qs = np.linspace(0, 1, n_components)
+    means = np.quantile(data[feature], qs)
+    if len(means) > 1:
+        avg_spacing = np.mean(np.diff(means))
+        sigma = avg_spacing / 2
+    else:
+        sigma = 0.1
+    return [(m, sigma) for m in means]
 
-# 2. 데이터 읽기
-df = pd.read_csv('fuzzy_attack_training_data.csv')
 
-# distance 퍼지 집합
-df['distance_near'] = gaussian_mf(df['distance'], 0.0, 0.15)
-df['distance_mid'] = gaussian_mf(df['distance'], 0.5, 0.15)
-df['distance_far'] = gaussian_mf(df['distance'], 1.0, 0.15)
+# distance 퍼지 자동 분할
+distance_params = quantile_fuzzy_partition(df, 'distance' 3)
+df['distance_near'] = gaussian_mf(df['distance'], distance_params[0])
+df['distance_mid'] = gaussian_mf(df['distance'], distance_params[1])
+df['distance_far'] = gaussian_mf(df['distance'], distance_params[2])
 
-# hp 퍼지 집합
-df['hp_low'] = gaussian_mf(df['hp'], 0.0, 0.15)
-df['hp_medium'] = gaussian_mf(df['hp'], 0.5, 0.15)
-df['hp_high'] = gaussian_mf(df['hp'], 1.0, 0.15)
+# hp 퍼지 자동 분할
+hp_params = quantile_fuzzy_partition(df, 'hp' 3)
+df['hp_low'] = gaussian_mf(df['hp'], hp_params[0])
+df['hp_medium'] = gaussian_mf(df['hp'], hp_params[1])
+df['hp_high'] = gaussian_mf(df['hp'], hp_params[2])
 
-# player_hp 퍼지 집합
-df['player_hp_low'] = gaussian_mf(df['player_hp'], 0.0, 0.15)
-df['player_hp_medium'] = gaussian_mf(df['player_hp'], 0.5, 0.15)
-df['player_hp_high'] = gaussian_mf(df['player_hp'], 1.0, 0.15)
+# player_hp 퍼지 자동 분할
+player_hp_params = quantile_fuzzy_partition(df, 'player_hp_params' 3)
+df['player_hp_low'] = gaussian_mf(df['player_hp'], player_hp_params[0])
+df['player_hp_medium'] = gaussian_mf(df['player_hp'], player_hp_params[1])
+df['player_hp_high'] = gaussian_mf(df['player_hp'], player_hp_params[2])
 
-# player_velocity 퍼지 집합
-df['player_velocity_low'] = gaussian_mf(df['player_velocity'], 0.0, 0.15)
-df['player_velocity_medium'] = gaussian_mf(df['player_velocity'], 0.5, 0.15)
-df['player_velocity_high'] = gaussian_mf(df['player_velocity'], 1.0, 0.15)
+# player_velocity 퍼지 자동 분할
+player_velocity = quantile_fuzzy_partition(df, 'player_velocity' 3)
+df['player_velocity_low'] = gaussian_mf(df['player_velocity'], player_velocity[0])
+df['player_velocity_medium'] = gaussian_mf(df['player_velocity'], player_velocity[1])
+df['player_velocity_high'] = gaussian_mf(df['player_velocity'], player_velocity[2])
 
 
 # 4. 정규화
 scaler = MinMaxScaler()
-norm_features = scaler.fit_transform(df[["distance", "hp", "player_hp", "player_velocity"]])
-df[["distance", "hp", "player_hp", "player_velocity"]] = norm_features
+df[['hp_norm, player_hp_norm, distance_norm, player_velocity_norm']] = scaler.fit_transform(
+    df[['hp', 'player_hp', 'distance', 'player_velocity']]
+)
 
 # 5. 클러스터링
-features = df[['distance', 'hp', 'player_hp', 'player_velocity']]
-kmeans = KMeans(n_clusters=27, random_state=42, n_init=10)
-df['cluster'] = kmeans.fit_predict(features)
+kmeans = KMeans(n_clusters=16, random_state=42, n_init=10)
+features = df[['hp_norm', 'player_hp_norm','distance_norm', 'player_velocity_norm']]
+kmeans.fit(features)
+df['cluster'] = kmeans.labels_
 
-# 6. action 원-핫 인코딩
-encoder = OneHotEncoder(sparse_output=False)
-action_onehot = encoder.fit_transform(df[['action']])
 
 # 7. 규칙 생성
 rules = []
-for cluster_id in range(kmeans.n_clusters):
-    cluster_df = df[df['cluster'] == cluster_id].reset_index(drop=True)
+for i in range(kmeans.n_clusters):
+    cluster_data = df[df['cluster'] == i]
 
-    X = cluster_df[["distance", "hp", "player_hp", "player_velocity"]]
-    y = action_onehot[df['cluster'] == cluster_id]
+    if len(cluster_data) < 5:
+        continue
+
+    X = cluster_data[["distance_norm", "hp_norm", "player_hp_norm", "player_velocity_norm"]]
+    y = cluster_data[df['cluster']] == ['Slash', 'Shot', 'AOE', 'JumpSmash']
 
     try:
-        model = LinearRegression()
+        model = Ridge(alpha=0.5)
         model.fit(X, y)
 
         rules.append({
-            'cluster_id': cluster_id,
-            'center': kmeans.cluster_centers_[cluster_id],
-            'model': model,
-            'sample_count': len(cluster_df)
+            'cluster_id': i,
+            'center': kmeans.cluster_centers_[i],
+            'coeffs': model.coef_.tolist() + [model.intercept_],
+            'n_samples': len(cluster_data)
         })
     except Exception as e:
-        print(f"클러스터 {cluster_id} 학습 실패: {e}")
+        print(f"클러스터 {i} 학습 실패: {e}")
 
+# 6. 규칙 필터링
 valid_rules = [
-    r for r in rules
-    if any(abs(c) > 1e-6 for c in r['model'].coef_.flatten())  # 회귀 계수가 모두 0에 가깝지 않은지 확인
-    and r['sample_count'] >= 10  # 샘플 수 기준 필터링
+    r for r in rules 
+    if any(c != 0 for c in r['coeffs'][:3]) and r['n_samples'] >= 10
 ]
+print(f"생성된 규칙: {len(rules)}개, 유효 규칙: {len(valid_rules)}개")
     
 
 # 8. 추론 엔진 구현
