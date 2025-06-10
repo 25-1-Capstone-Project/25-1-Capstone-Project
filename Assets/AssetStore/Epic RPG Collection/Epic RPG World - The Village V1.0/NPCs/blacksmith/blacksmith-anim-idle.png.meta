@@ -117,6 +117,19 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -309,7 +322,15 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      blacksmith-anim-idle_0: 8674334009326257898
+      blacksmith-anim-idle_1: 101948876452451601
+      blacksmith-anim-idle_2: 6467240145834675196
+      blacksmith-anim-idle_3: -744017093913680245
+      blacksmith-anim-idle_4: 2503692135135336919
+      blacksmith-anim-idle_5: -8960231065486103668
+      blacksmith-anim-idle_6: -3127702578269679019
+      blacksmith-anim-idle_7: 2037392016019608561
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

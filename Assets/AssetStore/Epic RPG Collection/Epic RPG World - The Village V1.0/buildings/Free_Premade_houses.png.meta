@@ -162,6 +162,19 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -684,7 +697,30 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Free_Premade_houses_0: -5429809809884845880
+      Free_Premade_houses_1: 7930307115245778353
+      Free_Premade_houses_10: -6752561866673574733
+      Free_Premade_houses_11: 8636269592437507669
+      Free_Premade_houses_12: -4240906845856640415
+      Free_Premade_houses_13: 7409838525963714789
+      Free_Premade_houses_14: -4283648279367310760
+      Free_Premade_houses_15: 5383508081047329294
+      Free_Premade_houses_16: -7700480042887153475
+      Free_Premade_houses_17: 8691242947488038227
+      Free_Premade_houses_18: 1577293427682509718
+      Free_Premade_houses_19: -5718901157129775131
+      Free_Premade_houses_2: -4703454087965268869
+      Free_Premade_houses_20: -6562780067945022814
+      Free_Premade_houses_21: -5224954406632556159
+      Free_Premade_houses_22: -9063058582029329158
+      Free_Premade_houses_3: -6015620276148398249
+      Free_Premade_houses_4: -2965831763504975015
+      Free_Premade_houses_5: -7609684058312475878
+      Free_Premade_houses_6: 7337320670955257880
+      Free_Premade_houses_7: -2235057926430886009
+      Free_Premade_houses_8: -3584779484047330244
+      Free_Premade_houses_9: -5433394919974739715
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

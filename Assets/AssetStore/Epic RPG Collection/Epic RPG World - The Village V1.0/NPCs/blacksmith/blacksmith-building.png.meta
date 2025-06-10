@@ -165,6 +165,19 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -709,7 +722,31 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      blacksmith-building_0: 8213430710270597153
+      blacksmith-building_1: -7460430991121180129
+      blacksmith-building_10: -3557016071995836419
+      blacksmith-building_11: -8141339166366305723
+      blacksmith-building_12: 7956943954937692819
+      blacksmith-building_13: 7634093310395223986
+      blacksmith-building_14: -2546652507559335917
+      blacksmith-building_15: -1315380936472524140
+      blacksmith-building_16: -4835725772105260210
+      blacksmith-building_17: 1166275918633165876
+      blacksmith-building_18: 2906798096099999116
+      blacksmith-building_19: 491246559568473185
+      blacksmith-building_2: -24990258561304491
+      blacksmith-building_20: 3038348358448165249
+      blacksmith-building_21: -5731570355426876251
+      blacksmith-building_22: -9143586717338590043
+      blacksmith-building_23: -8269816694023843211
+      blacksmith-building_3: -8213914884142199617
+      blacksmith-building_4: -2311263845911318370
+      blacksmith-building_5: -675945482596023754
+      blacksmith-building_6: -6122995319634194231
+      blacksmith-building_7: -1498624757288443544
+      blacksmith-building_8: 6463707772529808809
+      blacksmith-building_9: -5977539778233943015
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

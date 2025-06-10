@@ -141,6 +141,19 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -509,7 +522,23 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Windmill_anim_0: 7951114712677589930
+      Windmill_anim_1: -1673091531376773728
+      Windmill_anim_10: -3760355276158869382
+      Windmill_anim_11: -119039875523240693
+      Windmill_anim_12: -8790032549994536279
+      Windmill_anim_13: -9078789585493714342
+      Windmill_anim_14: 6421350514379515808
+      Windmill_anim_15: -3357801142170693432
+      Windmill_anim_2: 6899179388243219381
+      Windmill_anim_3: -7140710112451734703
+      Windmill_anim_4: -8927661435803664347
+      Windmill_anim_5: 7079480410742567800
+      Windmill_anim_6: 245444131074877582
+      Windmill_anim_7: -8745921115954683948
+      Windmill_anim_8: -4106142773133717309
+      Windmill_anim_9: -854784924166822898
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

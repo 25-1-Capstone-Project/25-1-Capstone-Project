@@ -123,6 +123,19 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -359,7 +372,17 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      tufts-of-grass_22_0: -417881499337512127
+      tufts-of-grass_22_1: 3453283904163850740
+      tufts-of-grass_22_2: 5038391937718469280
+      tufts-of-grass_22_3: -1739846211030917251
+      tufts-of-grass_22_4: -1843118911536986933
+      tufts-of-grass_22_5: -5718571361914597700
+      tufts-of-grass_22_6: -7407505546049975367
+      tufts-of-grass_22_7: -8218076063671012127
+      tufts-of-grass_22_8: 3286935570555232509
+      tufts-of-grass_22_9: -3115134876967417411
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

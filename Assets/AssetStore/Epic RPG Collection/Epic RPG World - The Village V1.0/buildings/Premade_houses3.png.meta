@@ -153,6 +153,19 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -609,7 +622,27 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Premade_houses3_0: -7942111557179721487
+      Premade_houses3_1: 767192489101456127
+      Premade_houses3_10: 5582834137264062738
+      Premade_houses3_11: -188284261540265246
+      Premade_houses3_12: 2468614585484097232
+      Premade_houses3_13: 1759891399268608123
+      Premade_houses3_14: -460797938431794501
+      Premade_houses3_15: 9045864389108512043
+      Premade_houses3_16: -2093052299038623332
+      Premade_houses3_17: 4682615170502826525
+      Premade_houses3_18: 8450553306892134940
+      Premade_houses3_19: 7187948280194378810
+      Premade_houses3_2: 2765757739938955486
+      Premade_houses3_3: -6320904998310453934
+      Premade_houses3_4: 2930721559167286561
+      Premade_houses3_5: -6848505995487205701
+      Premade_houses3_6: -3990711260927458974
+      Premade_houses3_7: 5792591777101706901
+      Premade_houses3_8: -8155808844426673047
+      Premade_houses3_9: -506046269117561277
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

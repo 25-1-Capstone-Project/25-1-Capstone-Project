@@ -138,6 +138,19 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -484,7 +497,22 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      blacksmith-anim-death_0: 6146543187154648067
+      blacksmith-anim-death_1: 3902257716928226540
+      blacksmith-anim-death_10: -4796119730317071848
+      blacksmith-anim-death_11: 7437941017694788622
+      blacksmith-anim-death_12: 4164782543181508494
+      blacksmith-anim-death_13: -3827506292509354798
+      blacksmith-anim-death_14: -18644372241446634
+      blacksmith-anim-death_2: -5609455752570914707
+      blacksmith-anim-death_3: -7898624593859852145
+      blacksmith-anim-death_4: -8343417356627154456
+      blacksmith-anim-death_5: 3529620860780299224
+      blacksmith-anim-death_6: -4270554366730657377
+      blacksmith-anim-death_7: -4148489470646557229
+      blacksmith-anim-death_8: -949480346182299246
+      blacksmith-anim-death_9: 1957526096263500147
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
