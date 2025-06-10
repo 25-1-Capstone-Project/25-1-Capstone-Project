@@ -29,44 +29,38 @@ def quantile_fuzzy_partition(data, feature, n_components=3):
         sigma = 0.1
     return [(m, sigma) for m in means]
 
+# 3. 정규화
+scaler = MinMaxScaler()
+df[['hp_norm', 'player_hp_norm', 'distance_norm', 'player_velocity_norm']] = scaler.fit_transform(
+    df[['hp', 'player_hp', 'distance', 'player_velocity']]
+)
 
-# distance 퍼지 자동 분할
+# 4. 룰 자동 분할
 distance_params = quantile_fuzzy_partition(df, 'distance', 3)
 df['distance_near'] = gaussian_mf(df['distance'], *distance_params[0])
 df['distance_mid'] = gaussian_mf(df['distance'], *distance_params[1])
 df['distance_far'] = gaussian_mf(df['distance'], *distance_params[2])
 
-# hp 퍼지 자동 분할
 hp_params = quantile_fuzzy_partition(df, 'hp', 3)
 df['hp_low'] = gaussian_mf(df['hp'], *hp_params[0])
 df['hp_medium'] = gaussian_mf(df['hp'], *hp_params[1])
 df['hp_high'] = gaussian_mf(df['hp'], *hp_params[2])
 
-# player_hp 퍼지 자동 분할
 player_hp_params = quantile_fuzzy_partition(df, 'player_hp', 3)
 df['player_hp_low'] = gaussian_mf(df['player_hp'], *player_hp_params[0])
 df['player_hp_medium'] = gaussian_mf(df['player_hp'], *player_hp_params[1])
 df['player_hp_high'] = gaussian_mf(df['player_hp'], *player_hp_params[2])
 
-# player_velocity 퍼지 자동 분할
 player_velocity = quantile_fuzzy_partition(df, 'player_velocity', 3)
 df['player_velocity_low'] = gaussian_mf(df['player_velocity'], *player_velocity[0])
 df['player_velocity_medium'] = gaussian_mf(df['player_velocity'], *player_velocity[1])
 df['player_velocity_high'] = gaussian_mf(df['player_velocity'], *player_velocity[2])
-
-
-# 4. 정규화
-scaler = MinMaxScaler()
-df[['hp_norm', 'player_hp_norm', 'distance_norm', 'player_velocity_norm']] = scaler.fit_transform(
-    df[['hp', 'player_hp', 'distance', 'player_velocity']]
-)
 
 # 5. 클러스터링
 kmeans = KMeans(n_clusters=27, random_state=42, n_init=10)
 features = df[['hp_norm', 'player_hp_norm','distance_norm', 'player_velocity_norm']]
 kmeans.fit(features)
 df['cluster'] = kmeans.labels_
-
 
 # 7. 규칙 생성
 rules = []
@@ -101,7 +95,7 @@ valid_rules = [
 ]
 print(f"생성된 규칙: {len(rules)}개, 유효 규칙: {len(valid_rules)}개")
     
-
+"""
 # 8. 추론 엔진 구현
 def fuzzy_skill_inference(hp, player_hp, distance, player_velocity, rules, scaler):
     input_df = pd.DataFrame([[hp, player_hp, distance, player_velocity]],
@@ -169,10 +163,6 @@ for ti in test_inputs:
     pred = fuzzy_skill_inference(ti[0], ti[1], ti[2], ti[3], valid_rules, scaler)
     print(f"입력 {ti} → 예측 스킬: {pred} (0=Slash,1=Shot,2=AOE,3=JumpSmash)")
 
-
-
-
-
 # 클러스터 시각화 (distance_norm vs hp_norm)
 plt.figure(figsize=(10, 6))
 for rule in valid_rules:
@@ -196,9 +186,6 @@ plt.ylabel('Number of Samples')
 plt.title('Sample Counts per Valid Rule')
 plt.show()
 
-
-import json
-
 export_rules = []
 for rule in valid_rules:
     export_rules.append({
@@ -219,3 +206,4 @@ scaler_data = {
 
 with open('fuzzy_scaler.json', 'w') as f:
     json.dump(scaler_data, f, indent=2)
+"""
