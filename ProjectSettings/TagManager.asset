@@ -9,6 +9,7 @@ TagManager:
   - PlayerAttack
   - PlayerSpawnPoint
   - Wall
+  - FxTemporaire
   layers:
   - Default
   - TransparentFX
@@ -45,6 +46,9 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: CameraSortingLayer
+    uniqueID: 815238059
     locked: 0
   m_RenderingLayers:
   - Default
