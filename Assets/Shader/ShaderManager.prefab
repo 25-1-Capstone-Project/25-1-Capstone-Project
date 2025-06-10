@@ -106,6 +106,10 @@ PrefabInstance:
       propertyPath: _material
       value: 
       objectReference: {fileID: 2100000, guid: 4f0ff71c49ddc324dba96a8637351a4d, type: 2}
+    - target: {fileID: 5225508075486369516, guid: 35c9652a7631b534f9508eadfebb8f2e, type: 3}
+      propertyPath: _shockWaveTime
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 6582217403397176191, guid: 35c9652a7631b534f9508eadfebb8f2e, type: 3}
       propertyPath: m_SortingOrder
       value: 0

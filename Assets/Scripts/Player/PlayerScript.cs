@@ -461,7 +461,7 @@ public class PlayerScript : Singleton<PlayerScript>
         yield return FadeController.Instance.FadeOut(Color.white, 0.05f, 0.01f);
         yield return FadeController.Instance.FadeIn(Color.white, 0.05f, 0.01f);
         GameManager.Instance.SetTimeScale(1);
-
+        ShaderManager.Instance.CallShockWave();
         yield return new WaitForSeconds(0.1f);
         isGod = false;
 

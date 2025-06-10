@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 
 public class ShockWaveController : MonoBehaviour
 {
-    [SerializeField] private float _shockWaveTime = 0 / 75f;
+    [SerializeField] private float _shockWaveTime = 0;
     private Coroutine coroutine;
      [SerializeField] private Material _material;
 
@@ -21,7 +21,7 @@ public class ShockWaveController : MonoBehaviour
     public void CallShockWave(Vector2 startPos)
     {
         _material.SetVector(_RingSpawnPosition, startPos);
-        coroutine = StartCoroutine(ShockWaveAction(-0.1f, 1f));
+        coroutine = StartCoroutine(ShockWaveAction(-0.1f, 1));
 
     }
     private IEnumerator ShockWaveAction(float start, float end)

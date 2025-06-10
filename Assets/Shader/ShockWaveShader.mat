@@ -55,13 +55,13 @@ Material:
     m_Floats:
     - _EnableExternalAlpha: 0
     - _ShockWaveStrength: -0.1
-    - _Size: 0.04
-    - _WaveDistanceFromCenter: -0.1
+    - _Size: 0.01
+    - _WaveDistanceFromCenter: 0.5
     - _ZWrite: 0
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
-    - _RingSpawnPosition: {r: 0.5, g: 0.5, b: 0, a: 0}
+    - _RingSpawnPosition: {r: 0.34999937, g: 0.5, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &6356242428623225984
