@@ -456,7 +456,7 @@ public class PlayerScript : Singleton<PlayerScript>
         CameraManager.Instance.CameraShake(0.1f, 0.1f);
         EffectPooler.Instance.SpawnFromPool("ParryEffect", transform.position + (direction / 2), Quaternion.identity);
         AudioManager.Instance.PlaySFX("ParrySuccess");
-        isGod = true;
+        //isGod = true;
         GameManager.Instance.SetTimeScale(0);
         yield return FadeController.Instance.FadeOut(Color.white, 0.05f, 0.01f);
         yield return FadeController.Instance.FadeIn(Color.white, 0.05f, 0.01f);
