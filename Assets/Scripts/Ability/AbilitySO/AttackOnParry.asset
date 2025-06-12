@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 58805fcabde953f4d984df7f681ab558, type: 3}
-  m_Name: ablityTest2
+  m_Name: AttackOnParry
   m_EditorClassIdentifier: 
-  abilityName: abilTest2
+  abilityName: AttackOnParry
   abilityImage: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  abilityPrefab: {fileID: 8920828926473088983, guid: d68c416c9fb92a041ad3e2935c0d72ca, type: 3}
-  prerequisites: []
+  abilityPrefab: {fileID: 8758668427259932813, guid: 494c24a721d76b448a21a5301f7e1546, type: 3}
+  prerequisites:
+  - {fileID: 11400000, guid: bfa87901d7357b542987ec846419ad5a, type: 2}
   maxLevel: 2

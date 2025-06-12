@@ -25,7 +25,7 @@ public class HealOnParry : PlayerAbility
         //    3 => 3,
         //    _ => 0
         //};
-        Debug.Log("델리게이트(회복) 발동");
-        player.abilTestPlayerHealth(50);
+        Debug.Log("어빌리티(회복) 발동");
+        player.abilTestPlayerHealth(10);
     }
 }

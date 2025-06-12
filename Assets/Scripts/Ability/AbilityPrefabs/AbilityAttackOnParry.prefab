@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &8920828926473088983
+--- !u!1 &8758668427259932813
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,40 +8,42 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7670743128696309365}
-  - component: {fileID: 7448010888799205082}
+  - component: {fileID: 2471634478085902863}
+  - component: {fileID: 8729089501115295382}
   m_Layer: 0
-  m_Name: testAbil
+  m_Name: AbilityAttackOnParry
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7670743128696309365
+--- !u!4 &2471634478085902863
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8920828926473088983}
+  m_GameObject: {fileID: 8758668427259932813}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.8357425, y: -1.1163859, z: -0.071139015}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7448010888799205082
+--- !u!114 &8729089501115295382
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8920828926473088983}
+  m_GameObject: {fileID: 8758668427259932813}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81590eaf4cf9b5b4caaa4a5b2a728fd2, type: 3}
+  m_Script: {fileID: 11500000, guid: 0fe5c8981ef6f0e488f3f730ef8bdc73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   level: 0
+  attackRange: 3
+  damage: 2
