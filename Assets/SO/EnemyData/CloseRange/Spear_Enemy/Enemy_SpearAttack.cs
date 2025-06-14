@@ -10,13 +10,13 @@ public class Enemy_SpearAttack : EnemyAttackPattern
     public override IEnumerator Execute(EnemyBase enemy)
     {
         enemy.GetRigidbody().linearVelocity = Vector2.zero;
-        enemy.FlashSprite(Color.blue, attackChargeSec);
+      
 
         Vector2 dir = (PlayerScript.Instance.transform.position - enemy.transform.position).normalized;
         Vector2 startPos = enemy.transform.position;
         Vector2 endPos = startPos + dir * attackDistance;
 
-        //effect visualization
+        //이펙트
         LineRenderer spearEffect = EffectPooler.Instance.SpawnFromPool<LineRenderer>("AttackSpearEffect");
         spearEffect.useWorldSpace = true;
         spearEffect.SetPosition(0, startPos);
@@ -25,6 +25,9 @@ public class Enemy_SpearAttack : EnemyAttackPattern
         spearEffect.endWidth = effectWidth;
         enemy.CurrentSpearIndicator = spearEffect;
         enemy.GetAnimatorController().PlayAttack();
+        enemy.enemyShaderController.OnOutline();
+
+        //공격 준비
         float time = 0f;
         while (time < attackChargeSec)
         {
@@ -37,6 +40,8 @@ public class Enemy_SpearAttack : EnemyAttackPattern
         spearEffect.gameObject.SetActive(false);
         time = 0f;
         bool hasDealtDamage = false;
+
+        //공격 
         enemy.gameObject.layer = LayerMask.NameToLayer("EnemyAttack");
         while (time < attackDuration)
         {
@@ -59,7 +64,9 @@ public class Enemy_SpearAttack : EnemyAttackPattern
             time += Time.fixedDeltaTime;
             yield return new WaitForFixedUpdate();
         }
+
         enemy.gameObject.layer = LayerMask.NameToLayer("Enemy");
+        enemy.enemyShaderController.OffOutline();
         yield return new WaitForSeconds(attackPostDelay);
 
 

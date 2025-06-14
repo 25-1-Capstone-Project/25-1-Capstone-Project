@@ -10,7 +10,8 @@ public abstract class EnemyBase : MonoBehaviour
     public EnemyAttackPattern GetAttackPattern() => data.attackPattern;
      public int GetDamage() => data.attackDamage;
     protected Rigidbody2D rb;
-
+    [SerializeField]public EnemyShaderController enemyShaderController; // 적 스크립트 (Enemy, Boss 등)
+    protected EnemyBaseData Data => data; // 외부에서 데이터 접근을 위한 프로퍼티
     // State Machine
     public StateMachine<IEnemyState> StateMachine { get; protected set; }
 

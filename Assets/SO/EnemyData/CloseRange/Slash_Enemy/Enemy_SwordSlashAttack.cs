@@ -9,6 +9,7 @@ public class Enemy_SwordSlash : EnemyAttackPattern
     {
         enemy.IsAttacking = true;
         enemy.GetAnimatorController().PlayAttack();
+        enemy.enemyShaderController.OnOutline();
         Vector2 attackDir = (PlayerScript.Instance.transform.position - enemy.transform.position).normalized;
         float angle = Mathf.Atan2(attackDir.y, attackDir.x) * Mathf.Rad2Deg;
         yield return new WaitForSeconds(attackChargeSec);
@@ -25,6 +26,7 @@ public class Enemy_SwordSlash : EnemyAttackPattern
 
         }
         yield return new WaitForSeconds(attackDuration);
+        enemy.enemyShaderController.OffOutline();
         yield return new WaitForSeconds(attackPostDelay);
         enemy.IsAttacking = false;
         

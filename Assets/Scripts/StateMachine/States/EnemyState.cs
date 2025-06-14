@@ -126,6 +126,7 @@ public class ParriedState : EnemyState
 
     public override void Enter()
     {
+         enemy.enemyShaderController.OffOutline();
         enemy.GetRigidbody().linearVelocity = Vector2.zero;
         enemy.StopAllCoroutines();
         enemy.StartCoroutine(KnockBack());
