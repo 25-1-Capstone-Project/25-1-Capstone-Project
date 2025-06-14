@@ -110,5 +110,5 @@ public class GameManager : Singleton<GameManager>
         PlayerScript.Instance.SetPlayerPosition(pos);
         CameraManager.Instance.SetCameraPosition(pos);
     }
-
+  
 }
