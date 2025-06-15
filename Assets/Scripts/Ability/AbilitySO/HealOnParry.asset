@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58805fcabde953f4d984df7f681ab558, type: 3}
   m_Name: HealOnParry
   m_EditorClassIdentifier: 
-  abilityName: Heal
-  abilityImage: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  abilityName: "\uD68C\uBCF5"
+  abilityImage: {fileID: 7967094703251504408, guid: 12f0509b9697670458227ad42af901f3, type: 3}
+  abliltyText: "\uD328\uB9C1 \uC131\uACF5 \uC2DC \uCCB4\uB825\uC744 \uD68C\uBCF5\uD569\uB2C8\uB2E4"
   abilityPrefab: {fileID: 8920828926473088983, guid: d68c416c9fb92a041ad3e2935c0d72ca, type: 3}
   prerequisites: []
   maxLevel: 3

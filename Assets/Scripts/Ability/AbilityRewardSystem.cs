@@ -10,8 +10,10 @@ public class AbilityRewardSystem : MonoBehaviour
 
     public void ShowAbilityChoices()
     {
-        Debug.Log("µàµàµàµà(¾îºô¸®¿öµå)");
         List<AbilityData> candidates = database.GetUnlockedAbilities(PlayerScript.Instance.GetUnlockedAbilities());
+        
+        if (candidates == null || candidates.Count == 0) return;
+
         var choices = candidates.OrderBy(_ => Random.value).Take(3).ToList();
 
         abilityWindow.SetActive(true);
@@ -19,7 +21,7 @@ public class AbilityRewardSystem : MonoBehaviour
 
         for (int i = 0; i < choiceButtons.Length; i++)
         {
-            Debug.Log("µà¹Ù");
+            //Debug.Log("µà¹Ù");
             if (i < choices.Count)
                 choiceButtons[i].Setup(choices[i], OnAbilityChosen);
             else

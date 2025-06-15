@@ -6,6 +6,7 @@ public class AbilityData : ScriptableObject
 {
     public string abilityName;
     public Sprite abilityImage;
+    public string abliltyText;
     public GameObject abilityPrefab;
     public List<AbilityData> prerequisites;
     public int maxLevel = 3;

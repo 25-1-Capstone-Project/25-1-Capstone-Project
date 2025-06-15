@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58805fcabde953f4d984df7f681ab558, type: 3}
   m_Name: AttackOnParry
   m_EditorClassIdentifier: 
-  abilityName: AttackOnParry
-  abilityImage: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  abilityName: "\uCD94\uAC00\uD0C0"
+  abilityImage: {fileID: -1859770909, guid: 12f0509b9697670458227ad42af901f3, type: 3}
+  abliltyText: "\uD328\uB9C1 \uC131\uACF5 \uC2DC \uC8FC\uBCC0 \uC801\uC744 \uACF5\uACA9\uD569\uB2C8\uB2E4."
   abilityPrefab: {fileID: 8758668427259932813, guid: 494c24a721d76b448a21a5301f7e1546, type: 3}
   prerequisites:
   - {fileID: 11400000, guid: bfa87901d7357b542987ec846419ad5a, type: 2}
