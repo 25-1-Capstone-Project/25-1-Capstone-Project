@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58805fcabde953f4d984df7f681ab558, type: 3}
   m_Name: StunOnParry
   m_EditorClassIdentifier: 
-  abilityName: 
-  abilityImage: {fileID: 0}
-  abliltyText: 
-  abilityPrefab: {fileID: 0}
+  abilityName: "\uC2A4\uD134"
+  abilityImage: {fileID: 2962643113893155048, guid: 12f0509b9697670458227ad42af901f3, type: 3}
+  abliltyText: "\uD328\uB9C1 \uC131\uACF5 \uC2DC \uC8FC\uBCC0 \uC801\uB4E4\uC744
+    \uC7A0\uC2DC \uBB34\uC7A5\uD574\uC81C\uD569\uB2C8\uB2E4"
+  abilityPrefab: {fileID: 6739007051815711044, guid: e646e95849d30af42b540c3af9c8e839, type: 3}
   prerequisites: []
   maxLevel: 3

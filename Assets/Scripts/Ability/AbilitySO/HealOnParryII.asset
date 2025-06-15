@@ -17,5 +17,6 @@ MonoBehaviour:
   abliltyText: "\uD328\uB9C1 \uC131\uACF5 \uC2DC \uB354 \uB9CE\uC740 \uCCB4\uB825\uC744
     \uD68C\uBCF5\uD569\uB2C8\uB2E4."
   abilityPrefab: {fileID: 8920828926473088983, guid: d68c416c9fb92a041ad3e2935c0d72ca, type: 3}
-  prerequisites: []
+  prerequisites:
+  - {fileID: 11400000, guid: bfa87901d7357b542987ec846419ad5a, type: 2}
   maxLevel: 3

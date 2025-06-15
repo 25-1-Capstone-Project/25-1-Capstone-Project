@@ -16,6 +16,5 @@ MonoBehaviour:
   abilityImage: {fileID: -1859770909, guid: 12f0509b9697670458227ad42af901f3, type: 3}
   abliltyText: "\uD328\uB9C1 \uC131\uACF5 \uC2DC \uC8FC\uBCC0 \uC801\uC744 \uACF5\uACA9\uD569\uB2C8\uB2E4."
   abilityPrefab: {fileID: 8758668427259932813, guid: 494c24a721d76b448a21a5301f7e1546, type: 3}
-  prerequisites:
-  - {fileID: 11400000, guid: bfa87901d7357b542987ec846419ad5a, type: 2}
+  prerequisites: []
   maxLevel: 2
