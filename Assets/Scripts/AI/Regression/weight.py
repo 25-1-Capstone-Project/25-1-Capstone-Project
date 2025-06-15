@@ -72,8 +72,6 @@ for i in range(kmeans.n_clusters):
 
     X = cluster_data[["distance_norm", "hp_norm", "player_hp_norm", "player_velocity_norm"]]
     y = cluster_data['action'].astype(int)
-
-
     try:
         model = Ridge(alpha=0.5)
         model.fit(X, y)
@@ -88,14 +86,21 @@ for i in range(kmeans.n_clusters):
     except Exception as e:
         print(f"클러스터 {i} 학습 실패: {e}")
 
+#center = [0.2, 0.5, 0.1, 0.8]  # [distance, hp, player_hp, player_velocity]
+#IF distance ≈ near
+   #AND hp ≈ medium
+   #AND player_hp ≈ low
+   #AND player_velocity ≈ high
+#THEN action_score = 0.3 * distance_norm + 0.1 * hp_norm + ... + intercept
+
 # 6. 규칙 필터링
 valid_rules = [
     r for r in rules 
-    if any(c != 0 for c in r['coeffs'][:3]) and r['n_samples'] >= 10
+    if any(c != 0 for c in r['coeffs'][:4]) and r['n_samples'] >= 10
 ]
 print(f"생성된 규칙: {len(rules)}개, 유효 규칙: {len(valid_rules)}개")
     
-"""
+
 # 8. 추론 엔진 구현
 def fuzzy_skill_inference(hp, player_hp, distance, player_velocity, rules, scaler):
     input_df = pd.DataFrame([[hp, player_hp, distance, player_velocity]],
@@ -114,7 +119,8 @@ def fuzzy_skill_inference(hp, player_hp, distance, player_velocity, rules, scale
             coeffs[0] * input_norm[0] +
             coeffs[1] * input_norm[1] +
             coeffs[2] * input_norm[2] +
-            coeffs[3]
+            coeffs[3] * input_norm[3] +
+            coeffs[4]
         )
         weighted_sum += alpha * z
         total_weight += alpha
@@ -153,10 +159,10 @@ print(f"테스트 정확도: {accuracy:.2%}")
 
 # 9. 테스트
 test_inputs = [
-    [0.9, 0.3, 0.1, 0.2],  # hp, player_hp, distance, player_velocity
-    [0.6, 0.7, 0.95, 0.4], 
-    [0.3, 0.6, 0.6, 0.5],  
-    [0.6, 0.5, 0.5, 0.95], 
+    [100, 50, 10, 5],  # hp, player_hp, distance, player_velocity
+    [10, 100, 8, 3], 
+    [100, 50, 6, 1],  
+    [50, 50, 8, 4], 
 ]
 
 for ti in test_inputs:
@@ -186,6 +192,7 @@ plt.ylabel('Number of Samples')
 plt.title('Sample Counts per Valid Rule')
 plt.show()
 
+"""
 export_rules = []
 for rule in valid_rules:
     export_rules.append({
