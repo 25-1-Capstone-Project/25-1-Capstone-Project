@@ -9,6 +9,7 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] GameObject MainMenuUI;
 
 
+
     [Header("인게임")]
     public PlayerStatUI playerStatUI;
     public ParryStackUI parryStackUI;
@@ -16,7 +17,8 @@ public class UIManager : Singleton<UIManager>
     public SkillSelect skillSelect;
 
     public AbilityRewardSystem abilityUI;
-
+    public UI_BossUI bossUI;
+    public UI_DeadInfo deadInfo;
     protected override void Awake()
     {
         base.Awake();

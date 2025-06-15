@@ -189,22 +189,3 @@ public class BossDead : BossState
         Object.Destroy(boss.gameObject);
     }
 }
-
-public class BossDamaged : BossState
-{
-    public BossDamaged(Boss boss) : base(boss) { }
-
-    public override void Enter()
-    {
-        boss.GetAnimatorController().PlayDamage();
-        boss.StartCoroutine(DamagedRoutine());
-    }
-
-    private IEnumerator DamagedRoutine()
-    {
- 
-        yield return new WaitForSeconds(0.5f); // 피격 후 대기 시간
-
- 
-    }
-}

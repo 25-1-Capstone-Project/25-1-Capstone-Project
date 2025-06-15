@@ -39,7 +39,7 @@ public class HubState : GameState
 
     public override void Enter()
     {
-
+       
         SceneManager.sceneLoaded += OnSceneLoaded;
         SceneManager.LoadScene("HubScene");
     }
