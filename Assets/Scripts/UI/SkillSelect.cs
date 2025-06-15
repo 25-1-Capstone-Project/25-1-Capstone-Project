@@ -12,11 +12,15 @@ public class SkillSelect : MonoBehaviour
         onSkillSelected = callback;
     }
 
+    public void CloseSkillWindow()
+    {
+        skillSelectWindow.SetActive(false);
+    }
 
     public void OnClickSkillButton(int index)
     {
         Debug.Log($"스킬 버튼 입력: {index}");
-        skillSelectWindow.SetActive(false);
+        CloseSkillWindow();
         GameManager.Instance.SetTimeScale(1f);
 
         onSkillSelected?.Invoke(index);

@@ -548,7 +548,7 @@ public class PlayerScript : Singleton<PlayerScript>
     Coroutine cooldownRoutine;
 
     // 스킬 셋팅
-    void SkillSetting(int skillNum)
+    public void SkillSetting(int skillNum)
     {
         currentSkill = SkillManager.Instance.SkillPatterns[skillNum];
 
@@ -640,6 +640,12 @@ public class PlayerScript : Singleton<PlayerScript>
     void OnInventory(InputValue value)
     {
         //SkillSetting(1);
+        GameManager.Instance.SetTimeScale(0f);
+        UIManager.Instance.skillSelect.ShowSkillWindow(OnSkillSelected);
+    }
+
+    public void OpenSkillWindow()
+    {
         GameManager.Instance.SetTimeScale(0f);
         UIManager.Instance.skillSelect.ShowSkillWindow(OnSkillSelected);
     }

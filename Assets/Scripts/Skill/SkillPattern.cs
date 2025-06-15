@@ -17,7 +17,6 @@ public abstract class SkillPattern : ScriptableObject
     public int cooldown = 0;
     public Sprite skillIcon;
     
-    // �и����� üũ
     public SkillType ParryStackCheck()
     {
         if (PlayerScript.Instance.ParryStack >= ultimateCost)
