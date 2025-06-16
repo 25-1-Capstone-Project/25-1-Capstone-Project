@@ -6,14 +6,15 @@ public class BossAnimatorController : EnemyAnimatorController
     {
         SetTrigger("StartBattle");
     }
-     public void PlaySpawn()
+    public void PlaySpawn()
     {
         SetTrigger("Spawn");
     }
-    public override void PlayAttack(int attackIndex)
+    public override void PlayAttack()
     {
+        
         SetTrigger("Attack");
-        animator.SetInteger("AttackIndex", attackIndex);
+
     }
     public void SetAttackIndex(int attackIndex)
     {

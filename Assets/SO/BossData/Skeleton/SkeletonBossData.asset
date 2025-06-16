@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe7b41882d911124dbfce8033bbdb6dc, type: 3}
-  m_Name: SkeletonData
+  m_Name: SkeletonBossData
   m_EditorClassIdentifier: 
   Name: "\uC9C0\uC625\uC758 \uAD70\uC8FC"
   maxHealth: 10
@@ -22,5 +22,5 @@ MonoBehaviour:
   postAttackPauseTime: 1.5
   attackCooldown: 3
   attackPatterns:
-  - {fileID: 11400000, guid: 52f4821032e9b2541a8033f483feb370, type: 2}
   - {fileID: 11400000, guid: 6c41bbbf2b88e9143818fd42008b2bb2, type: 2}
+  - {fileID: 11400000, guid: 52f4821032e9b2541a8033f483feb370, type: 2}

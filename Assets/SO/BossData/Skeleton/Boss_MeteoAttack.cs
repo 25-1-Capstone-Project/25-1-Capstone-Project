@@ -5,7 +5,7 @@ class Boss_MeteoAttack : EnemyAttackPattern
 {
     [SerializeField] float attackCount = 5;
     public override IEnumerator Execute(EnemyBase boss)
-    {
+    {  
         boss.GetAnimatorController().PlayAttack();
         yield return new WaitForSeconds(attackChargeSec);
 
@@ -17,7 +17,7 @@ class Boss_MeteoAttack : EnemyAttackPattern
             GameObject meteoProj = EffectPooler.Instance.SpawnFromPool("Skeleton_MeteoProjectile",playerPos);
             FallingAttack enemyAttack = meteoProj.GetComponent<FallingAttack>();
             enemyAttack.SetDamage(boss.GetDamage());
-            enemyAttack.PlayFall(0.4f, 0.2f, 0.5f);
+           // enemyAttack.PlayFall(0.4f, 0.2f, 0.5f); animation envent로 대체
             yield return new WaitForSeconds(attackDuration); 
         }
         boss.GetAnimatorController().EndAttack();

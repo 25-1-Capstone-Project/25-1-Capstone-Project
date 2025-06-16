@@ -68,11 +68,11 @@ public class ChaseState : EnemyState, IFixedUpdateState, ILateUpdateState
         enemy.GetRigidbody().linearVelocity = direction * enemy.GetSpeed();
     }
 
+  
     public void LateUpdate()
     {
-        enemy.SpriteFlip();
+        enemy.SpriteFlip(); // 플레이어 방향으로 스프라이트 회전
     }
-
 
     public override void Exit()
     {

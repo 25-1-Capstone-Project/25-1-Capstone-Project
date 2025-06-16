@@ -47,26 +47,27 @@ public class Boss : EnemyBase
         // 보스 전용 상태들 등록
         StateMachine.AddState(new BossIdle(this));
         StateMachine.AddState(new BossMove(this));
-        StateMachine.AddState(new BossSkillAttack(this));  
+        StateMachine.AddState(new BossSkillAttack(this));
         StateMachine.AddState(new BossCooldown(this));
         StateMachine.AddState(new BossDead(this));
-   
- 
+
+
         bossAnim.PlaySpawn();
-        
-        Invoke("StartBattle",5f); // 나중에 애니메이션 종료타이밍과 연동
+
+        Invoke("StartBattle", 5f); // 나중에 애니메이션 종료타이밍과 연동
     }
 
 
     public void StartBattle()
     {
-        GetComponent<CircleCollider2D>().enabled = true; 
+        GetComponent<CircleCollider2D>().enabled = true;
         UIManager.Instance.bossUI.SetBossMaxHealth(bossData.maxHealth);
         UIManager.Instance.bossUI.SetBossName(bossData.Name);
         UIManager.Instance.bossUI.SetActiveBossUI(true);
-        StateMachine.ChangeState<BossIdle>();
         bossAnim.PlayStartBattle();
-        
+        StateMachine.ChangeState<BossIdle>();
+
+
     }
 
     protected override void OnDamaged()
@@ -74,7 +75,7 @@ public class Boss : EnemyBase
         UIManager.Instance.bossUI.SetBossHealth(bossData.currentHealth);
         GetAnimatorController().PlayDamage();
     }
-       protected override void Dead()
+    protected override void Dead()
     {
         isDead = true;
         UIManager.Instance.bossUI.SetBossHealth(bossData.currentHealth);
@@ -110,11 +111,11 @@ public class Boss : EnemyBase
         };
         bossAnim.SetAttackIndex((int)skillType);
         bossData.AttackPatternSet((int)skillType);
-     
+
     }
     public override void Parried()
     {
-       
+
     }
     // 보스 전용 Getter
     public bool CheckPostAttackPauseComplete(float timer) => timer >= bossData.postAttackPauseTime;

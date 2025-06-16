@@ -37,6 +37,7 @@ public class BossIdle : BossState
 
     public override void Enter()
     {
+        boss.GetAnimatorController().PlayIdle();
         // 전투 시작 시 바로 이동 상태로 전환
         boss.StateMachine.ChangeState<BossMove>();
     }
@@ -47,7 +48,7 @@ public class BossIdle : BossState
 /// <summary>
 /// 플레이어를 추적하고, 공격 범위에 들어오면 공격을 결정하는 상태.
 /// </summary>
-public class BossMove : BossState, IFixedUpdateState
+public class BossMove : BossState, IFixedUpdateState, ILateUpdateState
 {
     public BossMove(Boss boss) : base(boss) { }
 
@@ -59,7 +60,7 @@ public class BossMove : BossState, IFixedUpdateState
     public override void Update()
     {
         boss.UpdateSkillCooldown();
-        
+
     }
 
     public void FixedUpdate()
@@ -68,12 +69,9 @@ public class BossMove : BossState, IFixedUpdateState
         Vector2 direction = boss.GetDirectionToPlayerNormalVec();
         boss.GetRigidbody().linearVelocity = direction * boss.GetSpeed();
     }
-
     public void LateUpdate()
     {
-        // 플레이어 방향에 따라 스프라이트 뒤집기
-        // (EnemyBase에 SpriteFlip()이 구현되어 있어야 함)
-        // boss.SpriteFlip(); 
+        boss.SpriteFlip(); // 플레이어 방향으로 스프라이트 회전
     }
 
     public override void Exit()
@@ -101,7 +99,7 @@ public class BossSkillAttack : BossState
 
         // 1. 퍼지 로직으로 사용할 스킬 결정
         boss.DecideSkill();
-        
+
         attackRoutine = boss.StartCoroutine(AttackSequence());
     }
 
@@ -140,6 +138,7 @@ public class BossCooldown : BossState
     public override void Enter()
     {
         _timer = 0f;
+
         boss.GetAnimatorController().PlayIdle();
     }
 
@@ -183,8 +182,7 @@ public class BossDead : BossState
     public IEnumerator DeadRoutine()
     {
         boss.GetAnimatorController().PlayDeath();
-        // EnemyManager가 있다면 사용, 없다면 주석 처리
-        // EnemyManager.Instance.KillEnemy(); 
+        
         yield return new WaitForSeconds(2f); // 보스 소멸 연출 시간
         Object.Destroy(boss.gameObject);
     }
