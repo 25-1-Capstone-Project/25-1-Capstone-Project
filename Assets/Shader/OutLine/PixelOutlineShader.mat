@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: OutlineShader
-  m_Shader: {fileID: -6465566751694194690, guid: d976708f6f49a484a9f7d9bdad4a42fc, type: 3}
+  m_Name: PixelOutlineShader
+  m_Shader: {fileID: -6465566751694194690, guid: 2cd5d15b925ad9744bc54170c183464e, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -32,7 +32,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: a8c0719e1c999aa4c80bf331b2f75598, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskTex:
@@ -93,15 +93,18 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - CORNERS: 0
     - PixelSnap: 0
     - _EnableExternalAlpha: 0
     - _On_Off: 0
+    - _OutlineThickness: 2
     - _ZWrite: 0
     - _enable: 0
     - _size: 0.00124
     m_Colors:
     - _Color: {r: 1, g: 0.050980397, b: 0, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
+    - _OutlineColor: {r: 0.83, g: 0.08217003, b: 0.08217003, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

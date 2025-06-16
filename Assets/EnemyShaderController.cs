@@ -3,22 +3,22 @@ using UnityEngine;
 public class EnemyShaderController : MonoBehaviour
 {
     Material enemyMaterial;
-
+    [SerializeField] private float outlineThickness = 2f;
     public void Start()
     {
         enemyMaterial = GetComponent<SpriteRenderer>().material;
     }
     private void OnDisable() {
-        enemyMaterial.SetInt("_On_Off", 0);
+        enemyMaterial.SetFloat("_OutlineColor", 0);
     } 
     
     public void OnOutline()
     {
-        enemyMaterial.SetInt("_On_Off", 1);
+        enemyMaterial.SetFloat("_OutlineColor", outlineThickness);
 
     }
     public void OffOutline()
     {
-        enemyMaterial.SetInt("_On_Off", 0);
+        enemyMaterial.SetFloat("_OutlineColor", 0);
     }
 }
