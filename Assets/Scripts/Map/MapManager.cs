@@ -37,14 +37,14 @@ public class MapManager : Singleton<MapManager>
 
         // 플레이어 위치 이동 (새 방의 반대편 문 위치로)
         MinimapManager.Instance.RevealRoom(nextPos);
-        Vector3 entryPoint = FindEntryPoint(nextPos, dir);
+        Vector2 entryPoint = FindEntryPoint(nextPos, dir);
         PlayerScript.Instance.SetPlayerPosition(entryPoint);
         CameraManager.Instance.SetCameraPosition(roomMap[nextPos].transform.position);
         currentRoomPos = nextPos;
 
     }
 
-    private Vector3 FindEntryPoint(Vector2Int roomPos, Direction fromDirection)
+    private Vector2 FindEntryPoint(Vector2Int roomPos, Direction fromDirection)
     {
         GameObject room = roomMap[roomPos];
         var tile = room.GetComponent<Room>().GroundTileMap;
@@ -66,14 +66,14 @@ public class MapManager : Singleton<MapManager>
             Direction.Right => "Door_Left",
             _ => "Door_Down"
         };
-        return room.transform.Find(entryDoorName).position + fromDirection switch
+        return (Vector2)(room.transform.Find(entryDoorName).position + fromDirection switch
         {
             Direction.Up => new Vector3(0, 1, 0),
             Direction.Down => new Vector3(0, -1, 0),
             Direction.Left => new Vector3(-1, 0, 0),
             Direction.Right => new Vector3(1, 0, 0),
             _ => Vector3.zero
-        };
+        });
     }
     public void SetActiveMapManager(bool active)
     {

@@ -45,8 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03b3f2a658b80ff4a944b2077e740f9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomSize: {x: 20, y: 11}
-  roomgap: {x: 4, y: 4}
+  doorDistance: {x: 17, y: 10}
+  roomgap: {x: 25, y: 13}
   mapWidth: 8
   mapHeight: 8
   roomData: {fileID: 11400000, guid: 7f52cf2117b77fa49a8ca3496d07c8a0, type: 2}

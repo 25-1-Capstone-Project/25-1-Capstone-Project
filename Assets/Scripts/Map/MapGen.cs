@@ -1,4 +1,4 @@
-using System.Collections;
+
 using System.Collections.Generic;
 using UnityEngine;
 public enum ERoomType
@@ -7,6 +7,7 @@ public enum ERoomType
     BattleRoom,
     StartRoom,
     BossRoom,
+    RewardRoom
 }
 /// <summary>
 /// 아이작의 맵 생성 알고리즘으로 만든 클래스
@@ -23,8 +24,8 @@ public enum ERoomType
 
 public class MapGen : MonoBehaviour
 {
-    [SerializeField] Vector2Int roomSize;
-    [SerializeField] Vector2Int roomgap;
+    [SerializeField] Vector2 doorDistance;
+    public Vector2Int roomgap;
     [SerializeField] int mapWidth;
     [SerializeField] int mapHeight;
     [SerializeField] RoomReference roomData;
@@ -34,7 +35,7 @@ public class MapGen : MonoBehaviour
     int[] map;
     int start;
     [SerializeField] GameObject doorPrefab;
-    List<int> SpecialRoom;
+    Queue<int> specialRoom;
     bool IsSameRow(int a, int b) => (a / mapWidth) == (b / mapWidth);
     int[] depthMap;
     public void SetRoomData(RoomReference roomData)
@@ -55,6 +56,7 @@ public class MapGen : MonoBehaviour
         MapObject = new GameObject("GeneratedMap");
 
         MapCreate();
+        SetSpecialRoom();
         SpawnRoom();
     }
     public void CreatePlayerSpawnPoint(Vector2 pos)
@@ -71,10 +73,6 @@ public class MapGen : MonoBehaviour
         {
             return true;
         }
-        else if (value == ERoomType.BossRoom.GetHashCode())
-        {
-            return true;
-        }
         return false;
     }
     //맵 생성
@@ -88,7 +86,7 @@ public class MapGen : MonoBehaviour
             int[] offsets = { mapWidth, -mapWidth, 1, -1 };
             depthMap = new int[map.Length];
             Queue<int> roomQueue = new Queue<int>();
-            SpecialRoom = new List<int>();
+            specialRoom = new Queue<int>();
             start = mapWidth * mapHeight / 2 + mapWidth / 2;
             depthMap[start] = 0;
             roomQueue.Enqueue(start);
@@ -125,7 +123,7 @@ public class MapGen : MonoBehaviour
                     isRoomCreated = true;
                     _roomCount--;
                 }
-                if (!isRoomCreated) SpecialRoom.Add(index);
+                if (!isRoomCreated) specialRoom.Enqueue(index);
             }
 
             if (_roomCount <= 0)
@@ -139,23 +137,37 @@ public class MapGen : MonoBehaviour
     {
         MinimapManager.Instance.InitMiniMap();
         MapManager.Instance.roomMap.Clear();
-        Debug.Log("SpawnRoom");
+        GameObject roomPrefab = null;
+        Vector2Int roomPos = new Vector2Int();
+
         for (int i = 0; i < map.Length; i++)
         {
-            if (map[i] == ERoomType.BattleRoom.GetHashCode())
+            if (map[i] == ERoomType.Empty.GetHashCode())
             {
-                GameObject roomPrefab = roomData.GetRandomRoom(depthMap[i]);
-                Vector2Int roomPos = new Vector2Int(i % mapWidth, i / mapWidth);
-
-                CreateRoom(roomPrefab, roomPos);
+                continue;
             }
-            if (map[i] == ERoomType.StartRoom.GetHashCode())
+            else if (map[i] == ERoomType.BattleRoom.GetHashCode())
             {
-                GameObject roomPrefab = roomData.GetStartRoom();
-                Vector2Int roomPos = new Vector2Int(i % mapWidth, i / mapWidth);
-
-                CreateRoom(roomPrefab, roomPos);
+                roomPrefab = roomData.GetRandomRoom(depthMap[i]);
+                roomPos = new Vector2Int(i % mapWidth, i / mapWidth);
             }
+            else if (map[i] == ERoomType.StartRoom.GetHashCode())
+            {
+                roomPrefab = roomData.GetStartRoom();
+                roomPos = new Vector2Int(i % mapWidth, i / mapWidth);
+            }
+            else if (map[i] == ERoomType.BossRoom.GetHashCode())
+            {
+                roomPrefab = roomData.BossRooms[Random.Range(0, roomData.BossRooms.Length)];
+                roomPos = new Vector2Int(i % mapWidth, i / mapWidth);
+            }
+            else if (map[i] == ERoomType.RewardRoom.GetHashCode())
+            {
+                roomPrefab = roomData.RewardRooms[Random.Range(0, roomData.RewardRooms.Length)];
+                roomPos = new Vector2Int(i % mapWidth, i / mapWidth);
+            }
+            CreateRoom(roomPrefab, roomPos);
+
         }
 
         Vector2Int startRoomPos = new Vector2Int(start % mapWidth, start / mapWidth);
@@ -168,15 +180,15 @@ public class MapGen : MonoBehaviour
 
     private void CreateRoom(GameObject roomPrefab, Vector2Int roomPos)
     {
-        GameObject room = Instantiate(roomPrefab, new Vector3(roomPos.x * (roomgap.x + roomgap.x), roomPos.y * (roomSize.y+roomgap.y), 0), Quaternion.identity, MapObject.transform);
+        GameObject room = Instantiate(roomPrefab, new Vector3(roomPos.x * (roomgap.x + roomgap.x), roomPos.y * (doorDistance.y + roomgap.y), 0), Quaternion.identity, MapObject.transform);
 
         MapManager.Instance.roomMap.Add(roomPos, room);
 
 
-        AddDoorIfNeighborExists(room, roomPos + Vector2Int.up, Direction.Up, new Vector3(0, roomSize.y / 2, 0));
-        AddDoorIfNeighborExists(room, roomPos + Vector2Int.down, Direction.Down, new Vector3(0, -roomSize.y / 2, 0));
-        AddDoorIfNeighborExists(room, roomPos + Vector2Int.left, Direction.Left, new Vector3(-roomSize.x / 2, 0, 0));
-        AddDoorIfNeighborExists(room, roomPos + Vector2Int.right, Direction.Right, new Vector3(roomSize.x / 2, 0, 0));
+        AddDoorIfNeighborExists(room, roomPos + Vector2Int.up, Direction.Up, new Vector3(0, doorDistance.y / 2, 0));
+        AddDoorIfNeighborExists(room, roomPos + Vector2Int.down, Direction.Down, new Vector3(0, -doorDistance.y / 2, 0));
+        AddDoorIfNeighborExists(room, roomPos + Vector2Int.left, Direction.Left, new Vector3(-doorDistance.x / 2, 0, 0));
+        AddDoorIfNeighborExists(room, roomPos + Vector2Int.right, Direction.Right, new Vector3(doorDistance.x / 2, 0, 0));
         room.GetComponent<Room>().InitRoom();
 
         // minimap 등록
@@ -201,6 +213,28 @@ public class MapGen : MonoBehaviour
             roomObj.GetComponent<Room>().AddPortalPointObj(door);
         }
     }
+    [SerializeField] int rewardRoomCount = 2;
+    [SerializeField] int bossRoomCount = 1;
+    int totalRoomCount => rewardRoomCount + bossRoomCount;
 
+    //가장 바깥쪽 방에 보상방과 보스방 설정
+    private void SetSpecialRoom()
+    {
+        int[] temp = new int[specialRoom.Count];
+
+        //가장먼 최대 값 찾아서 정렬
+        for (int i = 0; specialRoom.Count > 0;)
+            temp[i++] = specialRoom.Dequeue();
+
+        // depthMap을 기준으로 정렬 (깊이 기준으로 내림차순)
+        System.Array.Sort(temp, (a, b) => depthMap[b].CompareTo(depthMap[a]));
+
+        map[temp[0]] = ERoomType.BossRoom.GetHashCode(); // 가장 먼 방 → 보스룸
+
+        for (int i = 1; i <= rewardRoomCount; i++)
+        {
+            map[temp[i]] = ERoomType.RewardRoom.GetHashCode(); // 그 다음들 → 보상룸
+        }
+    }
 
 }

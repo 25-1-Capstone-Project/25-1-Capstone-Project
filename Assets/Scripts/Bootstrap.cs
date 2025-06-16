@@ -27,7 +27,7 @@ public class BootStrap : MonoBehaviour
                     SaveManager.Instance.Initialize();
                 }
 
-                StartCoroutine(LoadNextScene());
+                
             }
             else
             {
@@ -36,9 +36,7 @@ public class BootStrap : MonoBehaviour
         });
     }
 
-    IEnumerator LoadNextScene()
-    {
-        yield return null;
-        SceneManager.LoadScene(firstSceneName);
-    }
+    private void Start() {
+           SceneManager.LoadScene(firstSceneName);
+    } 
 }

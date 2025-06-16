@@ -26,9 +26,6 @@ public class ProjectileEnemyAttack : EnemyAttackBase
                     gameObject.SetActive(false);
                 break;
         }
-
-
-
     }
 
 }

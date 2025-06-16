@@ -46,7 +46,7 @@ class Boss_RushAttack : EnemyAttackPattern
 
                 if (!hasDealtDamage)
                 {
-                    Collider2D hit = Physics2D.OverlapCircle((Vector2)boss.transform.position, 0.3f, LayerMask.GetMask("Player"));
+                    Collider2D hit = Physics2D.OverlapCircle((Vector2)boss.transform.position, 0.3f, LayerMask.GetMask("Player", "DashWall"));
 
 
                     if (hit != null && hit.CompareTag("Player"))
