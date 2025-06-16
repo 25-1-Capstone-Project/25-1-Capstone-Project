@@ -187,7 +187,7 @@ public class DeadState : EnemyState
         float dropChance = 0.2f;
         if (Random.value < dropChance)
         {
-            EffectPooler.Instance.SpawnFromPool("SkillSelectItem", enemy.transform.position, Quaternion.identity);
+            GameObject.Instantiate(enemy.skillSelectItemPrefab, enemy.transform.position, Quaternion.identity);
         }
         enemy.GetAnimatorController().PlayDeath();
         EnemyManager.Instance.KillEnemy();
