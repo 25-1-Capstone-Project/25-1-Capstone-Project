@@ -8,7 +8,7 @@ public class SkillSelectItem : MonoBehaviour
 
     private bool playerInRange = false;
 
-    private void Start()
+    private void OnEnable()
     {
         skillIndex = Random.Range(0, SkillManager.Instance.SkillPatterns.Length);
 
@@ -23,7 +23,7 @@ public class SkillSelectItem : MonoBehaviour
         if (playerInRange && Input.GetKeyDown(KeyCode.K))
         {
             PlayerScript.Instance.SkillSetting(skillIndex);
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 

@@ -183,6 +183,12 @@ public class DeadState : EnemyState
     }
     public IEnumerator DeadRoutine()
     {
+        // 적 스킬아이템 드랍 임시 추가(하드코딩된 거 SO에 변수 추가, 변경할 것)
+        float dropChance = 0.2f;
+        if (Random.value < dropChance)
+        {
+            EffectPooler.Instance.SpawnFromPool("SkillSelectItem", enemy.transform.position, Quaternion.identity);
+        }
         enemy.GetAnimatorController().PlayDeath();
         EnemyManager.Instance.KillEnemy();
         yield return new WaitForSeconds(1f);

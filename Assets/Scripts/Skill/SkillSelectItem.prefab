@@ -148,6 +148,7 @@ GameObject:
   - component: {fileID: 16021065910922528}
   - component: {fileID: 1701291106182568265}
   - component: {fileID: 1253376295062325542}
+  - component: {fileID: 2761734478808450993}
   m_Layer: 0
   m_Name: SkillSelectItem
   m_TagString: Untagged
@@ -277,6 +278,18 @@ MonoBehaviour:
   skillIndex: 0
   dialogText: {fileID: 7644008794576880501}
   skillicon: {fileID: 0}
+--- !u!114 &2761734478808450993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4741066030510868246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6a3b374a8c2a964f9eb1b7c1fb7ec3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7644008794576880501
 GameObject:
   m_ObjectHideFlags: 0

@@ -74,3 +74,8 @@ MonoBehaviour:
     - tag: Skeleton_MeteoProjectile
       prefab: {fileID: 816145936183077409, guid: 3c35ec66a904c404ab93347d4f747581, type: 3}
       size: 0
+  - groupName: Item
+    pools:
+    - tag: SkillSelectItem
+      prefab: {fileID: 4741066030510868246, guid: 4f5e063cd0d62ed46b594f0b15029ea8, type: 3}
+      size: 0
