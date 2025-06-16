@@ -8,6 +8,7 @@ public abstract class EnemyBase : MonoBehaviour
     [SerializeField] protected SpriteRenderer enemySprite;
     [SerializeField] protected EnemyAnimatorController animController;
     [SerializeField] private EnemyHPBar hpBar;
+    public GameObject skillSelectItemPrefab;
     public EnemyAttackPattern GetAttackPattern() => data.attackPattern;
     public int GetDamage() => data.attackDamage;
     protected Rigidbody2D rb;

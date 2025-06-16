@@ -631,6 +631,7 @@ MonoBehaviour:
   enemySprite: {fileID: 6823296138178529082}
   animController: {fileID: 1213534254612820977}
   hpBar: {fileID: 4127750533706630349}
+  skillSelectItemPrefab: {fileID: 4741066030510868246, guid: 4f5e063cd0d62ed46b594f0b15029ea8, type: 3}
   enemyShaderController: {fileID: 6148230100185541133}
 --- !u!114 &-2833255135379681415
 MonoBehaviour:
