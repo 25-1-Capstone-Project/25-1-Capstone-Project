@@ -43,7 +43,7 @@ df['distance_far'] = gaussian_mf(df['distance'], *distance_params[2])
 
 hp_params = quantile_fuzzy_partition(df, 'hp', 3)
 df['hp_low'] = gaussian_mf(df['hp'], *hp_params[0])
-df['hp_medium'] = gaussian_mf(df['hp'], *hp_params[1])
+df['hp_medium'] = gaussian_mf(df['hp'], *hp_params[1])소속하
 df['hp_high'] = gaussian_mf(df['hp'], *hp_params[2])
 
 player_hp_params = quantile_fuzzy_partition(df, 'player_hp', 3)
