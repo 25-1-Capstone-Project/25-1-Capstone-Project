@@ -180,6 +180,9 @@ public class PlayerScript : Singleton<PlayerScript>
     {
         if (Input.GetKeyDown(KeyCode.F1))
             Health = stats.maxHealth;
+        if (Input.GetKeyDown(KeyCode.F2))
+            Health = 0;
+
 
     }
     void LateUpdate()
@@ -632,6 +635,7 @@ public class PlayerScript : Singleton<PlayerScript>
         playerAnim.PlayDeath();
         isDead = true;
         rb.linearVelocity = Vector2.zero;
+        UIManager.Instance.deadInfo.SetActiveDeadInfoPanel(true);
     }
 
 

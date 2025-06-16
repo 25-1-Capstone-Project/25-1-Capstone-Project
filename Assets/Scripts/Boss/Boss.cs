@@ -25,15 +25,16 @@ public class Boss : EnemyBase
     public override void Init()
     {
         // 보스 전용 캐스팅
-        bossAnim = animController as BossAnimatorController; 
-        bossData = data as BossData; 
+        bossAnim = animController as BossAnimatorController;
+        bossData = data as BossData;
 
         base.Init();
 
         // 보스 전용 초기화
         fuzzy = new Fuzzy();
         _skillCooldownTimer = 0f;
-   
+
+        GetComponent<CircleCollider2D>().enabled = false; // 보스의 충돌체 비 활성화
     }
 
     /// <summary>
@@ -49,25 +50,37 @@ public class Boss : EnemyBase
         StateMachine.AddState(new BossSkillAttack(this));  
         StateMachine.AddState(new BossCooldown(this));
         StateMachine.AddState(new BossDead(this));
-        StateMachine.AddState(new BossDamaged(this)); // DamagedState는 공용 상태를 사용한다고 가정
+   
  
         bossAnim.PlaySpawn();
         
-        Invoke("StartFSM",5f);
+        Invoke("StartBattle",5f); // 나중에 애니메이션 종료타이밍과 연동
     }
 
 
-    public void StartFSM()
+    public void StartBattle()
     {
+        GetComponent<CircleCollider2D>().enabled = true; 
+        UIManager.Instance.bossUI.SetBossMaxHealth(bossData.maxHealth);
+        UIManager.Instance.bossUI.SetBossName(bossData.Name);
+        UIManager.Instance.bossUI.SetActiveBossUI(true);
         StateMachine.ChangeState<BossIdle>();
-    
         bossAnim.PlayStartBattle();
         
     }
 
     protected override void OnDamaged()
     {
-          StateMachine.ChangeState<BossDamaged>();
+        UIManager.Instance.bossUI.SetBossHealth(bossData.currentHealth);
+        GetAnimatorController().PlayDamage();
+    }
+       protected override void Dead()
+    {
+        isDead = true;
+        UIManager.Instance.bossUI.SetBossHealth(bossData.currentHealth);
+        StateMachine.ChangeState<BossDead>();
+
+
     }
     // 스킬 쿨타임 관리 로직
     public void UpdateSkillCooldown()
@@ -99,7 +112,10 @@ public class Boss : EnemyBase
         bossData.AttackPatternSet((int)skillType);
      
     }
-
+    public override void Parried()
+    {
+       
+    }
     // 보스 전용 Getter
     public bool CheckPostAttackPauseComplete(float timer) => timer >= bossData.postAttackPauseTime;
 

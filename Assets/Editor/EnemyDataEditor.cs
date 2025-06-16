@@ -21,7 +21,7 @@ public class EnemyDataEditor : Editor
                 break;
         }
 
-        data.monsterName = EditorGUILayout.TextField("Monster Name", data.monsterName);
+        data.name = EditorGUILayout.TextField("Monster Name", data.name);
         data.maxHealth = EditorGUILayout.IntField("Max Health", data.maxHealth);
         data.moveSpeed = EditorGUILayout.FloatField("Move Speed", data.moveSpeed);
         data.attackDamage = EditorGUILayout.IntField("Attack Damage", data.attackDamage);
