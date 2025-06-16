@@ -100,17 +100,27 @@ public class Boss : EnemyBase
     // 퍼지 로직으로 스킬 결정
     public void DecideSkill()
     {
-        // EBossSkillAction skillType = fuzzy.DecideSkill(Vector2.Distance(transform.position, PlayerScript.Instance.GetPlayerTransform().position),
-        // data.currentHealth, PlayerScript.Instance.Health, PlayerScript.Instance.GetRigidbody().linearVelocity.magnitude);
+        float distance = Vector2.Distance(transform.position, PlayerScript.Instance.GetPlayerTransform().position);
+        float bossHp = data.currentHealth;
+        float playerHp = PlayerScript.Instance.Health;
+        float playerSpeed = PlayerScript.Instance.GetRigidbody().linearVelocity.magnitude;
 
-        EBossSkillAction skillType = Random.Range(0, (int)EBossSkillAction.MAX) switch
-        {
-            0 => EBossSkillAction.Rush,
-            1 => EBossSkillAction.Meteo,
-            _ => throw new System.NotImplementedException(),
-        };
-        bossAnim.SetAttackIndex((int)skillType);
-        bossData.AttackPatternSet((int)skillType);
+    // 퍼지 추론으로 스킬 결정
+        int predictedSkillIndex = fuzzy.PredictSkill(bossHp, playerHp, distance, playerSpeed);
+
+    // Enum으로 변환
+    if (predictedSkillIndex >= (int)EBossSkillAction.MAX || predictedSkillIndex < 0)
+    {
+        Debug.LogWarning("Fuzzy 추론 결과가 유효하지 않습니다. 기본 스킬로 설정.");
+        predictedSkillIndex = 0;
+    }
+
+    EBossSkillAction skillType = (EBossSkillAction)predictedSkillIndex;
+
+    Debug.Log($"사용한 스킬: {skillType}");
+
+    bossAnim.SetAttackIndex(predictedSkillIndex);
+    bossData.AttackPatternSet(predictedSkillIndex);
 
     }
     public override void Parried()

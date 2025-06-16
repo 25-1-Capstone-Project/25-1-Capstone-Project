@@ -1,12 +1,12 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class Regression : MonoBehaviour
+public class Fuzzy
 {
     public List<FuzzyRule> rules;
     public ScalerData scaler;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public Fuzzy()
     {
         // Resources 폴더에서 텍스트 파일로 불러오기
         TextAsset rulesJson = Resources.Load<TextAsset>("fuzzy_rules");
@@ -28,7 +28,7 @@ public class Regression : MonoBehaviour
         return norm;
     }
 
-int PredictSkill(float hp, float playerHp, float distance, float playerVelocity, List<FuzzyRule> rules, ScalerData scaler)
+public int PredictSkill(float hp, float playerHp, float distance, float playerVelocity)
 {
     float[] input = new float[] { hp, playerHp, distance, playerVelocity };
     float[] inputNorm = NormalizeInput(input, scaler);
