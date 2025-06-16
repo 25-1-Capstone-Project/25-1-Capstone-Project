@@ -7,6 +7,7 @@ public abstract class EnemyBase : MonoBehaviour
     [SerializeField] protected EnemyBaseData data; // 모든 적은 데이터를 가짐
     [SerializeField] protected SpriteRenderer enemySprite;
     [SerializeField] protected EnemyAnimatorController animController;
+    [SerializeField] private EnemyHPBar hpBar;
     public EnemyAttackPattern GetAttackPattern() => data.attackPattern;
     public int GetDamage() => data.attackDamage;
     protected Rigidbody2D rb;
@@ -127,6 +128,8 @@ public abstract class EnemyBase : MonoBehaviour
         AudioManager.Instance.PlaySFX("AttackHit"); // 오디오 매니저가 있다면
         Health -= damage;
         FlashSprite(Color.red, 0.1f);
+
+        hpBar?.SetHealth(data.currentHealth, data.maxHealth);
     }
 
     /// <summary>
@@ -144,6 +147,7 @@ public abstract class EnemyBase : MonoBehaviour
     protected virtual void Dead()
     {
         isDead = true;
+        hpBar?.Hide();
         StateMachine.ChangeState<DeadState>();
 
 
