@@ -19,7 +19,7 @@ public class SkillSelectItem : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.sprite = skillicon;
 
-        Destroy(gameObject, 2f);
+        Destroy(gameObject, 7f);
 
         StartCoroutine(BlinkBeforeDestroy(5f, 2f));
     }
