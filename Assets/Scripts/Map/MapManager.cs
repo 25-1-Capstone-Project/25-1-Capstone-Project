@@ -42,6 +42,8 @@ public class MapManager : Singleton<MapManager>
         CameraManager.Instance.SetCameraPosition(roomMap[nextPos].transform.position);
         currentRoomPos = nextPos;
 
+        FirebaseUploader uploader = Object.FindFirstObjectByType<FirebaseUploader>();
+
     }
 
     private Vector2 FindEntryPoint(Vector2Int roomPos, Direction fromDirection)

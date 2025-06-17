@@ -6,7 +6,7 @@ public class HealOnParry : PlayerAbility
 
     public override void OnEquip(PlayerScript player)
     {
-        Debug.Log("Èú¾îºô¸®Æ¼ ÀåÂøµÊ");
+        Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¼ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
         this.player = player;
         player.OnParrySuccess += HealAbility;
     }
@@ -25,7 +25,9 @@ public class HealOnParry : PlayerAbility
         //    3 => 3,
         //    _ => 0
         //};
-        Debug.Log("¾îºô¸®Æ¼(È¸º¹) ¹ßµ¿");
+        Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½Æ¼(È¸ï¿½ï¿½) ï¿½ßµï¿½");
         player.abilTestPlayerHealth(10);
+
+        PlayerLogger.Instance.AddHealing(10);
     }
 }
