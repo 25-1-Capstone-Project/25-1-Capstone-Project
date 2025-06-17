@@ -11,6 +11,7 @@ public class ScenePortalTrigger : MonoBehaviour
     [SerializeField] private EDungeonType dungeonType;
     [SerializeField] private EGameState targetGameState;  // 예: "Hub", "Dungeon", "MainMenu"
 
+
     private bool isTransitioning = false;
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -20,17 +21,7 @@ public class ScenePortalTrigger : MonoBehaviour
 
         isTransitioning = true;
 
-        FirebaseUploader uploader = Object.FindFirstObjectByType<FirebaseUploader>();
-        if (uploader != null)
-        {
-            uploader.UploadLogToFirebase();
-        }
-        else
-        {
-            Debug.LogWarning("FirebaseUploader를 찾을 수 없습니다.");
-        }
-
-
-        SceneTransitionManager.Instance.TransitionScene(dungeonType,targetGameState);
+        SceneTransitionManager.Instance.TransitionScene(dungeonType, targetGameState);
+        
     }
 }

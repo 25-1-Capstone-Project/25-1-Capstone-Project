@@ -43,6 +43,7 @@ public class MapManager : Singleton<MapManager>
         currentRoomPos = nextPos;
 
         FirebaseUploader uploader = Object.FindFirstObjectByType<FirebaseUploader>();
+        uploader.UploadLogToFirebase();
 
     }
 

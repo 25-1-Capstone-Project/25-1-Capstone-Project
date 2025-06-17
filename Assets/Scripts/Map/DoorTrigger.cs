@@ -11,7 +11,7 @@ public class DoorTrigger : MonoBehaviour
         {
             MapManager.Instance.MoveToRoom(direction);
 
-            FirebaseUploader uploader = Object.FindFirstObjectByType<FirebaseUploader>();
+            //FirebaseUploader uploader = Object.FindFirstObjectByType<FirebaseUploader>();
    
         }
     }

@@ -1,0 +1,56 @@
+import pandas as pd
+import numpy as np
+
+# 플레이어 목록
+user_ids = ['u001', 'u002', 'u003', 'u004', 'u005']
+
+# 증강 클래스명 목록
+augment_ids = ['AbilityAttackOnParry', 'AbilityHealOnParry', 'AbilityStunOnParry']
+
+data = []
+
+np.random.seed(42)
+
+for user in user_ids:
+    # 플레이어별 행동 특성 생성 (랜덤 또는 규칙에 따라)
+    attack_count = np.random.randint(50, 150)
+    max_stage = np.random.randint(10, 30)
+    kill_count = np.random.randint(20, 70)
+    damage_dealt = np.random.randint(5000, 25000)
+    damage_taken = np.random.randint(500, 3000)
+    death_count = np.random.randint(0, 10)
+    skill_usage_freq = np.random.randint(10, 30)
+    dash_count = np.random.randint(5, 20)
+    hit_count = np.random.randint(50, 120)
+    healing_amount = np.random.randint(0, 1000)
+    playtime = np.random.randint(1000, 5000)
+
+    for augment in augment_ids:
+        # 플레이어-증강 조합별 rating (0~5)
+        # 임의로 max_stage에 따라 rating을 다르게 만들 수도 있음
+        rating = np.clip((max_stage / 30) * 5 + np.random.normal(0, 0.5), 0, 5)
+        rating = round(rating, 2)
+
+        row = {
+            'user_id': user,
+            'augment_id': augment,
+            'attack_count': attack_count,
+            'max_stage': max_stage,
+            'kill_count': kill_count,
+            'damage_dealt': damage_dealt,
+            'damage_taken': damage_taken,
+            'death_count': death_count,
+            'skill_usage_freq': skill_usage_freq,
+            'dash_count': dash_count,
+            'hit_count': hit_count,
+            'healing_amount': healing_amount,
+            'playtime': playtime,
+            'rating': rating
+        }
+        data.append(row)
+
+df = pd.DataFrame(data)
+
+# CSV로 저장
+df.to_csv('player_behavior_sample.csv', index=False)
+print("CSV 파일로 저장 완료!")

@@ -3,23 +3,27 @@ using UnityEngine.UI;
 
 public class AbilityChoiceUI : MonoBehaviour
 {
-    [Header("UI±¸¼º¿ä¼Ò")]
+    [Header("UIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½")]
     public Image abilityIconImage;
     public Text abilityNameText;
     public Text abilityDetailText;
+    public GameObject glowEffect;
 
     private AbilityData data;
     private System.Action<AbilityData> onClick;
 
-    public void Setup(AbilityData data, System.Action<AbilityData> onClickCallback)
+
+    public void Setup(AbilityData data, System.Action<AbilityData> onClickCallback, bool isRecommended)
     {
         this.data = data;
         onClick = onClickCallback;
 
-        // UI ¿ä¼Ò ¹Ý¿µ
+        // UI ï¿½ï¿½ï¿½ ï¿½Ý¿ï¿½
         abilityIconImage.sprite = data.abilityImage;
         abilityNameText.text = data.abilityName;
         abilityDetailText.text = data.abliltyText;
+
+        glowEffect.SetActive(isRecommended);
     }
 
 
