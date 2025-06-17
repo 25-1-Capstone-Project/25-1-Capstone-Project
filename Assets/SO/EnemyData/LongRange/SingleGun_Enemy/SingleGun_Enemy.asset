@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 263e27cb71b88f845aed894261fa039f, type: 3}
   m_Name: SingleGun_Enemy
   m_EditorClassIdentifier: 
-  monsterName: 
-  maxHealth: 2
-  currentHealth: 2
+  Name: 
+  maxHealth: 5
+  currentHealth: 0
   moveSpeed: 3
   attackDamage: 1
   animator: {fileID: 22100000, guid: 5fec08a1de579ec4c845e06c87b6444d, type: 2}

@@ -13,7 +13,7 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
             {
                 lock (lockObj)
                 {
-                    instance = FindObjectOfType<T>();
+                    instance = FindFirstObjectByType<T>();
 
                     if (instance == null)
                     {

@@ -5,7 +5,6 @@ using System.Collections;
 public class Skill_boomerang : SkillPattern
 {
     [SerializeField] private GameObject boomerangPrefab;
-    [SerializeField] private float travelDistanceCommon = 3f;
     [SerializeField] private float travelDistanceUltimate = 5f;
     [SerializeField] private float speed = 10f;
 

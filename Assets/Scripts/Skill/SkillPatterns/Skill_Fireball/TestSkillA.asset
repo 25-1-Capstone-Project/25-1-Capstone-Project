@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85d7af65177650840989165a4ab70622, type: 3}
   m_Name: TestSkillA
   m_EditorClassIdentifier: 
-  skillType: -1
   damage: 2
-  ultimateDamage: 5
+  ultimateDamage: 10
   commonCost: 1
   ultimateCost: 3
   cooldown: 1

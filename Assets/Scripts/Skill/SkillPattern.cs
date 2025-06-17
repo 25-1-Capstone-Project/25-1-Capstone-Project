@@ -1,15 +1,9 @@
 using UnityEngine;
 using System.Collections;
 
-public enum SkillType
-{
-    Empty=-1,
-    Common,
-    Ultimate,
-}
 public abstract class SkillPattern : ScriptableObject
 {
-    public SkillType skillType = SkillType.Common;
+ 
     public int damage = 0;
     public int ultimateDamage = 0;
     public int commonCost = 0;
@@ -17,17 +11,17 @@ public abstract class SkillPattern : ScriptableObject
     public int cooldown = 0;
     public Sprite skillIcon;
     
-    public SkillType ParryStackCheck()
+    public bool ParryStackCheck()
     {
         if (PlayerScript.Instance.ParryStack >= ultimateCost)
         {
-            return SkillType.Ultimate;
+            return true;
         }
         // else if (PlayerScript.Instance.ParryStack >= commonCost)
         // {
         //     return SkillType.Common;
         // }
-        return SkillType.Empty;
+        return false;
     }
 
     // ��ų ��Ÿ�� üũ

@@ -587,7 +587,7 @@ public class PlayerScript : Singleton<PlayerScript>
     #endregion
 
     #region 스킬
-    Coroutine cooldownRoutine;
+
 
     // 스킬 셋팅
     public void SkillSetting(int skillNum)
@@ -642,9 +642,9 @@ public class PlayerScript : Singleton<PlayerScript>
 
     private bool CheckUltimate()
     {
-        var skillType = currentSkill.ParryStackCheck();
-
-        if (currentSkill == null || skillType == SkillType.Empty)
+        if (!currentSkill.ParryStackCheck())
+            return false;
+        if (currentSkill == null)
             return false;
 
         if (isDead || isDashing || isParrying)
@@ -671,22 +671,22 @@ public class PlayerScript : Singleton<PlayerScript>
         ShaderManager.Instance.CallShockWave();
     }
 
-    IEnumerator CooldownRoutine()
-    {
-        float duration = currentSkill.cooldown;
-        float startTime = Time.time;
+    // IEnumerator CooldownRoutine()
+    // {
+    //     float duration = currentSkill.cooldown;
+    //     float startTime = Time.time;
 
-        while (Time.time - startTime < duration)
-        {
-            float elapsed = Time.time - startTime;
-            float ratio = Mathf.Clamp01(1f - (elapsed / duration));
-            UIManager.Instance.skillUI.UpdateCooldown(ratio);
-            yield return null;
-        }
+    //     while (Time.time - startTime < duration)
+    //     {
+    //         float elapsed = Time.time - startTime;
+    //         float ratio = Mathf.Clamp01(1f - (elapsed / duration));
+    //         UIManager.Instance.skillUI.UpdateCooldown(ratio);
+    //         yield return null;
+    //     }
 
-        UIManager.Instance.skillUI.UpdateCooldown(0f);
-        cooldownRoutine = null;
-    }
+    //     UIManager.Instance.skillUI.UpdateCooldown(0f);
+    //     cooldownRoutine = null;
+    // }
     #endregion
 
     public void Dead()

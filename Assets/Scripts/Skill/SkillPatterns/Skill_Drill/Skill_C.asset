@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af0dc99627854c545a98dce386aa0fbb, type: 3}
   m_Name: Skill_C
   m_EditorClassIdentifier: 
-  skillType: 0
-  damage: 1
-  ultimateDamage: 0
+  damage: 2
+  ultimateDamage: 10
   commonCost: 1
   ultimateCost: 3
   cooldown: 1
