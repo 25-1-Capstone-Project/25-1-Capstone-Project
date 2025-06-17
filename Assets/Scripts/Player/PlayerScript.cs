@@ -188,6 +188,8 @@ public class PlayerScript : Singleton<PlayerScript>
             Health = stats.maxHealth;
         if (Input.GetKeyDown(KeyCode.F2))
             Health = 0;
+        if (Input.GetKeyDown(KeyCode.F3))
+            ParryStack = stats.maxParryStack;
 
     }
     void LateUpdate()
@@ -579,23 +581,13 @@ public class PlayerScript : Singleton<PlayerScript>
     // 스킬 키 입력
     void OnSkill(InputValue value)
     {
-        var skillType = currentSkill.ParryStackCheck();
-
-        if (currentSkill == null || skillType == SkillType.Empty)
+        bool checkUltimate = CheckUltimate();
+        if (!checkUltimate)
+        {
             return;
+        }
 
-        if (isDead || isDashing || isParrying)
-            return;
-
-        // 스킬 쿨타임 체크
-        if (!currentSkill.IsCooldownReady())
-            return;
-
-        ParryStack -= currentSkill.ultimateCost;
-        //currentSkill.ResetCooldown();
-        StartCoroutine(currentSkill.UltimateSkill(this));
-        currentSkill.SetCooldown();
-
+        StartCoroutine(UseUltimateSkill());
         // switch (skillType)
         // {
         //     case SkillType.Common:
@@ -614,8 +606,38 @@ public class PlayerScript : Singleton<PlayerScript>
         //         //case SkillType.Empty:
         //         //    Debug.Log("스킬 사용 불가");
         //         //    break;
-
         // }
+    }
+
+    private bool CheckUltimate()
+    {
+        var skillType = currentSkill.ParryStackCheck();
+
+        if (currentSkill == null || skillType == SkillType.Empty)
+            return false;
+
+        if (isDead || isDashing || isParrying)
+            return false;
+
+        // 스킬 쿨타임 체크
+        if (!currentSkill.IsCooldownReady())
+            return false;
+        return true;
+    }
+
+    private IEnumerator UseUltimateSkill()
+    {
+        ParryStack -= currentSkill.ultimateCost;
+        // AudioManager.Instance.PlaySFX("Ultimate");
+        // EffectPooler.Instance.SpawnFromPool("UltimateEffect", PlayerScript.Instance.transform.position, Quaternion.identity);
+        CameraManager.Instance.CameraShake(0.1f, 0.1f);
+        FadeController.Instance.FadeOut(Color.white, 0.05f, 0.01f);
+        FadeController.Instance.FadeIn(Color.white, 0.05f, 0.01f);
+        GameManager.Instance.SetTimeScale(0.1f);
+        yield return new WaitForSecondsRealtime(0.3f);
+        GameManager.Instance.SetTimeScale(1f);
+        StartCoroutine(currentSkill.UltimateSkill(this));
+        ShaderManager.Instance.CallShockWave();
     }
 
     IEnumerator CooldownRoutine()
