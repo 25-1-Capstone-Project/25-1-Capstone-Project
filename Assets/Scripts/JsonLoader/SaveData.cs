@@ -18,7 +18,6 @@ public class SaveData
     public string[] unlockedAreas;
     public string[] perks;
     public float playTime;
-    public int comboLevel;
-    public int hitStreak;
     public string lastCheckpoint;
+    public int totalDeaths;       // 누적 사망 횟수
 }

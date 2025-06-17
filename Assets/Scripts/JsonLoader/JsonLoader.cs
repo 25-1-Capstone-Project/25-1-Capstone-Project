@@ -23,15 +23,15 @@ public class PlayerSaveManager : MonoBehaviour
         saveData.parryWindow = 0.15f;
         saveData.critChance = 0.1f;
         saveData.critDamage = 1.5f;
-        saveData.activeSkills = new string[] { "대시베기", "점프공격" };
+        saveData.activeSkills = new string[] { "베기", "드릴" };
         saveData.gold = 350;
-        saveData.unlockedRunes = new string[] { "화염", "속도" };
+        saveData.unlockedRunes = new string[] { "치유", "속도" };
         saveData.unlockedAreas = new string[] { "1-1", "1-2" };
         saveData.perks = new string[] { "이동속도 +10%", "치명타 +5%" };
         saveData.playTime = 123.5f;
-        saveData.comboLevel = 2;
-        saveData.hitStreak = 4;
-        saveData.lastCheckpoint = "1-2 보스방 앞";
+        saveData.lastCheckpoint = "보스방 앞";
+        saveData.totalDeaths = 2;         // 누적 사망 횟수 설정
+        
 
         // 딕셔너리에 저장
         saveDataDict["Save1"] = saveData;
@@ -81,6 +81,7 @@ public class PlayerSaveManager : MonoBehaviour
                 SaveData loaded = saveDataDict[saveName];
                 Debug.Log("불러오기 성공: " + saveName);
                 Debug.Log("HP: " + loaded.hp);
+                Debug.Log("총 사망 횟수: " + loaded.totalDeaths);
             }
             else
             {
