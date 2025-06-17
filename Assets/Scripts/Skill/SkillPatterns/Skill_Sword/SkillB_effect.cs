@@ -2,9 +2,14 @@ using UnityEngine;
 
 public class SkillB_effect : MonoBehaviour
 {
-    public void OnAnimationEnd()
+    // 풀링으로 수정 필요
+    void OnEnable()
     {
-        //나중에 풀링으로 변경
-        Destroy(gameObject);
+        Invoke(nameof(Deactivate), 1f);
+    }
+
+    void Deactivate()
+    {
+        gameObject.SetActive(false);
     }
 }
