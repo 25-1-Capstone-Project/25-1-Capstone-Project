@@ -2,10 +2,10 @@ using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
-/// 25.06.16 ¾È¿¹¼±
-/// Ã¼·Â¹Ù °£´ÜÇÏ°Ô Ãß°¡ 
-/// HPBar ÅëÁ¦ Å¬·¡½º -> EnemyBase¿¡¼­ È£ÃâÇØ »ç¿ë
-/// Á¤¸» °£´ÜÇÏ°Ô ÇÏµåÄÚµù½ÄÀ¸·Î ÇÑ °Å¶ó ÃßÈÄ ¼öÁ¤ ÇÊ¿ä...
+/// 25.06.16 ï¿½È¿ï¿½ï¿½ï¿½
+/// Ã¼ï¿½Â¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ß°ï¿½ 
+/// HPBar ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ -> EnemyBaseï¿½ï¿½ï¿½ï¿½ È£ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+/// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Ïµï¿½ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Å¶ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½...
 /// </summary>
 public class EnemyHPBar : MonoBehaviour
 {
@@ -24,6 +24,7 @@ public class EnemyHPBar : MonoBehaviour
 
     public void Show()
     {
+        Debug.Log("EnemyHPBar Show() called");
         if (healthBarCanvas != null)
         {
             healthSlider.value = 1f;

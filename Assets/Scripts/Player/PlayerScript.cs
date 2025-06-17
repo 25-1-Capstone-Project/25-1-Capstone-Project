@@ -190,7 +190,14 @@ public class PlayerScript : Singleton<PlayerScript>
             Health = 0;
         if (Input.GetKeyDown(KeyCode.F3))
             ParryStack = stats.maxParryStack;
-
+        if (Input.GetKeyDown(KeyCode.F4))
+        {
+            EnemyBase[] temp = FindObjectsByType<EnemyBase>(FindObjectsSortMode.None);
+            foreach (EnemyBase enemy in temp)
+            {
+                enemy.TakeDamage(100);
+            }
+        }
     }
     void LateUpdate()
     {
@@ -260,18 +267,21 @@ public class PlayerScript : Singleton<PlayerScript>
 
         if (IsGroundBelow())
         {
-            StartCoroutine(FallAndReturnCoroutine());
-            yield break;
+            playerInput.enabled = false;
+            yield return StartCoroutine(FallAndReturnCoroutine());
+            playerInput.enabled = true;
+            Health -= stats.maxHealth / 15; // 낙하 대미지 처리
         }
-
-        // 3. 쿨다운
-        yield return new WaitForSeconds(dashCooldown);
+        else
+        {
+            yield return new WaitForSeconds(dashCooldown);
+        }
         canUseDash = true;
         gameObject.layer = LayerMask.NameToLayer("Player"); // 대시 후 플레이어 레이어 복원
     }
 
 
-    bool isFalling = false;
+
     public Tilemap fallTilemap;
     public void SetGroundTilemap(Tilemap tilemap)
     {
@@ -287,24 +297,40 @@ public class PlayerScript : Singleton<PlayerScript>
     }
     IEnumerator FallAndReturnCoroutine()
     {
-        isFalling = true;
 
-        float fallTime = 1.5f;
-
+        float fallTime = 1.0f;
+        float shrinkDuration = 0.5f;
         float timer = 0f;
-        while (timer < fallTime)
+
+        Vector3 originalScale = transform.localScale;
+
+        // 서서히 작아지며 사라지는 연출
+        while (timer < shrinkDuration)
         {
-            transform.localScale = Vector3.one / (timer % fallTime); // Scale down while falling
+            float t = timer / shrinkDuration;
+            transform.localScale = Vector3.Lerp(originalScale, Vector3.zero, t);
             timer += Time.deltaTime;
             yield return null;
         }
-        transform.localScale = Vector3.one;
-        // 복귀
+
+        transform.localScale = Vector3.zero;
+
+        // 잠깐 사라짐
+        yield return new WaitForSeconds(fallTime - shrinkDuration);
+
+        // 위치 복구
         transform.position = lastSafePosition;
 
-        // 상태 복원
-        isFalling = false;
-        canUseDash = true;
+        // 스케일 원상복구 (순간적으로 or 부드럽게)
+        timer = 0f;
+        while (timer < 0.3f)
+        {
+            float t = timer / 0.3f;
+            transform.localScale = Vector3.Lerp(Vector3.zero, originalScale, t);
+            timer += Time.deltaTime;
+            yield return null;
+        }
+        transform.localScale = originalScale;
     }
 
     #endregion

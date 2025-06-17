@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1020970405555806383}
   - component: {fileID: 3392107579056649435}
+  - component: {fileID: 6867485980776952247}
   m_Layer: 0
   m_Name: ObjectPoolerManager
   m_TagString: Untagged
@@ -85,3 +86,15 @@ MonoBehaviour:
     - tag: SkillSelectItem
       prefab: {fileID: 4741066030510868246, guid: 4f5e063cd0d62ed46b594f0b15029ea8, type: 3}
       size: 0
+--- !u!210 &6867485980776952247
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1252674177885724664}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 10
+  m_SortAtRoot: 0

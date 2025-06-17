@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2454787731970319888}
   - component: {fileID: 7252503008042598069}
-  - component: {fileID: 3516314396553862472}
   - component: {fileID: 6592703851496459628}
   m_Layer: 0
   m_Name: RoomPrefabBase
@@ -48,18 +47,6 @@ Grid:
   m_CellGap: {x: 0, y: 0, z: 0}
   m_CellLayout: 0
   m_CellSwizzle: 0
---- !u!210 &3516314396553862472
-SortingGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2521365868005272557}
-  m_Enabled: 1
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_SortAtRoot: 0
 --- !u!114 &6592703851496459628
 MonoBehaviour:
   m_ObjectHideFlags: 0

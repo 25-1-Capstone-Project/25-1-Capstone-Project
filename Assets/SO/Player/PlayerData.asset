@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PlayerData
   m_EditorClassIdentifier: 
   speed: 5
-  maxHealth: 10
+  maxHealth: 100
   damage: 2
   attackCooldownSec: 0
   attackRange: 1

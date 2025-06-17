@@ -468,11 +468,11 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
+  m_VertexColorAlwaysGammaSpace: 1
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_TargetDisplay: 0
 --- !u!114 &4068256729057023438
 MonoBehaviour:
@@ -528,6 +528,7 @@ GameObject:
   - component: {fileID: 7631478283850709374}
   - component: {fileID: -2833255135379681415}
   - component: {fileID: 4127750533706630349}
+  - component: {fileID: 7823262984431668419}
   m_Layer: 6
   m_Name: EnemyObj
   m_TagString: Enemy
@@ -630,9 +631,9 @@ MonoBehaviour:
   data: {fileID: 11400000, guid: 7b31b1a268ce7fa449cac152533836c0, type: 2}
   enemySprite: {fileID: 6823296138178529082}
   animController: {fileID: 1213534254612820977}
+  enemyShaderController: {fileID: 6148230100185541133}
   hpBar: {fileID: 4127750533706630349}
   skillSelectItemPrefab: {fileID: 4741066030510868246, guid: 4f5e063cd0d62ed46b594f0b15029ea8, type: 3}
-  enemyShaderController: {fileID: 6148230100185541133}
 --- !u!114 &-2833255135379681415
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -659,3 +660,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthSlider: {fileID: 4467046702224176616}
   healthBarCanvas: {fileID: 6533603097371507764}
+--- !u!210 &7823262984431668419
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6562499921600132831}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 3
+  m_SortAtRoot: 0
