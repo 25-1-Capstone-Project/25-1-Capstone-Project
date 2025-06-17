@@ -11,8 +11,10 @@ public class Skill_Dash : SkillPattern
 
     public override IEnumerator CommonSkill(PlayerScript player)
     {
-        //슬래시 일반공격
-        EffectPooler.Instance.SpawnFromPool("AttackSlashParticle", player.Direction.normalized + Vector3.right, Quaternion.LookRotation(player.Direction) );
+        float temp = Mathf.Atan2(player.Direction.y, player.Direction.x) * Mathf.Rad2Deg;
+        Quaternion dir = Quaternion.Euler(0, 0, temp);
+        
+        EffectPooler.Instance.SpawnFromPool("AttackSlashParticle", (Vector2)(player.transform.position + player.Direction.normalized), dir);
         Collider2D[] hits = Physics2D.OverlapCircleAll(player.transform.position, player.Stats.attackRange, LayerMask.GetMask("Enemy"));
 
         foreach (var hit in hits)
@@ -27,6 +29,7 @@ public class Skill_Dash : SkillPattern
         }
 
         yield return new WaitForSeconds(player.Stats.attackCooldownSec);
+
     }
 
     public override IEnumerator UltimateSkill(PlayerScript player)

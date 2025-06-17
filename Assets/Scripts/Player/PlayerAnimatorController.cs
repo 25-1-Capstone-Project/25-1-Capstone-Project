@@ -59,6 +59,7 @@ public class PlayerAnimatorController : MonoBehaviour
     public void SetDeath(bool dead)
     {
         animator.SetBool("isDeath", dead);
+        SetTrigger("Death");
     }
 
     private void SetTrigger(string triggerName)

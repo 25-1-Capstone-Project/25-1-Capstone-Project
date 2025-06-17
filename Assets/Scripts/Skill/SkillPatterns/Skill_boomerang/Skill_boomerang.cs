@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-[CreateAssetMenu(menuName = "Player/Skill/Boomerang")] 
+[CreateAssetMenu(menuName = "Player/Skill/Boomerang")]
 public class Skill_boomerang : SkillPattern
 {
     [SerializeField] private GameObject boomerangPrefab;
@@ -10,7 +10,10 @@ public class Skill_boomerang : SkillPattern
 
     public override IEnumerator CommonSkill(PlayerScript player)
     {
-        EffectPooler.Instance.SpawnFromPool("AttackSlashParticle", player.Direction.normalized + Vector3.right, Quaternion.LookRotation(player.Direction) );
+        float temp = Mathf.Atan2(player.Direction.y, player.Direction.x) * Mathf.Rad2Deg;
+        Quaternion dir = Quaternion.Euler(0, 0, temp);
+        
+        EffectPooler.Instance.SpawnFromPool("AttackSlashParticle", (Vector2)(player.transform.position + player.Direction.normalized), dir);
         Collider2D[] hits = Physics2D.OverlapCircleAll(player.transform.position, player.Stats.attackRange, LayerMask.GetMask("Enemy"));
 
         foreach (var hit in hits)
@@ -25,7 +28,7 @@ public class Skill_boomerang : SkillPattern
         }
 
         yield return new WaitForSeconds(player.Stats.attackCooldownSec);
-       
+
     }
 
     public override IEnumerator UltimateSkill(PlayerScript player)

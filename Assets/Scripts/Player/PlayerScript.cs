@@ -24,7 +24,7 @@ public class PlayerScript : Singleton<PlayerScript>
     Vector2 lookInput;
     Vector3 direction;
     public Vector3 Direction => direction;
-
+    public Vector2 Direction2D => direction;
     [Header("=====플레이어 상태=====")]
     bool canUseAttack = true;
     bool isParrying = false;
@@ -97,7 +97,7 @@ public class PlayerScript : Singleton<PlayerScript>
 
         }
     }
-    public void SetParryStack(int max) { stats.maxParryStack = max; UIManager.Instance.parryStackUI.SetMaxParryStack(); }
+    public void SetMaxParryStack(int max) { stats.maxParryStack = max; UIManager.Instance.parryStackUI.SetMaxParryStack(); }
 
     // 증강
     public event Action OnParrySuccess;
@@ -121,7 +121,7 @@ public class PlayerScript : Singleton<PlayerScript>
 
 
     [Header("=====대시 옵션=====")]
-    [SerializeField] float dashDistance = 5f;
+    [SerializeField] float dashDistance = 6f;
     [SerializeField] bool canUseDash = true;
     [SerializeField] private float dashDuration = 0.2f;
     [SerializeField] private float dashCooldown = 1f;
@@ -180,10 +180,6 @@ public class PlayerScript : Singleton<PlayerScript>
 
     #endregion
 
-    void Start()
-    {
-
-    }
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.F1))
@@ -201,7 +197,7 @@ public class PlayerScript : Singleton<PlayerScript>
             }
         }
 
-        PlayerLogger.Instance.AddPlaytime(Time.deltaTime);
+        PlayerLogger.Instance.AddPlaytimeLog(Time.deltaTime);
     }
     void LateUpdate()
     {
@@ -248,7 +244,7 @@ public class PlayerScript : Singleton<PlayerScript>
         StartCoroutine(DashCoroutine());
         AudioManager.Instance.PlaySFX("Dash");
 
-        PlayerLogger.Instance.OnDash();
+        PlayerLogger.Instance.PlusDashLog();
     }
 
     Vector3 lastSafePosition;
@@ -278,17 +274,21 @@ public class PlayerScript : Singleton<PlayerScript>
         if (IsGroundBelow())
         {
             playerInput.enabled = false;
+            isGod = true;
             yield return StartCoroutine(FallAndReturnCoroutine());
             playerInput.enabled = true;
-            Health -= stats.maxHealth / 15; // 낙하 대미지 처리
+            isGod = false;
+            Health -= stats.maxHealth / 12; // 낙하 대미지 처리
+            gameObject.layer = LayerMask.NameToLayer("Player");
         }
         else
         {
+            gameObject.layer = LayerMask.NameToLayer("Player");
             yield return new WaitForSeconds(dashCooldown);
         }
 
         canUseDash = true;
-        gameObject.layer = LayerMask.NameToLayer("Player"); // 대시 후 플레이어 레이어 복원
+        // 대시 후 플레이어 레이어 복원
     }
 
 
@@ -363,7 +363,7 @@ public class PlayerScript : Singleton<PlayerScript>
         Vector3 mouseScreenPos = new Vector3(lookInput.x, lookInput.y, -Camera.main.transform.position.z);
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(mouseScreenPos);
         // 방향
-        direction = (mouseWorldPos - arrow.transform.position).normalized;
+        direction = (mouseWorldPos - transform.position).normalized;
         // 회전
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         arrow.transform.rotation = Quaternion.Euler(0, 0, angle);
@@ -380,7 +380,7 @@ public class PlayerScript : Singleton<PlayerScript>
             return;
         StartCoroutine(AttackRoutine());
 
-        PlayerLogger.Instance.AttackCount();
+        PlayerLogger.Instance.PlusAttackCountLog();
     }
     IEnumerator AttackRoutine()
     {
@@ -589,8 +589,8 @@ public class PlayerScript : Singleton<PlayerScript>
         yield return new WaitForSeconds(0.4f);
         isGod = false;
 
-        PlayerLogger.Instance.OnHit();
-        PlayerLogger.Instance.AddDamageTaken(damage);
+        PlayerLogger.Instance.PlusHitLog();
+        PlayerLogger.Instance.AddDamageTakenLog(damage);
 
     }
 
@@ -610,17 +610,16 @@ public class PlayerScript : Singleton<PlayerScript>
 
         if (currentSkill == null)
         {
-            SetParryStack(0);
+            SetMaxParryStack(0);
         }
         else
         {
             // 땜질2
-            SetParryStack(currentSkill.ultimateCost);
+            SetMaxParryStack(currentSkill.ultimateCost);
             UIManager.Instance.parryStackUI.SyncParryIcons(ParryStack);
             UIManager.Instance.skillUI.UpdateSkillIcon(currentSkill.skillIcon);
         }
     }
-
 
 
     // 스킬 키 입력
@@ -653,7 +652,7 @@ public class PlayerScript : Singleton<PlayerScript>
         //         //    break;
         // }
 
-        PlayerLogger.Instance.OnSkillUsed();
+        PlayerLogger.Instance.PlusSkillUsedLog();
     }
 
     private bool CheckUltimate()
@@ -712,7 +711,8 @@ public class PlayerScript : Singleton<PlayerScript>
         playerAnim.SetDeath(true);
         rb.linearVelocity = Vector2.zero;
         UIManager.Instance.deadInfo.SetActiveDeadInfoPanel(true);
-        PlayerLogger.Instance.OnDeath();
+        
+        PlayerLogger.Instance.PlusDeathLog();
     }
 
 

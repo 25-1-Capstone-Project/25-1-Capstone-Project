@@ -128,6 +128,7 @@ public class ParriedState : EnemyState
     {
          enemy.enemyShaderController.OffOutline();
         enemy.GetRigidbody().linearVelocity = Vector2.zero;
+        enemy.gameObject.layer = LayerMask.NameToLayer("Enemy");
         enemy.StopAllCoroutines();
         enemy.StartCoroutine(KnockBack());
     }

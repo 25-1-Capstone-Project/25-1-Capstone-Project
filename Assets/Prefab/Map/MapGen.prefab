@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03b3f2a658b80ff4a944b2077e740f9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  doorDistance: {x: 17, y: 10}
+  doorDistance: {x: 17, y: 9}
   roomgap: {x: 25, y: 13}
   mapWidth: 8
   mapHeight: 8
@@ -53,6 +53,8 @@ MonoBehaviour:
   playerSpawnPoint: {fileID: 6944638661161206903, guid: c44e3545a0200044a8a090da013fe8de, type: 3}
   roomCount: 18
   doorPrefab: {fileID: 1640283549017557581, guid: ad6c5e24848553b4b83343455945c6b4, type: 3}
+  rewardRoomCount: 2
+  bossRoomCount: 1
 --- !u!114 &5374514495471530501
 MonoBehaviour:
   m_ObjectHideFlags: 0

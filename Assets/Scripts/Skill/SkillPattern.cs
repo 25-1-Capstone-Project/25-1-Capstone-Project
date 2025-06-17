@@ -24,7 +24,6 @@ public abstract class SkillPattern : ScriptableObject
         return false;
     }
 
-    // ��ų ��Ÿ�� üũ
     [System.NonSerialized]
     public float lastUseTime = -Mathf.Infinity;
 

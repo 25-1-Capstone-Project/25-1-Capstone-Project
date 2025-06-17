@@ -18,58 +18,58 @@ public class PlayerLogger : MonoBehaviour
         }
     }
 
-    public void OnStageComplete(int stage)
+    public void SetStageComplete(int stage)
     {
         log.max_stage = Mathf.Max(log.max_stage, stage);
     }
 
-    public void OnEnemyKilled() //완
+    public void PlusEnemyKilledLog() //완
     {
         log.kill_count++;
     }
 
-    public void AttackCount() // 완
+    public void PlusAttackCountLog() // 완
     {
         log.attack_count++;
     }
 
-    public void AddDamageDealt(float damage) // 완
+    public void AddDamageDealtLog(float damage) // 완
     {
         log.damage_dealt += damage;
     }
 
-    public void AddDamageTaken(float damage) // 완
+    public void AddDamageTakenLog(float damage) // 완
     {
         log.damage_taken += damage;
     }
 
-    public void OnDeath() // 완
+    public void PlusDeathLog() // 완
     {
         log.death_count++;
     }
 
-    public void OnSkillUsed() // 완 
+    public void PlusSkillUsedLog() // 완 
     {
         log.skill_usage_freq++;
     }
 
-    public void OnDash() // 완
+    public void PlusDashLog() // 완
     {
         log.dash_count++;
     }
 
-    public void OnHit() // 완
+    public void PlusHitLog() // 완
     {
         log.hit_count++;
 
     }
 
-    public void AddHealing(float amount) // 완
+    public void AddHealingLog(float amount) // 완
     {
         log.healing_amount += amount;
     }
 
-    public void AddPlaytime(float deltaTime) // 완
+    public void AddPlaytimeLog(float deltaTime) // 완
     {
         log.playtime += deltaTime;
     }

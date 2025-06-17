@@ -14,7 +14,7 @@ public class TestSkillB : SkillPattern
         Quaternion rotation = Quaternion.Euler(0, 0, VFXangle);
         GameObject effect = EffectPooler.Instance.SpawnFromPool("playerAttackSword", player.transform.position, rotation);
 
-        Collider2D[] hits = Physics2D.OverlapCircleAll(player.transform.position, attackRange, LayerMask.GetMask("Enemy"));
+        Collider2D[] hits = Physics2D.OverlapCircleAll(player.transform.position, attackRange, LayerMask.GetMask("Enemy","EnemyAttack"));
 
         foreach (var hit in hits)
         {
@@ -40,7 +40,7 @@ public class TestSkillB : SkillPattern
             GameObject vfx = EffectPooler.Instance.SpawnFromPool("playerAttackSword_U", player.transform.position, Quaternion.identity);
         }
 
-        Collider2D[] hits = Physics2D.OverlapCircleAll(player.transform.position, attackRange, LayerMask.GetMask("Enemy"));
+        Collider2D[] hits = Physics2D.OverlapCircleAll(player.transform.position, attackRange, LayerMask.GetMask("Enemy","EnemyAttack"));
 
         foreach (var hit in hits)
         {

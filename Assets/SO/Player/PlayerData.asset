@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 6
   maxHealth: 100
-  damage: 2
-  attackCooldownSec: 0
-  attackRange: 1
+  damage: 3
+  attackCooldownSec: 1
+  attackRange: 2
   attackAngle: 120
   parryCooldownSec: 0.6
-  parryDurationSec: 0.3
+  parryDurationSec: 0.2
   currentParryStack: 0
   maxParryStack: 3

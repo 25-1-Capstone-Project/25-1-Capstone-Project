@@ -28,6 +28,6 @@ public class HealOnParry : PlayerAbility
         Debug.Log("�����Ƽ(ȸ��) �ߵ�");
         player.abilTestPlayerHealth(10);
 
-        PlayerLogger.Instance.AddHealing(10);
+        PlayerLogger.Instance.AddHealingLog(10);
     }
 }
