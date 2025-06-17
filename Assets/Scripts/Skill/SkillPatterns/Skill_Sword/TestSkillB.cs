@@ -12,7 +12,7 @@ public class TestSkillB : SkillPattern
     {
         float VFXangle = Mathf.Atan2(player.Direction.y, player.Direction.x) * Mathf.Rad2Deg;
         Quaternion rotation = Quaternion.Euler(0, 0, VFXangle);
-        GameObject effect = EffectPooler.Instance.SpawnFromPool("AttackSlashParticle", player.transform.position, rotation);
+        GameObject effect = EffectPooler.Instance.SpawnFromPool("playerAttackSword", player.transform.position, rotation);
 
         Collider2D[] hits = Physics2D.OverlapCircleAll(player.transform.position, attackRange, LayerMask.GetMask("Enemy"));
 
@@ -37,7 +37,7 @@ public class TestSkillB : SkillPattern
     {
         if (attackVFXPrefab != null)
         {
-            GameObject vfx = GameObject.Instantiate(attackVFXPrefab, player.transform.position, Quaternion.identity);
+            GameObject vfx = EffectPooler.Instance.SpawnFromPool("playerAttackSword_U", player.transform.position, Quaternion.identity);
         }
 
         Collider2D[] hits = Physics2D.OverlapCircleAll(player.transform.position, attackRange, LayerMask.GetMask("Enemy"));

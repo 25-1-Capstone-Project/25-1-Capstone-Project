@@ -58,6 +58,12 @@ MonoBehaviour:
     - tag: playerAttackFireball
       prefab: {fileID: 6986725825239899581, guid: 987176123172fe14488869561d516ccf, type: 3}
       size: 0
+    - tag: playerAttackSword
+      prefab: {fileID: 1308343021925632072, guid: 3f99d23eaf2aae3439afc7cad065c352, type: 3}
+      size: 0
+    - tag: playerAttackSword_U
+      prefab: {fileID: 3386701588590134645, guid: 5510f2ac45eb9454c8f76e28dc468bde, type: 3}
+      size: 0
   - groupName: Enemy
     pools:
     - tag: AttackSlashParticle
