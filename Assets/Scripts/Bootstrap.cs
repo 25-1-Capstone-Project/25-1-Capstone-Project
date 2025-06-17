@@ -1,15 +1,18 @@
+// BootStrap.cs
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using Firebase;
 using Firebase.Extensions;
-using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class BootStrap : MonoBehaviour
 {
     [SerializeField] string firstSceneName = "MainMenu";
+    public AugmentRecommender recommender;
 
     void Awake()
     {
+        recommender.gameObject.SetActive(false); // 초기에는 꺼둠
+
         FirebaseApp.CheckAndFixDependenciesAsync().ContinueWithOnMainThread(task =>
         {
             var dependencyStatus = task.Result;
@@ -17,17 +20,15 @@ public class BootStrap : MonoBehaviour
             {
                 Debug.Log("Firebase 초기화 성공");
 
+                // SaveManager 초기화
                 if (SaveManager.Instance == null)
                 {
-                    SaveManager sm = gameObject.AddComponent<SaveManager>();
-                    sm.Initialize();
-                }
-                else
-                {
-                    SaveManager.Instance.Initialize();
+                    gameObject.AddComponent<SaveManager>();
                 }
 
-                
+                // 추천 시스템 실행
+                recommender.Run(); // 👉 직접 실행 메서드로 호출
+                SceneManager.LoadScene(firstSceneName);
             }
             else
             {
@@ -35,8 +36,5 @@ public class BootStrap : MonoBehaviour
             }
         });
     }
-
-    private void Start() {
-           SceneManager.LoadScene(firstSceneName);
-    } 
 }
+

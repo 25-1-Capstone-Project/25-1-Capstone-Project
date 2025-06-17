@@ -24,25 +24,6 @@ public class SaveManager : MonoBehaviour
         }
     }
 
-    // Initialize 메서드는 public으로 선언
-    public void Initialize()
-    {
-        //CheckNetwork();
-
-        FirebaseApp.CheckAndFixDependenciesAsync().ContinueWithOnMainThread(task =>
-        {
-            if (task.Result == DependencyStatus.Available)
-            {
-                Debug.Log("Firebase 초기화 성공");
-                CheckNetwork(); // 초기화 후에만 네트워크 확인 및 저장
-            }
-            else
-            {
-                Debug.LogError("Firebase 초기화 실패: " + task.Result);
-            }
-        });
-    }
-
     void CheckNetwork()
     {
         if (Application.internetReachability == NetworkReachability.NotReachable)

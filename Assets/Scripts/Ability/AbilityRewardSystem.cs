@@ -8,6 +8,7 @@ public class AbilityRewardSystem : MonoBehaviour
     public GameObject abilityWindow;
     public AbilityChoiceUI[] choiceButtons;
     private List<string> recommendedAbilities = new List<string>();
+    
     public void SetRecommendedAbilities(List<string> recommended)
     {
         recommendedAbilities = recommended;

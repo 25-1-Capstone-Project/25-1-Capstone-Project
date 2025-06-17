@@ -7,7 +7,9 @@ public class FirebaseUploader : MonoBehaviour
     public void UploadLogToFirebase()
     {
         var log = PlayerLogger.Instance.GetLogData();
+        log.user_id = SystemInfo.deviceUniqueIdentifier;
         string json = JsonUtility.ToJson(log);
+        
 
         FirebaseDatabase.DefaultInstance
             .RootReference

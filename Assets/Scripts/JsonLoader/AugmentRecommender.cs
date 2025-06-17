@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
-using Firebase;
 using Firebase.Database;
 using Newtonsoft.Json;
-using System.Linq;
+using System.Threading.Tasks;
+using System;
 
 public class AugmentRecommender : MonoBehaviour
 {
@@ -20,50 +20,63 @@ public class AugmentRecommender : MonoBehaviour
     private AugmentModel model;
     private DatabaseReference dbRef;
 
-    void Start()
+    public List<AbilityChoiceUI> abilityUIList;
+
+    public async void Run()
     {
+        Debug.Log("📦 AugmentRecommender.Run() 실행됨");
+
         LoadModel();
 
-        FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(task =>
+        try
         {
-            FirebaseApp app = FirebaseApp.DefaultInstance;
-            dbRef = FirebaseDatabase.DefaultInstance.RootReference;
-            LoadPlayerLogAndRecommend("u001");
-        });
+            FirebaseDatabase db = FirebaseDatabase.GetInstance("https://capstone-project-2a41b-default-rtdb.asia-southeast1.firebasedatabase.app/");
+            dbRef = db.RootReference;
+
+            string userId = SystemInfo.deviceUniqueIdentifier;
+            Debug.Log($"📡 [{userId}] 유저의 로그 데이터를 Firebase에서 불러옵니다...");
+
+            var snapshot = await dbRef.Child("logs").Child(userId).GetValueAsync();
+
+            if (!snapshot.Exists)
+            {
+                Debug.LogWarning($"⚠️ 유저 로그 없음: {userId}");
+                return;
+            }
+
+            Debug.Log($"✅ 유저 로그 로드 완료!");
+
+            Dictionary<string, float> playerLog = new();
+            foreach (var child in snapshot.Children)
+            {
+                if (float.TryParse(child.Value.ToString(), out float val))
+                    playerLog[child.Key] = val;
+            }
+
+            Debug.Log($"📊 파싱된 로그 수: {playerLog.Count}");
+
+            var recommended = RecommendAugments(playerLog);
+            Debug.Log($"🎯 추천 증강: {string.Join(", ", recommended)}");
+
+            ApplyRecommendedToUI(recommended);
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError($"❌ Firebase 통신 오류: {ex.Message}");
+        }
     }
 
     void LoadModel()
     {
         TextAsset json = Resources.Load<TextAsset>("augment_model");
-        model = JsonConvert.DeserializeObject<AugmentModel>(json.text);
-    }
-
-    void LoadPlayerLogAndRecommend(string userId)
-    {
-        FirebaseDatabase.DefaultInstance
-            .GetReference("player_logs")
-            .Child(userId)
-            .GetValueAsync().ContinueWith(task =>
+        if (json == null)
         {
-            if (task.IsFaulted || !task.Result.Exists)
-            {
-                Debug.LogWarning("플레이어 로그를 가져올 수 없음");
-                return;
-            }
+            Debug.LogError("🚫 augment_model.json 파일을 Resources 폴더에 넣으세요.");
+            return;
+        }
 
-            Dictionary<string, float> playerLog = new Dictionary<string, float>();
-
-            foreach (var child in task.Result.Children)
-            {
-                if (float.TryParse(child.Value.ToString(), out float val))
-                {
-                    playerLog[child.Key] = val;
-                }
-            }
-
-            List<string> recommended = RecommendAugments(playerLog);
-            Debug.Log($"[추천 증강 - {userId}] : " + string.Join(", ", recommended));
-        });
+        model = JsonConvert.DeserializeObject<AugmentModel>(json.text);
+        Debug.Log($"✅ 모델 로드 성공! feature 수: {model.features.Count}");
     }
 
     List<string> RecommendAugments(Dictionary<string, float> playerLog)
@@ -72,30 +85,42 @@ public class AugmentRecommender : MonoBehaviour
         for (int i = 0; i < model.features.Count; i++)
         {
             string feature = model.features[i];
-            float raw = playerLog.ContainsKey(feature) ? playerLog[feature] : 0f;
-            float min = model.scaler_min[i];
-            float max = model.scaler_max[i];
-            input[i] = Mathf.Clamp(1f + 9f * (raw - min) / (max - min), 1f, 10f);
+            float val = playerLog.ContainsKey(feature) ? playerLog[feature] : 0f;
+            float scaled = Mathf.Clamp(1f + 9f * (val - model.scaler_min[i]) / (model.scaler_max[i] - model.scaler_min[i]), 1f, 10f);
+            input[i] = scaled;
         }
 
         int bestCluster = 0;
-        float minDistance = float.MaxValue;
+        float minDist = float.MaxValue;
         for (int c = 0; c < model.cluster_centers.Count; c++)
         {
             float dist = 0f;
+            var center = model.cluster_centers[c];
             for (int i = 0; i < input.Length; i++)
             {
-                float diff = input[i] - model.cluster_centers[c][i];
+                float diff = input[i] - center[i];
                 dist += diff * diff;
             }
-            if (dist < minDistance)
+            if (dist < minDist)
             {
-                minDistance = dist;
+                minDist = dist;
                 bestCluster = c;
             }
         }
 
-        string key = bestCluster.ToString();
-        return model.recommendations.ContainsKey(key) ? model.recommendations[key] : new List<string>();
+        string clusterKey = bestCluster.ToString();
+        return model.recommendations.ContainsKey(clusterKey) ? model.recommendations[clusterKey] : new List<string>();
+    }
+
+    void ApplyRecommendedToUI(List<string> recommended)
+    {
+        foreach (var ui in abilityUIList)
+        {
+            var data = ui.GetAbilityData();
+            if (data == null) continue;
+
+            bool isRecommended = recommended.Contains(data.abilityName);
+            ui.SetBlinking(isRecommended);
+        }
     }
 }

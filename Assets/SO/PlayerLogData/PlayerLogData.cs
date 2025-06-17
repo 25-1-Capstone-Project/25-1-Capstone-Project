@@ -1,7 +1,7 @@
 [System.Serializable]
 public class PlayerLogData
 {
-    public string user_id = "";
+    public string user_id = "u001";
     public int attack_count = 0;
     public int max_stage = 0;
     public int kill_count = 0;
