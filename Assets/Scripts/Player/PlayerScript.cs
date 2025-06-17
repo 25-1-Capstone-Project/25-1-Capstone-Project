@@ -35,6 +35,7 @@ public class PlayerScript : Singleton<PlayerScript>
 
     private PlayerInput playerInput;
 
+
     [Header("=====체력=====")]
 
     public int Health
@@ -198,6 +199,8 @@ public class PlayerScript : Singleton<PlayerScript>
                 enemy.TakeDamage(100);
             }
         }
+
+        PlayerLogger.Instance.AddPlaytime(Time.deltaTime);
     }
     void LateUpdate()
     {
@@ -243,6 +246,8 @@ public class PlayerScript : Singleton<PlayerScript>
             return;
         StartCoroutine(DashCoroutine());
         AudioManager.Instance.PlaySFX("Dash");
+
+        PlayerLogger.Instance.OnDash();
     }
 
     Vector3 lastSafePosition;
@@ -368,6 +373,8 @@ public class PlayerScript : Singleton<PlayerScript>
         if (!currentSkill.IsCooldownReady())
             return;
         StartCoroutine(AttackRoutine());
+
+        PlayerLogger.Instance.AttackCount();
     }
     IEnumerator AttackRoutine()
     {
@@ -530,6 +537,8 @@ public class PlayerScript : Singleton<PlayerScript>
         }
         else
             StartCoroutine(DamagedRoutine(enemy.GetDamage()));
+
+
     }
     // 원거리 대미지 처리 함수.
 
@@ -573,6 +582,10 @@ public class PlayerScript : Singleton<PlayerScript>
         Health -= damage;
         yield return new WaitForSeconds(0.4f);
         isGod = false;
+
+        PlayerLogger.Instance.OnHit();
+        PlayerLogger.Instance.AddDamageTaken(damage);
+
     }
 
     public void abilTestPlayerHealth(int h)
@@ -633,6 +646,8 @@ public class PlayerScript : Singleton<PlayerScript>
         //         //    Debug.Log("스킬 사용 불가");
         //         //    break;
         // }
+
+        PlayerLogger.Instance.OnSkillUsed();
     }
 
     private bool CheckUltimate()
@@ -690,6 +705,7 @@ public class PlayerScript : Singleton<PlayerScript>
         isDead = true;
         rb.linearVelocity = Vector2.zero;
         UIManager.Instance.deadInfo.SetActiveDeadInfoPanel(true);
+        PlayerLogger.Instance.OnDeath();
     }
 
 

@@ -146,6 +146,7 @@ public abstract class EnemyBase : MonoBehaviour
     {
         isDead = true;
         StateMachine.ChangeState<DeadState>();
+        PlayerLogger.Instance.OnEnemyKilled(); // 적 처치 기록
     }
 
     public void KnockBack(float knockBackForce)
