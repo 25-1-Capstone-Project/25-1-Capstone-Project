@@ -141,6 +141,7 @@ public class PlayerScript : Singleton<PlayerScript>
     [SerializeField] PlayerAnimatorController playerAnim;
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Ghost ghost;
+    [SerializeField] private ParticleSystem skillParticle;
     SkillPattern currentSkill;
     private PlayerRuntimeStats stats = new PlayerRuntimeStats();
     public PlayerRuntimeStats Stats => stats;
@@ -662,6 +663,7 @@ public class PlayerScript : Singleton<PlayerScript>
         // AudioManager.Instance.PlaySFX("Ultimate");
         // EffectPooler.Instance.SpawnFromPool("UltimateEffect", PlayerScript.Instance.transform.position, Quaternion.identity);
         CameraManager.Instance.CameraShake(0.1f, 0.1f);
+        skillParticle.Play();
         FadeController.Instance.FadeOut(Color.white, 0.05f, 0.01f);
         FadeController.Instance.FadeIn(Color.white, 0.05f, 0.01f);
         GameManager.Instance.SetTimeScale(0.1f);
