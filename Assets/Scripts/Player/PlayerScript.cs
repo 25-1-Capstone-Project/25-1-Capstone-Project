@@ -25,7 +25,6 @@ public class PlayerScript : Singleton<PlayerScript>
     Vector3 direction;
     public Vector3 Direction => direction;
 
-
     [Header("=====플레이어 상태=====")]
     bool canUseAttack = true;
     bool isParrying = false;
@@ -33,6 +32,8 @@ public class PlayerScript : Singleton<PlayerScript>
     bool isAttacking = false;
     bool isDashing = false;
     bool isGod = false; // 무적 상태
+
+    private PlayerInput playerInput;
 
     [Header("=====체력=====")]
 
@@ -169,6 +170,11 @@ public class PlayerScript : Singleton<PlayerScript>
     {
         return rb;
     }
+    public void SetActivePlayerInput(bool isActive)
+    {
+        playerInput.enabled = isActive;
+    }
+
     #endregion
 
     void Start()
@@ -182,7 +188,6 @@ public class PlayerScript : Singleton<PlayerScript>
             Health = stats.maxHealth;
         if (Input.GetKeyDown(KeyCode.F2))
             Health = 0;
-
 
     }
     void LateUpdate()
@@ -198,6 +203,7 @@ public class PlayerScript : Singleton<PlayerScript>
         spriteRenderer = PlayerModel.GetComponentInChildren<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
         playerAnim = GetComponent<PlayerAnimatorController>();
+        playerInput = GetComponent<PlayerInput>();
     }
 
     #region 이동

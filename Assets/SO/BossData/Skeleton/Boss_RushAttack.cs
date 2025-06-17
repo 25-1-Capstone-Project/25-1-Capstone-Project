@@ -11,7 +11,7 @@ class Boss_RushAttack : EnemyAttackPattern
      for (int i = 0; i < attackCount; i++)
         {
             boss.GetRigidbody().linearVelocity = Vector2.zero;
-            boss.FlashSprite(Color.blue, attackChargeSec);
+            boss.enemyShaderController.OnOutline();
 
             Vector2 dir = (PlayerScript.Instance.transform.position - boss.transform.position).normalized;
             Vector2 startPos = boss.transform.position;
@@ -62,6 +62,7 @@ class Boss_RushAttack : EnemyAttackPattern
                 yield return new WaitForFixedUpdate();
             }
             boss.gameObject.layer = LayerMask.NameToLayer("Enemy");
+            boss.enemyShaderController.OffOutline();
             yield return new WaitForSeconds(attackPostDelay);
         }
 

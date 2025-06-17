@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6456963587297138823}
   - component: {fileID: 7322199121564673016}
   - component: {fileID: 2694127021961254135}
+  - component: {fileID: 4884528037413820961}
   m_Layer: 6
   m_Name: BossAnimator
   m_TagString: Untagged
@@ -57,7 +58,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  - {fileID: 2100000, guid: b7786d14f9e28f546961ff932e8a7d9f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -123,6 +124,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc4ae36de086a474c8c4dd5940d5f18e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4884528037413820961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6058944968916375881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6fe83b4b449c864488b0e40ce5691d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineThickness: 0.6
 --- !u!1 &7877747108722916276
 GameObject:
   m_ObjectHideFlags: 0
@@ -249,6 +263,4 @@ MonoBehaviour:
   data: {fileID: 11400000, guid: 1649a12e60d7fa74d9c3e9b91b1db6c7, type: 2}
   enemySprite: {fileID: 6456963587297138823}
   animController: {fileID: 2694127021961254135}
-  enemyShaderController: {fileID: 0}
-  StateText: {fileID: 0}
-  AttackText: {fileID: 0}
+  enemyShaderController: {fileID: 4884528037413820961}

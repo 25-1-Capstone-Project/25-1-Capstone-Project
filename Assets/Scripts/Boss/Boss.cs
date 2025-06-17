@@ -9,11 +9,6 @@ public enum EBossSkillAction
 }
 public class Boss : EnemyBase
 {
-
-    // UI (보스만 가질 수 있음)
-    public Text StateText;
-    public Text AttackText;
-
     BossAnimatorController bossAnim; // 보스 전용 애니메이터 컨트롤러
     private BossData bossData; // 보스 전용 데이터
     private Fuzzy fuzzy;

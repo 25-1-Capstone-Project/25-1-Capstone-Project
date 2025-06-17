@@ -7,8 +7,7 @@ public abstract class EnemyBase : MonoBehaviour
     [SerializeField] protected EnemyBaseData data; // 모든 적은 데이터를 가짐
     [SerializeField] protected SpriteRenderer enemySprite;
     [SerializeField] protected EnemyAnimatorController animController;
-    [SerializeField] private EnemyHPBar hpBar;
-    public GameObject skillSelectItemPrefab;
+
     public EnemyAttackPattern GetAttackPattern() => data.attackPattern;
     public int GetDamage() => data.attackDamage;
     protected Rigidbody2D rb;
@@ -130,7 +129,6 @@ public abstract class EnemyBase : MonoBehaviour
         Health -= damage;
         FlashSprite(Color.red, 0.1f);
 
-        hpBar?.SetHealth(data.currentHealth, data.maxHealth);
     }
 
     /// <summary>
@@ -138,7 +136,6 @@ public abstract class EnemyBase : MonoBehaviour
     /// </summary>
     protected virtual void OnDamaged()
     {
-
         StateMachine.ChangeState<DamagedState>();
     }
     public virtual void Parried()
@@ -148,10 +145,7 @@ public abstract class EnemyBase : MonoBehaviour
     protected virtual void Dead()
     {
         isDead = true;
-        hpBar?.Hide();
         StateMachine.ChangeState<DeadState>();
-
-
     }
 
     public void KnockBack(float knockBackForce)

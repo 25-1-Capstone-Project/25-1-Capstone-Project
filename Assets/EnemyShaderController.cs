@@ -3,7 +3,7 @@ using UnityEngine;
 public class EnemyShaderController : MonoBehaviour
 {
     private Material enemyMaterial;
-    [SerializeField] private float outlineThickness = 2f;
+    [SerializeField] private float outlineThickness = 0.6f;
 
     private void Start()
     {

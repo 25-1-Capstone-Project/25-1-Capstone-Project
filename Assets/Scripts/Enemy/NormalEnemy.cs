@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class NormalEnemy : EnemyBase
 {
+    [SerializeField] private EnemyHPBar hpBar;
+    public GameObject skillSelectItemPrefab;
     // EnemyBase에 Init()이 있으므로, 추가적인 초기화가 필요 없다면 override하지 않아도 됨.
     // public override void Init()
     // {
@@ -35,5 +37,16 @@ public class NormalEnemy : EnemyBase
 
         base.OnDamaged(); // KnockBackState가 없다면 부모의 기본 행동 수행
 
+    }
+    public override void TakeDamage(int damage)
+    {
+        base.TakeDamage(damage);
+
+        hpBar?.SetHealth(data.currentHealth, data.maxHealth);
+    }
+    protected override void Dead()
+    {
+        base.Dead();
+        hpBar?.Hide();
     }
 }

@@ -5,9 +5,9 @@ public interface IEnemyState : IState { }
 // 몬스터 상태 기본 클래스
 public abstract class EnemyState : IEnemyState
 {
-    protected EnemyBase enemy;
+    protected NormalEnemy enemy;
 
-    public EnemyState(EnemyBase enemy)
+    public EnemyState(NormalEnemy enemy)
     {
         this.enemy = enemy;
     }
@@ -20,7 +20,7 @@ public abstract class EnemyState : IEnemyState
 // Idle 상태
 public class IdleState : EnemyState
 {
-    public IdleState(EnemyBase enemy) : base(enemy) { }
+    public IdleState(NormalEnemy enemy) : base(enemy) { }
 
     public override void Enter()
     {
@@ -45,7 +45,7 @@ public class IdleState : EnemyState
 // 추격 상태
 public class ChaseState : EnemyState, IFixedUpdateState, ILateUpdateState
 {
-    public ChaseState(EnemyBase enemy) : base(enemy) { }
+    public ChaseState(NormalEnemy enemy) : base(enemy) { }
 
     public override void Enter()
     {
@@ -85,7 +85,7 @@ public class AttackState : EnemyState
 {
     private Coroutine attackRoutine;
 
-    public AttackState(EnemyBase enemy) : base(enemy) { }
+    public AttackState(NormalEnemy enemy) : base(enemy) { }
 
     public override void Enter()
     {
@@ -122,7 +122,7 @@ public class ParriedState : EnemyState
 {
     WaitForSeconds KnockBackDelaySec = new WaitForSeconds(0.5f);
 
-    public ParriedState(EnemyBase enemy) : base(enemy) { }
+    public ParriedState(NormalEnemy enemy) : base(enemy) { }
 
     public override void Enter()
     {
@@ -145,7 +145,7 @@ public class ParriedState : EnemyState
 
 public class DamagedState : EnemyState
 {
-    public DamagedState(EnemyBase enemy) : base(enemy) { }
+    public DamagedState(NormalEnemy enemy) : base(enemy) { }
 
     public override void Enter()
     {
@@ -168,7 +168,7 @@ public class DamagedState : EnemyState
 public class DeadState : EnemyState
 {
     Coroutine coroutine;
-    public DeadState(EnemyBase enemy) : base(enemy) { }
+    public DeadState(NormalEnemy enemy) : base(enemy) { }
 
     public override void Enter()
     {

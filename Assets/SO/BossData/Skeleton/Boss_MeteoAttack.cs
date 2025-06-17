@@ -12,7 +12,7 @@ class Boss_MeteoAttack : EnemyAttackPattern
 
         for (int i = 0; i < attackCount; i++)
         {
-            //플레이어의 위치에 보석을 떨굼 맞으면 데미지 갭 두기.
+            //플레이어의 위치에 보석을 떨굼 맞으면 데미지
             Vector2 playerPos = PlayerScript.Instance.transform.position;
             GameObject meteoProj = EffectPooler.Instance.SpawnFromPool("Skeleton_MeteoProjectile",playerPos);
             FallingAttack enemyAttack = meteoProj.GetComponent<FallingAttack>();
