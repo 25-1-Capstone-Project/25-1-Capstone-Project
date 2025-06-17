@@ -454,6 +454,7 @@ GameObject:
   - component: {fileID: 3441208198797198834}
   - component: {fileID: 9065998395138312102}
   - component: {fileID: 8840144759729888683}
+  - component: {fileID: 631239345391193892}
   m_Layer: 0
   m_Name: Ghost
   m_TagString: Untagged
@@ -666,7 +667,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 1, b: 1, a: 0.57254905}
+      maxColor: {r: 0.8066038, g: 0.98876446, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -5288,3 +5289,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e44cf68d02b35a4c99a3e842c6e653c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!210 &631239345391193892
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8782274461672747958}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 1
+  m_SortAtRoot: 1

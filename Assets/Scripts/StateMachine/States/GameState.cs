@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 public abstract class GameState : IState
@@ -20,6 +21,7 @@ public class MainMenuState : GameState
 
     public override void Enter()
     {
+        
         SceneManager.LoadScene("MainMenu");
         UIManager.Instance.SetActiveMainMenuUI(true);
     }
@@ -39,7 +41,6 @@ public class HubState : GameState
 
     public override void Enter()
     {
-       
         SceneManager.sceneLoaded += OnSceneLoaded;
         SceneManager.LoadScene("HubScene");
     }
@@ -50,6 +51,7 @@ public class HubState : GameState
         SceneManager.sceneLoaded -= OnSceneLoaded;
         gameManager.InstancePlayer();
         gameManager.PlayerSpawn();
+        PlayerScript.Instance.InitPlayer();
         UIManager.Instance.SetActiveMainMenuUI(false);
         UIManager.Instance.SetActiveInGameUI(true);
         CameraManager.Instance.SetActiveCineCam(true);
@@ -62,6 +64,10 @@ public class HubState : GameState
             gameManager.CurrentDungeonFloor = 0;
             gameManager.StateMachine.ChangeState<DungeonState>();
         }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            UIManager.Instance.pauseUI.TogglePause();
+        }
     }
 
     public override void Exit() { }
@@ -73,8 +79,6 @@ public class DungeonState : GameState
 
     public override void Enter()
     {
-
-
         SceneManager.sceneLoaded += OnSceneLoaded;
 
         string sceneName =
@@ -87,7 +91,6 @@ public class DungeonState : GameState
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-
         SceneManager.sceneLoaded -= OnSceneLoaded;
         MapManager.Instance.CreateMap();
         UIManager.Instance.SetActiveMainMenuUI(false);
@@ -99,41 +102,19 @@ public class DungeonState : GameState
 
     public override void Update()
     {
-        if (Input.GetKeyDown(KeyCode.N))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             gameManager.GoToNextDungeonFloor();
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            gameManager.StateMachine.ChangeState<PausedState>();
+            UIManager.Instance.pauseUI.TogglePause();
         }
     }
 
     public override void Exit() { }
 }
 
-public class PausedState : GameState
-{
-    public PausedState(GameManager manager) : base(manager) { }
 
-    public override void Enter()
-    {
-        Debug.Log("Game Paused");
-        Time.timeScale = 0f;
-    }
 
-    public override void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Time.timeScale = 1f;
-            gameManager.StateMachine.ChangeState<DungeonState>();
-        }
-    }
-
-    public override void Exit()
-    {
-        Debug.Log("Resuming Game");
-    }
-}

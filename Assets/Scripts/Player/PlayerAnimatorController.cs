@@ -56,11 +56,9 @@ public class PlayerAnimatorController : MonoBehaviour
         SetTrigger("Damaged");
     }
 
-    public void PlayDeath()
+    public void SetDeath(bool dead)
     {
-
-        SetTrigger("Death");
-        animator.SetBool("isDeath", true);
+        animator.SetBool("isDeath", dead);
     }
 
     private void SetTrigger(string triggerName)

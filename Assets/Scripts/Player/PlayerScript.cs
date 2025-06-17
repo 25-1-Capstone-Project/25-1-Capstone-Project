@@ -147,14 +147,13 @@ public class PlayerScript : Singleton<PlayerScript>
 
     public void InitPlayer()
     {
-        stats.ApplyBase(playerData); // 원본 데이터를 복사
-
-        // 스킬 불러오기?
-
+        SetComponent();
         SkillSetting(0);
-
+        stats.ApplyBase(playerData); // 원본 데이터를 복사
         isDead = false;
+        playerAnim.SetDeath(isDead);
         Health = stats.maxHealth;
+        SetActivePlayerInput(true);
     }
 
     #region GetSetFunction
@@ -181,8 +180,7 @@ public class PlayerScript : Singleton<PlayerScript>
 
     void Start()
     {
-        InitPlayer();
-        SetComponent();
+
     }
     void Update()
     {
@@ -693,8 +691,8 @@ public class PlayerScript : Singleton<PlayerScript>
 
     public void Dead()
     {
-        playerAnim.PlayDeath();
         isDead = true;
+        playerAnim.SetDeath(true);
         rb.linearVelocity = Vector2.zero;
         UIManager.Instance.deadInfo.SetActiveDeadInfoPanel(true);
     }

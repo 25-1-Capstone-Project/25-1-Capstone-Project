@@ -26,7 +26,6 @@ public class GameManager : Singleton<GameManager>
         StateMachine.AddState(new MainMenuState(this));
         StateMachine.AddState(new HubState(this));
         StateMachine.AddState(new DungeonState(this));
-        StateMachine.AddState(new PausedState(this));
 
         StateMachine.ChangeState<MainMenuState>();
     }
@@ -69,9 +68,6 @@ public class GameManager : Singleton<GameManager>
                 break;
             case EGameState.Dungeon:
                 StateMachine.ChangeState<DungeonState>();
-                break;
-            case EGameState.Paused:
-                StateMachine.ChangeState<PausedState>();
                 break;
             default:
                 Debug.LogWarning($"Unknown GameState: {gameState}");
@@ -119,4 +115,5 @@ public class GameManager : Singleton<GameManager>
         Application.Quit();
 #endif
     }
+ 
 }

@@ -8,7 +8,6 @@ public class UI_DeadInfo : MonoBehaviour
 
     public void OnClickGoToHub()
     {
-        PlayerScript.Instance.InitPlayer();
         SetActiveDeadInfoPanel(false);
         GameManager.Instance.SetTimeScale(1f);
         GameManager.Instance.ChangeStateByEnum(EGameState.Hub);

@@ -19,6 +19,8 @@ public class UIManager : Singleton<UIManager>
     public AbilityRewardSystem abilityUI;
     public UI_BossUI bossUI;
     public UI_DeadInfo deadInfo;
+    public PauseUI pauseUI;
+    //public Pause pauseUI;
     protected override void Awake()
     {
         base.Awake();
