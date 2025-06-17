@@ -139,10 +139,12 @@ public class PlayerScript : Singleton<PlayerScript>
     [SerializeField] Rigidbody2D rb;
     [SerializeField] Transform PlayerModel;
     [SerializeField] PlayerAnimatorController playerAnim;
-    SkillPattern currentSkill;
     [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private Ghost ghost;
+    SkillPattern currentSkill;
     private PlayerRuntimeStats stats = new PlayerRuntimeStats();
     public PlayerRuntimeStats Stats => stats;
+
     public void InitPlayer()
     {
         stats.ApplyBase(playerData); // 원본 데이터를 복사
@@ -249,6 +251,10 @@ public class PlayerScript : Singleton<PlayerScript>
 
     IEnumerator DashCoroutine()
     {
+        //대시 잔상
+        ghost.SetSprite(spriteRenderer);
+        ghost.SetActive(true);
+
         gameObject.layer = LayerMask.NameToLayer("PlayerDash"); // 대시 중 플레이어 레이어 변경
         isDashing = true;
         canUseDash = false;
@@ -263,7 +269,7 @@ public class PlayerScript : Singleton<PlayerScript>
 
         rb.linearVelocity = Vector2.zero;
         isDashing = false;
-
+        ghost.SetActive(false);
 
         if (IsGroundBelow())
         {
@@ -276,6 +282,7 @@ public class PlayerScript : Singleton<PlayerScript>
         {
             yield return new WaitForSeconds(dashCooldown);
         }
+
         canUseDash = true;
         gameObject.layer = LayerMask.NameToLayer("Player"); // 대시 후 플레이어 레이어 복원
     }
