@@ -136,6 +136,11 @@ public abstract class EnemyBase : MonoBehaviour
     /// </summary>
     protected virtual void OnDamaged()
     {
+        if (StateMachine.GetCurrentState() is AttackState)
+        {
+            
+            return;
+        }
         StateMachine.ChangeState<DamagedState>();
     }
     public virtual void Parried()

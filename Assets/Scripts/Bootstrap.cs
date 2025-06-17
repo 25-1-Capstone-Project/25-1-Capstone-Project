@@ -27,7 +27,7 @@ public class BootStrap : MonoBehaviour
                     SaveManager.Instance.Initialize();
                 }
 
-                
+
             }
             else
             {
@@ -36,7 +36,11 @@ public class BootStrap : MonoBehaviour
         });
     }
 
-    private void Start() {
-           SceneManager.LoadScene(firstSceneName);
-    } 
+    private void Start()
+    {
+        QualitySettings.vSyncCount = 0;
+        Application.targetFrameRate = 60; // FPS 설정
+        SceneManager.LoadScene(firstSceneName);
+
+    }
 }

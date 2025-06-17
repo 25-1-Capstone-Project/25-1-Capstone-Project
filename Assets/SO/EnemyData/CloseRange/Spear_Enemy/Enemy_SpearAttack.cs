@@ -50,7 +50,7 @@ public class Enemy_SpearAttack : EnemyAttackPattern
 
             if (!hasDealtDamage)
             {
-                Collider2D hit = Physics2D.OverlapCircle((Vector2)enemy.transform.position, 0.3f, LayerMask.GetMask("Player", "DashWall"));
+                Collider2D hit = Physics2D.OverlapCircle((Vector2)enemy.transform.position, 0.3f, LayerMask.GetMask("Player", "PlayerDash"));
 
 
                 if (hit != null && hit.CompareTag("Player"))

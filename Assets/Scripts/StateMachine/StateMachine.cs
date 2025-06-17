@@ -43,4 +43,8 @@ public class StateMachine<T> where T : IState
             lateState.LateUpdate();
         }
     }
+    public IState GetCurrentState()
+    {
+        return currentState;
+    }
 }

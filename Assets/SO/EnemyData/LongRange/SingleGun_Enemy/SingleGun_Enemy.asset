@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: SingleGun_Enemy
   m_EditorClassIdentifier: 
   Name: 
-  maxHealth: 5
+  maxHealth: 10
   currentHealth: 0
   moveSpeed: 3
-  attackDamage: 1
+  attackDamage: 5
   animator: {fileID: 22100000, guid: 5fec08a1de579ec4c845e06c87b6444d, type: 2}
   attackPattern: {fileID: 11400000, guid: a242bfceff7c0e648b64cbfc2abaa05e, type: 2}
   eEnemyType: 1

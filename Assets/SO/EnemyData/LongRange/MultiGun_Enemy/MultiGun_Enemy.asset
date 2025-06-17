@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 263e27cb71b88f845aed894261fa039f, type: 3}
   m_Name: MultiGun_Enemy
   m_EditorClassIdentifier: 
-  monsterName: 
+  Name: 
   maxHealth: 1
   currentHealth: 0
   moveSpeed: 0

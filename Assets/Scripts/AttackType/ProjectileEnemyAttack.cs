@@ -1,5 +1,4 @@
 
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class ProjectileEnemyAttack : EnemyAttackBase
@@ -7,7 +6,9 @@ public class ProjectileEnemyAttack : EnemyAttackBase
     Rigidbody2D rb;
     void Start()
     {
+
         rb = GetComponent<Rigidbody2D>();
+        PlayerAttackSet();
     }
     public void FixedUpdate()
     {

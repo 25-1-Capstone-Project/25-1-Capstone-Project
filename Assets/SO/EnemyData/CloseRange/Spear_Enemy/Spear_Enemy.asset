@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: 
   maxHealth: 10
-  currentHealth: 1
+  currentHealth: 10
   moveSpeed: 3
-  attackDamage: 1
+  attackDamage: 5
   animator: {fileID: 22100000, guid: 5f843a6ca9c4d69438795c8f14d5ed65, type: 2}
   attackPattern: {fileID: 11400000, guid: 88202967312e349458158c3961c05dad, type: 2}
   eEnemyType: 0
