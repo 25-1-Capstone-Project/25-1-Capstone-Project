@@ -220,6 +220,14 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Wall
       objectReference: {fileID: 0}
+    - target: {fileID: 4626923139472989337, guid: 0f7a62d739a1ccb429a8a2e5f06e6ebe, type: 3}
+      propertyPath: m_Size.y
+      value: 7.1738153
+      objectReference: {fileID: 0}
+    - target: {fileID: 4626923139472989337, guid: 0f7a62d739a1ccb429a8a2e5f06e6ebe, type: 3}
+      propertyPath: m_Offset.y
+      value: -3.0769675
+      objectReference: {fileID: 0}
     - target: {fileID: 5757238558436633279, guid: 0f7a62d739a1ccb429a8a2e5f06e6ebe, type: 3}
       propertyPath: m_Layer
       value: 10
@@ -227,6 +235,14 @@ PrefabInstance:
     - target: {fileID: 5757238558436633279, guid: 0f7a62d739a1ccb429a8a2e5f06e6ebe, type: 3}
       propertyPath: m_TagString
       value: Wall
+      objectReference: {fileID: 0}
+    - target: {fileID: 5770492183601403733, guid: 0f7a62d739a1ccb429a8a2e5f06e6ebe, type: 3}
+      propertyPath: m_Size.y
+      value: 3.3022935
+      objectReference: {fileID: 0}
+    - target: {fileID: 5770492183601403733, guid: 0f7a62d739a1ccb429a8a2e5f06e6ebe, type: 3}
+      propertyPath: m_Offset.y
+      value: -1.1712033
       objectReference: {fileID: 0}
     - target: {fileID: 6592703851496459628, guid: 0f7a62d739a1ccb429a8a2e5f06e6ebe, type: 3}
       propertyPath: GroundTileMap
