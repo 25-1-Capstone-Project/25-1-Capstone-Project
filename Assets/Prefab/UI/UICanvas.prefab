@@ -911,7 +911,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &3267348168031495730
 Transform:
   m_ObjectHideFlags: 0
@@ -2242,7 +2242,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 79adc96b971a2344582be426df9eb9ac, type: 3}
+    m_Font: {fileID: 12800000, guid: fc2b86346af68bb4cbaca16c46197f85, type: 3}
     m_FontSize: 24
     m_FontStyle: 0
     m_BestFit: 0
@@ -2396,7 +2396,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 79adc96b971a2344582be426df9eb9ac, type: 3}
+    m_Font: {fileID: 12800000, guid: fc2b86346af68bb4cbaca16c46197f85, type: 3}
     m_FontSize: 24
     m_FontStyle: 0
     m_BestFit: 0
@@ -2981,7 +2981,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 79adc96b971a2344582be426df9eb9ac, type: 3}
+    m_Font: {fileID: 12800000, guid: 15c407ef1a4ee494fb9d4efa119fac00, type: 3}
     m_FontSize: 18
     m_FontStyle: 0
     m_BestFit: 0
@@ -3272,7 +3272,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 79adc96b971a2344582be426df9eb9ac, type: 3}
+    m_Font: {fileID: 12800000, guid: fc2b86346af68bb4cbaca16c46197f85, type: 3}
     m_FontSize: 24
     m_FontStyle: 0
     m_BestFit: 0
@@ -4547,7 +4547,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 79adc96b971a2344582be426df9eb9ac, type: 3}
+    m_Font: {fileID: 12800000, guid: 15c407ef1a4ee494fb9d4efa119fac00, type: 3}
     m_FontSize: 18
     m_FontStyle: 0
     m_BestFit: 0
@@ -4909,7 +4909,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 79adc96b971a2344582be426df9eb9ac, type: 3}
+    m_Font: {fileID: 12800000, guid: 15c407ef1a4ee494fb9d4efa119fac00, type: 3}
     m_FontSize: 18
     m_FontStyle: 0
     m_BestFit: 0
