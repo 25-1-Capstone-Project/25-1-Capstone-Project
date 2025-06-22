@@ -28,8 +28,8 @@ public class MainMenuState : GameState
 
     public override void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-            gameManager.StateMachine.ChangeState<HubState>();
+        // if (Input.GetKeyDown(KeyCode.Space))
+        //     gameManager.StateMachine.ChangeState<HubState>();
     }
 
     public override void Exit() { }
@@ -54,16 +54,16 @@ public class HubState : GameState
         PlayerScript.Instance.InitPlayer();
         UIManager.Instance.SetActiveMainMenuUI(false);
         UIManager.Instance.SetActiveInGameUI(true);
-        CameraManager.Instance.SetActiveCineCam(true);
+       // CameraManager.Instance.SetActiveCineCam(true);
     }
 
     public override void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            gameManager.CurrentDungeonFloor = 0;
-            gameManager.StateMachine.ChangeState<DungeonState>();
-        }
+        // if (Input.GetKeyDown(KeyCode.Space))
+        // {
+        //     gameManager.CurrentDungeonFloor = 0;
+        //     gameManager.StateMachine.ChangeState<DungeonState>();
+        // }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             UIManager.Instance.pauseUI.TogglePause();
@@ -96,16 +96,17 @@ public class DungeonState : GameState
         UIManager.Instance.SetActiveMainMenuUI(false);
         UIManager.Instance.SetActiveInGameUI(true);
         CameraManager.Instance.SetActiveCineCam(false);
+        EnemyManager.Instance.InitSpawnedEnemy();
 
         gameManager.PlayerSpawn();
     }
 
     public override void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            gameManager.GoToNextDungeonFloor();
-        }
+        // if (Input.GetKeyDown(KeyCode.Space))
+        // {
+        //     gameManager.GoToNextDungeonFloor();
+        // }
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {

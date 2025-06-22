@@ -44,10 +44,10 @@ public class MapGen : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            GenerateMap();
-        }
+        // if (Input.GetKeyDown(KeyCode.L))
+        // {
+        //     GenerateMap();
+        // }
     }
     //맵 초기화
     public void GenerateMap()

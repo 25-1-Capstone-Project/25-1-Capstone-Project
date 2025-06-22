@@ -9,10 +9,10 @@ public class ShaderManager : Singleton<ShaderManager>
     }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            CallShockWave();
-        }
+        // if (Input.GetKeyDown(KeyCode.E))
+        // {
+        //     CallShockWave();
+        // }
     }
     public void CallShockWave()
     {

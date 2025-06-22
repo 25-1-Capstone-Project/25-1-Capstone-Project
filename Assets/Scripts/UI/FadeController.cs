@@ -50,7 +50,6 @@ public class FadeController : Singleton<FadeController>
         }
         color.a = 0;
         fadeImage.color = color;
-        //PlayerInputBlocker.Block(false);
     }
   
     public void OnSceneLoaded(Scene scene, LoadSceneMode mode)

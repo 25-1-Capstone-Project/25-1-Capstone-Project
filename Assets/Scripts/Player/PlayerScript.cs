@@ -182,20 +182,20 @@ public class PlayerScript : Singleton<PlayerScript>
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F1))
-            Health = stats.maxHealth;
-        if (Input.GetKeyDown(KeyCode.F2))
-            Health = 0;
-        if (Input.GetKeyDown(KeyCode.F3))
-            ParryStack = stats.maxParryStack;
-        if (Input.GetKeyDown(KeyCode.F4))
-        {
-            EnemyBase[] temp = FindObjectsByType<EnemyBase>(FindObjectsSortMode.None);
-            foreach (EnemyBase enemy in temp)
-            {
-                enemy.TakeDamage(100);
-            }
-        }
+        // if (Input.GetKeyDown(KeyCode.F1))
+        //     Health = stats.maxHealth;
+        // if (Input.GetKeyDown(KeyCode.F2))
+        //     Health = 0;
+        // if (Input.GetKeyDown(KeyCode.F3))
+        //     ParryStack = stats.maxParryStack;
+        // if (Input.GetKeyDown(KeyCode.F4))
+        // {
+        //     EnemyBase[] temp = FindObjectsByType<EnemyBase>(FindObjectsSortMode.None);
+        //     foreach (EnemyBase enemy in temp)
+        //     {
+        //         enemy.TakeDamage(100);
+        //     }
+        // }
 
         PlayerLogger.Instance.AddPlaytimeLog(Time.deltaTime);
     }
@@ -231,10 +231,6 @@ public class PlayerScript : Singleton<PlayerScript>
             return;
 
         rb.linearVelocity = moveVec * stats.speed;
-
-        //기존방식
-        //     rb.MovePosition(transform.position + (moveVec * playerStat.speed * Time.fixedDeltaTime));
-
     }
 
     void OnDash()
@@ -288,7 +284,6 @@ public class PlayerScript : Singleton<PlayerScript>
         }
 
         canUseDash = true;
-        // 대시 후 플레이어 레이어 복원
     }
 
 
@@ -440,7 +435,7 @@ public class PlayerScript : Singleton<PlayerScript>
         canUseParry = true;
     }
 
-    // 패리 성공|실패 여부에 따라 패리가능 변수 처리, 패리중→패리중X
+    // 근접 패링
     public void ParrySuccess(EnemyBase enemy)
     {
         StopCoroutine(ParryRoutine);
@@ -449,16 +444,9 @@ public class PlayerScript : Singleton<PlayerScript>
         {
             ParryStack++;
         }
-        // 주먹구구식으로 땜질해 뒀는데 고찰이 필요...
         if (ParryStack == stats.maxParryStack)
         {
             currentSkill.ResetCooldown();
-            //     if (cooldownRoutine != null)
-            //     {
-            //         StopCoroutine(cooldownRoutine);
-            //         cooldownRoutine = null;
-            //         UIManager.Instance.skillUI.UpdateCooldown(0f);
-            //     }
         }
 
         OnParrySuccess?.Invoke();
@@ -470,7 +458,7 @@ public class PlayerScript : Singleton<PlayerScript>
         StartCoroutine(ParryEffect());
 
     }
-
+    //원거리 패링
     public void ParrySuccess(EnemyAttackBase enemyAttack)
     {
         StopCoroutine(ParryRoutine);
@@ -479,17 +467,6 @@ public class PlayerScript : Singleton<PlayerScript>
         {
             ParryStack++;
         }
-        // // 주먹구구식으로 땜질해 뒀는데 고찰이 필요...
-        // if (ParryStack == stats.maxParryStack)
-        // {
-        //     currentSkill.ResetCooldown();
-        //     if (cooldownRoutine != null)
-        //     {
-        //         StopCoroutine(cooldownRoutine);
-        //         cooldownRoutine = null;
-        //         UIManager.Instance.skillUI.UpdateCooldown(0f);
-        //     }
-        // }
 
         OnParrySuccess?.Invoke();
         enemyAttack.gameObject.SetActive(true);
@@ -632,26 +609,6 @@ public class PlayerScript : Singleton<PlayerScript>
         }
 
         StartCoroutine(UseUltimateSkill());
-        // switch (skillType)
-        // {
-        //     case SkillType.Common:
-        //         ParryStack -= currentSkill.commonCost;
-        //         currentSkill.SetCooldown();
-        //         StartCoroutine(currentSkill.CommonSkill(this));
-        //         if (cooldownRoutine != null)
-        //             StopCoroutine(cooldownRoutine);
-        //         cooldownRoutine = StartCoroutine(CooldownRoutine());
-        //         break;
-        //     case SkillType.Ultimate:
-        //         ParryStack -= currentSkill.ultimateCost;
-        //         currentSkill.ResetCooldown();
-        //         StartCoroutine(currentSkill.UltimateSkill(this));
-        //         break;
-        //         //case SkillType.Empty:
-        //         //    Debug.Log("스킬 사용 불가");
-        //         //    break;
-        // }
-
         PlayerLogger.Instance.PlusSkillUsedLog();
     }
 
@@ -674,8 +631,6 @@ public class PlayerScript : Singleton<PlayerScript>
     private IEnumerator UseUltimateSkill()
     {
         ParryStack -= currentSkill.ultimateCost;
-        // AudioManager.Instance.PlaySFX("Ultimate");
-        // EffectPooler.Instance.SpawnFromPool("UltimateEffect", PlayerScript.Instance.transform.position, Quaternion.identity);
         CameraManager.Instance.CameraShake(0.1f, 0.1f);
         skillParticle.Play();
         FadeController.Instance.FadeOut(Color.white, 0.05f, 0.01f);

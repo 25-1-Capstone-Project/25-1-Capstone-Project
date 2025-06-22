@@ -15,6 +15,10 @@ public class EnemyManager : Singleton<EnemyManager>
         spawnedEnemy = 0;
     }
 
+    public void InitSpawnedEnemy()
+    {
+        spawnedEnemy = 0;
+    }
     public void KillEnemy()
     {
         spawnedEnemy--;

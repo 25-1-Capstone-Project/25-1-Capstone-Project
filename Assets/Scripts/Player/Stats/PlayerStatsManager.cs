@@ -17,18 +17,18 @@ public class PlayerStatsManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            PlayerStatsSaveSystem.Save(runtimeStats);
-        }
+        // if (Input.GetKeyDown(KeyCode.S))
+        // {
+        //     PlayerStatsSaveSystem.Save(runtimeStats);
+        // }
 
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            if (PlayerStatsSaveSystem.Load(out PlayerRuntimeStats loaded))
-            {
-                runtimeStats = loaded;
-                Debug.Log("불러오기 완료 - 현재 체력: " + runtimeStats.currentHealth);
-            }
-        }
+        // if (Input.GetKeyDown(KeyCode.L))
+        // {
+        //     if (PlayerStatsSaveSystem.Load(out PlayerRuntimeStats loaded))
+        //     {
+        //         runtimeStats = loaded;
+        //         Debug.Log("불러오기 완료 - 현재 체력: " + runtimeStats.currentHealth);
+        //     }
+        // }
     }
 }
