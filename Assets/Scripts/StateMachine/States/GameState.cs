@@ -54,7 +54,7 @@ public class HubState : GameState
         PlayerScript.Instance.InitPlayer();
         UIManager.Instance.SetActiveMainMenuUI(false);
         UIManager.Instance.SetActiveInGameUI(true);
-       // CameraManager.Instance.SetActiveCineCam(true);
+        CameraManager.Instance.SetActiveCineCam(true);
     }
 
     public override void Update()
