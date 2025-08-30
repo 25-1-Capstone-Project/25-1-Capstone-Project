@@ -40,7 +40,7 @@ BlendTree:
     m_Mirror: 0
   - serializedVersion: 2
     m_Motion: {fileID: 9196863012165993467, guid: 3b1cc4bfe1f17c649b176990476b4539, type: 3}
-    m_Threshold: 0.33333334
+    m_Threshold: 0.14285715
     m_Position: {x: 0, y: 1}
     m_TimeScale: 1
     m_CycleOffset: 0
@@ -48,7 +48,7 @@ BlendTree:
     m_Mirror: 0
   - serializedVersion: 2
     m_Motion: {fileID: -2348186406064343019, guid: b0af7f9e2bc20ed45904a21d5ce3d0e5, type: 3}
-    m_Threshold: 0.6666667
+    m_Threshold: 0.2857143
     m_Position: {x: 1, y: 0}
     m_TimeScale: 1
     m_CycleOffset: 0
@@ -56,8 +56,40 @@ BlendTree:
     m_Mirror: 0
   - serializedVersion: 2
     m_Motion: {fileID: -7895482670595265229, guid: b07e332623725ba4eb3f892c6c9bb6da, type: 3}
-    m_Threshold: 1
+    m_Threshold: 0.42857143
     m_Position: {x: -1, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: DirectionX
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: -3901848690559039629, guid: 458f2fb91c7815b41a2db420a6fcaeef, type: 3}
+    m_Threshold: 0.5714286
+    m_Position: {x: 1, y: 1}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: DirectionX
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: -1830676466332793572, guid: 1e55513933994b641ad3b1f37781717e, type: 3}
+    m_Threshold: 0.71428573
+    m_Position: {x: 1, y: -1}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: DirectionX
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: -2592311774352021933, guid: 47490f8c8efa6284d96d67fd7b48af6d, type: 3}
+    m_Threshold: 0.85714287
+    m_Position: {x: -1, y: 1}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: DirectionX
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: 8539766094585556442, guid: 2a1ad039e2cd8cf42ae305f930a80ba9, type: 3}
+    m_Threshold: 1
+    m_Position: {x: -1, y: -1}
     m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: DirectionX
@@ -340,7 +372,7 @@ BlendTree:
     m_Mirror: 0
   - serializedVersion: 2
     m_Motion: {fileID: 2534433286343220339, guid: 7e9b8a4322d8f5048bb047baa0399d81, type: 3}
-    m_Threshold: 0.25
+    m_Threshold: 0.107142866
     m_Position: {x: 0, y: 1}
     m_TimeScale: 1
     m_CycleOffset: 0
@@ -348,7 +380,7 @@ BlendTree:
     m_Mirror: 0
   - serializedVersion: 2
     m_Motion: {fileID: -2795154371796797751, guid: 9c8626620fcb897418082b4fe902c791, type: 3}
-    m_Threshold: 0.5
+    m_Threshold: 0.21428573
     m_Position: {x: 1, y: 0}
     m_TimeScale: 1
     m_CycleOffset: 0
@@ -356,11 +388,43 @@ BlendTree:
     m_Mirror: 0
   - serializedVersion: 2
     m_Motion: {fileID: 1092509857298957789, guid: a359a3c2c11a2ce4795cddb26fbeaeec, type: 3}
-    m_Threshold: 0.75
+    m_Threshold: 0.32142857
     m_Position: {x: -1, y: 0}
     m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: Speed
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: -1096199835597750293, guid: 2f8955ed8561f5f4abfaa6d1d499644b, type: 3}
+    m_Threshold: 0.42857146
+    m_Position: {x: 1, y: 1}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: DirectionX
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: 4902016675626373978, guid: 03d98e38b90b14a40b7f102a7d0a7f90, type: 3}
+    m_Threshold: 0.53571427
+    m_Position: {x: -1, y: 1}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: DirectionX
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: 6522707548132252692, guid: 22c86f65a36f39243bbad98c806fc122, type: 3}
+    m_Threshold: 0.64285713
+    m_Position: {x: -1, y: -1}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: DirectionX
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: -4456472609075400166, guid: 813031d899764294b83068857816654f, type: 3}
+    m_Threshold: 0.75
+    m_Position: {x: 1, y: -1}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: DirectionX
     m_Mirror: 0
   m_BlendParameter: DirectionX
   m_BlendParameterY: DirectionY
