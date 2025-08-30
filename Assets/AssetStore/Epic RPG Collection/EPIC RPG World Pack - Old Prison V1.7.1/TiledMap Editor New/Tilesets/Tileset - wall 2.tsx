@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.9" tiledversion="1.9.2" name="Tileset - wall 2" tilewidth="32" tileheight="32" tilecount="240" columns="16">
+<tileset version="1.10" tiledversion="1.11.2" name="Tileset - wall 2" tilewidth="32" tileheight="32" tilecount="240" columns="16">
  <image source="../../Tilesets/wall-2- 3 tiles tall.png" width="512" height="480"/>
  <tile id="1" probability="0">
   <objectgroup draworder="index" id="2">
@@ -399,7 +399,7 @@
  </tile>
  <tile id="98">
   <objectgroup draworder="index" id="2">
-   <object id="1" template="../../../TiledMap Editor (ALL TEMPLATES)/Tile collision templates/tile - !!1.tx" x="0" y="0"/>
+ 
   </objectgroup>
  </tile>
  <tile id="99">
