@@ -60,8 +60,13 @@ public class PlayerScript : Singleton<PlayerScript>
             }
             stats.currentHealth = health;
 
+            lightController.SetLight(health);
             UIManager.Instance.playerStatUI.UI_HPBarUpdate(stats.currentHealth, stats.maxHealth);
         }
+    }
+    public void SetMaxHealth()
+    {
+        Health = stats.maxHealth;
     }
 
     [Header("=====패링 옵션=====")]
@@ -143,6 +148,7 @@ public class PlayerScript : Singleton<PlayerScript>
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Ghost ghost;
     [SerializeField] private ParticleSystem skillParticle;
+    LightController lightController;
     SkillPattern currentSkill;
     private PlayerRuntimeStats stats = new PlayerRuntimeStats();
     public PlayerRuntimeStats Stats => stats;
@@ -209,6 +215,7 @@ public class PlayerScript : Singleton<PlayerScript>
 
     void SetComponent()
     {
+        lightController = GetComponent<LightController>();
         spriteRenderer = PlayerModel.GetComponentInChildren<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
         playerAnim = GetComponent<PlayerAnimatorController>();
@@ -366,28 +373,28 @@ public class PlayerScript : Singleton<PlayerScript>
 
     #endregion
 
-    #region 공격
-    void OnAttack()
-    {
-        if (!canUseAttack || isDead || isDashing || isParrying || isAttacking)
-            return;
-        if (!currentSkill.IsCooldownReady())
-            return;
-        StartCoroutine(AttackRoutine());
+    // #region 공격
+    // void OnAttack()
+    // {
+    //     if (!canUseAttack || isDead || isDashing || isParrying || isAttacking)
+    //         return;
+    //     if (!currentSkill.IsCooldownReady())
+    //         return;
+    //     StartCoroutine(AttackRoutine());
 
-        PlayerLogger.Instance.PlusAttackCountLog();
-    }
-    IEnumerator AttackRoutine()
-    {
-        isAttacking = true;
-        canUseAttack = false;
-        rb.linearVelocity = Vector2.zero;
-        playerAnim.PlayAttack();
-        yield return StartCoroutine(currentSkill.CommonSkill(this));
+    //     PlayerLogger.Instance.PlusAttackCountLog();
+    // }
+    // IEnumerator AttackRoutine()
+    // {
+    //     isAttacking = true;
+    //     canUseAttack = false;
+    //     rb.linearVelocity = Vector2.zero;
+    //     playerAnim.PlayAttack();
+    //     yield return StartCoroutine(currentSkill.CommonSkill(this));
 
-        isAttacking = false;
-        canUseAttack = true;
-    }
+    //     isAttacking = false;
+    //     canUseAttack = true;
+    // }
     //attack 디버깅 용
     void OnDrawGizmos()
     {
@@ -406,16 +413,16 @@ public class PlayerScript : Singleton<PlayerScript>
     //attack 디버깅 용
 
 
-    #endregion
+    // #endregion
 
     #region 패링
     // 패리 키 입력 받으면 패리 가능여부 확인 후 패리 코루틴 실행
-    void OnParry(InputValue value)
+    void OnAttack(InputValue value)
     {
         if (!canUseParry || isDead || isAttacking || isDashing)
             return;
 
-        playerAnim.PlayParry();
+        playerAnim.PlayAttack();
         AudioManager.Instance.PlaySFX("Parry");
         FlashParry();
         ParryRoutine = StartCoroutine(Parry());
@@ -426,14 +433,41 @@ public class PlayerScript : Singleton<PlayerScript>
         canUseParry = false;
         isParrying = true;
         rb.linearVelocity = Vector2.zero;
+
+        CheckInteractObject();
+
         // 패리 지속시간이 끝나면 패리중X 처리
         yield return new WaitForSeconds(stats.parryDurationSec);
         isParrying = false;
 
+    
         // 패리 쿨타임이 끝나면 패리 가능여부 True 처리
         yield return new WaitForSeconds(stats.parryCooldownSec);
         canUseParry = true;
     }
+
+    void CheckInteractObject()
+    {
+        float checkRange = stats.attackRange;
+        float checkAngle = stats.attackAngle;
+
+        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, checkRange, LayerMask.GetMask("Interactable"));
+
+        foreach (var hit in hits)
+        {
+            if (hit != null)
+            {
+                Vector2 toTarget = (hit.transform.position - transform.position).normalized;
+                float angle = Vector2.Angle(Direction, toTarget);
+
+                if (angle <= checkAngle / 2f)
+                {
+                    hit.GetComponent<Interactable>().Interact();
+                }
+            }
+        }
+    }
+
 
     // 근접 패링
     public void ParrySuccess(EnemyBase enemy)
@@ -453,7 +487,8 @@ public class PlayerScript : Singleton<PlayerScript>
 
         isParrying = false;
         canUseParry = true;
-        enemy.Parried(); // 적에게 대미지 주기
+        Health += 1;
+       // enemy.Parried(); // 적에게 대미지 주기
         //enemy?.StateMachine.ChangeState<ParryState>();
         StartCoroutine(ParryEffect());
 
@@ -462,7 +497,7 @@ public class PlayerScript : Singleton<PlayerScript>
     public void ParrySuccess(EnemyAttackBase enemyAttack)
     {
         StopCoroutine(ParryRoutine);
-
+    
         if (ParryStack < stats.maxParryStack)
         {
             ParryStack++;
@@ -475,6 +510,7 @@ public class PlayerScript : Singleton<PlayerScript>
 
         isParrying = false;
         canUseParry = true;
+        Health += 1;
         StartCoroutine(ParryEffect());
 
     }
@@ -515,11 +551,11 @@ public class PlayerScript : Singleton<PlayerScript>
             else
             {
                 // ParryFailed();
-                StartCoroutine(DamagedRoutine(enemy.GetDamage()));
+                StartCoroutine(DamagedRoutine());
             }
         }
         else
-            StartCoroutine(DamagedRoutine(enemy.GetDamage()));
+            StartCoroutine(DamagedRoutine());
 
 
     }
@@ -543,7 +579,7 @@ public class PlayerScript : Singleton<PlayerScript>
                 {
                     enemyAttack.gameObject.SetActive(false);
                 }
-                StartCoroutine(DamagedRoutine(enemyAttack.GetDamage()));
+                StartCoroutine(DamagedRoutine());
             }
         }
         else
@@ -552,22 +588,22 @@ public class PlayerScript : Singleton<PlayerScript>
             {
                 enemyAttack.gameObject.SetActive(false);
             }
-            StartCoroutine(DamagedRoutine(enemyAttack.GetDamage()));
+            StartCoroutine(DamagedRoutine());
         }
     }
-    public IEnumerator DamagedRoutine(int damage)
+    public IEnumerator DamagedRoutine()
     {
         AudioManager.Instance.PlaySFX("Hit");
         isGod = true;
         playerAnim.PlayKnockBack();
         FlashOnDamage();
 
-        Health -= damage;
+        Health -= 1;
         yield return new WaitForSeconds(0.4f);
         isGod = false;
 
         PlayerLogger.Instance.PlusHitLog();
-        PlayerLogger.Instance.AddDamageTakenLog(damage);
+        PlayerLogger.Instance.AddDamageTakenLog(1);
 
     }
 

@@ -1,10 +1,18 @@
 {
-    "activeFile": "",
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "EPIC RPG World Pack - Old Prison V1.7.1/TiledMap Editor New/Tilesets/1.tmx",
     "expandedProjectPaths": [
+        ".",
+        "EPIC RPG World Pack - Old Prison V1.7.1",
+        "EPIC RPG World Pack - Old Prison V1.7.1/TiledMap Editor New"
     ],
     "fileStates": {
         ":/automap-tiles.tsx": {
-            "scaleInDock": 1
+            "dynamicWrapping": false,
+            "scaleInDock": 0.75
         },
         "C:/Users/hurch/Documents/25-1-Capstone-Project/Assets/Unity projects/ERW - Volcano/Assets/RafaelMatos/ERW - Volcano V1.6/TiledMap Editor/Tilesets/tileset-main.tsx": {
             "scaleInDock": 1
@@ -253,15 +261,26 @@
             "scaleInDock": 1
         },
         "EPIC RPG World Pack - Old Prison V1.7.1/TiledMap Editor New/Old Prison example map.tmx": {
+            "scale": 1,
+            "selectedLayer": 6,
+            "viewCenter": {
+                "x": 983.5,
+                "y": 809.5
+            }
+        },
+        "EPIC RPG World Pack - Old Prison V1.7.1/TiledMap Editor New/Tilesets/1.tmx": {
+            "expandedGroupLayers": [
+                3
+            ],
             "scale": 0.75,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 971.3333333333334,
-                "y": 730
+                "x": 162.66666666666663,
+                "y": 325.33333333333337
             }
         },
         "EPIC RPG World Pack - Old Prison V1.7.1/TiledMap Editor New/Tilesets/Blood pool - style2 - with spikes - transparency.tsx": {
-            "scaleInDock": 1
+            "scaleInDock": 1.5
         },
         "EPIC RPG World Pack - Old Prison V1.7.1/TiledMap Editor New/Tilesets/Tileset - wall 1.tsx": {
             "scaleInDock": 1,
@@ -280,7 +299,8 @@
             "scaleInDock": 1
         },
         "EPIC RPG World Pack - Old Prison V1.7.1/TiledMap Editor New/Tilesets/atlas-props.tsx": {
-            "scaleInDock": 1,
+            "dynamicWrapping": false,
+            "scaleInDock": 0.5,
             "scaleInEditor": 1
         },
         "ERW - Sea Adventures (GL 2.0 expansion) V1.4.1/TiledMap Editor/Tilesets/Atlas-props-sprites.tsx": {
@@ -412,21 +432,26 @@
             }
         }
     },
+    "map.fixedSize": false,
+    "map.height": 30,
+    "map.lastUsedFormat": "tmx",
     "openFiles": [
+        "EPIC RPG World Pack - Old Prison V1.7.1/TiledMap Editor New/Tilesets/1.tmx",
+        "EPIC RPG World Pack - Old Prison V1.7.1/TiledMap Editor New/Old Prison example map.tmx"
     ],
     "project": "EpicRPGWorld.tiled-project",
     "recentFiles": [
+        "EPIC RPG World Pack - Old Prison V1.7.1/TiledMap Editor New/Old Prison example map.tmx",
+        "EPIC RPG World Pack - Old Prison V1.7.1/TiledMap Editor New/Tilesets/1.tmx",
         "EPIC RPG World Pack - Old Prison V1.7.1/TiledMap Editor New/Tilesets/Tileset - wall 1.tsx",
         "EPIC RPG World Pack - Old Prison V1.7.1/TiledMap Editor New/Tilesets/Tileset - wall 2.tsx",
         "EPIC RPG World Pack - Old Prison V1.7.1/TiledMap Editor New/Tilesets/atlas-props.tsx",
         "EPIC RPG World Pack - Crypt V.1.6/TiledMap Editor/Tilesets/Tileset - wall 3.tsx",
         "EPIC RPG World Pack - Crypt V.1.6/TiledMap Editor/Tilesets/Atlas-Props.tsx",
         "ERW - Sea Adventures (GL 2.0 expansion) V1.4.1/TiledMap Editor/sample map.tmx",
-        "EPIC RPG World Pack - Old Prison V1.7.1/TiledMap Editor New/Old Prison example map.tmx",
         "EPIC RPG World Pack - Grass Land V. 1.6/TiledMap Editor/Sample Map.tmx",
         "EPIC RPG World Pack - Crypt V.1.6/TiledMap Editor/Sample Map.tmx",
         "EPIC RPG World Pack - Crypt V.1.6/TiledMap Editor/Crypt example map.tmx",
-        "EPIC RPG World Pack - Cemetery V 1.6/TiledMap Editor/Sample Map.tmx",
-        "EPIC RPG World - Sewers V1.5/TiledMap Editor/SampleScene.tmx"
+        "EPIC RPG World Pack - Cemetery V 1.6/TiledMap Editor/Sample Map.tmx"
     ]
 }
