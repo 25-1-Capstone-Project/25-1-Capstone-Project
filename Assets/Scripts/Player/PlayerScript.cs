@@ -147,7 +147,8 @@ public class PlayerScript : Singleton<PlayerScript>
     [SerializeField] PlayerAnimatorController playerAnim;
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Ghost ghost;
-    [SerializeField] private ParticleSystem skillParticle;
+
+        [SerializeField] private ParticleSystem skillParticle;
     LightController lightController;
     SkillPattern currentSkill;
     private PlayerRuntimeStats stats = new PlayerRuntimeStats();
@@ -374,27 +375,27 @@ public class PlayerScript : Singleton<PlayerScript>
     #endregion
 
     // #region 공격
-    // void OnAttack()
-    // {
-    //     if (!canUseAttack || isDead || isDashing || isParrying || isAttacking)
-    //         return;
-    //     if (!currentSkill.IsCooldownReady())
-    //         return;
-    //     StartCoroutine(AttackRoutine());
+    void OnAttack()
+    {
+        if (!canUseAttack || isDead || isDashing || isParrying || isAttacking)
+            return;
+        if (!currentSkill.IsCooldownReady())
+            return;
+        StartCoroutine(AttackRoutine());
 
-    //     PlayerLogger.Instance.PlusAttackCountLog();
-    // }
-    // IEnumerator AttackRoutine()
-    // {
-    //     isAttacking = true;
-    //     canUseAttack = false;
-    //     rb.linearVelocity = Vector2.zero;
-    //     playerAnim.PlayAttack();
-    //     yield return StartCoroutine(currentSkill.CommonSkill(this));
+        PlayerLogger.Instance.PlusAttackCountLog();
+    }
+    IEnumerator AttackRoutine()
+    {
+        isAttacking = true;
+        canUseAttack = false;
+        rb.linearVelocity = Vector2.zero;
+        playerAnim.PlayAttack();
+        yield return StartCoroutine(currentSkill.CommonSkill(this));
 
-    //     isAttacking = false;
-    //     canUseAttack = true;
-    // }
+        isAttacking = false;
+        canUseAttack = true;
+    }
     //attack 디버깅 용
     void OnDrawGizmos()
     {
@@ -417,7 +418,7 @@ public class PlayerScript : Singleton<PlayerScript>
 
     #region 패링
     // 패리 키 입력 받으면 패리 가능여부 확인 후 패리 코루틴 실행
-    void OnAttack(InputValue value)
+    void OnParry(InputValue value)
     {
         if (!canUseParry || isDead || isAttacking || isDashing)
             return;
@@ -535,7 +536,7 @@ public class PlayerScript : Singleton<PlayerScript>
 
     #region 데미지 처리
 
-    // 대미지 처리 함수. 적 스크립트에서 플레이어와 적 충돌 발생 시 호출
+    // 근거리 대미지 처리 함수. 
     public void TakeDamage(EnemyBase enemy)
     {
         if (isDead) return;
@@ -559,8 +560,8 @@ public class PlayerScript : Singleton<PlayerScript>
 
 
     }
-    // 원거리 대미지 처리 함수.
 
+    // 원거리 대미지 처리 함수.
     public void TakeDamage(EnemyAttackBase enemyAttack)
     {
         if (isDead) return;
@@ -591,6 +592,7 @@ public class PlayerScript : Singleton<PlayerScript>
             StartCoroutine(DamagedRoutine());
         }
     }
+
     public IEnumerator DamagedRoutine()
     {
         AudioManager.Instance.PlaySFX("Hit");
