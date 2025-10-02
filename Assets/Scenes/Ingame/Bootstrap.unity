@@ -127,6 +127,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1000963378854251651, guid: 17b7ab8a32101994c80764524384575a, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000963378854251651, guid: 17b7ab8a32101994c80764524384575a, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000963378854251651, guid: 17b7ab8a32101994c80764524384575a, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1786455618179697663, guid: 17b7ab8a32101994c80764524384575a, type: 3}
       propertyPath: m_TagString
       value: MainCamera

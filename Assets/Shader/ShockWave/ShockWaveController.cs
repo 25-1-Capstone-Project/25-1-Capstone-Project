@@ -38,6 +38,6 @@ public class ShockWaveController : MonoBehaviour
 
             yield return null;
         }
-         _material.SetFloat(_waveDistanceFromCenter, -0.1f);
+         _material.SetFloat(_waveDistanceFromCenter, -1f);
     }
 }

@@ -60,7 +60,7 @@ public class PlayerScript : Singleton<PlayerScript>
             }
             stats.currentHealth = health;
 
-            lightController.SetLight(health);
+            //lightController.SetLight(health);
             UIManager.Instance.playerStatUI.UI_HPBarUpdate(stats.currentHealth, stats.maxHealth);
         }
     }
