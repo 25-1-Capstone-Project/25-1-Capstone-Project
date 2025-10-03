@@ -5,11 +5,22 @@ public class CameraManager : Singleton<CameraManager>
 {
     [SerializeField] private Camera mainCamera;
     [SerializeField] private float duration = 1f;
+
     [SerializeField] private float cameraZ = -10f; // 카메라의 Z축 위치
     [SerializeField] CinemachineCamera cineCam;
+    private CinemachineBasicMultiChannelPerlin noise;
     protected override void Awake()
     {
         base.Awake();
+        noise = cineCam.GetComponentInChildren<CinemachineBasicMultiChannelPerlin>();
+
+        // 초기값 보정
+        if (noise != null)
+        {
+            noise.AmplitudeGain = 0f;
+            noise.FrequencyGain = 0f;
+        }
+
         mainCamera = Camera.main;
         mainCamera.transform.position = new Vector3(0, 0, cameraZ); // 초기 카메라 위치 설정
     }
@@ -29,27 +40,20 @@ public class CameraManager : Singleton<CameraManager>
             yield return null;
         }
     }
-    public void CameraShake(float duration, float magnitude)
+    public void CameraShake(float shakeIntensity, float shakeDuration )
     {
-        StartCoroutine(Shake(duration, magnitude));
+        StopAllCoroutines(); // 기존 코루틴 중복 방지
+        StartCoroutine(DoCameraShake(shakeIntensity, shakeDuration));
     }
-    private IEnumerator Shake(float duration, float magnitude)
+    private IEnumerator DoCameraShake(float shakeIntensity, float shakeDuration)
     {
-        Vector3 originalPosition = mainCamera.transform.localPosition;
-        float elapsed = 0.0f;
+        noise.AmplitudeGain = shakeIntensity;
+        noise.FrequencyGain = 2f; // 빠른 진동 (짧고 강하게)
 
-        while (elapsed < duration)
-        {
-            float x = Random.Range(-1f, 1f) * magnitude;
-            float y = Random.Range(-1f, 1f) * magnitude;
+        yield return new WaitForSeconds(shakeDuration);
 
-            mainCamera.transform.localPosition = originalPosition + new Vector3(x, y, 0f);
-
-            elapsed += Time.deltaTime;
-            yield return null;
-        }
-
-        mainCamera.transform.localPosition = originalPosition;
+        noise.AmplitudeGain = 0f; // 원래 상태 복원
+        noise.FrequencyGain = 0f;
     }
     public void SetActiveCineCam(bool active)
     {

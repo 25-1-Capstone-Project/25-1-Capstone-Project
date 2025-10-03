@@ -517,7 +517,7 @@ public class PlayerScript : Singleton<PlayerScript>
     }
     public IEnumerator ParryEffect()
     {
-        CameraManager.Instance.CameraShake(0.1f, 0.1f);
+        CameraManager.Instance.CameraShake(2f, 0.1f);
         EffectPooler.Instance.SpawnFromPool("ParryEffect", transform.position + (direction / 2), Quaternion.identity);
         AudioManager.Instance.PlaySFX("ParrySuccess");
         //isGod = true;
@@ -669,7 +669,7 @@ public class PlayerScript : Singleton<PlayerScript>
     private IEnumerator UseUltimateSkill()
     {
         ParryStack -= currentSkill.ultimateCost;
-        CameraManager.Instance.CameraShake(0.1f, 0.1f);
+        CameraManager.Instance.CameraShake(2f, 0.1f);
         skillParticle.Play();
         FadeController.Instance.FadeOut(Color.white, 0.05f, 0.01f);
         FadeController.Instance.FadeIn(Color.white, 0.05f, 0.01f);

@@ -95,7 +95,6 @@ public class DungeonState : GameState
         MapManager.Instance.CreateMap();
         UIManager.Instance.SetActiveMainMenuUI(false);
         UIManager.Instance.SetActiveInGameUI(true);
-        CameraManager.Instance.SetActiveCineCam(false);
         EnemyManager.Instance.InitSpawnedEnemy();
 
         gameManager.PlayerSpawn();
