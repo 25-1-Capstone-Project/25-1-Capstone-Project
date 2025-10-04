@@ -198,11 +198,11 @@ PrefabInstance:
     - target: {fileID: 7650177529105905889, guid: 17b7ab8a32101994c80764524384575a, type: 3}
       propertyPath: cineCam
       value: 
-      objectReference: {fileID: 601242007}
+      objectReference: {fileID: 290892217}
     - target: {fileID: 7650177529105905889, guid: 17b7ab8a32101994c80764524384575a, type: 3}
       propertyPath: mainCamera
       value: 
-      objectReference: {fileID: 1312740540}
+      objectReference: {fileID: 290892218}
     - target: {fileID: 7738118127912323291, guid: 17b7ab8a32101994c80764524384575a, type: 3}
       propertyPath: m_TagString
       value: MainCamera
@@ -236,9 +236,9 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 17b7ab8a32101994c80764524384575a, type: 3}
---- !u!114 &601242007 stripped
+--- !u!114 &290892217 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7240019330059269825, guid: 17b7ab8a32101994c80764524384575a, type: 3}
+  m_CorrespondingSourceObject: {fileID: 5357050298168920666, guid: 17b7ab8a32101994c80764524384575a, type: 3}
   m_PrefabInstance: {fileID: 290892216}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
@@ -247,6 +247,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9dfa5b682dcd46bda6128250e975f58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!20 &290892218 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 4553697308074932286, guid: 17b7ab8a32101994c80764524384575a, type: 3}
+  m_PrefabInstance: {fileID: 290892216}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1048738471
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -313,11 +318,6 @@ RectTransform:
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5398574056034855121, guid: 2e5f661d846e40d4bb06f8ff03bf569e, type: 3}
   m_PrefabInstance: {fileID: 2695076485929562872}
-  m_PrefabAsset: {fileID: 0}
---- !u!20 &1312740540 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 9203675553613839618, guid: 17b7ab8a32101994c80764524384575a, type: 3}
-  m_PrefabInstance: {fileID: 290892216}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &1655964754 stripped
 MonoBehaviour:
