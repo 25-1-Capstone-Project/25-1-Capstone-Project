@@ -40,13 +40,13 @@ public class MapManager : Singleton<MapManager>
         // 플레이어 위치 이동 (새 방의 반대편 문 위치로)
         MinimapManager.Instance.RevealRoom(nextPos);
         Vector2 entryPoint = FindEntryPoint(nextPos, dir);
-        PlayerScript.Instance.SetPlayerPosition(entryPoint);
-        CameraManager.Instance.SetCameraPosition(roomMap[nextPos].transform.position);
+        Vector2 spawnPoint = GameManager.Instance.SearchSpawnPoint();
+        PlayerScript.Instance.SetPlayerPosition(spawnPoint);
+        CameraManager.Instance.SetCameraPosition(spawnPoint);
         currentRoomPos = nextPos;
-
-        FirebaseUploader uploader = Object.FindFirstObjectByType<FirebaseUploader>();
+        
         AstarData.active.data.gridGraph.center = roomMap[nextPos].transform.position;
-        Debug.Log("1");
+      
         astarPath.Scan();
     }
 

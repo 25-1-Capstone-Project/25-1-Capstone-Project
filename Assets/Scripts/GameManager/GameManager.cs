@@ -52,7 +52,7 @@ public class GameManager : Singleton<GameManager>
 
     public Vector2 SearchSpawnPoint()
     {
-        return GameObject.FindGameObjectWithTag("PlayerSpawnPoint").transform.position;
+        return GameObject.Find("PlayerSpawnPoint").transform.position;
     }
 
 
@@ -95,9 +95,8 @@ public class GameManager : Singleton<GameManager>
         StateMachine.ChangeState<HubState>();
     }
 
-    public void PlayerSpawn()
+    public void PlayerSpawn(Vector2 targetPos)
     {
-        Vector2 targetPos = SearchSpawnPoint();
         PlayerScript.Instance.SetPlayerPosition(targetPos);
         CameraManager.Instance.SetCameraPosition(targetPos);
     }

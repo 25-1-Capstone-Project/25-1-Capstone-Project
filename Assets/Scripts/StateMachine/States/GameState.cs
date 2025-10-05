@@ -47,10 +47,9 @@ public class HubState : GameState
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-
         SceneManager.sceneLoaded -= OnSceneLoaded;
         gameManager.InstancePlayer();
-        gameManager.PlayerSpawn();
+        gameManager.PlayerSpawn(gameManager.SearchSpawnPoint());
         PlayerScript.Instance.InitPlayer();
         UIManager.Instance.SetActiveMainMenuUI(false);
         UIManager.Instance.SetActiveInGameUI(true);
@@ -97,7 +96,9 @@ public class DungeonState : GameState
         UIManager.Instance.SetActiveInGameUI(true);
         EnemyManager.Instance.InitSpawnedEnemy();
 
-        gameManager.PlayerSpawn();
+        Vector2 spawnPoint = gameManager.SearchSpawnPoint();
+        gameManager.PlayerSpawn(spawnPoint);
+        CameraManager.Instance.SetCameraPosition(spawnPoint);
     }
 
     public override void Update()
