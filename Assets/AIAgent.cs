@@ -11,9 +11,10 @@ public class AIAgent : MonoBehaviour
     private float distanceToTarget;
     void Start()
     {
+        target = PlayerScript.Instance.transform;
         path = GetComponent<AIPath>();
     }
-    void Update()
+    public void Move()
     {
         path.maxSpeed = speed;
         distanceToTarget = Vector2.Distance(transform.position, target.position);

@@ -1,16 +1,18 @@
 using UnityEngine;
 using System.Collections.Generic;
+using Pathfinding;
 
 public class MapManager : Singleton<MapManager>
 {
     public Dictionary<Vector2Int, GameObject> roomMap = new Dictionary<Vector2Int, GameObject>();
     public Vector2Int currentRoomPos;
     private MapGen mapGen;
-
+    public AstarPath astarPath;
     protected override void Awake()
     {
         base.Awake();
         mapGen = GetComponent<MapGen>();
+        astarPath = GetComponentInChildren<AstarPath>();
 
     }
     public Room GetCurrentRoom() => roomMap[currentRoomPos].GetComponent<Room>();
@@ -43,7 +45,9 @@ public class MapManager : Singleton<MapManager>
         currentRoomPos = nextPos;
 
         FirebaseUploader uploader = Object.FindFirstObjectByType<FirebaseUploader>();
-
+        AstarData.active.data.gridGraph.center = roomMap[nextPos].transform.position;
+        Debug.Log("1");
+        astarPath.Scan();
     }
 
     private Vector2 FindEntryPoint(Vector2Int roomPos, Direction fromDirection)
@@ -76,9 +80,5 @@ public class MapManager : Singleton<MapManager>
             Direction.Right => new Vector3(1, 0, 0),
             _ => Vector3.zero
         });
-    }
-    public void SetActiveMapManager(bool active)
-    {
-        gameObject.SetActive(active);
     }
 }

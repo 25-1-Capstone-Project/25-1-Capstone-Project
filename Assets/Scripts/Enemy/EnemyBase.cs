@@ -7,7 +7,7 @@ public abstract class EnemyBase : MonoBehaviour
     [SerializeField] protected EnemyBaseData data; // 모든 적은 데이터를 가짐
     [SerializeField] protected SpriteRenderer enemySprite;
     [SerializeField] protected EnemyAnimatorController animController;
-
+    protected AIAgent aIAgent;
     public EnemyAttackPattern GetAttackPattern() => data.attackPattern;
     public int GetDamage() => data.attackDamage;
     protected Rigidbody2D rb;
@@ -90,6 +90,7 @@ public abstract class EnemyBase : MonoBehaviour
     private void InitSharedComponents()
     {
         rb = GetComponent<Rigidbody2D>();
+        aIAgent = GetComponent<AIAgent>();
         // null 체크를 추가하여 안정성 확보
         if (animController != null && data != null)
         {
@@ -216,6 +217,7 @@ public abstract class EnemyBase : MonoBehaviour
     #region Getters & Setters
 
     public Rigidbody2D GetRigidbody() => rb;
+    public AIAgent GetAIAgent() => aIAgent;
     public float GetSpeed() => data.moveSpeed;
     public EnemyAnimatorController GetAnimatorController() => animController;
     public EnemyBaseData GetData() => data;
