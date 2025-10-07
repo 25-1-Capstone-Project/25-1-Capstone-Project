@@ -44,11 +44,23 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 3866286249
+    locked: 0
+  - name: Ground
+    uniqueID: 382419593
+    locked: 0
+  - name: Props
+    uniqueID: 3680639507
+    locked: 0
+  - name: Effectts
+    uniqueID: 369918301
+    locked: 0
+  - name: UI
+    uniqueID: 2691488409
+    locked: 0
   - name: Default
     uniqueID: 0
-    locked: 0
-  - name: CameraSortingLayer
-    uniqueID: 815238059
     locked: 0
   m_RenderingLayers:
   - Default
