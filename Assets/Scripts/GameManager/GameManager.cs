@@ -52,7 +52,7 @@ public class GameManager : Singleton<GameManager>
 
     public Vector2 SearchSpawnPoint()
     {
-        return GameObject.Find("PlayerSpawnPoint").transform.position;
+        return GameObject.FindWithTag("PlayerSpawnPoint").transform.position;
     }
 
 

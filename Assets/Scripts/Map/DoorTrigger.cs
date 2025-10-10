@@ -9,9 +9,7 @@ public class DoorTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            MapManager.Instance.MoveToRoom(direction);
-
-            FirebaseUploader uploader = Object.FindFirstObjectByType<FirebaseUploader>();
+            MapManager.Instance.MoveToRoom();
    
         }
     }

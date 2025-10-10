@@ -77,6 +77,7 @@ public class ChaseState : EnemyState, IFixedUpdateState, ILateUpdateState
 
     public override void Exit()
     {
+        enemy.GetAIAgent().Stop();
         enemy.GetRigidbody().linearVelocity = Vector2.zero; // 추격 종료 시 정지
     }
 }

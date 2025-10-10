@@ -13,18 +13,17 @@ public class AIAgent : MonoBehaviour
     {
         target = PlayerScript.Instance.transform;
         path = GetComponent<AIPath>();
+        path.maxSpeed = speed;
     }
     public void Move()
     {
-        path.maxSpeed = speed;
-        distanceToTarget = Vector2.Distance(transform.position, target.position);
-        if (distanceToTarget < stopdistance)
-        {
-            path.destination = transform.position;
-        }
-        else
-        {
-            path.destination = target.position;
-        }
+        path.canMove = true;
+        path.destination = target.position;
+   
+    }
+     public void Stop()
+    {
+         path.canMove = false;
+   
     }
 }

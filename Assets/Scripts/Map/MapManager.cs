@@ -4,81 +4,69 @@ using Pathfinding;
 
 public class MapManager : Singleton<MapManager>
 {
-    public Dictionary<Vector2Int, GameObject> roomMap = new Dictionary<Vector2Int, GameObject>();
-    public Vector2Int currentRoomPos;
-    private MapGen mapGen;
+    [SerializeField] GameObject[] originRoomList;
+    GameObject[] CreatedRoomList;
+    Room currentRoom;
+    [SerializeField] int curRoomIndex = 0;
+
+    //private MapGen mapGen;
     public AstarPath astarPath;
     protected override void Awake()
     {
         base.Awake();
-        mapGen = GetComponent<MapGen>();
+       // mapGen = GetComponent<MapGen>();
         astarPath = GetComponentInChildren<AstarPath>();
 
     }
-    public Room GetCurrentRoom() => roomMap[currentRoomPos].GetComponent<Room>();
+    public Room GetCurrentRoom() => CreatedRoomList[curRoomIndex].GetComponent<Room>();
     public void CreateMap()
     {
-        mapGen.GenerateMap();
+        CreatedRoomList = new GameObject[originRoomList.Length];
+        SetRoomList(originRoomList);
+        CreateRoom();
+        currentRoom.SpawnEnemies();
+        ResetAstarPath();
+        // mapGen.GenerateMap();
     }
-    public void MoveToRoom(Direction dir)
+
+    void CreateRoom()
     {
-        Vector2Int nextPos = currentRoomPos;
-        switch (dir)
-        {
-            case Direction.Up: nextPos += Vector2Int.up; break;
-            case Direction.Down: nextPos += Vector2Int.down; break;
-            case Direction.Left: nextPos += Vector2Int.left; break;
-            case Direction.Right: nextPos += Vector2Int.right; break;
-        }
-
-        // 비활성화
-        roomMap[currentRoomPos].SetActive(false);
-
-        // 활성화
-        roomMap[nextPos].SetActive(true);
-
-        // 플레이어 위치 이동 (새 방의 반대편 문 위치로)
-        MinimapManager.Instance.RevealRoom(nextPos);
-        Vector2 entryPoint = FindEntryPoint(nextPos, dir);
-        Vector2 spawnPoint = GameManager.Instance.SearchSpawnPoint();
-        PlayerScript.Instance.SetPlayerPosition(spawnPoint);
-        CameraManager.Instance.SetCameraPosition(spawnPoint);
-        currentRoomPos = nextPos;
         
-        AstarData.active.data.gridGraph.center = roomMap[nextPos].transform.position;
-      
-        astarPath.Scan();
+        for (int i = 0; i < originRoomList.Length; i++)
+        {
+            CreatedRoomList[i] = Instantiate(originRoomList[i], Vector2.right * i * 30, Quaternion.identity);
+            CreatedRoomList[i].SetActive(false);
+        }
+        CreatedRoomList[0].SetActive(true);
+        currentRoom = CreatedRoomList[0].GetComponent<Room>();
     }
-
-    private Vector2 FindEntryPoint(Vector2Int roomPos, Direction fromDirection)
+    void SetRoomList(GameObject[] rooms)
     {
-        GameObject room = roomMap[roomPos];
-        var tile = room.GetComponent<Room>().GroundTileMap;
-        if (tile == null)
+        for (int i = rooms.Length - 1; i > 0; i--)
         {
-            PlayerScript.Instance.SetGroundTilemap(null);
+            int j = Random.Range(0, i + 1); 
+            (rooms[i], rooms[j]) = (rooms[j], rooms[i]); // swap
         }
-        else
-        {
-            PlayerScript.Instance.SetGroundTilemap(tile);
-        }
+    }
+    public void MoveToRoom()
+    {
+        //방 이동
+        CreatedRoomList[curRoomIndex].SetActive(false);
+        curRoomIndex++;
+        CreatedRoomList[curRoomIndex].SetActive(true);
 
-        string entryDoorName = fromDirection
-        switch
-        {
-            Direction.Up => "Door_Down",
-            Direction.Down => "Door_Up",
-            Direction.Left => "Door_Right",
-            Direction.Right => "Door_Left",
-            _ => "Door_Down"
-        };
-        return (Vector2)(room.transform.Find(entryDoorName).position + fromDirection switch
-        {
-            Direction.Up => new Vector3(0, 1, 0),
-            Direction.Down => new Vector3(0, -1, 0),
-            Direction.Left => new Vector3(-1, 0, 0),
-            Direction.Right => new Vector3(1, 0, 0),
-            _ => Vector3.zero
-        });
+        //플레이어 위치 이동
+        Vector2 pos = GameManager.Instance.SearchSpawnPoint();
+        GameManager.Instance.SetPlayerPos(pos);
+
+        currentRoom = CreatedRoomList[curRoomIndex].GetComponent<Room>();
+        currentRoom.SpawnEnemies();
+        ResetAstarPath();
+    }
+    public void ResetAstarPath()
+    {
+        AstarData.active.data.gridGraph.center = CreatedRoomList[curRoomIndex].transform.position;
+        astarPath.Scan();
+
     }
 }

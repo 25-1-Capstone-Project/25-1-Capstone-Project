@@ -219,8 +219,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6058471246751783981}
   - component: {fileID: 826458252350740559}
-  - component: {fileID: 4553697308074932286}
-  - component: {fileID: 8291853083291079794}
+  - component: {fileID: 3702182310383914650}
+  - component: {fileID: 8770944547172883293}
+  - component: {fileID: 9084230751055862440}
   m_Layer: 0
   m_Name: CinemachineBrain
   m_TagString: MainCamera
@@ -275,7 +276,7 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
   CustomBlends: {fileID: 0}
---- !u!20 &4553697308074932286
+--- !u!20 &3702182310383914650
 Camera:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -326,7 +327,7 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!114 &8291853083291079794
+--- !u!114 &8770944547172883293
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -370,6 +371,14 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!81 &9084230751055862440
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4298708651944728208}
+  m_Enabled: 1
 --- !u!1 &6400897836313873855
 GameObject:
   m_ObjectHideFlags: 0
@@ -417,7 +426,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35fdfcf921aaa6642a016cdb68c0ccfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainCamera: {fileID: 4553697308074932286}
+  mainCamera: {fileID: 0}
   duration: 1
   cameraZ: -10
   cineCam: {fileID: 5357050298168920666}
