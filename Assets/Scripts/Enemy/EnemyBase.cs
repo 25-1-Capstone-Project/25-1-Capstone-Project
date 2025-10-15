@@ -128,8 +128,9 @@ public abstract class EnemyBase : MonoBehaviour
 
         AudioManager.Instance.PlaySFX("AttackHit"); // 오디오 매니저가 있다면
         Health -= damage;
-        FlashSprite(Color.red, 0.1f);
 
+        FlashSprite(Color.red, 0.1f);
+        
     }
 
     /// <summary>
@@ -139,15 +140,14 @@ public abstract class EnemyBase : MonoBehaviour
     {
         if (StateMachine.GetCurrentState() is AttackState)
         {
-            
             return;
         }
         StateMachine.ChangeState<DamagedState>();
     }
-    public virtual void Parried()
-    {
-        StateMachine.ChangeState<ParriedState>();
-    }
+    // public void Parried()
+    // {
+    //     StateMachine.ChangeState<ParriedState>();
+    // }
     protected virtual void Dead()
     {
         isDead = true;
@@ -166,7 +166,7 @@ public abstract class EnemyBase : MonoBehaviour
         if (enemySprite == null) return;
         StartCoroutine(FlashRoutine(color, duration));
     }
-   
+
 
     public void SpriteFlip()
     {

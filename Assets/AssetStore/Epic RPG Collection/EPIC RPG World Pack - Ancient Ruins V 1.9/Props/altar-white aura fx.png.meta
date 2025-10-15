@@ -125,12 +125,12 @@ TextureImporter:
       name: altar-white aura fx_0
       rect:
         serializedVersion: 2
-        x: 34
-        y: 9
-        width: 26
-        height: 52
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 0
+        y: 0
+        width: 96
+        height: 160
+      alignment: 9
+      pivot: {x: 0.487, y: 0.15}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -147,12 +147,12 @@ TextureImporter:
       name: altar-white aura fx_1
       rect:
         serializedVersion: 2
-        x: 124
-        y: 3
-        width: 38
-        height: 157
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 96
+        y: 0
+        width: 96
+        height: 160
+      alignment: 9
+      pivot: {x: 0.487, y: 0.15}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -169,12 +169,12 @@ TextureImporter:
       name: altar-white aura fx_2
       rect:
         serializedVersion: 2
-        x: 223
-        y: 6
-        width: 32
-        height: 131
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 192
+        y: 0
+        width: 96
+        height: 160
+      alignment: 9
+      pivot: {x: 0.487, y: 0.15}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -191,12 +191,12 @@ TextureImporter:
       name: altar-white aura fx_3
       rect:
         serializedVersion: 2
-        x: 331
-        y: 15
-        width: 293
-        height: 106
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 288
+        y: 0
+        width: 96
+        height: 160
+      alignment: 9
+      pivot: {x: 0.487, y: 0.15}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -209,11 +209,99 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: altar-white aura fx_4
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 0
+        width: 96
+        height: 160
+      alignment: 9
+      pivot: {x: 0.487, y: 0.15}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5131e5405f08f384cb46efa68469eef9
+      internalID: 233121984
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: altar-white aura fx_5
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 0
+        width: 96
+        height: 160
+      alignment: 9
+      pivot: {x: 0.487, y: 0.15}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b96c3174a682b214591b0717faf90b14
+      internalID: -772893445
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: altar-white aura fx_6
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 0
+        width: 96
+        height: 160
+      alignment: 9
+      pivot: {x: 0.487, y: 0.15}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3410306a5e04c204cb6089c34af05aaa
+      internalID: -984735286
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: altar-white aura fx_7
+      rect:
+        serializedVersion: 2
+        x: 636
+        y: 120
+        width: 36
+        height: 40
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 28afb35cd86e308499caad662ba184b8
+      internalID: -1219857370
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 7d94a46d0a2a56e4792351b393291a4d
     internalID: 0
     vertices: []
     indices: 
@@ -227,6 +315,10 @@ TextureImporter:
       altar-white aura fx_1: -2894120008696463660
       altar-white aura fx_2: 2723778475367956876
       altar-white aura fx_3: 5071012160518173762
+      altar-white aura fx_4: 233121984
+      altar-white aura fx_5: -772893445
+      altar-white aura fx_6: -984735286
+      altar-white aura fx_7: -1219857370
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -14,7 +14,7 @@ public class MapManager : Singleton<MapManager>
     protected override void Awake()
     {
         base.Awake();
-       // mapGen = GetComponent<MapGen>();
+        // mapGen = GetComponent<MapGen>();
         astarPath = GetComponentInChildren<AstarPath>();
 
     }
@@ -31,11 +31,13 @@ public class MapManager : Singleton<MapManager>
 
     void CreateRoom()
     {
-        
+
         for (int i = 0; i < originRoomList.Length; i++)
         {
             CreatedRoomList[i] = Instantiate(originRoomList[i], Vector2.right * i * 30, Quaternion.identity);
+            CreatedRoomList[i].GetComponent<Room>().InitRoom();
             CreatedRoomList[i].SetActive(false);
+
         }
         CreatedRoomList[0].SetActive(true);
         currentRoom = CreatedRoomList[0].GetComponent<Room>();
@@ -44,7 +46,7 @@ public class MapManager : Singleton<MapManager>
     {
         for (int i = rooms.Length - 1; i > 0; i--)
         {
-            int j = Random.Range(0, i + 1); 
+            int j = Random.Range(0, i + 1);
             (rooms[i], rooms[j]) = (rooms[j], rooms[i]); // swap
         }
     }

@@ -1,5 +1,6 @@
-using System;
-using System.Collections.Generic;
+
+using System.Collections;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -7,47 +8,58 @@ public class Room : MonoBehaviour
 {
 
     bool isRoomCleared = false;
-    
-    [SerializeField] public Transform enemySpawnParentObject; // 스폰포인트 부모 오브젝트
-    public Transform[] enemySpawnPointsT; // 스폰포인트
-    public Tilemap GroundTileMap; // 방 타일맵
 
+    [SerializeField] private Transform enemySpawnParentObject; // 스폰포인트 부모 오브젝트
+    [SerializeField] private Transform[] enemySpawnPointsT; // 스폰포인트
+    [SerializeField] private Animator[] enemySpawnAnim; // 스폰포인트
+    public Tilemap GroundTileMap; // 방 타일맵
+    int round = 0;
+    [SerializeField] private int maxRound = 3;
 
     public void InitRoom()
     {
-        // 부모(자기 자신)는 제외하고 자식들만 할당
-        if (enemySpawnParentObject != null)
-        {
-            List<Transform> spawnPoints = new List<Transform>();
-            foreach (Transform t in enemySpawnParentObject.GetComponentsInChildren<Transform>())
-            {
-                if (t != enemySpawnParentObject)
-                    spawnPoints.Add(t);
-            }
-            enemySpawnPointsT = spawnPoints.ToArray();
-        }
         // 방 초기화 로직을 여기에 추가하세요.
         isRoomCleared = false;
-        if(enemySpawnParentObject!=null)
-        enemySpawnPointsT = enemySpawnParentObject.GetComponentsInChildren<Transform>();
+
+        if (enemySpawnParentObject != null)
+        {
+            enemySpawnPointsT = enemySpawnParentObject.GetComponentsInChildren<Transform>().ToList().Where(t => t != enemySpawnParentObject).ToArray();
+            enemySpawnAnim = enemySpawnParentObject.GetComponentsInChildren<Animator>();
+        }
     }
-    void Awake()
-    {
-        InitRoom();
-    }
-   
+    
+
 
     public void SpawnEnemies()
-    {Debug.Log("SpawnEnemies");
+    {
         if (isRoomCleared) return;
-        Debug.Log("SpawnEnemies1");
-        foreach (Transform spawnPoint in enemySpawnPointsT)
+
+        for (int i = 0; i < enemySpawnPointsT.Length; i++)
         {
-             Debug.Log("SpawnEnemies2");
-                EnemyManager.Instance.EnemySpawn(spawnPoint.position);
+            EnemyManager.Instance.EnemySpawn(enemySpawnPointsT[i].position);
+            enemySpawnAnim[i].SetTrigger("Spawn");
         }
     }
 
+
+    public void ClearRound()
+    {
+        round++;
+        if (round < maxRound)
+        {
+            StartCoroutine(ClearRoutine());
+        }
+        else
+        {
+            ClearRoom();
+        }
+    }
+
+    IEnumerator ClearRoutine()
+    {
+        yield return new WaitForSeconds(1f);
+        SpawnEnemies();
+    }
     public void ClearRoom()
     {
         isRoomCleared = true;

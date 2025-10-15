@@ -5,8 +5,6 @@ public class CameraManager : Singleton<CameraManager>
 {
     [SerializeField] private Camera mainCamera;
     [SerializeField] private float duration = 1f;
-
-    [SerializeField] private float cameraZ = -10f; // 카메라의 Z축 위치
     [SerializeField] CinemachineCamera cineCam;
     private CinemachineBasicMultiChannelPerlin noise;
     protected override void Awake()
@@ -22,11 +20,11 @@ public class CameraManager : Singleton<CameraManager>
         }
 
         mainCamera = Camera.main;
-        mainCamera.transform.position = new Vector3(0, 0, cameraZ); // 초기 카메라 위치 설정
+        mainCamera.transform.position = new Vector3(0, 0,  mainCamera.transform.position.z); // 초기 카메라 위치 설정
     }
     public void SetCameraPosition(Vector3 position)
     {
-        mainCamera.transform.position = new Vector3(position.x, position.y, cameraZ);
+        mainCamera.transform.position = new Vector3(position.x, position.y, mainCamera.transform.position.z);
 
     }
     public IEnumerator LerpCameraPosition(Vector3 position)
@@ -35,7 +33,7 @@ public class CameraManager : Singleton<CameraManager>
         Vector3 startPosition = mainCamera.transform.position;
         while (elapsedTime < duration)
         {
-            mainCamera.transform.position = Vector3.Lerp(startPosition, new Vector3(position.x, position.y, cameraZ), elapsedTime / duration);
+            mainCamera.transform.position = Vector3.Lerp(startPosition, new Vector3(position.x, position.y, mainCamera.transform.position.z), elapsedTime / duration);
             elapsedTime += Time.deltaTime;
             yield return null;
         }

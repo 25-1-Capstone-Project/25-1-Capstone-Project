@@ -26,7 +26,7 @@ public class EnemyManager : Singleton<EnemyManager>
         if (spawnedEnemy <= 0)
         {
             spawnedEnemy = 0;
-            MapManager.Instance.GetCurrentRoom().ClearRoom();
+            MapManager.Instance.GetCurrentRoom().ClearRound();
         }
 
     }

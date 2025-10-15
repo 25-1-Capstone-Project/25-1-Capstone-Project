@@ -1,5 +1,5 @@
 public enum ECloseAttackType
 {
     Slash,
-    Sting,
+    Spear,
 }

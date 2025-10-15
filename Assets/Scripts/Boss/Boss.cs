@@ -108,10 +108,7 @@ public class Boss : EnemyBase
         bossData.AttackPatternSet((int)skillType);
 
     }
-    public override void Parried()
-    {
-
-    }
+   
     // 보스 전용 Getter
     public bool CheckPostAttackPauseComplete(float timer) => timer >= bossData.postAttackPauseTime;
 

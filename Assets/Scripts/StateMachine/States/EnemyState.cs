@@ -69,7 +69,7 @@ public class ChaseState : EnemyState, IFixedUpdateState, ILateUpdateState
         // enemy.GetRigidbody().linearVelocity = direction * enemy.GetSpeed();
     }
 
-  
+
     public void LateUpdate()
     {
         enemy.SpriteFlip(); // 플레이어 방향으로 스프라이트 회전
@@ -120,47 +120,53 @@ public class AttackState : EnemyState
     }
 }
 
-public class ParriedState : EnemyState
-{
-    WaitForSeconds KnockBackDelaySec = new WaitForSeconds(0.5f);
+// public class ParriedState : EnemyState
+// {
+//     WaitForSeconds KnockBackDelaySec = new WaitForSeconds(0.5f);
 
-    public ParriedState(NormalEnemy enemy) : base(enemy) { }
+//     public ParriedState(NormalEnemy enemy) : base(enemy) { }
 
-    public override void Enter()
-    {
-         enemy.enemyShaderController.OffOutline();
-        enemy.GetRigidbody().linearVelocity = Vector2.zero;
-        enemy.gameObject.layer = LayerMask.NameToLayer("Enemy");
-        enemy.StopAllCoroutines();
-        enemy.StartCoroutine(KnockBack());
-    }
-    public IEnumerator KnockBack()
-    {
-        enemy.KnockBack(2);
-        yield return KnockBackDelaySec;
-        enemy.GetRigidbody().linearVelocity = Vector2.zero;
-        yield return new WaitForSeconds(1f);
-        enemy.StateMachine.ChangeState<ChaseState>();
-    }
-    public override void Update() { }
-    public override void Exit() { }
-}
+//     public override void Enter()
+//     {
+//         enemy.enemyShaderController.OffOutline();
+//         enemy.GetRigidbody().linearVelocity = Vector2.zero;
+//         enemy.gameObject.layer = LayerMask.NameToLayer("Enemy");
+//         enemy.StopAllCoroutines();
+//         enemy.TakeDamage(1);
+//         enemy.StartCoroutine(KnockBack());
+
+//     }
+//     public IEnumerator KnockBack()
+//     {
+//         enemy.KnockBack(2);
+//         yield return KnockBackDelaySec;
+//         enemy.GetRigidbody().linearVelocity = Vector2.zero;
+//         yield return new WaitForSeconds(1f);
+//         enemy.StateMachine.ChangeState<ChaseState>();
+//     }
+//     public override void Update() { }
+//     public override void Exit() { }
+// }
 
 public class DamagedState : EnemyState
 {
     public DamagedState(NormalEnemy enemy) : base(enemy) { }
-
+    WaitForSeconds KnockBackDelaySec = new WaitForSeconds(0.5f);
     public override void Enter()
     {
+        enemy.enemyShaderController.OffOutline();
+        enemy.GetRigidbody().linearVelocity = Vector2.zero;
+        enemy.gameObject.layer = LayerMask.NameToLayer("Enemy");
+        enemy.StopAllCoroutines();
         enemy.GetAnimatorController().PlayDamage();
         enemy.StartCoroutine(DamagedRoutine());
     }
     public IEnumerator DamagedRoutine()
     {
-        enemy.KnockBack(1);
-
-        yield return new WaitForSeconds(0.5f);
-
+        enemy.KnockBack(2);
+        yield return KnockBackDelaySec;
+        enemy.GetRigidbody().linearVelocity = Vector2.zero;
+        yield return new WaitForSeconds(1f);
         enemy.StateMachine.ChangeState<ChaseState>();
     }
 
@@ -190,7 +196,7 @@ public class DeadState : EnemyState
         float dropChance = 0.2f;
         if (Random.value < dropChance)
         {
-            GameObject.Instantiate(enemy.skillSelectItemPrefab, enemy.transform.position, Quaternion.identity);
+            Object.Instantiate(enemy.skillSelectItemPrefab, enemy.transform.position, Quaternion.identity);
         }
         enemy.GetAnimatorController().PlayDeath();
         EnemyManager.Instance.KillEnemy();

@@ -5,11 +5,11 @@ public class StunOnParry : PlayerAbility
     private PlayerScript player;
 
     public float attackRange = 3f;
-    LayerMask enemyLayer = 6; // Àû ·¹ÀÌ¾î... ÃßÈÄ°³¼±¿ä¸Á
+    LayerMask enemyLayer = 6; 
 
     public override void OnEquip(PlayerScript player)
     {
-        Debug.Log("½ºÅÏ ¾îºô¸®Æ¼ ÀåÂøµÊ");
+        Debug.Log("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Æ¼ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
         this.player = player;
         player.OnParrySuccess += StunAbility;
     }
@@ -25,11 +25,11 @@ public class StunOnParry : PlayerAbility
 
         foreach (var hit in hits)
         {
-            // ½ºÅÏÀÎµ¥ ÀÏ´Ü ÆÐ¸µÈ¿°ú·Î Â«Ã³¸®...
+           
             EnemyBase enemy = hit.GetComponent<EnemyBase>();
             if (enemy != null)
             {
-                enemy.Parried();
+               // enemy.Parried();
             }
         }
     }

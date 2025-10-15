@@ -94,7 +94,7 @@ public class DungeonState : GameState
         MapManager.Instance.CreateMap();
         UIManager.Instance.SetActiveMainMenuUI(false);
         UIManager.Instance.SetActiveInGameUI(true);
-        EnemyManager.Instance.InitSpawnedEnemy();
+       
 
         Vector2 spawnPoint = gameManager.SearchSpawnPoint();
         gameManager.PlayerSpawn(spawnPoint);

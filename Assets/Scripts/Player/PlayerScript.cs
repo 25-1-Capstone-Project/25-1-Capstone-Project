@@ -377,13 +377,20 @@ public class PlayerScript : Singleton<PlayerScript>
     // #region 공격
     void OnAttack()
     {
-        if (!canUseAttack || isDead || isDashing || isParrying || isAttacking)
+         if (!canUseParry || isDead || isAttacking || isDashing)
             return;
-        if (!currentSkill.IsCooldownReady())
-            return;
-        StartCoroutine(AttackRoutine());
 
-        PlayerLogger.Instance.PlusAttackCountLog();
+        playerAnim.PlayAttack();
+        AudioManager.Instance.PlaySFX("Parry");
+        FlashParry();
+        ParryRoutine = StartCoroutine(Parry());
+        // if (!canUseAttack || isDead || isDashing || isParrying || isAttacking)
+        //     return;
+        // if (!currentSkill.IsCooldownReady())
+        //     return;
+        // StartCoroutine(AttackRoutine());
+
+        // PlayerLogger.Instance.PlusAttackCountLog();
     }
     IEnumerator AttackRoutine()
     {
@@ -479,18 +486,17 @@ public class PlayerScript : Singleton<PlayerScript>
         {
             ParryStack++;
         }
-        if (ParryStack == stats.maxParryStack)
-        {
-            currentSkill.ResetCooldown();
-        }
+        // if (ParryStack == stats.maxParryStack)
+        // {
+        //     currentSkill.ResetCooldown();
+        // }
 
         OnParrySuccess?.Invoke();
 
         isParrying = false;
         canUseParry = true;
         Health += 1;
-       // enemy.Parried(); // 적에게 대미지 주기
-        //enemy?.StateMachine.ChangeState<ParryState>();
+        enemy.TakeDamage(1); // 적에게 대미지 주기
         StartCoroutine(ParryEffect());
 
     }
@@ -502,6 +508,7 @@ public class PlayerScript : Singleton<PlayerScript>
         if (ParryStack < stats.maxParryStack)
         {
             ParryStack++;
+
         }
 
         OnParrySuccess?.Invoke();
@@ -521,9 +528,9 @@ public class PlayerScript : Singleton<PlayerScript>
         EffectPooler.Instance.SpawnFromPool("ParryEffect", transform.position + (direction / 2), Quaternion.identity);
         AudioManager.Instance.PlaySFX("ParrySuccess");
         //isGod = true;
+        yield return FadeController.Instance.FadeOut(Color.white, 0.1f,0.3f);
         GameManager.Instance.SetTimeScale(0);
-        yield return FadeController.Instance.FadeOut(Color.white, 0.05f, 0.01f);
-        yield return FadeController.Instance.FadeIn(Color.white, 0.05f, 0.01f);
+        yield return FadeController.Instance.FadeIn(Color.white, 0.1f,0.3f);
         GameManager.Instance.SetTimeScale(1);
         ShaderManager.Instance.CallShockWave();
         yield return new WaitForSeconds(0.1f);

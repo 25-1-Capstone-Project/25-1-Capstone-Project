@@ -22,7 +22,7 @@ public class NormalEnemy : EnemyBase
         StateMachine.AddState(new IdleState(this));
         StateMachine.AddState(new ChaseState(this));
         StateMachine.AddState(new AttackState(this));
-        StateMachine.AddState(new ParriedState(this));
+        // StateMachine.AddState(new ParriedState(this));
         StateMachine.AddState(new DamagedState(this));
         StateMachine.AddState(new DeadState(this));
 
@@ -34,9 +34,7 @@ public class NormalEnemy : EnemyBase
     // 예를 들어, 일반 적은 피격 시 무조건 넉백된다면:
     protected override void OnDamaged()
     {
-
         base.OnDamaged(); // KnockBackState가 없다면 부모의 기본 행동 수행
-
     }
     public override void TakeDamage(int damage)
     {
