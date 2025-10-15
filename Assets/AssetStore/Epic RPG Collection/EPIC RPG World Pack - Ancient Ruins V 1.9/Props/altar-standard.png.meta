@@ -186,7 +186,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 16384
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -227,277 +227,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: altar-standard_0
-      rect:
-        serializedVersion: 2
-        x: 16
-        y: 3
-        width: 189
-        height: 248
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 6d40293779d64e1f0800000000000000
-      internalID: -1016567118632450858
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: altar-standard_1
-      rect:
-        serializedVersion: 2
-        x: 240
-        y: 3
-        width: 189
-        height: 248
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: f32619464b0113490800000000000000
-      internalID: -7768409515269987777
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: altar-standard_2
-      rect:
-        serializedVersion: 2
-        x: 464
-        y: 3
-        width: 189
-        height: 248
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: e6ff2a5cde362d250800000000000000
-      internalID: 5967942329093521262
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: altar-standard_3
-      rect:
-        serializedVersion: 2
-        x: 688
-        y: 3
-        width: 189
-        height: 248
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: c8af3f4758fb62fc0800000000000000
-      internalID: -3519915478829761908
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: altar-standard_4
-      rect:
-        serializedVersion: 2
-        x: 912
-        y: 3
-        width: 189
-        height: 248
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: c2447ed048f483f50800000000000000
-      internalID: 6861321460886488108
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: altar-standard_5
-      rect:
-        serializedVersion: 2
-        x: 1136
-        y: 3
-        width: 189
-        height: 248
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 2696eb06de4f42a60800000000000000
-      internalID: 7648507367549462882
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: altar-standard_6
-      rect:
-        serializedVersion: 2
-        x: 1360
-        y: 3
-        width: 189
-        height: 248
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: dbeb765f103ea5870800000000000000
-      internalID: 8672493630007000765
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: altar-standard_7
-      rect:
-        serializedVersion: 2
-        x: 1584
-        y: 3
-        width: 189
-        height: 248
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: da7295e21461c5f60800000000000000
-      internalID: 8024313105273661357
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: altar-standard_8
-      rect:
-        serializedVersion: 2
-        x: 1808
-        y: 3
-        width: 189
-        height: 248
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: f8d21e5bc79d3bcb0800000000000000
-      internalID: -4849293244097286769
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: altar-standard_9
-      rect:
-        serializedVersion: 2
-        x: 2032
-        y: 3
-        width: 189
-        height: 248
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 3bdde1e87d0832f60800000000000000
-      internalID: 8008386225685585331
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: altar-standard_10
-      rect:
-        serializedVersion: 2
-        x: 2256
-        y: 3
-        width: 189
-        height: 248
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 0b9cf06b8efa78b10800000000000000
-      internalID: 1983747574901754288
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: altar-standard_11
-      rect:
-        serializedVersion: 2
-        x: 2480
-        y: 3
-        width: 189
-        height: 248
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 0810a3836250491b0800000000000000
-      internalID: -5650885970732908160
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: altar-standard_12
       rect:
         serializedVersion: 2
-        x: 2704
-        y: 3
-        width: 189
-        height: 248
+        x: 2688
+        y: 0
+        width: 224
+        height: 288
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -516,10 +252,10 @@ TextureImporter:
       name: altar-standard_13
       rect:
         serializedVersion: 2
-        x: 2928
-        y: 3
-        width: 189
-        height: 248
+        x: 2912
+        y: 0
+        width: 224
+        height: 288
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -538,10 +274,10 @@ TextureImporter:
       name: altar-standard_14
       rect:
         serializedVersion: 2
-        x: 3152
-        y: 3
-        width: 189
-        height: 248
+        x: 3136
+        y: 0
+        width: 224
+        height: 288
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -560,10 +296,10 @@ TextureImporter:
       name: altar-standard_15
       rect:
         serializedVersion: 2
-        x: 3376
-        y: 3
-        width: 189
-        height: 248
+        x: 3360
+        y: 0
+        width: 224
+        height: 288
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -582,10 +318,10 @@ TextureImporter:
       name: altar-standard_16
       rect:
         serializedVersion: 2
-        x: 3600
-        y: 3
-        width: 189
-        height: 248
+        x: 3584
+        y: 0
+        width: 224
+        height: 288
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -604,10 +340,10 @@ TextureImporter:
       name: altar-standard_17
       rect:
         serializedVersion: 2
-        x: 3824
-        y: 3
-        width: 189
-        height: 248
+        x: 3808
+        y: 0
+        width: 224
+        height: 288
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -626,10 +362,10 @@ TextureImporter:
       name: altar-standard_18
       rect:
         serializedVersion: 2
-        x: 4048
-        y: 3
-        width: 189
-        height: 248
+        x: 4032
+        y: 0
+        width: 224
+        height: 288
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -648,10 +384,10 @@ TextureImporter:
       name: altar-standard_19
       rect:
         serializedVersion: 2
-        x: 4272
-        y: 3
-        width: 189
-        height: 248
+        x: 4256
+        y: 0
+        width: 224
+        height: 288
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -670,10 +406,10 @@ TextureImporter:
       name: altar-standard_20
       rect:
         serializedVersion: 2
-        x: 4496
-        y: 3
-        width: 189
-        height: 248
+        x: 4480
+        y: 0
+        width: 224
+        height: 288
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -692,10 +428,10 @@ TextureImporter:
       name: altar-standard_21
       rect:
         serializedVersion: 2
-        x: 4720
-        y: 3
-        width: 189
-        height: 248
+        x: 4704
+        y: 0
+        width: 224
+        height: 288
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -714,10 +450,10 @@ TextureImporter:
       name: altar-standard_22
       rect:
         serializedVersion: 2
-        x: 4944
-        y: 3
-        width: 189
-        height: 248
+        x: 4928
+        y: 0
+        width: 224
+        height: 288
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -736,10 +472,10 @@ TextureImporter:
       name: altar-standard_23
       rect:
         serializedVersion: 2
-        x: 5168
-        y: 3
-        width: 189
-        height: 248
+        x: 5152
+        y: 0
+        width: 224
+        height: 288
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -758,10 +494,10 @@ TextureImporter:
       name: altar-standard_24
       rect:
         serializedVersion: 2
-        x: 5392
-        y: 3
-        width: 189
-        height: 248
+        x: 5376
+        y: 0
+        width: 224
+        height: 288
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -780,10 +516,10 @@ TextureImporter:
       name: altar-standard_25
       rect:
         serializedVersion: 2
-        x: 5616
-        y: 3
-        width: 189
-        height: 248
+        x: 5600
+        y: 0
+        width: 224
+        height: 288
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -802,10 +538,10 @@ TextureImporter:
       name: altar-standard_26
       rect:
         serializedVersion: 2
-        x: 5840
-        y: 3
-        width: 189
-        height: 248
+        x: 5824
+        y: 0
+        width: 224
+        height: 288
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -824,10 +560,10 @@ TextureImporter:
       name: altar-standard_27
       rect:
         serializedVersion: 2
-        x: 6064
-        y: 3
-        width: 189
-        height: 248
+        x: 6048
+        y: 0
+        width: 224
+        height: 288
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -846,10 +582,10 @@ TextureImporter:
       name: altar-standard_28
       rect:
         serializedVersion: 2
-        x: 6288
-        y: 3
-        width: 189
-        height: 248
+        x: 6272
+        y: 0
+        width: 224
+        height: 288
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -868,10 +604,10 @@ TextureImporter:
       name: altar-standard_29
       rect:
         serializedVersion: 2
-        x: 6512
-        y: 3
-        width: 189
-        height: 248
+        x: 6496
+        y: 0
+        width: 224
+        height: 288
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -890,10 +626,10 @@ TextureImporter:
       name: altar-standard_30
       rect:
         serializedVersion: 2
-        x: 6736
-        y: 3
-        width: 189
-        height: 248
+        x: 6720
+        y: 0
+        width: 224
+        height: 288
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -912,10 +648,10 @@ TextureImporter:
       name: altar-standard_31
       rect:
         serializedVersion: 2
-        x: 6960
-        y: 3
-        width: 189
-        height: 248
+        x: 6944
+        y: 0
+        width: 224
+        height: 288
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -934,10 +670,10 @@ TextureImporter:
       name: altar-standard_32
       rect:
         serializedVersion: 2
-        x: 7184
-        y: 3
-        width: 189
-        height: 248
+        x: 7168
+        y: 0
+        width: 224
+        height: 288
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -956,10 +692,10 @@ TextureImporter:
       name: altar-standard_33
       rect:
         serializedVersion: 2
-        x: 7408
-        y: 3
-        width: 189
-        height: 248
+        x: 7392
+        y: 0
+        width: 224
+        height: 288
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -978,10 +714,10 @@ TextureImporter:
       name: altar-standard_34
       rect:
         serializedVersion: 2
-        x: 7632
-        y: 3
-        width: 189
-        height: 248
+        x: 7616
+        y: 0
+        width: 224
+        height: 288
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1000,10 +736,10 @@ TextureImporter:
       name: altar-standard_35
       rect:
         serializedVersion: 2
-        x: 7856
-        y: 3
-        width: 189
-        height: 248
+        x: 7840
+        y: 0
+        width: 224
+        height: 288
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1022,10 +758,10 @@ TextureImporter:
       name: altar-standard_36
       rect:
         serializedVersion: 2
-        x: 8080
-        y: 3
-        width: 189
-        height: 248
+        x: 8064
+        y: 0
+        width: 224
+        height: 288
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1044,10 +780,10 @@ TextureImporter:
       name: altar-standard_37
       rect:
         serializedVersion: 2
-        x: 8304
-        y: 3
-        width: 189
-        height: 248
+        x: 8288
+        y: 0
+        width: 224
+        height: 288
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1066,10 +802,10 @@ TextureImporter:
       name: altar-standard_38
       rect:
         serializedVersion: 2
-        x: 8528
-        y: 3
-        width: 189
-        height: 248
+        x: 8512
+        y: 0
+        width: 224
+        height: 288
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1084,11 +820,55 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: altar-standard_11
+      rect:
+        serializedVersion: 2
+        x: 2464
+        y: 0
+        width: 224
+        height: 288
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf678e7257ba1d04d91b0d0a905eaea4
+      internalID: -5650885970732908160
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: altar-standard_10
+      rect:
+        serializedVersion: 2
+        x: 2240
+        y: 0
+        width: 224
+        height: 288
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4f8e763514b477a4f899741705f795f8
+      internalID: 1983747574901754288
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 1d8f2550487f8e44db8d4b75a3ff0907
     internalID: 0
     vertices: []
     indices: 
