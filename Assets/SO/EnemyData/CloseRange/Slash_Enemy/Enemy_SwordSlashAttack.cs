@@ -14,7 +14,7 @@ public class Enemy_SwordSlash : EnemyAttackPattern
         float angle = Mathf.Atan2(attackDir.y, attackDir.x) * Mathf.Rad2Deg;
         yield return new WaitForSeconds(attackChargeSec);
         EffectPooler.Instance.SpawnFromPool("AttackSlashParticle", enemy.transform.position, Quaternion.Euler(0f, 0f, angle));
-        Vector2 boxCenter = (Vector2)enemy.transform.position + attackDir * 0.5f;
+        Vector2 boxCenter = (Vector2)enemy.transform.position + attackDir * attackRange;
         Vector2 boxSize = new Vector2(1f, 1f);
 
         // 단일 대상 판정

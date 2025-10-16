@@ -1028,6 +1028,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 88202967312e349458158c3961c05dad, type: 2}
     - target: {fileID: 6827409029111095557, guid: 07f1e104642059a429d41139e8ecd9ae, type: 3}
+      propertyPath: 'CloseEnemyAttackPatterns.Array.data[2]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 88202967312e349458158c3961c05dad, type: 2}
+    - target: {fileID: 6827409029111095557, guid: 07f1e104642059a429d41139e8ecd9ae, type: 3}
       propertyPath: 'commonEnemyAttackPatterns.Array.data[2]'
       value: 
       objectReference: {fileID: 11400000, guid: 88202967312e349458158c3961c05dad, type: 2}
