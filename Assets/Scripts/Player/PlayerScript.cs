@@ -23,6 +23,7 @@ public class PlayerScript : Singleton<PlayerScript>
     Vector2 moveVec;
     Vector2 lookInput;
     Vector3 direction;
+    Vector2 takeAttackDirection;
     public Vector3 Direction => direction;
     public Vector2 Direction2D => direction;
     [Header("=====플레이어 상태=====")]
@@ -32,7 +33,7 @@ public class PlayerScript : Singleton<PlayerScript>
     bool isAttacking = false;
     bool isDashing = false;
     bool isGod = false; // 무적 상태
-
+    bool isKnockback = false;
     private PlayerInput playerInput;
 
 
@@ -54,13 +55,13 @@ public class PlayerScript : Singleton<PlayerScript>
                 health = 0;
                 Dead();
             }
-            if (health > stats.maxHealth)
+            else if (health < stats.currentHealth)
             {
-                health = stats.maxHealth;
+                OnDamaged();
             }
+
             stats.currentHealth = health;
 
-            //lightController.SetLight(health);
             UIManager.Instance.playerStatUI.UI_HPBarUpdate(stats.currentHealth, stats.maxHealth);
         }
     }
@@ -148,7 +149,7 @@ public class PlayerScript : Singleton<PlayerScript>
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Ghost ghost;
 
-        [SerializeField] private ParticleSystem skillParticle;
+    [SerializeField] private ParticleSystem skillParticle;
     LightController lightController;
     SkillPattern currentSkill;
     private PlayerRuntimeStats stats = new PlayerRuntimeStats();
@@ -235,12 +236,11 @@ public class PlayerScript : Singleton<PlayerScript>
     }
     void Move()
     {
-        if (isDashing || isDead || isParrying)
+        if (isDashing || isDead || isParrying || isKnockback)
             return;
 
         rb.linearVelocity = moveVec * stats.speed;
     }
-
     void OnDash()
     {
         if (isDead || !canUseDash || moveVec == Vector2.zero)
@@ -377,7 +377,7 @@ public class PlayerScript : Singleton<PlayerScript>
     // #region 공격
     void OnAttack()
     {
-         if (!canUseParry || isDead || isAttacking || isDashing)
+        if (!canUseParry || isDead || isAttacking || isDashing)
             return;
 
         playerAnim.PlayAttack();
@@ -448,7 +448,7 @@ public class PlayerScript : Singleton<PlayerScript>
         yield return new WaitForSeconds(stats.parryDurationSec);
         isParrying = false;
 
-    
+
         // 패리 쿨타임이 끝나면 패리 가능여부 True 처리
         yield return new WaitForSeconds(stats.parryCooldownSec);
         canUseParry = true;
@@ -504,7 +504,7 @@ public class PlayerScript : Singleton<PlayerScript>
     public void ParrySuccess(EnemyAttackBase enemyAttack)
     {
         StopCoroutine(ParryRoutine);
-    
+
         if (ParryStack < stats.maxParryStack)
         {
             ParryStack++;
@@ -528,9 +528,9 @@ public class PlayerScript : Singleton<PlayerScript>
         EffectPooler.Instance.SpawnFromPool("ParryEffect", transform.position + (direction / 2), Quaternion.identity);
         AudioManager.Instance.PlaySFX("ParrySuccess");
         //isGod = true;
-        yield return FadeController.Instance.FadeOut(Color.white, 0.1f,0.3f);
+        yield return FadeController.Instance.FadeOut(Color.white, 0.1f, 0.3f);
         GameManager.Instance.SetTimeScale(0);
-        yield return FadeController.Instance.FadeIn(Color.white, 0.1f,0.3f);
+        yield return FadeController.Instance.FadeIn(Color.white, 0.1f, 0.3f);
         GameManager.Instance.SetTimeScale(1);
         ShaderManager.Instance.CallShockWave();
         yield return new WaitForSeconds(0.1f);
@@ -544,14 +544,15 @@ public class PlayerScript : Singleton<PlayerScript>
     #region 데미지 처리
 
     // 근거리 대미지 처리 함수. 
-    public void TakeDamage(EnemyBase enemy)
+    public void TakeAttack(EnemyBase enemy)
     {
         if (isDead) return;
         if (isGod) return;
 
+        takeAttackDirection = enemy.GetDirectionNormalVec();
         if (isParrying)
         {
-            float parryDot = Vector2.Dot(direction, -enemy.GetDirectionToPlayerNormalVec());
+            float parryDot = Vector2.Dot(direction, -takeAttackDirection);
             float threshold = Mathf.Cos(45f * Mathf.Deg2Rad); // 90도 시야
 
             if (parryDot >= threshold)
@@ -559,24 +560,27 @@ public class PlayerScript : Singleton<PlayerScript>
             else
             {
                 // ParryFailed();
-                StartCoroutine(DamagedRoutine());
+                Health -= 1;
             }
         }
         else
-            StartCoroutine(DamagedRoutine());
+            Health -= 1;
 
 
     }
 
     // 원거리 대미지 처리 함수.
-    public void TakeDamage(EnemyAttackBase enemyAttack)
+    public void TakeAttack(EnemyAttackBase enemyAttack)
     {
         if (isDead) return;
         if (isGod) return;
 
+        takeAttackDirection = enemyAttack.GetDirectionNormalVec();
+
         if (isParrying && enemyAttack.CanParry)
         {
-            float parryDot = Vector2.Dot(direction, -enemyAttack.GetDirectionNormalVec());
+
+            float parryDot = Vector2.Dot(direction, -takeAttackDirection);
             float threshold = Mathf.Cos(45f * Mathf.Deg2Rad); // 90도 시야
 
             if (parryDot >= threshold)
@@ -587,7 +591,7 @@ public class PlayerScript : Singleton<PlayerScript>
                 {
                     enemyAttack.gameObject.SetActive(false);
                 }
-                StartCoroutine(DamagedRoutine());
+                Health -= 1;
             }
         }
         else
@@ -596,25 +600,45 @@ public class PlayerScript : Singleton<PlayerScript>
             {
                 enemyAttack.gameObject.SetActive(false);
             }
-            StartCoroutine(DamagedRoutine());
+            Health -= 1;
+
         }
     }
-
-    public IEnumerator DamagedRoutine()
+    [SerializeField] float knockBackForce = 2f;
+    public void KnockBack(Vector2 forceDir, float knockBackForce)
     {
-        AudioManager.Instance.PlaySFX("Hit");
-        isGod = true;
-        playerAnim.PlayKnockBack();
-        FlashOnDamage();
-
-        Health -= 1;
-        yield return new WaitForSeconds(0.4f);
-        isGod = false;
-
-        PlayerLogger.Instance.PlusHitLog();
-        PlayerLogger.Instance.AddDamageTakenLog(1);
+        //rb.linearVelocity = forceDir * knockBackForce;
+        rb.AddForce(forceDir * knockBackForce, ForceMode2D.Impulse);
 
     }
+
+    public void OnDamaged()
+    {
+        StartCoroutine(DamagedRoutine(takeAttackDirection));
+    }
+    public IEnumerator DamagedRoutine(Vector2 forceDir)
+    {
+        playerInput.enabled = false;
+        isGod = true;
+        isKnockback = true; // 넉백 시작
+        AudioManager.Instance.PlaySFX("Hit");
+        playerAnim.PlayDamaged();
+        KnockBack(forceDir, knockBackForce);
+        yield return StartCoroutine(FlashRoutine(hitColor));
+
+
+        // 넉백 유지 시간
+        rb.linearVelocity = Vector2.zero;
+        isKnockback = false; //넉백 종료
+        playerInput.enabled = true;
+        yield return StartCoroutine(FlashInvincible());
+        isGod = false;
+    }
+
+    [SerializeField] private float flashInterval = 0.1f;  // 깜빡임 속도
+    [SerializeField] private float invincibleDuration = 1f; // 무적시간
+    [SerializeField] private float fadeAlpha = 0.3f; // 최소 투명도
+
 
     public void abilTestPlayerHealth(int h)
     {
@@ -711,7 +735,7 @@ public class PlayerScript : Singleton<PlayerScript>
         playerAnim.SetDeath(true);
         rb.linearVelocity = Vector2.zero;
         UIManager.Instance.deadInfo.SetActiveDeadInfoPanel(true);
-        
+
         PlayerLogger.Instance.PlusDeathLog();
     }
 
@@ -746,21 +770,38 @@ public class PlayerScript : Singleton<PlayerScript>
 
     #region FlashSprite
 
-
-    public void FlashOnDamage()
+    public IEnumerator FlashInvincible()
     {
-        StartCoroutine(FlashRoutine(hitColor));
+        float elapsed = 0f;
+        bool fadingOut = true;
+        Color baseColor = spriteRenderer.color;
+
+        while (elapsed < invincibleDuration)
+        {
+            // 알파값 보간
+            float targetAlpha = fadingOut ? fadeAlpha : 1f;
+            float currentAlpha = spriteRenderer.color.a;
+            float newAlpha = Mathf.Lerp(currentAlpha, targetAlpha, 0.5f);
+
+            spriteRenderer.color = new Color(baseColor.r, baseColor.g, baseColor.b, newAlpha);
+
+            // 깜빡임 반복
+            if (Mathf.Abs(newAlpha - targetAlpha) < 0.05f)
+                fadingOut = !fadingOut;
+
+            yield return new WaitForSeconds(flashInterval);
+            elapsed += flashInterval;
+        }
+
+        // 원복
+        spriteRenderer.color = new Color(baseColor.r, baseColor.g, baseColor.b, 1f);
     }
+
 
     private IEnumerator FlashRoutine(Color color)
     {
-
         spriteRenderer.color = color;
-
-
-        yield return new WaitForSeconds(flashDuration);
-
-
+        yield return new WaitForSeconds(0.3f);
         spriteRenderer.color = Color.white;
 
     }

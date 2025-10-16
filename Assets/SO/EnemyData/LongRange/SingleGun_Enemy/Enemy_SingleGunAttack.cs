@@ -15,7 +15,7 @@ public class Enemy_SingleGunAttack : EnemyAttackPattern
         attackProjectile.tag = "EnemyAttack";
         ProjectileEnemyAttack enemyAttack = attackProjectile.GetComponent<ProjectileEnemyAttack>();
         enemyAttack.SetDamage(enemy.GetDamage());
-        enemyAttack.SetDirectionVec(enemy.GetDirectionToPlayerNormalVec());
+        enemyAttack.SetDirectionVec(enemy.GetDirectionNormalVec());
         enemy.SpriteFlip();
          enemy.enemyShaderController.OffOutline();
         yield return new WaitForSeconds(attackPostDelay);

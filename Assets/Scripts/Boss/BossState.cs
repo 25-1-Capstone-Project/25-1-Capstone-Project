@@ -66,7 +66,7 @@ public class BossMove : BossState, IFixedUpdateState, ILateUpdateState
     public void FixedUpdate()
     {
         // 플레이어를 향해 이동
-        Vector2 direction = boss.GetDirectionToPlayerNormalVec();
+        Vector2 direction = boss.GetDirectionNormalVec();
         boss.GetRigidbody().linearVelocity = direction * boss.GetSpeed();
     }
     public void LateUpdate()

@@ -55,7 +55,7 @@ public class Enemy_SpearAttack : EnemyAttackPattern
 
                 if (hit != null && hit.CompareTag("Player"))
                 {
-                    PlayerScript.Instance.TakeDamage(enemy);
+                    PlayerScript.Instance.TakeAttack(enemy);
                     hasDealtDamage = true;
                 }
 

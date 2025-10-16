@@ -51,7 +51,7 @@ class Boss_RushAttack : EnemyAttackPattern
 
                     if (hit != null && hit.CompareTag("Player"))
                     {
-                        PlayerScript.Instance.TakeDamage(boss);
+                        PlayerScript.Instance.TakeAttack(boss);
                         hasDealtDamage = true;
                     }
 

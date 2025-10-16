@@ -128,7 +128,6 @@ public abstract class EnemyBase : MonoBehaviour
 
         AudioManager.Instance.PlaySFX("AttackHit"); // 오디오 매니저가 있다면
         Health -= damage;
-
         FlashSprite(Color.red, 0.1f);
         
     }
@@ -138,10 +137,10 @@ public abstract class EnemyBase : MonoBehaviour
     /// </summary>
     protected virtual void OnDamaged()
     {
-        if (StateMachine.GetCurrentState() is AttackState)
-        {
-            return;
-        }
+        // if (StateMachine.GetCurrentState() is AttackState)
+        // {
+        //     return;
+        // }
         StateMachine.ChangeState<DamagedState>();
     }
     // public void Parried()
@@ -158,7 +157,8 @@ public abstract class EnemyBase : MonoBehaviour
     public void KnockBack(float knockBackForce)
     {
         animController.PlayKnockBack();
-        rb.linearVelocity = -GetDirectionToPlayerNormalVec() * knockBackForce;
+        rb.linearVelocity = -GetDirectionNormalVec() * knockBackForce;
+
     }
 
     public void FlashSprite(Color color, float duration)
@@ -170,7 +170,7 @@ public abstract class EnemyBase : MonoBehaviour
 
     public void SpriteFlip()
     {
-        enemySprite.flipX = GetDirectionToPlayerNormalVec().x < 0;
+        enemySprite.flipX = GetDirectionNormalVec().x < 0;
 
     }
 
@@ -223,7 +223,7 @@ public abstract class EnemyBase : MonoBehaviour
     public EnemyBaseData GetData() => data;
 
     public Vector2 GetDirectionToPlayerVec() => PlayerScript.Instance.GetPlayerTransform().position - transform.position;
-    public Vector2 GetDirectionToPlayerNormalVec() => GetDirectionToPlayerVec().normalized;
+    public Vector2 GetDirectionNormalVec() => GetDirectionToPlayerVec().normalized;
 
     public void SetEnemyData(EnemyBaseData newData) => this.data = newData;
 

@@ -22,7 +22,7 @@ public class Enemy_SwordSlash : EnemyAttackPattern
 
         if (hit != null && hit.TryGetComponent<PlayerScript>(out var player))
         {
-            player.TakeDamage(enemy); // 예시
+            player.TakeAttack(enemy); // 예시
 
         }
         yield return new WaitForSeconds(attackDuration);

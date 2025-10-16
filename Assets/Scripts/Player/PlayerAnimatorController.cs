@@ -16,14 +16,10 @@ public class PlayerAnimatorController : MonoBehaviour
 
         if (speed > 0.01f)
         {
-            animator.SetBool("Move", true);
             animator.SetFloat("DirectionX", moveVec.x);
             animator.SetFloat("DirectionY", moveVec.y);
         }
-        else
-        {
-            animator.SetBool("Move", false);
-        }
+
     }
     private void SetDirection(Vector2 dirVec)
     {
@@ -50,7 +46,7 @@ public class PlayerAnimatorController : MonoBehaviour
         SetTrigger("Parry");
     }
 
-    public void PlayKnockBack()
+    public void PlayDamaged()
     {
         SetDirection(PlayerScript.Instance.Direction);
         SetTrigger("Damaged");
@@ -66,7 +62,7 @@ public class PlayerAnimatorController : MonoBehaviour
     {
         animator.ResetTrigger("Attack");
         animator.ResetTrigger("Dash");
-        animator.ResetTrigger("Parry");
+        //animator.ResetTrigger("Parry");
         animator.ResetTrigger("Damaged");
         animator.ResetTrigger("Death");
 
