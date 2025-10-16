@@ -159,9 +159,14 @@ public class DamagedState : EnemyState
         enemy.gameObject.layer = LayerMask.NameToLayer("Enemy");
         enemy.StopAllCoroutines();
         enemy.GetAnimatorController().PlayDamage();
-        enemy.StartCoroutine(DamagedRoutine());
+        if (enemy.GetData().dontStopEnemy == false)
+        { enemy.StartCoroutine(KnockBackRoutine()); }
+        else
+        {
+
+        }
     }
-    public IEnumerator DamagedRoutine()
+    public IEnumerator KnockBackRoutine()
     {
         enemy.KnockBack(2);
         yield return KnockBackDelaySec;

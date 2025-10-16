@@ -10,12 +10,13 @@ public abstract class EnemyBaseData : ScriptableObject
     public int currentHealth;
     public float moveSpeed;
     public int attackDamage;
+    public bool dontStopEnemy = false;
     public RuntimeAnimatorController animator;
     public EnemyAttackPattern attackPattern;
- 
+
 
     public abstract void AttackPatternSet(int index = 0);
- 
-    
+
+
 
 }
