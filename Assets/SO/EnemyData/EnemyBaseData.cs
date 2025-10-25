@@ -3,7 +3,7 @@
 using UnityEngine;
 
 
-public abstract class EnemyBaseData : ScriptableObject
+public abstract class EnemyDataBase : ScriptableObject
 {
     public string Name;
     public int maxHealth;

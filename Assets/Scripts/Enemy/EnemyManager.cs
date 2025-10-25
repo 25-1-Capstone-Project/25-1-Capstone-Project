@@ -9,6 +9,7 @@ public class EnemyManager : Singleton<EnemyManager>
     public EnemyReference enemyReference;
     public EnemyAttackPattern[] CloseEnemyAttackPatterns;
     public EnemyAttackPattern[] LongenemyAttackPatterns;
+    public EnemyAttackPattern[] SpecialEnemyAttackPatterns;
     protected override void Awake()
     {
         base.Awake();

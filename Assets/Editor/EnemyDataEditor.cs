@@ -19,6 +19,9 @@ public class EnemyDataEditor : Editor
             case EEnemyType.LongRange:
                 data.longAttackType = (ELongAttackType)EditorGUILayout.EnumPopup("Long Attack Type", data.longAttackType);
                 break;
+            case EEnemyType.SpecialAttack:
+                data.specialAttackType = (ESpecialAttackType)EditorGUILayout.EnumPopup("Special Attack Type", data.specialAttackType);
+                break;
         }
 
         data.name = EditorGUILayout.TextField("Monster Name", data.name);
@@ -27,7 +30,7 @@ public class EnemyDataEditor : Editor
         data.attackDamage = EditorGUILayout.IntField("Attack Damage", data.attackDamage);
         data.animator = (RuntimeAnimatorController)EditorGUILayout.ObjectField("Animator", data.animator, typeof(RuntimeAnimatorController), false);
         data.attackPattern = (EnemyAttackPattern)EditorGUILayout.ObjectField("Attack Pattern", data.attackPattern, typeof(EnemyAttackPattern), false);
-
+        data.dontStopEnemy = EditorGUILayout.Toggle("dontStopEnemy", data.dontStopEnemy);
 
         // Save changes
         if (GUI.changed)

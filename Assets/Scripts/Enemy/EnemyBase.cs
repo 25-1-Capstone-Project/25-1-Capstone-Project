@@ -4,15 +4,16 @@ using UnityEngine;
 public abstract class EnemyBase : MonoBehaviour
 {
     [Header("Core Components & Data")]
-    [SerializeField] protected EnemyBaseData data; // 모든 적은 데이터를 가짐
+    [SerializeField] protected EnemyDataBase data; // 모든 적은 데이터를 가짐
     [SerializeField] protected SpriteRenderer enemySprite;
     [SerializeField] protected EnemyAnimatorController animController;
     protected AIAgent aIAgent;
+    [SerializeField] private EnemyHPBar hpBar;
     public EnemyAttackPattern GetAttackPattern() => data.attackPattern;
     public int GetDamage() => data.attackDamage;
     protected Rigidbody2D rb;
     [SerializeField] public EnemyShaderController enemyShaderController; // 적 스크립트 (Enemy, Boss 등)
-    protected EnemyBaseData Data => data; // 외부에서 데이터 접근을 위한 프로퍼티
+    protected EnemyDataBase Data => data; // 외부에서 데이터 접근을 위한 프로퍼티
     // State Machine
     public StateMachine<IEnemyState> StateMachine { get; protected set; }
 
@@ -116,7 +117,18 @@ public abstract class EnemyBase : MonoBehaviour
     /// 이 적의 상태 머신을 설정합니다.
     /// 자식 클래스(Enemy, Boss)에서 반드시 구현해야 합니다.
     /// </summary>
-    protected abstract void SetState();
+    protected virtual void SetState(){  StateMachine = new StateMachine<IEnemyState>();
+
+        // 일반 적을 위한 상태들 등록
+        StateMachine.AddState(new IdleState(this));
+        StateMachine.AddState(new ChaseState(this));
+        StateMachine.AddState(new AttackState(this));
+        // StateMachine.AddState(new ParriedState(this));
+        StateMachine.AddState(new DamagedState(this));
+        StateMachine.AddState(new DeadState(this));
+
+        // 초기 상태 설정
+        StateMachine.ChangeState<IdleState>();}
 
     #endregion
 
@@ -129,7 +141,7 @@ public abstract class EnemyBase : MonoBehaviour
         AudioManager.Instance.PlaySFX("AttackHit"); // 오디오 매니저가 있다면
         Health -= damage;
         FlashSprite(Color.red, 0.1f);
-        
+        hpBar?.SetHealth(data.currentHealth, data.maxHealth);
     }
 
     /// <summary>
@@ -152,6 +164,7 @@ public abstract class EnemyBase : MonoBehaviour
         isDead = true;
         StateMachine.ChangeState<DeadState>();
         PlayerLogger.Instance.PlusEnemyKilledLog(); // 적 처치 기록
+         hpBar?.Hide();
     }
 
     public void KnockBack(float knockBackForce)
@@ -220,12 +233,12 @@ public abstract class EnemyBase : MonoBehaviour
     public AIAgent GetAIAgent() => aIAgent;
     public float GetSpeed() => data.moveSpeed;
     public EnemyAnimatorController GetAnimatorController() => animController;
-    public EnemyBaseData GetData() => data;
+    public EnemyDataBase GetData() => data;
 
     public Vector2 GetDirectionToPlayerVec() => PlayerScript.Instance.GetPlayerTransform().position - transform.position;
     public Vector2 GetDirectionNormalVec() => GetDirectionToPlayerVec().normalized;
 
-    public void SetEnemyData(EnemyBaseData newData) => this.data = newData;
+    public void SetEnemyData(EnemyDataBase newData) => this.data = newData;
 
     #endregion
 }

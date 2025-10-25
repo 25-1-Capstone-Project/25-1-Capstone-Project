@@ -5,9 +5,9 @@ public interface IEnemyState : IState { }
 // 몬스터 상태 기본 클래스
 public abstract class EnemyState : IEnemyState
 {
-    protected NormalEnemy enemy;
+    protected EnemyBase enemy;
 
-    public EnemyState(NormalEnemy enemy)
+    public EnemyState(EnemyBase enemy)
     {
         this.enemy = enemy;
     }
@@ -20,7 +20,7 @@ public abstract class EnemyState : IEnemyState
 // Idle 상태
 public class IdleState : EnemyState
 {
-    public IdleState(NormalEnemy enemy) : base(enemy) { }
+    public IdleState(EnemyBase enemy) : base(enemy) { }
 
     public override void Enter()
     {
@@ -45,7 +45,7 @@ public class IdleState : EnemyState
 // 추격 상태
 public class ChaseState : EnemyState, IFixedUpdateState, ILateUpdateState
 {
-    public ChaseState(NormalEnemy enemy) : base(enemy) { }
+    public ChaseState(EnemyBase enemy) : base(enemy) { }
 
     public override void Enter()
     {
@@ -87,7 +87,7 @@ public class AttackState : EnemyState
 {
     private Coroutine attackRoutine;
 
-    public AttackState(NormalEnemy enemy) : base(enemy) { }
+    public AttackState(EnemyBase enemy) : base(enemy) { }
 
     public override void Enter()
     {
@@ -150,28 +150,32 @@ public class AttackState : EnemyState
 
 public class DamagedState : EnemyState
 {
-    public DamagedState(NormalEnemy enemy) : base(enemy) { }
+    public DamagedState(EnemyBase enemy) : base(enemy) { }
     WaitForSeconds KnockBackDelaySec = new WaitForSeconds(0.5f);
     public override void Enter()
     {
         enemy.enemyShaderController.OffOutline();
         enemy.GetRigidbody().linearVelocity = Vector2.zero;
         enemy.gameObject.layer = LayerMask.NameToLayer("Enemy");
-        enemy.StopAllCoroutines();
+
         enemy.GetAnimatorController().PlayDamage();
-        if (enemy.GetData().dontStopEnemy == false)
-        { enemy.StartCoroutine(KnockBackRoutine()); }
+        if (!enemy.GetData().dontStopEnemy)
+        {
+            enemy.StopAllCoroutines();
+            enemy.StartCoroutine(KnockBackRoutine());
+        }
         else
         {
-
+            enemy.StartCoroutine(KnockBackRoutine(0.2f));
         }
+
     }
-    public IEnumerator KnockBackRoutine()
+    public IEnumerator KnockBackRoutine(float time = 1f)
     {
         enemy.KnockBack(2);
         yield return KnockBackDelaySec;
         enemy.GetRigidbody().linearVelocity = Vector2.zero;
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(time);
         enemy.StateMachine.ChangeState<ChaseState>();
     }
 
@@ -182,7 +186,7 @@ public class DamagedState : EnemyState
 public class DeadState : EnemyState
 {
     Coroutine coroutine;
-    public DeadState(NormalEnemy enemy) : base(enemy) { }
+    public DeadState(EnemyBase enemy) : base(enemy) { }
 
     public override void Enter()
     {
@@ -198,11 +202,11 @@ public class DeadState : EnemyState
     public IEnumerator DeadRoutine()
     {
         // 적 스킬아이템 드랍 임시 추가(하드코딩된 거 SO에 변수 추가, 변경할 것)
-        float dropChance = 0.2f;
-        if (Random.value < dropChance)
-        {
-            Object.Instantiate(enemy.skillSelectItemPrefab, enemy.transform.position, Quaternion.identity);
-        }
+        // float dropChance = 0.2f;
+        // if (Random.value < dropChance)
+        // {
+        //     Object.Instantiate(enemy.skillSelectItemPrefab, enemy.transform.position, Quaternion.identity);
+        // }
         enemy.GetAnimatorController().PlayDeath();
         EnemyManager.Instance.KillEnemy();
         yield return new WaitForSeconds(1f);

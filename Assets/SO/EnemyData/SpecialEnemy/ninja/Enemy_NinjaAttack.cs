@@ -1,16 +1,42 @@
 using UnityEngine;
 using System.Collections;
 
-[CreateAssetMenu(menuName = "Enemy/AttackPattern/Enemy/Enemy_SpearAttack")]
-public class Enemy_SpearAttack : EnemyAttackPattern
+[CreateAssetMenu(menuName = "Enemy/AttackPattern/Enemy/Enemy_NinjaAttack")]
+public class Enemy_NinjaAttack : EnemyAttackPattern
 {
     public float attackDistance;
-    public float effectWidth = 0.4f;
-
     public override IEnumerator Execute(EnemyBase enemy)
     {
+        Vector2 offset = Random.Range(0, 3) switch
+        {
+            0 => new Vector2(attackRange, 0),
+            1 => new Vector2(-attackRange, 0),
+            2 => new Vector2(0, attackRange),
+            _ => new Vector2(0, -attackRange),
+        };
+        Vector2 origin = PlayerScript.Instance.GetPlayerTransform().position;
+        Vector2 direction = offset.normalized;
+        Vector2 pos;
+        // Raycast 발사
+        RaycastHit2D point = Physics2D.Raycast(origin, direction, attackRange, LayerMask.GetMask("Wall"));
+
+        // 충돌 판정
+        if (point.collider != null)
+        {
+            // 벽에 막힘
+            pos = point.point; // 충돌 지점
+        }
+        else
+        {
+            // 벽에 안 막힘 → 플레이어 기준 offset 위치로
+            pos = origin + offset;
+        }
+
+
+        enemy.transform.position = pos;
+        enemy.SpriteFlip();
         enemy.GetRigidbody().linearVelocity = Vector2.zero;
-      
+
 
         Vector2 dir = (PlayerScript.Instance.transform.position - enemy.transform.position).normalized;
         Vector2 startPos = enemy.transform.position;
@@ -18,12 +44,12 @@ public class Enemy_SpearAttack : EnemyAttackPattern
 
         //이펙트
        // LineRenderer spearEffect = EffectPooler.Instance.SpawnFromPool<LineRenderer>("AttackSpearEffect");
-        // spearEffect.useWorldSpace = true;
-        // spearEffect.SetPosition(0, startPos);
-        // spearEffect.SetPosition(1, endPos);
-        // spearEffect.startWidth = effectWidth;
-        // spearEffect.endWidth = effectWidth;
-        //enemy.CurrentSpearIndicator = spearEffect;
+       // spearEffect.useWorldSpace = true;
+        //spearEffect.SetPosition(0, startPos);
+      //  spearEffect.SetPosition(1, endPos);
+        //spearEffect.startWidth = effectWidth;
+        //spearEffect.endWidth = effectWidth;
+       // enemy.CurrentSpearIndicator = spearEffect;
         enemy.GetAnimatorController().PlayAttack();
         enemy.enemyShaderController.OnOutline();
 
@@ -32,7 +58,7 @@ public class Enemy_SpearAttack : EnemyAttackPattern
         while (time < attackChargeSec)
         {
             float t = time / attackChargeSec;
-          //  spearEffect.startWidth = spearEffect.endWidth = effectWidth * (1 - t);
+            // spearEffect.startWidth = spearEffect.endWidth = effectWidth * (1 - t);
             time += Time.deltaTime;
             yield return null;
         }
