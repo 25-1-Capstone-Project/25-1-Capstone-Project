@@ -14,11 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: 
   maxHealth: 2
-  currentHealth: 0
+  currentHealth: 2
   moveSpeed: 1
   attackDamage: 1
+  dontStopEnemy: 1
   animator: {fileID: 22100000, guid: b2f2fae1bb091b347869c3a48e5b0915, type: 2}
   attackPattern: {fileID: 11400000, guid: 6f65b8ecd94b1624e81a7c570c617bf5, type: 2}
+  sizeMagnification: 1
   eEnemyType: 0
   closeAttackType: 0
   longAttackType: 0
+  specialAttackType: 0

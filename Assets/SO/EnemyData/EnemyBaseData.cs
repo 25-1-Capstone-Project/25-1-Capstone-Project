@@ -13,6 +13,7 @@ public abstract class EnemyDataBase : ScriptableObject
     public bool dontStopEnemy = false;
     public RuntimeAnimatorController animator;
     public EnemyAttackPattern attackPattern;
+    public float sizeMagnification = 1f;
 
 
     public abstract void AttackPatternSet(int index = 0);

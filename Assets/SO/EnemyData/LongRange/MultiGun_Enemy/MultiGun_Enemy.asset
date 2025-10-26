@@ -17,8 +17,11 @@ MonoBehaviour:
   currentHealth: 0
   moveSpeed: 0
   attackDamage: 0
+  dontStopEnemy: 0
   animator: {fileID: 0}
   attackPattern: {fileID: 0}
+  sizeMagnification: 1
   eEnemyType: 0
   closeAttackType: 0
   longAttackType: 0
+  specialAttackType: 0
