@@ -4,6 +4,7 @@ using UnityEngine;
 public abstract class EnemyBase : MonoBehaviour
 {
     [Header("Core Components & Data")]
+    [SerializeField] protected ParticleSystem stunEffect;
     [SerializeField] protected EnemyDataBase data; // 모든 적은 데이터를 가짐
     [SerializeField] protected SpriteRenderer enemySprite;
     [SerializeField] protected EnemyAnimatorController animController;
@@ -163,6 +164,7 @@ public abstract class EnemyBase : MonoBehaviour
     }
     protected virtual void OnParried()
     {
+        stunEffect.Play();
         StateMachine.ChangeState<ParriedState>();
     }
 
