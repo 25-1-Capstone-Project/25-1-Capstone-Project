@@ -1,5 +1,5 @@
 behaviors:
-  MonsterAgent:
+  Agent:
     trainer_type: ppo
     hyperparameters:
       batch_size: 1024
@@ -22,6 +22,6 @@ behaviors:
 
     max_steps: 500000
     time_horizon: 128
-    summary_freq: 500000
+    summary_freq: 10000
     keep_checkpoints: 5
-    checkpoint_interval: 500000
+    checkpoint_interval: 10000
