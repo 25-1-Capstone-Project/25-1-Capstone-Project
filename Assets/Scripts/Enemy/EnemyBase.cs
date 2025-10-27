@@ -21,17 +21,31 @@ public abstract class EnemyBase : MonoBehaviour
     public bool IsAttacking { get; set; } // 공격 중인지 여부 (State에서 제어)
     protected bool isDead = false;
 
+    protected int _currentHealth;
+    public int _stamina;
+    public int Stamina
+    {
+        get { return _stamina; }
+        set
+        {
+            _stamina = Mathf.Max(0, value);
+            if (_stamina == 0)
+            {
+                OnParried();
+            }
+        }
+    }
     // Health Property
     public int Health
     {
-        get { return data.currentHealth; }
+        get { return _currentHealth; }
         protected set
         {
             if (isDead) return; // 이미 죽었다면 체력 변경 방지
 
-            data.currentHealth = Mathf.Max(0, value);
+            _currentHealth = Mathf.Max(0, value);
 
-            if (data.currentHealth <= 0)
+            if (_currentHealth == 0)
             {
                 Dead();
             }
@@ -109,7 +123,8 @@ public abstract class EnemyBase : MonoBehaviour
             Debug.LogError($"{gameObject.name}에 EnemyBaseData가 할당되지 않았습니다.");
             return;
         }
-        data.currentHealth = data.maxHealth;
+        _currentHealth = data.maxHealth;
+        _stamina = data.stamina;
         isDead = false;
     }
 
@@ -117,18 +132,21 @@ public abstract class EnemyBase : MonoBehaviour
     /// 이 적의 상태 머신을 설정합니다.
     /// 자식 클래스(Enemy, Boss)에서 반드시 구현해야 합니다.
     /// </summary>
-    protected virtual void SetState(){  StateMachine = new StateMachine<IEnemyState>();
+    protected virtual void SetState()
+    {
+        StateMachine = new StateMachine<IEnemyState>();
 
         // 일반 적을 위한 상태들 등록
         StateMachine.AddState(new IdleState(this));
         StateMachine.AddState(new ChaseState(this));
         StateMachine.AddState(new AttackState(this));
-        // StateMachine.AddState(new ParriedState(this));
+        StateMachine.AddState(new ParriedState(this));
         StateMachine.AddState(new DamagedState(this));
         StateMachine.AddState(new DeadState(this));
 
         // 초기 상태 설정
-        StateMachine.ChangeState<IdleState>();}
+        StateMachine.ChangeState<IdleState>();
+    }
 
     #endregion
 
@@ -141,7 +159,11 @@ public abstract class EnemyBase : MonoBehaviour
         AudioManager.Instance.PlaySFX("AttackHit"); // 오디오 매니저가 있다면
         Health -= damage;
         FlashSprite(Color.red, 0.1f);
-        hpBar?.SetHealth(data.currentHealth, data.maxHealth);
+        hpBar?.SetHealth(_currentHealth, data.maxHealth);
+    }
+    protected virtual void OnParried()
+    {
+        StateMachine.ChangeState<ParriedState>();
     }
 
     /// <summary>
@@ -164,7 +186,7 @@ public abstract class EnemyBase : MonoBehaviour
         isDead = true;
         StateMachine.ChangeState<DeadState>();
         PlayerLogger.Instance.PlusEnemyKilledLog(); // 적 처치 기록
-         hpBar?.Hide();
+        hpBar?.Hide();
     }
 
     public void KnockBack(float knockBackForce)

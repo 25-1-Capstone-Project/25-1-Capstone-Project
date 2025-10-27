@@ -67,13 +67,13 @@ public class Boss : EnemyBase
 
     protected override void OnDamaged()
     {
-        UIManager.Instance.bossUI.SetBossHealth(bossData.currentHealth);
+        UIManager.Instance.bossUI.SetBossHealth(_currentHealth);
         GetAnimatorController().PlayDamage();
     }
     protected override void Dead()
     {
         isDead = true;
-        UIManager.Instance.bossUI.SetBossHealth(bossData.currentHealth);
+        UIManager.Instance.bossUI.SetBossHealth(_currentHealth);
         StateMachine.ChangeState<BossDead>();
 
 

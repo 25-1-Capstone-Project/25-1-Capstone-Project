@@ -133,7 +133,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3702182310383914650, guid: 17b7ab8a32101994c80764524384575a, type: 3}
       propertyPath: orthographic size
-      value: 8.5
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3702182310383914650, guid: 17b7ab8a32101994c80764524384575a, type: 3}
       propertyPath: m_BackGroundColor.b
@@ -149,7 +149,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5357050298168920666, guid: 17b7ab8a32101994c80764524384575a, type: 3}
       propertyPath: Lens.OrthographicSize
-      value: 8.5
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 6058471246751783981, guid: 17b7ab8a32101994c80764524384575a, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1141,6 +1141,22 @@ PrefabInstance:
       propertyPath: pools.Array.data[3].tag
       value: EnemyAttackProjectile1
       objectReference: {fileID: 0}
+    - target: {fileID: 3392107579056649435, guid: 4741b474fb1ea444f9aad06fe4526b9e, type: 3}
+      propertyPath: groupedPools.Array.data[0].pools.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3392107579056649435, guid: 4741b474fb1ea444f9aad06fe4526b9e, type: 3}
+      propertyPath: groupedPools.Array.data[0].pools.Array.data[1].tag
+      value: AttackEffect
+      objectReference: {fileID: 0}
+    - target: {fileID: 3392107579056649435, guid: 4741b474fb1ea444f9aad06fe4526b9e, type: 3}
+      propertyPath: groupedPools.Array.data[0].pools.Array.data[1].size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3392107579056649435, guid: 4741b474fb1ea444f9aad06fe4526b9e, type: 3}
+      propertyPath: groupedPools.Array.data[0].pools.Array.data[1].prefab
+      value: 
+      objectReference: {fileID: 1429954232896169633, guid: bbba54ffba7275549a405d1c513419b3, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

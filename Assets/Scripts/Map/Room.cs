@@ -36,7 +36,7 @@ public class Room : MonoBehaviour
 
         for (int i = 0; i < enemySpawnPointsT.Length; i++)
         {
-            EnemyManager.Instance.EnemySpawn(enemySpawnPointsT[i].position);
+            //EnemyManager.Instance.EnemySpawn(enemySpawnPointsT[i].position);
             enemySpawnAnim[i].SetTrigger("Spawn");
         }
     }

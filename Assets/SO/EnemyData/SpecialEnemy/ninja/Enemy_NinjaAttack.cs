@@ -14,22 +14,22 @@ public class Enemy_NinjaAttack : EnemyAttackPattern
             2 => new Vector2(0, attackRange),
             _ => new Vector2(0, -attackRange),
         };
-        Vector2 origin = PlayerScript.Instance.GetPlayerTransform().position;
+        Vector2 playerPos = PlayerScript.Instance.GetPlayerTransform().position;
         Vector2 direction = offset.normalized;
         Vector2 pos;
         // Raycast 발사
-        RaycastHit2D point = Physics2D.Raycast(origin, direction, attackRange, LayerMask.GetMask("Wall"));
+        RaycastHit2D point = Physics2D.Raycast(playerPos, direction, attackRange, LayerMask.GetMask("Wall"));
 
         // 충돌 판정
         if (point.collider != null)
         {
             // 벽에 막힘
-            pos = point.point; // 충돌 지점
+            pos = point.point - direction * 0.1f; // 충돌 지점
         }
         else
         {
             // 벽에 안 막힘 → 플레이어 기준 offset 위치로
-            pos = origin + offset;
+            pos = playerPos + offset;
         }
 
 
@@ -90,7 +90,6 @@ public class Enemy_NinjaAttack : EnemyAttackPattern
             time += Time.fixedDeltaTime;
             yield return new WaitForFixedUpdate();
         }
-
         enemy.gameObject.layer = LayerMask.NameToLayer("Enemy");
         enemy.enemyShaderController.OffOutline();
         yield return new WaitForSeconds(attackPostDelay);

@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 public interface IEnemyState : IState { }
 
@@ -120,33 +121,30 @@ public class AttackState : EnemyState
     }
 }
 
-// public class ParriedState : EnemyState
-// {
-//     WaitForSeconds KnockBackDelaySec = new WaitForSeconds(0.5f);
+public class ParriedState : EnemyState
+{
 
-//     public ParriedState(NormalEnemy enemy) : base(enemy) { }
 
-//     public override void Enter()
-//     {
-//         enemy.enemyShaderController.OffOutline();
-//         enemy.GetRigidbody().linearVelocity = Vector2.zero;
-//         enemy.gameObject.layer = LayerMask.NameToLayer("Enemy");
-//         enemy.StopAllCoroutines();
-//         enemy.TakeDamage(1);
-//         enemy.StartCoroutine(KnockBack());
+    public ParriedState(EnemyBase enemy) : base(enemy) { }
 
-//     }
-//     public IEnumerator KnockBack()
-//     {
-//         enemy.KnockBack(2);
-//         yield return KnockBackDelaySec;
-//         enemy.GetRigidbody().linearVelocity = Vector2.zero;
-//         yield return new WaitForSeconds(1f);
-//         enemy.StateMachine.ChangeState<ChaseState>();
-//     }
-//     public override void Update() { }
-//     public override void Exit() { }
-// }
+    public override void Enter()
+    {
+        enemy.StopAllCoroutines();
+        enemy.StartCoroutine(ParriedRoutine());
+        enemy.enemyShaderController.OnOutline();
+
+    }
+    public IEnumerator ParriedRoutine()
+    {
+        enemy.GetRigidbody().linearVelocity = Vector2.zero;
+        //그로기 애니메이션 재생
+        yield return new WaitForSecondsRealtime(2f);
+        enemy.enemyShaderController.OffOutline();
+        enemy.StateMachine.ChangeState<ChaseState>();
+    }
+    public override void Update() { }
+    public override void Exit() { }
+}
 
 public class DamagedState : EnemyState
 {

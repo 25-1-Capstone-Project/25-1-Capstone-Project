@@ -63,4 +63,8 @@ public class CameraManager : Singleton<CameraManager>
         else { cineCam.gameObject.SetActive(false); }
 
     }
+    public void SetLensSize(float size)
+    {
+        cineCam.Lens.OrthographicSize = size;
+    }
 }

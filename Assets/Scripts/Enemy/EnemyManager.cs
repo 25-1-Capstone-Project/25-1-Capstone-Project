@@ -5,8 +5,8 @@ public class EnemyManager : Singleton<EnemyManager>
 {
     int spawnedEnemy;
 
-    public GameObject enemyPrefab;
-    public EnemyReference enemyReference;
+   // public GameObject enemyPrefab;
+ 
     public EnemyAttackPattern[] CloseEnemyAttackPatterns;
     public EnemyAttackPattern[] LongenemyAttackPatterns;
     public EnemyAttackPattern[] SpecialEnemyAttackPatterns;
@@ -32,24 +32,24 @@ public class EnemyManager : Singleton<EnemyManager>
 
     }
 
-    public void EnemySpawn(Vector2 spawnPos)
-    {
-        EnemyData enemyData = enemyReference.GetRandomEnemyData();
-        GameObject enemyObj = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
-        enemyObj.transform.localScale *= enemyData.sizeMagnification;
-        EnemyBase enemy = enemyObj.GetComponent<EnemyBase>();
-        enemy.SetEnemyData(enemyData);
-        enemy.Init();
-        spawnedEnemy++;
-    }
+    // public void EnemySpawn(Vector2 spawnPos)
+    // {
+    //     EnemyData enemyData = enemyReference.GetRandomEnemyData();
+    //     GameObject enemyObj = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
+    //     enemyObj.transform.localScale *= enemyData.sizeMagnification;
+    //     EnemyBase enemy = enemyObj.GetComponent<EnemyBase>();
+    //     enemy.SetEnemyData(enemyData);
+    //     enemy.Init();
+    //     spawnedEnemy++;
+    // }
     
-    public void BossSpawn(Vector2 spawnPos)
-    {
-        BossData bossData = enemyReference.GetRandomBossData();
-        GameObject bossObj = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
-        Boss boss = bossObj.GetComponent<Boss>();
-        boss.SetEnemyData(bossData);
-        boss.Init();
-        spawnedEnemy++;
-    }
+    // public void BossSpawn(Vector2 spawnPos)
+    // {
+    //     BossData bossData = enemyReference.GetRandomBossData();
+    //     GameObject bossObj = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
+    //     Boss boss = bossObj.GetComponent<Boss>();
+    //     boss.SetEnemyData(bossData);
+    //     boss.Init();
+    //     spawnedEnemy++;
+    // }
 }

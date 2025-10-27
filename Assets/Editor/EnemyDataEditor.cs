@@ -31,6 +31,7 @@ public class EnemyDataEditor : Editor
         data.animator = (RuntimeAnimatorController)EditorGUILayout.ObjectField("Animator", data.animator, typeof(RuntimeAnimatorController), false);
         data.attackPattern = (EnemyAttackPattern)EditorGUILayout.ObjectField("Attack Pattern", data.attackPattern, typeof(EnemyAttackPattern), false);
         data.dontStopEnemy = EditorGUILayout.Toggle("dontStopEnemy", data.dontStopEnemy);
+        data.stamina = EditorGUILayout.IntField("Stamina", data.stamina);
 
         // Save changes
         if (GUI.changed)

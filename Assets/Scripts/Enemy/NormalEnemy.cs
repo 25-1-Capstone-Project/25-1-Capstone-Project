@@ -13,10 +13,9 @@ public class NormalEnemy : EnemyBase
 
     /// <summary>
     /// 일반 적의 상태 머신을 설정합니다.
+    /// OnDamaged, Dead 등 부모의 virtual 메서드를 필요에 따라 오버라이드할 수 있습니다.
     /// </summary>
 
-    // OnDamaged, Dead 등 부모의 virtual 메서드를 필요에 따라 오버라이드할 수 있습니다.
-    // 예를 들어, 일반 적은 피격 시 무조건 넉백된다면:
-   
+
 
 }

@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Ninja
   m_EditorClassIdentifier: 
   Name: 
-  maxHealth: 4
-  currentHealth: 3
+  maxHealth: 1
   moveSpeed: 2
   attackDamage: 1
   dontStopEnemy: 1
+  stamina: 3
   animator: {fileID: 22100000, guid: 5f843a6ca9c4d69438795c8f14d5ed65, type: 2}
   attackPattern: {fileID: 11400000, guid: 1d4b588291da28d468dd4037ca07c982, type: 2}
   sizeMagnification: 1
