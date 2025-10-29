@@ -32,6 +32,7 @@ public class EnemyDataEditor : Editor
         data.attackPattern = (EnemyAttackPattern)EditorGUILayout.ObjectField("Attack Pattern", data.attackPattern, typeof(EnemyAttackPattern), false);
         data.dontStopEnemy = EditorGUILayout.Toggle("dontStopEnemy", data.dontStopEnemy);
         data.stamina = EditorGUILayout.IntField("Stamina", data.stamina);
+        data.sizeMagnification = EditorGUILayout.FloatField("Size Magnification", data.sizeMagnification);
 
         // Save changes
         if (GUI.changed)

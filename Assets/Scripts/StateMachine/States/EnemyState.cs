@@ -139,6 +139,7 @@ public class ParriedState : EnemyState
         enemy.GetRigidbody().linearVelocity = Vector2.zero;
         //그로기 애니메이션 재생
         yield return new WaitForSecondsRealtime(2f);
+        enemy.InitStamina();
         enemy.enemyShaderController.OffOutline();
         enemy.StateMachine.ChangeState<ChaseState>();
     }

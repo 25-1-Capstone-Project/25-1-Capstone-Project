@@ -8,6 +8,9 @@ public abstract class EnemyAttackPattern : ScriptableObject
     public float attackChargeSec;
     public float attackDuration;
     public float attackPostDelay;
+    public int attackCount = 1;
+   
+
     public abstract IEnumerator Execute(EnemyBase enemy);
 
 }

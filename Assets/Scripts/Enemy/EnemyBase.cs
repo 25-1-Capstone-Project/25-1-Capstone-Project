@@ -22,7 +22,7 @@ public abstract class EnemyBase : MonoBehaviour
     public bool IsAttacking { get; set; } // 공격 중인지 여부 (State에서 제어)
     protected bool isDead = false;
 
-    protected int _currentHealth;
+
     public int _stamina;
     public int Stamina
     {
@@ -37,6 +37,7 @@ public abstract class EnemyBase : MonoBehaviour
         }
     }
     // Health Property
+    protected int _currentHealth;
     public int Health
     {
         get { return _currentHealth; }
@@ -128,7 +129,10 @@ public abstract class EnemyBase : MonoBehaviour
         _stamina = data.stamina;
         isDead = false;
     }
-
+    public void InitStamina()
+    {
+        _stamina = data.stamina;
+    }
     /// <summary>
     /// 이 적의 상태 머신을 설정합니다.
     /// 자식 클래스(Enemy, Boss)에서 반드시 구현해야 합니다.
