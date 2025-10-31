@@ -516,7 +516,7 @@ public class PlayerScript : Singleton<PlayerScript>
     }
     public IEnumerator ParryEffect()
     {
-        CameraManager.Instance.CameraShake(2f, 0.1f);
+        CameraManager.Instance.CameraShake(3f, 0.2f);
         EffectPooler.Instance.SpawnFromPool("ParryEffect", transform.position + (direction / 2), Quaternion.identity);
         AudioManager.Instance.PlaySFX("ParrySuccess");
         //isGod = true;
@@ -533,20 +533,20 @@ public class PlayerScript : Singleton<PlayerScript>
     }
     public IEnumerator AttackEffect()
     {
-        CameraManager.Instance.CameraShake(2f, 0.1f);
+        CameraManager.Instance.CameraShake(5f, 0.3f);
         Vector2 toEnemyDirection = -targetEnemy.GetDirectionNormalVec();
         float angle = Mathf.Atan2(toEnemyDirection.y, toEnemyDirection.x) * Mathf.Rad2Deg;
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, toEnemyDirection, 2f, LayerMask.GetMask("Wall"));
+        RaycastHit2D hit = Physics2D.Raycast(targetEnemy.transform.position, toEnemyDirection, 1.5f, LayerMask.GetMask("Wall"));
         if (hit.collider != null)
         {
             hit.transform.position = (Vector2)hit.transform.position - toEnemyDirection * 0.1f;
         }
         else
         {
-            transform.position = (Vector2)transform.position + toEnemyDirection * 2f;
+            transform.position = (Vector2)targetEnemy.transform.position + toEnemyDirection * 1.5f;
         }
-        
-     
+
+
         GameObject temp = EffectPooler.Instance.SpawnFromPool("AttackEffect", transform.position, Quaternion.Euler(0, 0, angle));
         AudioManager.Instance.PlaySFX("ParrySuccess");
         yield return FadeController.Instance.FadeOut(Color.white, 0.4f, 0.3f);

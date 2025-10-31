@@ -92,7 +92,7 @@ public abstract class EnemyBase : MonoBehaviour
 
     /// <summary>
     /// 적 개체를 초기화합니다. 자식 클래스에서 이 메서드를 오버라이드하여
-    /// 자신만의 초기화 로직(예: 퍼지 로직)을 추가할 수 있습니다.
+    /// 자신만의 초기화 로직을 추가할 수 있습니다.
     /// </summary>
     public virtual void Init()
     {
@@ -112,11 +112,16 @@ public abstract class EnemyBase : MonoBehaviour
         if (animController != null && data != null)
         {
             animController.SetAnimator(data.animator);
+            StartCoroutine(SetShaderMainTextureAfterFirstFrame());
         }
     }
 
+    private IEnumerator SetShaderMainTextureAfterFirstFrame()
+    {
+        yield return new WaitForEndOfFrame();
+        enemyShaderController.InitMaterial();
+    }
     /// <summary>
-    /// ScriptableObject 데이터 관련 초기화를 수행합니다.
     /// </summary>
     private void InitData()
     {
