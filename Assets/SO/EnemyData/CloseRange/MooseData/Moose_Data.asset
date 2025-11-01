@@ -10,18 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 263e27cb71b88f845aed894261fa039f, type: 3}
-  m_Name: Golem_Enemy
+  m_Name: Moose_Data
   m_EditorClassIdentifier: 
-  Name: 
-  maxHealth: 2
-  currentHealth: 2
+  Name: Moose
+  maxHealth: 1
   moveSpeed: 1
   attackDamage: 1
-  dontStopEnemy: 1
-  animator: {fileID: 22100000, guid: b2f2fae1bb091b347869c3a48e5b0915, type: 2}
-  attackPattern: {fileID: 11400000, guid: 6f65b8ecd94b1624e81a7c570c617bf5, type: 2}
+  dontStopEnemy: 0
+  stamina: 1
+  animator: {fileID: 22100000, guid: d82d6596266be5b40912f6f09ca47e60, type: 2}
+  attackPattern: {fileID: 11400000, guid: dcb009bb43a405146b5c6bb51b72b6ad, type: 2}
   sizeMagnification: 1
-  eEnemyType: 0
-  closeAttackType: 0
-  longAttackType: 0
-  specialAttackType: 0
