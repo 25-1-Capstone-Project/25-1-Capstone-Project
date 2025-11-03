@@ -4,15 +4,15 @@ using System.Collections;
 [CreateAssetMenu(menuName = "Enemy/AttackPattern/Enemy/Enemy_SwordSlash")]
 public class Enemy_SwordSlash : EnemyAttackPattern
 {
-  
+
     public override IEnumerator Execute(EnemyBase enemy)
     {
         enemy.IsAttacking = true;
         enemy.GetAnimatorController().PlayAttack();
         enemy.enemyShaderController.OnOutline();
+        yield return new WaitForSeconds(attackChargeSec);
         Vector2 attackDir = (PlayerScript.Instance.transform.position - enemy.transform.position).normalized;
         float angle = Mathf.Atan2(attackDir.y, attackDir.x) * Mathf.Rad2Deg;
-        yield return new WaitForSeconds(attackChargeSec);
         EffectPooler.Instance.SpawnFromPool("AttackSlashParticle", enemy.transform.position, Quaternion.Euler(0f, 0f, angle));
         Vector2 boxCenter = (Vector2)enemy.transform.position + attackDir * attackRange;
         Vector2 boxSize = new Vector2(1f, 1f);
@@ -29,7 +29,7 @@ public class Enemy_SwordSlash : EnemyAttackPattern
         enemy.enemyShaderController.OffOutline();
         yield return new WaitForSeconds(attackPostDelay);
         enemy.IsAttacking = false;
-        
+
     }
 
 

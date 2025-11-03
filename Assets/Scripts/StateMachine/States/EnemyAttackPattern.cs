@@ -9,7 +9,8 @@ public abstract class EnemyAttackPattern : ScriptableObject
     public float attackDuration;
     public float attackPostDelay;
     public int attackCount = 1;
-   
+
+    public AnimationClip[] animationClips;
 
     public abstract IEnumerator Execute(EnemyBase enemy);
 

@@ -551,11 +551,12 @@ public class PlayerScript : Singleton<PlayerScript>
         AudioManager.Instance.PlaySFX("ParrySuccess");
         yield return FadeController.Instance.FadeOut(Color.white, 0.4f, 0.3f);
         GameManager.Instance.SetTimeScale(0);
-        yield return FadeController.Instance.FadeIn(Color.white, 0.4f, 0.3f);
+        yield return FadeController.Instance.FadeIn(Color.white, 0);
+
         temp.SetActive(false);
         GameManager.Instance.SetTimeScale(1);
         ShaderManager.Instance.CallShockWave();
-        yield return new WaitForSeconds(0.1f);
+
         isGod = false;
     }
 
@@ -661,8 +662,6 @@ public class PlayerScript : Singleton<PlayerScript>
         KnockBack(forceDir, knockBackForce);
         yield return StartCoroutine(FlashRoutine(hitColor));
 
-
-        // 넉백 유지 시간
         rb.linearVelocity = Vector2.zero;
         isKnockback = false; //넉백 종료
         playerInput.enabled = true;
@@ -670,9 +669,6 @@ public class PlayerScript : Singleton<PlayerScript>
         isGod = false;
     }
 
-    [SerializeField] private float flashInterval = 0.1f;  // 깜빡임 속도
-    [SerializeField] private float invincibleDuration = 1f; // 무적시간
-    [SerializeField] private float fadeAlpha = 0.3f; // 최소 투명도
 
 
     public void abilTestPlayerHealth(int h)
@@ -810,11 +806,12 @@ public class PlayerScript : Singleton<PlayerScript>
         float elapsed = 0f;
         bool fadingOut = true;
         Color baseColor = spriteRenderer.color;
+    
 
-        while (elapsed < invincibleDuration)
+        while (elapsed < playerData.invincibleDuration)
         {
             // 알파값 보간
-            float targetAlpha = fadingOut ? fadeAlpha : 1f;
+            float targetAlpha = fadingOut ? playerData.fadeAlpha : 1f;
             float currentAlpha = spriteRenderer.color.a;
             float newAlpha = Mathf.Lerp(currentAlpha, targetAlpha, 0.5f);
 
@@ -824,8 +821,8 @@ public class PlayerScript : Singleton<PlayerScript>
             if (Mathf.Abs(newAlpha - targetAlpha) < 0.05f)
                 fadingOut = !fadingOut;
 
-            yield return new WaitForSeconds(flashInterval);
-            elapsed += flashInterval;
+            yield return new WaitForSeconds(playerData.flashInterval);
+            elapsed += playerData.flashInterval;
         }
 
         // 원복

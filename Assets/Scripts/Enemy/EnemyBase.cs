@@ -157,7 +157,7 @@ public abstract class EnemyBase : MonoBehaviour
         // 초기 상태 설정
         StateMachine.ChangeState<IdleState>();
     }
-
+  
     #endregion
 
     #region Common Actions & Behaviours
@@ -182,16 +182,10 @@ public abstract class EnemyBase : MonoBehaviour
     /// </summary>
     protected virtual void OnDamaged()
     {
-        // if (StateMachine.GetCurrentState() is AttackState)
-        // {
-        //     return;
-        // }
+
         StateMachine.ChangeState<DamagedState>();
     }
-    // public void Parried()
-    // {
-    //     StateMachine.ChangeState<ParriedState>();
-    // }
+
     protected virtual void Dead()
     {
         isDead = true;
@@ -229,7 +223,7 @@ public abstract class EnemyBase : MonoBehaviour
 
     #endregion
 
-    #region Attack Logic (자식 클래스에서 구체화)
+
 
     // 공격 예고선 관련 로직은 공통으로 사용될 수 있음
     public LineRenderer CurrentSpearIndicator { get; set; }
@@ -242,15 +236,7 @@ public abstract class EnemyBase : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// 현재 설정된 공격 패턴을 실행합니다.
-    /// 이 메서드는 State 클래스(AttackState, BossAttackState 등)에서 호출됩니다.
-    /// </summary>
-    public virtual void ExecuteCurrentAttack()
-    {
-        if (data.attackPattern == null) return;
-        StartCoroutine(data.attackPattern.Execute(this));
-    }
+
 
     public virtual bool CheckAttackRange()
     {
@@ -258,7 +244,6 @@ public abstract class EnemyBase : MonoBehaviour
         return GetDirectionToPlayerVec().magnitude < data.attackPattern.attackRange;
     }
 
-    #endregion
 
     #region Getters & Setters
 
