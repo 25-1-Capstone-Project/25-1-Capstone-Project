@@ -1,12 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-/// <summary>
-/// 25.06.16 �ȿ���
-/// ü�¹� �����ϰ� �߰� 
-/// HPBar ���� Ŭ���� -> EnemyBase���� ȣ���� ���
-/// ���� �����ϰ� �ϵ��ڵ������� �� �Ŷ� ���� ���� �ʿ�...
-/// </summary>
+
 public class EnemyHPBar : MonoBehaviour
 {
     [Header("HP Bar")]
@@ -24,7 +19,6 @@ public class EnemyHPBar : MonoBehaviour
 
     public void Show()
     {
-        Debug.Log("EnemyHPBar Show() called");
         if (healthBarCanvas != null)
         {
             healthSlider.value = 1f;

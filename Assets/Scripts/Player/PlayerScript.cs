@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 using System;
 using System.Collections.Generic;
 using UnityEngine.Tilemaps;
+using Unity.VisualScripting;
 
 
 /// <summary>
@@ -393,7 +394,9 @@ public class PlayerScript : Singleton<PlayerScript>
     }
     IEnumerator AttackRoutine()
     {
-        targetEnemy.TakeDamage(1);
+        // targetEnemy.TakeDamage(1);
+        StartCoroutine(UseUltimateSkill());
+
         isAttacking = true;
         canUseAttack = false;
         rb.linearVelocity = Vector2.zero;
@@ -426,8 +429,16 @@ public class PlayerScript : Singleton<PlayerScript>
         canUseParry = false;
         isParrying = true;
         rb.linearVelocity = Vector2.zero;
-
-        CheckInteractObject();
+        Collider2D hit = Physics2D.OverlapCircle(
+          transform.position + direction,  // 중심점
+          0.5f,                            // 반지름
+          LayerMask.GetMask("Enemy","EnemyAttack") // 탐색할 레이어
+          );
+        if (hit != null)
+        {
+            ParrySuccess(hit.GetComponent<EnemyBase>());
+        }
+        //CheckInteractObject();
 
         // 패리 지속시간이 끝나면 패리중X 처리
         yield return new WaitForSeconds(stats.parryDurationSec);
@@ -465,7 +476,8 @@ public class PlayerScript : Singleton<PlayerScript>
     // 근접 패링
     public void ParrySuccess(EnemyBase enemy)
     {
-        StopCoroutine(ParryRoutine);
+        if (ParryRoutine != null)
+            StopCoroutine(ParryRoutine);
 
         if (ParryStack < stats.maxParryStack)
         {
@@ -483,7 +495,7 @@ public class PlayerScript : Singleton<PlayerScript>
         //Health += 1;
         //enemy.TakeDamage(1); // 적에게 대미지 주기
         enemy.Stamina--;
-        if (enemy.Stamina == 0) // 적의 기력 0으로 변경 예정
+        if (enemy.Stamina == 0) // 적의 기력 0일 때
         {
             AttackStayRoutine = StartCoroutine(AttackStay(enemy));
         }
@@ -496,13 +508,14 @@ public class PlayerScript : Singleton<PlayerScript>
     //원거리 패링
     public void ParrySuccess(EnemyAttackBase enemyAttack)
     {
-        StopCoroutine(ParryRoutine);
+        if (ParryRoutine != null)
+            StopCoroutine(ParryRoutine);
 
-        if (ParryStack < stats.maxParryStack)
-        {
-            ParryStack++;
+        // if (ParryStack < stats.maxParryStack)
+        // {
+        //     ParryStack++;
 
-        }
+        // }
 
         OnParrySuccess?.Invoke();
         enemyAttack.gameObject.SetActive(true);
@@ -519,13 +532,14 @@ public class PlayerScript : Singleton<PlayerScript>
         CameraManager.Instance.CameraShake(3f, 0.2f);
         EffectPooler.Instance.SpawnFromPool("ParryEffect", transform.position + (direction / 2), Quaternion.identity);
         AudioManager.Instance.PlaySFX("ParrySuccess");
+    
         //isGod = true;
         // yield return FadeController.Instance.FadeOut(Color.white, 0.1f, 0.3f);
         ShaderManager.Instance.CallShockWave();
         yield return new WaitForSecondsRealtime(0.1f);
-      //  GameManager.Instance.SetTimeScale(0);
+        //  GameManager.Instance.SetTimeScale(0);
         //   yield return FadeController.Instance.FadeIn(Color.white, 0.1f, 0.3f);
-        yield return new WaitForSecondsRealtime(0.1f);
+
         GameManager.Instance.SetTimeScale(1);
 
         yield return new WaitForSeconds(0.1f);
@@ -536,25 +550,26 @@ public class PlayerScript : Singleton<PlayerScript>
         CameraManager.Instance.CameraShake(5f, 0.3f);
         Vector2 toEnemyDirection = -targetEnemy.GetDirectionNormalVec();
         float angle = Mathf.Atan2(toEnemyDirection.y, toEnemyDirection.x) * Mathf.Rad2Deg;
-        RaycastHit2D hit = Physics2D.Raycast(targetEnemy.transform.position, toEnemyDirection, 1.5f, LayerMask.GetMask("Wall"));
-        if (hit.collider != null)
-        {
-            hit.transform.position = (Vector2)hit.transform.position - toEnemyDirection * 0.1f;
-        }
-        else
-        {
-            transform.position = (Vector2)targetEnemy.transform.position + toEnemyDirection * 1.5f;
-        }
+
+        // RaycastHit2D hit = Physics2D.Raycast(targetEnemy.transform.position, toEnemyDirection, 1.5f, LayerMask.GetMask("Wall"));
+        // if (hit.collider != null)
+        // {
+        //     hit.transform.position = (Vector2)hit.transform.position - toEnemyDirection * 0.1f;
+        // }
+        // else
+        // {
+        //     transform.position = (Vector2)targetEnemy.transform.position + toEnemyDirection * 1.5f;
+        // }
 
 
-        GameObject temp = EffectPooler.Instance.SpawnFromPool("AttackEffect", transform.position, Quaternion.Euler(0, 0, angle));
+        GameObject attackEffect = EffectPooler.Instance.SpawnFromPool("AttackEffect", transform.position, Quaternion.Euler(0, 0, angle));
         AudioManager.Instance.PlaySFX("ParrySuccess");
-        yield return FadeController.Instance.FadeOut(Color.white, 0.4f, 0.3f);
-        GameManager.Instance.SetTimeScale(0);
+        yield return FadeController.Instance.FadeOut(Color.white, 0.3f, 0.3f);
+       // GameManager.Instance.SetTimeScale(0);
         yield return FadeController.Instance.FadeIn(Color.white, 0);
 
-        temp.SetActive(false);
-        GameManager.Instance.SetTimeScale(1);
+        attackEffect.SetActive(false);
+        //GameManager.Instance.SetTimeScale(1);
         ShaderManager.Instance.CallShockWave();
 
         isGod = false;
@@ -562,14 +577,16 @@ public class PlayerScript : Singleton<PlayerScript>
 
     IEnumerator AttackStay(EnemyBase enemy)
     {
-        CameraManager.Instance.SetLensSize(5f);
-        GameManager.Instance.SetTimeScale(0.2f);
+        //CameraManager.Instance.SetLensSize(5f);
+            StartCoroutine(UseUltimateSkill());
+        CameraManager.Instance.CameraShake(3f, 0.1f);
+        GameManager.Instance.SetTimeScale(0.5f);
         isGod = true;
         canUseAttack = true;
         targetEnemy = enemy;
         EffectPooler.Instance.SpawnFromPool("ParryEffect", transform.position + (direction / 2), Quaternion.identity);
         AudioManager.Instance.PlaySFX("ParrySuccess");
-        yield return new WaitForSecondsRealtime(0.5f);
+        yield return new WaitForSecondsRealtime(0.3f);
         GameManager.Instance.SetTimeScale(1f);
         canUseAttack = false;
         isGod = false;
@@ -612,7 +629,7 @@ public class PlayerScript : Singleton<PlayerScript>
         if (isGod) return;
 
         takeAttackDirection = enemyAttack.GetDirectionNormalVec();
-
+    
         if (isParrying && enemyAttack.CanParry)
         {
 
@@ -659,7 +676,7 @@ public class PlayerScript : Singleton<PlayerScript>
         isKnockback = true; // 넉백 시작
         AudioManager.Instance.PlaySFX("Hit");
         playerAnim.PlayDamaged();
-        KnockBack(forceDir, knockBackForce);
+        //(forceDir, knockBackForce);
         yield return StartCoroutine(FlashRoutine(hitColor));
 
         rb.linearVelocity = Vector2.zero;
@@ -730,16 +747,17 @@ public class PlayerScript : Singleton<PlayerScript>
 
     private IEnumerator UseUltimateSkill()
     {
-        ParryStack -= currentSkill.ultimateCost;
+        // ParryStack -= currentSkill.ultimateCost;
         CameraManager.Instance.CameraShake(2f, 0.1f);
         skillParticle.Play();
         FadeController.Instance.FadeOut(Color.white, 0.05f, 0.01f);
         FadeController.Instance.FadeIn(Color.white, 0.05f, 0.01f);
-        GameManager.Instance.SetTimeScale(0.1f);
-        yield return new WaitForSecondsRealtime(0.3f);
-        GameManager.Instance.SetTimeScale(1f);
+       // GameManager.Instance.SetTimeScale(0.1f);
+        //yield return new WaitForSecondsRealtime(0.3f);
+       // GameManager.Instance.SetTimeScale(1f);
         StartCoroutine(currentSkill.UltimateSkill(this));
         ShaderManager.Instance.CallShockWave();
+        yield break;
     }
 
     // IEnumerator CooldownRoutine()
@@ -806,7 +824,7 @@ public class PlayerScript : Singleton<PlayerScript>
         float elapsed = 0f;
         bool fadingOut = true;
         Color baseColor = spriteRenderer.color;
-    
+
 
         while (elapsed < playerData.invincibleDuration)
         {

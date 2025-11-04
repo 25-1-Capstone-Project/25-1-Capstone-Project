@@ -10,6 +10,7 @@ public abstract class EnemyDataBase : ScriptableObject
     public float moveSpeed;
     public int attackDamage;
     public bool dontStopEnemy = false;
+    public bool CanBodyDamage = false;
     public int stamina = 1;
     public RuntimeAnimatorController animator;
     public EnemyAttackPattern attackPattern;

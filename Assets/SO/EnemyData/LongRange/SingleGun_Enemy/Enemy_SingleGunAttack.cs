@@ -14,7 +14,7 @@ public class Enemy_SingleGunAttack : EnemyAttackPattern
         GameObject attackProjectile = EffectPooler.Instance.SpawnFromPool("EnemyAttackProjectile1", enemy.transform.position, Quaternion.identity);
         attackProjectile.tag = "EnemyAttack";
         ProjectileEnemyAttack enemyAttack = attackProjectile.GetComponent<ProjectileEnemyAttack>();
-        enemyAttack.SetDamage(enemy.GetDamage());
+        enemyAttack.SetDamage(enemy.GetData().attackDamage);
         enemyAttack.SetDirectionVec(enemy.GetDirectionNormalVec());
         enemy.SpriteFlip();
          enemy.enemyShaderController.OffOutline();

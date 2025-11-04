@@ -10,12 +10,12 @@ public class MapManager : Singleton<MapManager>
     [SerializeField] int curRoomIndex = 0;
 
     //private MapGen mapGen;
-    public AstarPath astarPath;
+   // public AstarPath astarPath;
     protected override void Awake()
     {
         base.Awake();
         // mapGen = GetComponent<MapGen>();
-        astarPath = GetComponentInChildren<AstarPath>();
+       // astarPath = GetComponentInChildren<AstarPath>();
 
     }
     public Room GetCurrentRoom() => CreatedRoomList[curRoomIndex].GetComponent<Room>();
@@ -67,8 +67,9 @@ public class MapManager : Singleton<MapManager>
     }
     public void ResetAstarPath()
     {
-        AstarData.active.data.gridGraph.center = CreatedRoomList[curRoomIndex].transform.position;
-        astarPath.Scan();
-
+        // AstarData.active.data.gridGraph.center = CreatedRoomList[curRoomIndex].transform.position;
+        // astarPath.Scan();
+//        AstarData.active.data.gridGraph.center = Vector3.zero;
+       // astarPath.Scan();
     }
 }

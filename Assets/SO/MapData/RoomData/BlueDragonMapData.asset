@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: BlueDragonMapData
   m_EditorClassIdentifier: 
   sceneList:
-  - {fileID: 102900000, guid: a3234dc710b706743803ba972362b7eb, type: 3}
+  - {fileID: 102900000, guid: 586fd1c557d8f094d98c1cc26d3506ba, type: 3}
   - {fileID: 102900000, guid: 4671a7502182116449fc126d47ab7dfa, type: 3}
   - {fileID: 102900000, guid: a033318840b541243a207e1f3f381e2c, type: 3}
   sceneNames:
   - BlueDragon1F
   - BlueDragon2F
   - BlueDragonBoss
+  - BamScene

@@ -39,12 +39,12 @@ public class Boss : EnemyBase
     {
         StateMachine = new StateMachine<IEnemyState>();
 
-        // 보스 전용 상태들 등록
-        StateMachine.AddState(new BossIdle(this));
-        StateMachine.AddState(new BossMove(this));
-        StateMachine.AddState(new BossSkillAttack(this));
-        StateMachine.AddState(new BossCooldown(this));
-        StateMachine.AddState(new BossDead(this));
+        // // 보스 전용 상태들 등록
+        // StateMachine.AddState(new BossIdle(this));
+        // StateMachine.AddState(new BossMove(this));
+        // StateMachine.AddState(new BossSkillAttack(this));
+        // StateMachine.AddState(new BossCooldown(this));
+        // StateMachine.AddState(new BossDead(this));
 
 
         bossAnim.PlaySpawn();

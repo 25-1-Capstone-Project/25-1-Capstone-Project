@@ -4,9 +4,12 @@ using UnityEngine;
 public class EnemyManager : Singleton<EnemyManager>
 {
     int spawnedEnemy;
-
-   // public GameObject enemyPrefab;
- 
+    public float spawnDelay = 2f;
+    public EnemyReference enemyReference;
+    public GameObject enemyPrefab;
+    public int curLevel = 1;
+    Transform enemySpawnParent;
+    Transform[] enemySpawnPoints;
     public EnemyAttackPattern[] CloseEnemyAttackPatterns;
     public EnemyAttackPattern[] LongenemyAttackPatterns;
     public EnemyAttackPattern[] SpecialEnemyAttackPatterns;
@@ -20,6 +23,11 @@ public class EnemyManager : Singleton<EnemyManager>
     {
         spawnedEnemy = 0;
     }
+    public void InitEnemySpawnPoints()
+    {
+        enemySpawnParent = GameObject.FindWithTag("EnemySpawnPointParent").transform;
+        enemySpawnPoints = enemySpawnParent.GetComponentsInChildren<Transform>();
+    }
     public void KillEnemy()
     {
         spawnedEnemy--;
@@ -32,17 +40,30 @@ public class EnemyManager : Singleton<EnemyManager>
 
     }
 
-    // public void EnemySpawn(Vector2 spawnPos)
-    // {
-    //     EnemyData enemyData = enemyReference.GetRandomEnemyData();
-    //     GameObject enemyObj = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
-    //     enemyObj.transform.localScale *= enemyData.sizeMagnification;
-    //     EnemyBase enemy = enemyObj.GetComponent<EnemyBase>();
-    //     enemy.SetEnemyData(enemyData);
-    //     enemy.Init();
-    //     spawnedEnemy++;
-    // }
-    
+    public void EnemySpawn()
+    {
+        enemySpawnParent.position = PlayerScript.Instance.GetPlayerTransform().position;
+        EnemyData enemyData = enemyReference.GetRandomEnemyData();
+        GameObject enemyObj = Instantiate(enemyPrefab, enemySpawnPoints[Random.Range(1, enemySpawnPoints.Length)].position, Quaternion.identity);
+        enemyObj.transform.localScale *= enemyData.sizeMagnification;
+        EnemyBase enemy = enemyObj.GetComponent<EnemyBase>();
+        enemy.SetEnemyData(enemyData);
+        enemy.Init();
+        spawnedEnemy++;
+    }
+    public void StartEnemySpawnRoutine()
+    {
+        StartCoroutine(SpawnEnemyRoutine());
+    }
+    public IEnumerator SpawnEnemyRoutine()
+    {
+        while (!PlayerScript.Instance.GetIsDead())
+        {
+            EnemySpawn();
+            yield return new WaitForSeconds(spawnDelay);
+        }
+
+    }
     // public void BossSpawn(Vector2 spawnPos)
     // {
     //     BossData bossData = enemyReference.GetRandomBossData();

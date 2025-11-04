@@ -163,9 +163,6 @@ MonoBehaviour:
   skillParticle: {fileID: 6064639693487206674}
   fallTilemap: {fileID: 0}
   knockBackForce: 2
-  flashInterval: 0.1
-  invincibleDuration: 1
-  fadeAlpha: 0.3
 --- !u!114 &6366903998483742144
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -240,7 +237,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -264,7 +261,7 @@ CircleCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 0
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2

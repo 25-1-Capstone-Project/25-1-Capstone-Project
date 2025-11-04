@@ -94,13 +94,13 @@ public class BossSkillAttack : BossState
 
     public override void Enter()
     {
-        Debug.Log($"BossSkillAttack: {boss.GetAttackPattern().name} called");
+    
         boss.GetRigidbody().linearVelocity = Vector2.zero;
 
         // 1. 퍼지 로직으로 사용할 스킬 결정
         boss.DecideSkill();
 
-        attackRoutine = boss.StartCoroutine(AttackSequence());
+        //attackRoutine = boss.StartCoroutine(AttackSequence());
     }
 
     public override void Exit()
@@ -114,14 +114,14 @@ public class BossSkillAttack : BossState
         boss.ClearAttackEffect();
     }
 
-    private IEnumerator AttackSequence()
-    {
-        // EnemyBase의 공격 실행 메서드 호출
-        yield return boss.GetAttackPattern().Execute(boss);
+    // private IEnumerator AttackSequence()
+    // {
+    //     // EnemyBase의 공격 실행 메서드 호출
+    //     yield return boss.GetAttackPattern().Execute(boss);
 
-        // 공격이 끝나면, 짧은 대기(Cooldown) 상태로 전환
-        boss.StateMachine.ChangeState<BossCooldown>();
-    }
+    //     // 공격이 끝나면, 짧은 대기(Cooldown) 상태로 전환
+    //     boss.StateMachine.ChangeState<BossCooldown>();
+    // }
 }
 
 // -------------------------------------------------------------------------------------

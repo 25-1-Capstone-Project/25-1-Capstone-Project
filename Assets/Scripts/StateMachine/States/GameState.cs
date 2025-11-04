@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -21,7 +22,7 @@ public class MainMenuState : GameState
 
     public override void Enter()
     {
-        
+
         SceneManager.LoadScene("MainMenu");
         UIManager.Instance.SetActiveMainMenuUI(true);
     }
@@ -42,7 +43,8 @@ public class HubState : GameState
     public override void Enter()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
-        SceneManager.LoadScene("HubScene");
+        SceneManager.LoadScene("BamScene");
+
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -54,6 +56,10 @@ public class HubState : GameState
         UIManager.Instance.SetActiveMainMenuUI(false);
         UIManager.Instance.SetActiveInGameUI(true);
         CameraManager.Instance.SetActiveCineCam(true);
+        EnemyManager.Instance.InitEnemySpawnPoints();
+        EnemyManager.Instance.StartEnemySpawnRoutine();
+        MapManager.Instance.ResetAstarPath();
+
     }
 
     public override void Update()
@@ -82,7 +88,7 @@ public class DungeonState : GameState
 
         string sceneName =
         gameManager.mapData[(int)gameManager.currentDungeonType]
-        .sceneNames[gameManager.CurrentDungeonFloor];
+        .sceneNames[gameManager.CurrentLevel];
 
         SceneManager.LoadScene(sceneName);
     }
@@ -94,7 +100,7 @@ public class DungeonState : GameState
         MapManager.Instance.CreateMap();
         UIManager.Instance.SetActiveMainMenuUI(false);
         UIManager.Instance.SetActiveInGameUI(true);
-       
+
 
         Vector2 spawnPoint = gameManager.SearchSpawnPoint();
         gameManager.PlayerSpawn(spawnPoint);

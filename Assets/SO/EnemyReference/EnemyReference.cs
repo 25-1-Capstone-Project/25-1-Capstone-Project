@@ -17,18 +17,17 @@ public class EnemyReference : ScriptableObject
 
     public EnemyData GetRandomEnemyData()
     {
-        int floor = GameManager.Instance.CurrentDungeonFloor;
-
-        EnemyData[] enemydatas = enemyPrefabSet[floor].enemyDatas;
-        return enemydatas[Random.Range(0, enemydatas.Length)];
-
+        int typeIndex = (int)eDungeonType;
+        EnemyData[] enemydatas = enemyPrefabSet[typeIndex].enemyDatas;
+        int level = GameManager.Instance.CurrentLevel;
+        return enemydatas[Random.Range(0, level)];
     }
 
     public BossData GetRandomBossData()
     {
-        int floor = GameManager.Instance.CurrentDungeonFloor;
+        int floor = GameManager.Instance.CurrentLevel;
 
-       BossData[] bossDatas = enemyPrefabSet[floor].bossDatas;
+        BossData[] bossDatas = enemyPrefabSet[floor].bossDatas;
         return bossDatas[Random.Range(0, bossDatas.Length)];
 
 

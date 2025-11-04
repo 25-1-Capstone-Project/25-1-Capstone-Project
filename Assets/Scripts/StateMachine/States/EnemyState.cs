@@ -1,213 +1,195 @@
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
+
 public interface IEnemyState : IState { }
 
-// 몬스터 상태 기본 클래스
 public abstract class EnemyState : IEnemyState
 {
-    protected EnemyBase enemy;
-
-    public EnemyState(EnemyBase enemy)
-    {
-        this.enemy = enemy;
-    }
-
+    protected readonly EnemyBase enemy;
+    protected EnemyState(EnemyBase enemy) { this.enemy = enemy; }
     public abstract void Enter();
     public abstract void Update();
     public abstract void Exit();
 }
 
-// Idle 상태
+/* -------------------- Idle -------------------- */
 public class IdleState : EnemyState
 {
     public IdleState(EnemyBase enemy) : base(enemy) { }
-
-    public override void Enter()
-    {
-        enemy.GetRigidbody().linearVelocity = Vector2.zero; // 정지
-    }
-
+    public override void Enter() => enemy.GetRigidbody().linearVelocity = Vector2.zero;
     public override void Update()
     {
-        // 플레이어가 일정 거리 안에 있으면 추격 상태로 전환
-        if (enemy.GetDirectionToPlayerVec().magnitude < 5f)
-        {
+        if (enemy.GetDirectionToPlayerVec().sqrMagnitude < 25f) // 5^2
             enemy.StateMachine.ChangeState<ChaseState>();
-        }
     }
-
-    public override void Exit()
-    {
-
-    }
+    public override void Exit() { }
 }
 
-// 추격 상태
+/* -------------------- Chase -------------------- */
 public class ChaseState : EnemyState, IFixedUpdateState, ILateUpdateState
 {
     public ChaseState(EnemyBase enemy) : base(enemy) { }
-
-    public override void Enter()
-    {
-        enemy.GetAnimatorController().PlayChase();
-    }
+    public override void Enter() => enemy.GetAnimatorController()?.PlayChase();
 
     public override void Update()
     {
         if (enemy.CheckAttackRange())
-            enemy.StateMachine.ChangeState<AttackState>(); // 공격 범위 체크
-
+            enemy.StateMachine.ChangeState<AttackState>();
     }
 
     public void FixedUpdate()
     {
-        if (enemy.CheckAttackRange())
-            return;
-
-        enemy.GetAIAgent().Move();
-        // Vector2 direction = enemy.GetDirectionToPlayerNormalVec();
-        // enemy.GetRigidbody().linearVelocity = direction * enemy.GetSpeed();
+        if (enemy.CheckAttackRange()) return;
+        enemy.Move();
     }
 
+    public void LateUpdate() => enemy.SpriteFlip();
 
-    public void LateUpdate()
-    {
-        enemy.SpriteFlip(); // 플레이어 방향으로 스프라이트 회전
-    }
-
-    public override void Exit()
-    {
-        enemy.GetAIAgent().Stop();
-        enemy.GetRigidbody().linearVelocity = Vector2.zero; // 추격 종료 시 정지
-    }
+    public override void Exit() => enemy.GetRigidbody().linearVelocity = Vector2.zero;
 }
 
-// 공격 상태
+/* -------------------- Attack -------------------- */
 public class AttackState : EnemyState
 {
-    private Coroutine attackRoutine;
-
     public AttackState(EnemyBase enemy) : base(enemy) { }
 
     public override void Enter()
     {
         enemy.GetRigidbody().linearVelocity = Vector2.zero;
         enemy.IsAttacking = true;
-        attackRoutine = enemy.StartCoroutine(AttackSequence());
+        enemy.RunAction(AttackSequence()); // 🔧 전용 러너 사용
     }
+
     public override void Update() { }
 
     public override void Exit()
     {
-        if (attackRoutine != null)
-        {
-            enemy.StopCoroutine(attackRoutine);
-            attackRoutine = null;
-        }
-
+        enemy.StopAction();                // 🔧 해당 상태 코루틴만 중지
         enemy.IsAttacking = false;
-        enemy.ClearAttackEffect(); // 예고선 정리
+        enemy.ClearAttackEffect();
     }
 
     private IEnumerator AttackSequence()
     {
-        yield return enemy.GetAttackPattern().Execute(enemy);
-
-        if (enemy.CheckAttackRange())
-            enemy.StateMachine.ChangeState<AttackState>();
-        else
-            enemy.StateMachine.ChangeState<ChaseState>();
+        var pattern = enemy.GetData()?.attackPattern;
+        if (pattern != null)
+            yield return pattern.Execute(enemy);
+            
+        if (enemy.CheckAttackRange()) enemy.StateMachine.ChangeState<AttackState>();
+        else enemy.StateMachine.ChangeState<ChaseState>();
     }
 }
 
+/* -------------------- Parried -------------------- */
 public class ParriedState : EnemyState
 {
-
-
     public ParriedState(EnemyBase enemy) : base(enemy) { }
 
     public override void Enter()
     {
-        enemy.StopAllCoroutines();
-        enemy.StartCoroutine(ParriedRoutine());
-        enemy.enemyShaderController.OnOutline();
-
-    }
-    public IEnumerator ParriedRoutine()
-    {
+        enemy.StopAction(); // 🔧 전 상태 코루틴만 안전 중지
         enemy.GetRigidbody().linearVelocity = Vector2.zero;
-        //그로기 애니메이션 재생
+        enemy.enemyShaderController?.OnOutline();
+        enemy.RunAction(ParriedRoutine());
+    }
+
+    private IEnumerator ParriedRoutine()
+    {
+        // 그로기 연출
         yield return new WaitForSecondsRealtime(2f);
         enemy.InitStamina();
-        enemy.enemyShaderController.OffOutline();
+        enemy.enemyShaderController?.OffOutline();
         enemy.StateMachine.ChangeState<ChaseState>();
     }
+
     public override void Update() { }
     public override void Exit() { }
 }
 
+/* -------------------- Damaged (with temp layer) -------------------- */
 public class DamagedState : EnemyState
 {
     public DamagedState(EnemyBase enemy) : base(enemy) { }
-    WaitForSeconds KnockBackDelaySec = new WaitForSeconds(0.5f);
+
+    private readonly WaitForSeconds KnockBackHold = new WaitForSeconds(0.5f);
+    private int originalLayer;
+
     public override void Enter()
     {
-        enemy.enemyShaderController.OffOutline();
+        enemy.enemyShaderController?.OffOutline();
         enemy.GetRigidbody().linearVelocity = Vector2.zero;
-        enemy.gameObject.layer = LayerMask.NameToLayer("Enemy");
 
-        enemy.GetAnimatorController().PlayDamage();
+        // 🔧 적-적 충돌 완전 차단을 위해 임시 레이어로 전환 (Physics2D 매트릭스에서 EnemyDamaged↔Enemy OFF)
+        originalLayer = enemy.gameObject.layer;
+        enemy.gameObject.layer = LayerMask.NameToLayer("EnemyDamaged");
+
+        enemy.GetAnimatorController()?.PlayDamage();
         if (!enemy.GetData().dontStopEnemy)
         {
-            enemy.StopAllCoroutines();
-            enemy.StartCoroutine(KnockBackRoutine());
+            enemy.StopAction();
+            enemy.RunAction(KnockBackRoutine());
         }
-
-
     }
-    public IEnumerator KnockBackRoutine(float time = 1f)
+
+    private IEnumerator KnockBackRoutine(float time = 1f)
     {
-        enemy.KnockBack(2);
-        yield return KnockBackDelaySec;
+        enemy.KnockBack(2f);
+        yield return KnockBackHold;
         enemy.GetRigidbody().linearVelocity = Vector2.zero;
+
+        // 🔧 레이어 복구 후 추격 복귀
         yield return new WaitForSeconds(time);
+        enemy.gameObject.layer = originalLayer;
         enemy.StateMachine.ChangeState<ChaseState>();
     }
 
     public override void Update() { }
-    public override void Exit() { }
+    public override void Exit()
+    {
+        // 안전 복구
+        enemy.gameObject.layer = originalLayer;
+    }
 }
 
+/* -------------------- Dead -------------------- */
 public class DeadState : EnemyState
 {
-    Coroutine coroutine;
     public DeadState(EnemyBase enemy) : base(enemy) { }
+
+    private float knockBackDistance = 5f;
+    private float time = 0.4f;
 
     public override void Enter()
     {
-        if (coroutine != null)
-            return;
         enemy.GetRigidbody().linearVelocity = Vector2.zero;
         enemy.GetRigidbody().simulated = false; // 상호작용 비활성화
-
-        enemy.StopAllCoroutines();
-
-        coroutine = enemy.StartCoroutine(DeadRoutine());
+        enemy.StopAction();
+        enemy.RunAction(DeadRoutine());
     }
-    public IEnumerator DeadRoutine()
+
+    private IEnumerator DeadRoutine()
     {
-        // 적 스킬아이템 드랍 임시 추가(하드코딩된 거 SO에 변수 추가, 변경할 것)
-        // float dropChance = 0.2f;
-        // if (Random.value < dropChance)
-        // {
-        //     Object.Instantiate(enemy.skillSelectItemPrefab, enemy.transform.position, Quaternion.identity);
-        // }
-        enemy.GetAnimatorController().PlayDeath();
-        EnemyManager.Instance.KillEnemy();
+        Vector2 origin = enemy.transform.position;
+        Vector2 target = origin + -enemy.GetDirectionNormalVec() * knockBackDistance;
+
+        // 🔧 다음 위치를 기준으로 벽 충돌 검사 + 실제 위치 갱신
+        for (float t = 0f; t < 1f; t += Time.deltaTime / time)
+        {
+            Vector2 next = Vector2.Lerp(origin, target, t);
+            if (Physics2D.OverlapCircle(next, 0.5f, LayerMask.GetMask("Wall")))
+                break;
+
+            enemy.transform.position = next;
+            yield return null;
+        }
+
+        enemy.GetAnimatorController()?.PlayDeath();
+        EnemyManager.Instance?.KillEnemy();
         yield return new WaitForSeconds(1f);
         Object.Destroy(enemy.gameObject);
     }
+
     public override void Update() { }
     public override void Exit() { }
 }

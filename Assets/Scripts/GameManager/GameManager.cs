@@ -1,8 +1,9 @@
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 
 
-public enum EDungeonType { Null = -1, BlueDragon, WhiteTiger, RedBird, BlackTortoise }
+public enum EDungeonType { Null = -1, Forest }
 public enum EGameState { MainMenu, Hub, Dungeon, Paused };
 public class GameManager : Singleton<GameManager>
 {
@@ -11,8 +12,9 @@ public class GameManager : Singleton<GameManager>
     private GameObject playerObj;
     public EDungeonType currentDungeonType = EDungeonType.Null;
     public MapReference[] mapData;
-    public int CurrentDungeonFloor { get; set; } = 0;
+    public int CurrentLevel { get; set; } = 0;
     public int MaxDungeonFloor { get; private set; } = 3;
+
 
     protected override void Awake()
     {
@@ -55,7 +57,7 @@ public class GameManager : Singleton<GameManager>
         return GameObject.FindWithTag("PlayerSpawnPoint").transform.position;
     }
 
-
+ 
     public void ChangeStateByEnum(EGameState gameState)
     {
         switch (gameState)
@@ -77,8 +79,8 @@ public class GameManager : Singleton<GameManager>
 
     public void GoToNextDungeonFloor()
     {
-        CurrentDungeonFloor++;
-        if (CurrentDungeonFloor >= MaxDungeonFloor)
+        CurrentLevel++;
+        if (CurrentLevel >= MaxDungeonFloor)
         {
             Debug.Log("Dungeon cleared! Returning to Hub.");
             ReturnToHub();
@@ -91,7 +93,7 @@ public class GameManager : Singleton<GameManager>
 
     public void ReturnToHub()
     {
-        CurrentDungeonFloor = 0;
+        CurrentLevel = 0;
         StateMachine.ChangeState<HubState>();
     }
 
@@ -114,5 +116,5 @@ public class GameManager : Singleton<GameManager>
         Application.Quit();
 #endif
     }
- 
+
 }
