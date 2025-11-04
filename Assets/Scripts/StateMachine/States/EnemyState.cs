@@ -163,10 +163,7 @@ public class DamagedState : EnemyState
             enemy.StopAllCoroutines();
             enemy.StartCoroutine(KnockBackRoutine());
         }
-        else
-        {
-            enemy.StartCoroutine(KnockBackRoutine(0.2f));
-        }
+
 
     }
     public IEnumerator KnockBackRoutine(float time = 1f)

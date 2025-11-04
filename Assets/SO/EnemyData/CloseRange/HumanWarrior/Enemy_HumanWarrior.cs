@@ -9,7 +9,9 @@ public class Enemy_HumanWarrior : EnemyAttackPattern
     {
         enemy.InitStamina();
         int attackIndex = 0;
-        
+        enemy.enemyShaderController.OnOutline();
+        enemy.GetAnimatorController().PlayIdle();
+         yield return new WaitForSeconds(attackChargeSec);
 
         yield return enemy.StartCoroutine(EnemyAttackPatterns[attackIndex++].Execute(enemy));
 

@@ -173,7 +173,7 @@ public abstract class EnemyBase : MonoBehaviour
     }
     protected virtual void OnParried()
     {
-        stunEffect.Play();
+        if(!data.dontStopEnemy) stunEffect.Play();
         StateMachine.ChangeState<ParriedState>();
     }
 
@@ -182,7 +182,6 @@ public abstract class EnemyBase : MonoBehaviour
     /// </summary>
     protected virtual void OnDamaged()
     {
-
         StateMachine.ChangeState<DamagedState>();
     }
 

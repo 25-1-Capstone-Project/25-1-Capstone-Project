@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Golem_SlashAttack
   m_EditorClassIdentifier: 
   attackRange: 2
-  attackChargeSec: 0.65
+  attackChargeSec: 0.8
   attackDuration: 0
   attackPostDelay: 0.5
+  attackCount: 1
+  animationClips: []
