@@ -138,7 +138,10 @@ public class ParriedState : EnemyState
     {
         enemy.GetRigidbody().linearVelocity = Vector2.zero;
         //그로기 애니메이션 재생
-        yield return new WaitForSecondsRealtime(2f);
+        if (enemy.GetData().dontStopEnemy)
+            yield return new WaitForSecondsRealtime(0.3f);
+        else
+            yield return new WaitForSecondsRealtime(2f);
         enemy.InitStamina();
         enemy.enemyShaderController.OffOutline();
         enemy.StateMachine.ChangeState<ChaseState>();
@@ -158,16 +161,17 @@ public class DamagedState : EnemyState
         enemy.gameObject.layer = LayerMask.NameToLayer("Enemy");
 
         enemy.GetAnimatorController().PlayDamage();
-        if (!enemy.GetData().dontStopEnemy)
-        {
-            enemy.StopAllCoroutines();
-            enemy.StartCoroutine(KnockBackRoutine());
-        }
 
-
+        enemy.StopAllCoroutines();
+        enemy.StartCoroutine(KnockBackRoutine());
     }
     public IEnumerator KnockBackRoutine(float time = 1f)
     {
+        if (enemy.GetData().dontStopEnemy)
+        {
+            enemy.StateMachine.ChangeState<ChaseState>();
+            yield break;
+        }
         enemy.KnockBack(2);
         yield return KnockBackDelaySec;
         enemy.GetRigidbody().linearVelocity = Vector2.zero;

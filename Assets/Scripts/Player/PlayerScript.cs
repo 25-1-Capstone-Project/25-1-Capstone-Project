@@ -523,7 +523,7 @@ public class PlayerScript : Singleton<PlayerScript>
         // yield return FadeController.Instance.FadeOut(Color.white, 0.1f, 0.3f);
         ShaderManager.Instance.CallShockWave();
         yield return new WaitForSecondsRealtime(0.1f);
-      //  GameManager.Instance.SetTimeScale(0);
+        //  GameManager.Instance.SetTimeScale(0);
         //   yield return FadeController.Instance.FadeIn(Color.white, 0.1f, 0.3f);
         yield return new WaitForSecondsRealtime(0.1f);
         GameManager.Instance.SetTimeScale(1);
@@ -563,7 +563,7 @@ public class PlayerScript : Singleton<PlayerScript>
     IEnumerator AttackStay(EnemyBase enemy)
     {
         CameraManager.Instance.SetLensSize(5f);
-        GameManager.Instance.SetTimeScale(0.2f);
+        // GameManager.Instance.SetTimeScale(0.2f);
         isGod = true;
         canUseAttack = true;
         targetEnemy = enemy;
