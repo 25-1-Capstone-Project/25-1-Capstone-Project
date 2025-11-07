@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8473672060972899753}
   - component: {fileID: 3040572898917723571}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -163,9 +163,6 @@ MonoBehaviour:
   skillParticle: {fileID: 6064639693487206674}
   fallTilemap: {fileID: 0}
   knockBackForce: 2
-  flashInterval: 0.1
-  invincibleDuration: 1
-  fadeAlpha: 0.3
 --- !u!114 &6366903998483742144
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -542,7 +539,7 @@ GameObject:
   - component: {fileID: 2622820292897668436}
   - component: {fileID: 5676389297287075080}
   - component: {fileID: 8019132170059635455}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: PlayerModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -668,7 +665,7 @@ GameObject:
   - component: {fileID: 9065998395138312102}
   - component: {fileID: 8840144759729888683}
   - component: {fileID: 631239345391193892}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Ghost
   m_TagString: Untagged
   m_Icon: {fileID: 0}

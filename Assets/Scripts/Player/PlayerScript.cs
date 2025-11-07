@@ -549,10 +549,11 @@ public class PlayerScript : Singleton<PlayerScript>
 
         GameObject temp = EffectPooler.Instance.SpawnFromPool("AttackEffect", transform.position, Quaternion.Euler(0, 0, angle));
         AudioManager.Instance.PlaySFX("ParrySuccess");
-        yield return FadeController.Instance.FadeOut(Color.white, 0.4f, 0.3f);
+       // yield return FadeController.Instance.FadeOut(Color.white, 0.4f, 0.3f);
+         yield return new WaitForSecondsRealtime(0.4f);
         GameManager.Instance.SetTimeScale(0);
-        yield return FadeController.Instance.FadeIn(Color.white, 0);
-
+        // yield return FadeController.Instance.FadeIn(Color.white, 0);
+      
         temp.SetActive(false);
         GameManager.Instance.SetTimeScale(1);
         ShaderManager.Instance.CallShockWave();
