@@ -9,7 +9,7 @@ public class DoorTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            MapManager.Instance.MoveToRoom();
+            StageManager.Instance.MoveToRound();
    
         }
     }

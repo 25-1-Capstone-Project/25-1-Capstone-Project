@@ -1,53 +1,58 @@
-
+using System;
 using System.Collections;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
 public class Room : MonoBehaviour
 {
+    [Header("State")]
+    [SerializeField] bool isRoomCleared = false;
+    public string roomName;
 
-    bool isRoomCleared = false;
+    [Header("Editor Placement")]
+    [Tooltip("이 룸을 시각적으로 배치할 때 스폰 마커를 담을 폴더(선택)")]
+    public Transform markerRoot;
 
-    [SerializeField] private Transform enemySpawnParentObject; // 스폰포인트 부모 오브젝트
-    [SerializeField] private Transform[] enemySpawnPointsT; // 스폰포인트
-    [SerializeField] private Animator[] enemySpawnAnim; // 스폰포인트
-    public Tilemap GroundTileMap; // 방 타일맵
-    int round = 0;
-    [SerializeField] private int maxRound = 3;
+    // [Header("Visual/Level")]
+    // public Tilemap GroundTileMap; // 방 타일맵 (있으면 마커 생성 시 셀 중앙 정렬)
+
+    [Header("Wave")]
+    [SerializeField] int waveIndex = 0;
+   
+    public Wave[] waves;
 
     public void InitRoom()
     {
-        // 방 초기화 로직을 여기에 추가하세요.
         isRoomCleared = false;
-
-        if (enemySpawnParentObject != null)
-        {
-            enemySpawnPointsT = enemySpawnParentObject.GetComponentsInChildren<Transform>().ToList().Where(t => t != enemySpawnParentObject).ToArray();
-            enemySpawnAnim = enemySpawnParentObject.GetComponentsInChildren<Animator>();
-        }
+        waveIndex = 0;
+        StartWave();
     }
-    
 
-
-    public void SpawnEnemies()
+    public void StartWave()
     {
         if (isRoomCleared) return;
+        if (waves == null || waves.Length == 0) return;
+        if (waveIndex >= waves.Length) return;
 
-        for (int i = 0; i < enemySpawnPointsT.Length; i++)
-        {
-            //EnemyManager.Instance.EnemySpawn(enemySpawnPointsT[i].position);
-            enemySpawnAnim[i].SetTrigger("Spawn");
-        }
+        StartCoroutine(StartWaveRoutine());
+    }
+
+    IEnumerator StartWaveRoutine()
+    {
+        var wave = waves[Mathf.Clamp(waveIndex, 0, waves.Length - 1)];
+        if (wave.startDelay > 0) yield return new WaitForSeconds(wave.startDelay);
+
+        foreach (var s in wave.spawns) { EnemyManager.Instance.EnemySpawn(s.enemyData, s.marker.transform.position); }
+       
     }
 
 
-    public void ClearRound()
+    public void ClearWave()
     {
-        round++;
-        if (round < maxRound)
+        waveIndex++;
+        if (waveIndex < waves.Length && waveIndex < (waves?.Length ?? 0))
         {
-            StartCoroutine(ClearRoutine());
+            StartCoroutine(NextWaveRoutine());
         }
         else
         {
@@ -55,20 +60,31 @@ public class Room : MonoBehaviour
         }
     }
 
-    IEnumerator ClearRoutine()
+    IEnumerator NextWaveRoutine()
     {
         yield return new WaitForSeconds(1f);
-        SpawnEnemies();
+        StartWave();
     }
+
     public void ClearRoom()
     {
         isRoomCleared = true;
     }
+}
 
+[Serializable]
+public class Wave
+{
+    [Tooltip("웨이브 시작까지 대기")]
+    public float startDelay = 0f;
+    public EnemySpawn[] spawns;
+}
 
+[Serializable]
+public class EnemySpawn
+{
+    [Tooltip("이 적 데이터의 Name으로 마커 라벨 자동 설정")]
+    public EnemyDataBase enemyData;
 
-
-
-
-
+    public EnemySpawnMarker marker;
 }

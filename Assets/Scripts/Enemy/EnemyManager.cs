@@ -5,11 +5,8 @@ public class EnemyManager : Singleton<EnemyManager>
 {
     int spawnedEnemy;
 
-   // public GameObject enemyPrefab;
- 
-    public EnemyAttackPattern[] CloseEnemyAttackPatterns;
-    public EnemyAttackPattern[] LongenemyAttackPatterns;
-    public EnemyAttackPattern[] SpecialEnemyAttackPatterns;
+    public GameObject enemyPrefab;
+
     protected override void Awake()
     {
         base.Awake();
@@ -27,22 +24,21 @@ public class EnemyManager : Singleton<EnemyManager>
         if (spawnedEnemy <= 0)
         {
             spawnedEnemy = 0;
-            MapManager.Instance.GetCurrentRoom().ClearRound();
+            StageManager.Instance.GetCurrentRoom().ClearWave();
         }
-
     }
 
-    // public void EnemySpawn(Vector2 spawnPos)
-    // {
-    //     EnemyData enemyData = enemyReference.GetRandomEnemyData();
-    //     GameObject enemyObj = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
-    //     enemyObj.transform.localScale *= enemyData.sizeMagnification;
-    //     EnemyBase enemy = enemyObj.GetComponent<EnemyBase>();
-    //     enemy.SetEnemyData(enemyData);
-    //     enemy.Init();
-    //     spawnedEnemy++;
-    // }
-    
+    public void EnemySpawn(EnemyDataBase enemyData, Vector2 spawnPos)
+    {
+
+        GameObject enemyObj = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
+        enemyObj.transform.localScale *= enemyData.sizeMagnification;
+        EnemyBase enemy = enemyObj.GetComponent<EnemyBase>();
+        enemy.SetEnemyData(enemyData);
+        enemy.Init();
+        spawnedEnemy++;
+    }
+
     // public void BossSpawn(Vector2 spawnPos)
     // {
     //     BossData bossData = enemyReference.GetRandomBossData();

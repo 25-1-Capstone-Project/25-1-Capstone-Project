@@ -91,7 +91,7 @@ public class DungeonState : GameState
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
-        MapManager.Instance.CreateMap();
+        StageManager.Instance.CreateRound();
         UIManager.Instance.SetActiveMainMenuUI(false);
         UIManager.Instance.SetActiveInGameUI(true);
        
