@@ -81,7 +81,7 @@ public class GameManager : Singleton<GameManager>
         if (CurrentDungeonFloor >= MaxDungeonFloor)
         {
             Debug.Log("Dungeon cleared! Returning to Hub.");
-            ReturnToHub();
+            StartButton();
         }
         else
         {
@@ -89,10 +89,9 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
-    public void ReturnToHub()
+    public void StartButton()
     {
-        CurrentDungeonFloor = 0;
-        StateMachine.ChangeState<HubState>();
+        StateMachine.ChangeState<DungeonState>();
     }
 
     public void PlayerSpawn(Vector2 targetPos)

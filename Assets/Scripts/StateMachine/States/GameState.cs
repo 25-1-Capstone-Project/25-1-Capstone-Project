@@ -21,7 +21,7 @@ public class MainMenuState : GameState
 
     public override void Enter()
     {
-        
+
         SceneManager.LoadScene("MainMenu");
         UIManager.Instance.SetActiveMainMenuUI(true);
     }
@@ -53,7 +53,7 @@ public class HubState : GameState
         PlayerScript.Instance.InitPlayer();
         UIManager.Instance.SetActiveMainMenuUI(false);
         UIManager.Instance.SetActiveInGameUI(true);
-        CameraManager.Instance.SetActiveCineCam(true);
+
     }
 
     public override void Update()
@@ -79,26 +79,27 @@ public class DungeonState : GameState
     public override void Enter()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
+        SceneManager.LoadScene("RoundScene");
+        // string sceneName =
+        // gameManager.mapData[(int)gameManager.currentDungeonType]
+        // .sceneNames[gameManager.CurrentDungeonFloor];
 
-        string sceneName =
-        gameManager.mapData[(int)gameManager.currentDungeonType]
-        .sceneNames[gameManager.CurrentDungeonFloor];
 
-        SceneManager.LoadScene(sceneName);
     }
 
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
-        StageManager.Instance.CreateRound();
+
         UIManager.Instance.SetActiveMainMenuUI(false);
         UIManager.Instance.SetActiveInGameUI(true);
-       
-
-        Vector2 spawnPoint = gameManager.SearchSpawnPoint();
-        gameManager.PlayerSpawn(spawnPoint);
-        CameraManager.Instance.SetCameraPosition(spawnPoint);
+        gameManager.InstancePlayer();
+        PlayerScript.Instance.InitPlayer();
+        StageManager.Instance.CreateRound();
+        gameManager.PlayerSpawn(gameManager.SearchSpawnPoint());
+        CameraManager.Instance.SetActiveCineCam(true);
+        CameraManager.Instance.SetCameraPosition(gameManager.SearchSpawnPoint());
     }
 
     public override void Update()

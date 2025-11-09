@@ -128,36 +128,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 3702182310383914650, guid: 17b7ab8a32101994c80764524384575a, type: 3}
-      propertyPath: m_ClearFlags
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3702182310383914650, guid: 17b7ab8a32101994c80764524384575a, type: 3}
-      propertyPath: orthographic size
-      value: 5.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3702182310383914650, guid: 17b7ab8a32101994c80764524384575a, type: 3}
       propertyPath: m_BackGroundColor.b
-      value: 0.24359201
+      value: 0.13333334
       objectReference: {fileID: 0}
     - target: {fileID: 3702182310383914650, guid: 17b7ab8a32101994c80764524384575a, type: 3}
       propertyPath: m_BackGroundColor.g
-      value: 0.3207547
+      value: 0.078431375
       objectReference: {fileID: 0}
     - target: {fileID: 3702182310383914650, guid: 17b7ab8a32101994c80764524384575a, type: 3}
       propertyPath: m_BackGroundColor.r
-      value: 0.2950338
-      objectReference: {fileID: 0}
-    - target: {fileID: 5285613106057403904, guid: 17b7ab8a32101994c80764524384575a, type: 3}
-      propertyPath: Damping.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5357050298168920666, guid: 17b7ab8a32101994c80764524384575a, type: 3}
-      propertyPath: Lens.OrthographicSize
-      value: 5.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6058471246751783981, guid: 17b7ab8a32101994c80764524384575a, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -10
+      value: 0.050980393
       objectReference: {fileID: 0}
     - target: {fileID: 6400897836313873855, guid: 17b7ab8a32101994c80764524384575a, type: 3}
       propertyPath: m_Name
@@ -379,6 +359,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1655964754}
+    - target: {fileID: 3848146776615124679, guid: c7552be6231d9db4c8d54cb7d08719c7, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: StartButton
+      objectReference: {fileID: 0}
     - target: {fileID: 7505095846548272970, guid: c7552be6231d9db4c8d54cb7d08719c7, type: 3}
       propertyPath: successInfo
       value: 

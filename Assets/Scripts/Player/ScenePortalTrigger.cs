@@ -1,6 +1,5 @@
 using UnityEngine;
-using System.Collections;
-using UnityEngine.SceneManagement;
+
 /// <summary>
 /// 씬 전환을 위한 트리거입니다.
 /// 플레이어가 이 트리거에 닿으면 지정된 씬으로 전환됩니다.
