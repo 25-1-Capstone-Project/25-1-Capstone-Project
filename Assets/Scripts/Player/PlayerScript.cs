@@ -28,6 +28,7 @@ public class PlayerScript : Singleton<PlayerScript>
     public Vector2 Direction2D => direction;
     [Header("=====플레이어 상태=====")]
     [SerializeField] bool canUseAttack = false;
+
     bool isParrying = false;
     bool isDead = false;
     bool isAttacking = false;
@@ -109,6 +110,8 @@ public class PlayerScript : Singleton<PlayerScript>
 
     // 증강
     public event Action OnParrySuccess;
+    public event Action OnParryInput;
+    public event Action OnAttackInput;
     private List<PlayerAbility> equipAbilities = new List<PlayerAbility>();
 
     public void EquipAbility(PlayerAbility ability)
@@ -186,7 +189,17 @@ public class PlayerScript : Singleton<PlayerScript>
     {
         playerInput.enabled = isActive;
     }
+    public void OnlyParryDuringTime(float time) =>  OnlyParryRoutine(time);
 
+     IEnumerator OnlyParryRoutine(float time)
+    {
+        
+        StopCoroutine(ParryRoutine);
+        canUseParry = false;
+
+        yield return new WaitForSecondsRealtime(time);
+        canUseParry = true;
+    }
     #endregion
 
     void Update()
@@ -386,6 +399,7 @@ public class PlayerScript : Singleton<PlayerScript>
             return;
         // if (!currentSkill.IsCooldownReady())
         //     return;
+        OnAttackInput?.Invoke();
         StopCoroutine(AttackStayRoutine);
         StartCoroutine(AttackRoutine());
 
@@ -416,6 +430,7 @@ public class PlayerScript : Singleton<PlayerScript>
         if (!canUseParry || isDead || isAttacking || isDashing)
             return;
 
+        OnParryInput?.Invoke();
         playerAnim.PlayAttack();
         AudioManager.Instance.PlaySFX("Parry");
         ParryRoutine = StartCoroutine(Parry());
@@ -466,7 +481,7 @@ public class PlayerScript : Singleton<PlayerScript>
     public void ParrySuccess(EnemyBase enemy)
     {
         StopCoroutine(ParryRoutine);
-
+        PerformParryPulse(enemy);
         if (ParryStack < stats.maxParryStack)
         {
             ParryStack++;
@@ -478,7 +493,7 @@ public class PlayerScript : Singleton<PlayerScript>
 
         OnParrySuccess?.Invoke();
 
-        isParrying = false;
+
         canUseParry = true;
         //Health += 1;
         //enemy.TakeDamage(1); // 적에게 대미지 주기
@@ -491,13 +506,13 @@ public class PlayerScript : Singleton<PlayerScript>
         {
             StartCoroutine(ParryEffect());
         }
-
+        isParrying = false;
     }
     //원거리 패링
     public void ParrySuccess(EnemyAttackBase enemyAttack)
     {
         StopCoroutine(ParryRoutine);
-
+        PerformParryPulse(null);
         if (ParryStack < stats.maxParryStack)
         {
             ParryStack++;
@@ -526,14 +541,14 @@ public class PlayerScript : Singleton<PlayerScript>
         //  GameManager.Instance.SetTimeScale(0);
         //   yield return FadeController.Instance.FadeIn(Color.white, 0.1f, 0.3f);
         yield return new WaitForSecondsRealtime(0.1f);
-        GameManager.Instance.SetTimeScale(1);
+
 
         yield return new WaitForSeconds(0.1f);
         isGod = false;
     }
     public IEnumerator AttackEffect()
     {
-        CameraManager.Instance.CameraShake(5f, 0.3f);
+        CameraManager.Instance.CameraShake(8f, 0.3f);
         Vector2 toEnemyDirection = -targetEnemy.GetDirectionNormalVec();
         float angle = Mathf.Atan2(toEnemyDirection.y, toEnemyDirection.x) * Mathf.Rad2Deg;
         RaycastHit2D hit = Physics2D.Raycast(targetEnemy.transform.position, toEnemyDirection, 1.5f, LayerMask.GetMask("Wall"));
@@ -549,30 +564,32 @@ public class PlayerScript : Singleton<PlayerScript>
 
         GameObject temp = EffectPooler.Instance.SpawnFromPool("AttackEffect", transform.position, Quaternion.Euler(0, 0, angle));
         AudioManager.Instance.PlaySFX("ParrySuccess");
-       // yield return FadeController.Instance.FadeOut(Color.white, 0.4f, 0.3f);
-           ShaderManager.Instance.CallShockWave();
-         yield return new WaitForSecondsRealtime(0.4f);
+        // yield return FadeController.Instance.FadeOut(Color.white, 0.4f, 0.3f);
+        ShaderManager.Instance.CallShockWave();
+        yield return new WaitForSecondsRealtime(0.4f);
         GameManager.Instance.SetTimeScale(0);
         // yield return FadeController.Instance.FadeIn(Color.white, 0);
-      
+
         temp.SetActive(false);
+
+        PerformExecutionKnockback();
+
         GameManager.Instance.SetTimeScale(1);
-    
 
         isGod = false;
     }
 
     IEnumerator AttackStay(EnemyBase enemy)
     {
-        CameraManager.Instance.SetLensSize(5f);
-        // GameManager.Instance.SetTimeScale(0.2f);
+        CameraManager.Instance.SetLensSize(6f);
+
         isGod = true;
         canUseAttack = true;
         targetEnemy = enemy;
         EffectPooler.Instance.SpawnFromPool("ParryEffect", transform.position + (direction / 2), Quaternion.identity);
         AudioManager.Instance.PlaySFX("ParrySuccess");
-        yield return new WaitForSecondsRealtime(0.5f);
-        GameManager.Instance.SetTimeScale(1f);
+        yield return new WaitForSeconds(0.5f);
+
         canUseAttack = false;
         isGod = false;
         CameraManager.Instance.SetLensSize(7f);
@@ -642,7 +659,7 @@ public class PlayerScript : Singleton<PlayerScript>
 
         }
     }
-    [SerializeField] float knockBackForce = 2f;
+    [SerializeField] float knockBackForce = 0.5f;
     public void KnockBack(Vector2 forceDir, float knockBackForce)
     {
         //rb.linearVelocity = forceDir * knockBackForce;
@@ -808,7 +825,7 @@ public class PlayerScript : Singleton<PlayerScript>
         float elapsed = 0f;
         bool fadingOut = true;
         Color baseColor = spriteRenderer.color;
-    
+
 
         while (elapsed < playerData.invincibleDuration)
         {
@@ -839,9 +856,55 @@ public class PlayerScript : Singleton<PlayerScript>
         spriteRenderer.color = Color.white;
 
     }
-
-
-
     #endregion
+    [Header("=====다중 전투 시스템=====")]
+    private float parryPulseRadius = 4f; // 패링 파동 범위
+    private float parryPulseKnockbackForce = 1f; // 패링 파동 넉백 힘
 
+    private float executionKnockbackRadius = 8f; // 처형 넉백 범위 (더 넓게)
+    private float executionKnockbackForce = 2f; // 처형 넉백 힘 (더 강하게)
+
+    /// <summary>
+    /// 패링 성공 시 주변 적에게 약한 넉백(파동)을 적용합니다.
+    /// </summary>
+    /// <param name="parriedEnemy">방금 패링한 대상 (중복 적용 방지용)</param>
+    private void PerformParryPulse(EnemyBase parriedEnemy)
+    {
+        // "Enemy" 레이어를 가진 모든 적을 탐지합니다. (레이어 마스크 이름은 실제 사용하는 이름으로 변경 필요)
+        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, parryPulseRadius, LayerMask.GetMask("Enemy"));
+
+        foreach (var hit in hits)
+        {
+            EnemyBase nearbyEnemy = hit.GetComponent<EnemyBase>();
+
+            // 탐지된 적이 있고, 방금 패링한 그 적이 아닐 경우에만
+            if (nearbyEnemy != null && nearbyEnemy != parriedEnemy)
+            {
+                Vector2 directionToEnemy = (nearbyEnemy.transform.position - transform.position).normalized;
+
+
+                nearbyEnemy.KnockBack(parryPulseKnockbackForce);
+            }
+        }
+    }
+    /// <summary>
+    /// 처형(공격)이 끝난 직후 주변의 모든 적을 강하게 밀쳐냅니다.
+    /// </summary>
+    private void PerformExecutionKnockback()
+    {
+        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, executionKnockbackRadius, LayerMask.GetMask("Enemy"));
+
+        foreach (var hit in hits)
+        {
+            EnemyBase nearbyEnemy = hit.GetComponent<EnemyBase>();
+
+            // 처형 당한 적(targetEnemy)은 이미 처리되었으므로, 살아있는 다른 적들만 밀쳐냅니다.
+            if (nearbyEnemy != null && nearbyEnemy != targetEnemy)
+            {
+                Vector2 directionToEnemy = (nearbyEnemy.transform.position - transform.position).normalized;
+
+                nearbyEnemy.KnockBack(executionKnockbackForce);
+            }
+        }
+    }
 }

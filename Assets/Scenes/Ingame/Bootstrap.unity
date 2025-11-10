@@ -359,14 +359,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1655964754}
-    - target: {fileID: 3848146776615124679, guid: c7552be6231d9db4c8d54cb7d08719c7, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: StartButton
-      objectReference: {fileID: 0}
-    - target: {fileID: 7505095846548272970, guid: c7552be6231d9db4c8d54cb7d08719c7, type: 3}
-      propertyPath: successInfo
-      value: 
-      objectReference: {fileID: 1850002924}
     - target: {fileID: 7769994958612992242, guid: c7552be6231d9db4c8d54cb7d08719c7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -412,17 +404,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7552be6231d9db4c8d54cb7d08719c7, type: 3}
---- !u!114 &1850002924 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1104743548487228409, guid: c7552be6231d9db4c8d54cb7d08719c7, type: 3}
-  m_PrefabInstance: {fileID: 1850002919}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7af2c89816e42fb44878067f9b872c0f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1884689238
 GameObject:
   m_ObjectHideFlags: 0

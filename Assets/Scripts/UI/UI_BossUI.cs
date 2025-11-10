@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-public class UI_BossUI : MonoBehaviour
+public class UI_BossInfo : MonoBehaviour
 {
     [SerializeField] GameObject bossUI;
     [SerializeField] TMP_Text bossNameText;

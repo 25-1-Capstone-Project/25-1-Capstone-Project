@@ -11,17 +11,18 @@ public class UIManager : Singleton<UIManager>
 
 
     [Header("인게임")]
-    public PlayerStatUI playerStatUI;
+    public UI_PlayerStatus playerStatUI;
     public ParryStackUI parryStackUI;
     public SkillUI skillUI;
     public SkillSelect skillSelect;
 
     public AbilityRewardSystem abilityUI;
-    public UI_BossUI bossUI;
+    public UI_BossInfo bossUI;
     public UI_DeadInfo deadInfo;
     public UI_SuccessInfo successInfo;
-    public PauseUI pauseUI;
-    //public Pause pauseUI;
+    public UI_Guide guide;
+    public UI_Pause pauseUI;
+
     protected override void Awake()
     {
         base.Awake();
@@ -40,5 +41,8 @@ public class UIManager : Singleton<UIManager>
     {
         MainMenuUI.SetActive(active);
     }
-
+    public void SetActiveGuideUI(bool active, string msg = "")
+    {
+        guide.SetActiveGuideText(active, msg);
+    }
 }

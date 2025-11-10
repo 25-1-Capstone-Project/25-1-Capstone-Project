@@ -1,3 +1,4 @@
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -35,10 +36,32 @@ public class GameManager : Singleton<GameManager>
         StateMachine.Update();
     }
 
-    public void SetTimeScale(float timeScale)
+    public void SetTimeScale(float targetTimeScale, float duration = 0)
     {
-        Time.timeScale = timeScale;
+        if (duration <= 0)
+        {
+            Time.timeScale = targetTimeScale;
+            return;
+        }
+
+        StartCoroutine(LerpTimeScale(targetTimeScale, duration));
     }
+
+    private IEnumerator LerpTimeScale(float targetTimeScale, float duration)
+    {
+        float startTimeScale = Time.timeScale;
+        float elapsedTime = 0;
+
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.unscaledDeltaTime;
+            Time.timeScale = Mathf.Lerp(startTimeScale, targetTimeScale, elapsedTime / duration);
+            yield return null;
+        }
+
+        Time.timeScale = targetTimeScale;
+    }
+
 
     public void SetCurrentDungeonType(EDungeonType eDungeonType)
     {
@@ -113,5 +136,6 @@ public class GameManager : Singleton<GameManager>
         Application.Quit();
 #endif
     }
- 
+
+
 }

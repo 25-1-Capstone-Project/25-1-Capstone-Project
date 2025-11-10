@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
-public class PlayerStatUI : MonoBehaviour
+public class UI_PlayerStatus : MonoBehaviour
 {
 
     [SerializeField] private RectTransform cooldownUI;
