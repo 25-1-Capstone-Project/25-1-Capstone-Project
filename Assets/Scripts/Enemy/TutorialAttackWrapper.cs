@@ -20,7 +20,7 @@ public class TutorialAttackWrapper : EnemyAttackPattern
         PlayerScript.Instance.OnParryInput += ParryInputEvent;
         float time = inner.attackChargeSec - 0.1f;
         PlayerScript.Instance.OnlyParryAfterTime(time);
-        UIManager.Instance.SetActiveGuideUI(true, "[우클릭]!");
+        UIManager.Instance.guideUI.SetActiveGuideUI(true, "[우클릭]!");
         GameManager.Instance.SetTimeScale(0, time);
         yield return enemy.StartCoroutine(inner.Execute(enemy));
 
@@ -33,7 +33,7 @@ public class TutorialAttackWrapper : EnemyAttackPattern
     void ParryInputEvent()
     {
 
-        UIManager.Instance.SetActiveGuideUI(true, "[좌클릭]을 눌러 마무리 일격!");
+        UIManager.Instance.guideUI.SetActiveGuideUI(true, "[좌클릭]을 눌러 마무리 일격!");
         GameManager.Instance.SetTimeScale(1f);
         GameManager.Instance.SetTimeScale(0, 0.5f);
         PlayerScript.Instance.OnAttackInput += AttackInputEvent;
@@ -44,7 +44,7 @@ public class TutorialAttackWrapper : EnemyAttackPattern
 
         // 연출 강화: 약간의 슬로우
         GameManager.Instance.SetTimeScale(1f);
-        UIManager.Instance.SetActiveGuideUI(false);
+        UIManager.Instance.guideUI.SetActiveGuideUI(false);
         PlayerScript.Instance.OnAttackInput -= AttackInputEvent;
     }
 

@@ -9,10 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3732356919014672485}
-  - component: {fileID: 1951943412611108154}
   - component: {fileID: 5374514495471530501}
   m_Layer: 0
-  m_Name: MapGen
+  m_Name: StageManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34,28 +33,6 @@ Transform:
   - {fileID: 9030000068355975610}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1951943412611108154
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3350446380117234403}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03b3f2a658b80ff4a944b2077e740f9f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  doorDistance: {x: 17, y: 9}
-  roomgap: {x: 25, y: 13}
-  mapWidth: 8
-  mapHeight: 8
-  roomData: {fileID: 11400000, guid: 7f52cf2117b77fa49a8ca3496d07c8a0, type: 2}
-  playerSpawnPoint: {fileID: 6944638661161206903, guid: c44e3545a0200044a8a090da013fe8de, type: 3}
-  roomCount: 18
-  doorPrefab: {fileID: 1640283549017557581, guid: ad6c5e24848553b4b83343455945c6b4, type: 3}
-  rewardRoomCount: 2
-  bossRoomCount: 1
 --- !u!114 &5374514495471530501
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -68,7 +45,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14c28f07f60b9344caddc7b71ac4000a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentRoomPos: {x: 4, y: 4}
+  originRoomList:
+  - {fileID: 4557894655228889410, guid: 1ce85a607428c444197d7854d3e62d47, type: 3}
+  - {fileID: 4557894655228889410, guid: 1ce85a607428c444197d7854d3e62d47, type: 3}
   astarPath: {fileID: 0}
 --- !u!1 &5777682128827803630
 GameObject:
@@ -116,7 +95,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   version: 1
   data:
-    dataString: UEsDBBQAAAgIAABIIewPxoxCXQIAABYFAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQF1VMlu2zAQ/RWD56aQ0iSue0ttx+khiRG3yEUXWhxZhClS4OIlgf+9M5RkKS56EvXmzcybhfxgUrsacm/swkrxZASwHyN2L3Zc5yDYl1FPeIQD3xi9ku/Q8d6k8CWReOS8ci8N4im5OVOBtzK/1xtF5ATBoGVhbDUXG5ga5x3CBVcO0GSNJ2+N0MeIHfBzNSGXI56ux3R6x9MkGZ3wmIP2YHtqR+xoDSvoXPGqBkGSe3LasdOGprGYlkHCc6OUdK0S5o91rHRVl2CBShWSY2ExO9FLkJvSk8ih70tROPCtIsuPM2mxP01Q9tM0Tau42zaydlwFSnOTTO6ipibq0z+EqzSaC2uqxy5xmlASX8p8+8qPOXd+0NYhPPusPOg9V1u+VvBWgn42C2uCFmj0NpBrcHA963/PtU1LyLc93ki9AEP9/+FQDadY/mGqZLUm09ebBlgpE/sdRw8WJ/MLBcfFcG0IREnFHwe/+Wa4Qa3hQVrn0dRWqUne2gRLVDaPPaNqgp8aqyHCregaNFf+uMQw/nKGF7ZB2gvLA6e70iZvbd0VuHCJcM9PkgvT0uzPw3Kl2T+BK1+CV1JDL5oMz9inqdG6WbFhTzq3VbAFzwdumyDF59Vid0lyKxLxncNknI5v4WrN09tvRTLGbwpjccfi7kmNdXK1bIS27cGp6T64xj2jiPSkjBaW13HdheX7hXyvzKDlUhdmlVsA/dJEOAsHi0nwVoq5kNigFXgvdZw3+8iYMvkWRHYOlMVK5wdvedZHyVgtd8YTkrFpfDMyRvB5l5cWdhL2lLwLdmKnv1BLAwQUAAAICAAASCHsNEFNRGwAAAB4AAAACQAkAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAatWKkstKs7Mz1OyUjDRM9IzNNdRUEovSizIKAaKGII4pZkpIHa0kpmBgWmKQYpFYqqluaG5aapuUqKhqXGagTmQNkw1TzFTigWqL6ksSPVLzE2F6AlILMlIy8xLycxL13MvykxxBxmtFFsLAFBLAQItABQAAAgIAABIIewPxoxCXQIAABYFAAALACQAAAAAAAAAAAAAAAAAAABncmFwaDAuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLAQItABQAAAgIAABIIew0QU1EbAAAAHgAAAAJACQAAAAAAAAAAAAAAKoCAABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwUGAAAAAAIAAgC4AAAAYQMAAAAA
+    dataString: UEsDBBQAAAgIAABIIextDHhWVwIAABQFAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQF1VE1z2jAQ/SuMzk3HpiU0vbVASA8kTGgnF1+EtcYaZMmjjwDJ8N+7K9vYodOT12/f7r79sN+Z1K6G3Bu7tFKsjAD2fcTIZp9GvfMBjnxn9Ea+Qcd5kcKXROKR88y9NIinFOZMBd7K/IfeKSInCAYtC2OrhdjBzDjvEC64coAuazxFa4TeR+yIj5s7CjmhNZ6S9YbWXTI6o5mD9mB7akfsaA0r6FzxqgZBkntymnR0tCJRYzsth6TnRinpWi3Mn+rY66YuwQI1KyTH1mJ9opcgd6UnmcPYp6Jw4FtNlp/m0uKEmqTsp2nGVnG3b4S9chWozCQdN5qarKt/CDdpdBfWVA9d4aYjX8p8/8xPOXd+MNghPP+oPOgDV3u+VfBSgn40S2uCFuj0NlBocDCe96+X3mYl5Pseb6RegaH+/3qoh3Ns/zhTstqS6/PXBtgoE+cdlw8WN/MLBcfTcG0KREnFHwe/+W54Q63jXlrn0dV2qUne1gRLVLaIM6Nugp8ZqyHCregaNFf+tMY0/nqHV75B2SvPPaevpS3e+rqP4Cokwj0/Sa5ca3O4LMuV5rACVz4Fr6SGXjQ5HnFOM6N1c2LDmXRhm2ALng/CdkGKj6fFbpNkIhLxjcPdNJ1O4GbL08mXIpniM4WpuGXx9qTGPrlaN0Lb8eDWdJ9c4511P5HR0vI6nruw/LCUb5UZjFzqwmxyC6CfmgwX4WCxCH6VYiEkDmgD3ksd983eM6ZMvgeRXRJlsdPF0Vue9VkyVstX4wnJ2Cz+NTJG8OWW1xZeJRyoeJfszM5/AVBLAwQUAAAICAAASCHsNEFNRGwAAAB4AAAACQAkAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAatWKkstKs7Mz1OyUjDRM9IzNNdRUEovSizIKAaKGII4pZkpIHa0kpmBgWmKQYpFYqqluaG5aapuUqKhqXGagTmQNkw1TzFTigWqL6ksSPVLzE2F6AlILMlIy8xLycxL13MvykxxBxmtFFsLAFBLAQItABQAAAgIAABIIextDHhWVwIAABQFAAALACQAAAAAAAAAAAAAAAAAAABncmFwaDAuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLAQItABQAAAgIAABIIew0QU1EbAAAAHgAAAAJACQAAAAAAAAAAAAAAKQCAABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwUGAAAAAAIAAgC4AAAAWwMAAAAA
     upgradeData: 
     file_cachedStartup: {fileID: 0}
     data_cachedStartup: 
@@ -144,7 +123,39 @@ MonoBehaviour:
     _MeshEdgeColor: {r: 0, g: 0, b: 0, a: 0.5}
     _AreaColors:
     - {r: 0, g: 0, b: 0, a: 0}
-  tagNames: []
+  tagNames:
+  - Basic Ground
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  - 6
+  - 7
+  - 8
+  - 9
+  - 10
+  - 11
+  - 12
+  - 13
+  - 14
+  - 15
+  - 16
+  - 17
+  - 18
+  - 19
+  - 20
+  - 21
+  - 22
+  - 23
+  - 24
+  - 25
+  - 26
+  - 27
+  - 28
+  - 29
+  - 30
+  - 31
   heuristic: 2
   heuristicScale: 1
   threadCount: 1
@@ -156,4 +167,4 @@ MonoBehaviour:
     seed: 0
     pivotPointRoot: {fileID: 0}
     spreadOutCount: 1
-  showGraphs: 1
+  showGraphs: 0

@@ -77,7 +77,7 @@ public class Room : MonoBehaviour
         PlayerScript.Instance.ClearSet();
         GameManager.Instance.SetTimeScale(1);
 
-        UIManager.Instance.SetActiveSuccessUI(true);
+        UIManager.Instance.successUI.SetActiveDeadInfoPanel(true);
         isRoomCleared = true;
     }
 

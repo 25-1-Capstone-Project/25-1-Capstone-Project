@@ -1,5 +1,4 @@
 using UnityEngine;
-using Pathfinding;
 
 public class StageManager : Singleton<StageManager>
 {
@@ -37,10 +36,12 @@ public class StageManager : Singleton<StageManager>
         currentRoom = CreatedRoom.GetComponent<Room>();
         currentRoom.InitRoom();
     }
-    public void MoveToRound()
+    public void NextRound()
     {
+        PlayerScript.Instance.InitPlayer();
         curRoomIndex++;
         CreateRound();
+        UIManager.Instance. successUI.SetActiveDeadInfoPanel(false);
     }
     void SetRoomList(GameObject[] rooms)
     {

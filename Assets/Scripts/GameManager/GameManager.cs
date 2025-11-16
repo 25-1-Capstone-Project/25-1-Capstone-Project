@@ -98,19 +98,19 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
-    public void GoToNextDungeonFloor()
-    {
-        CurrentDungeonFloor++;
-        if (CurrentDungeonFloor >= MaxDungeonFloor)
-        {
-            Debug.Log("Dungeon cleared! Returning to Hub.");
-            StartButton();
-        }
-        else
-        {
-            StateMachine.ChangeState<DungeonState>();
-        }
-    }
+    // public void GoToNextDungeonFloor()
+    // {
+    //     CurrentDungeonFloor++;
+    //     if (CurrentDungeonFloor >= MaxDungeonFloor)
+    //     {
+    //         Debug.Log("Dungeon cleared! Returning to Hub.");
+    //         StartButton();
+    //     }
+    //     else
+    //     {
+    //         StateMachine.ChangeState<DungeonState>();
+    //     }
+    // }
 
     public void StartButton()
     {

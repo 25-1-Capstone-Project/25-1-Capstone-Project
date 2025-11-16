@@ -18,9 +18,9 @@ public class UIManager : Singleton<UIManager>
 
     public AbilityRewardSystem abilityUI;
     public UI_BossInfo bossUI;
-    public UI_DeadInfo deadInfo;
-    public UI_SuccessInfo successInfo;
-    public UI_Guide guide;
+    public UI_DeadInfo deadUI;
+    public UI_SuccessInfo successUI;
+    public UI_Guide guideUI;
     public UI_Pause pauseUI;
 
     protected override void Awake()
@@ -37,12 +37,5 @@ public class UIManager : Singleton<UIManager>
     {
         MainMenuUI.SetActive(active);
     }
-    public void SetActiveSuccessUI(bool active)
-    {
-        successInfo.SetActiveDeadInfoPanel(active);
-    }
-    public void SetActiveGuideUI(bool active, string msg = "")
-    {
-        guide.SetActiveGuideText(active, msg);
-    }
+ 
 }

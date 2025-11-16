@@ -6,7 +6,7 @@ public class NextFloorTrigger : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            GameManager.Instance.GoToNextDungeonFloor();
+            //GameManager.Instance.GoToNextDungeonFloor();
         }
     }
 }

@@ -201,7 +201,7 @@ public class PlayerScript : Singleton<PlayerScript>
         canUseParry = false;
 
         yield return new WaitForSecondsRealtime(time);
-        UIManager.Instance.SetActiveGuideUI(true, "[우클릭]!");
+        UIManager.Instance. guideUI.SetActiveGuideUI(true, "[우클릭]!");
         canUseParry = true;
     }
     #endregion
@@ -817,7 +817,7 @@ public class PlayerScript : Singleton<PlayerScript>
         isDead = true;
         playerAnim.SetDeath(true);
         rb.linearVelocity = Vector2.zero;
-        UIManager.Instance.deadInfo.SetActiveDeadInfoPanel(true);
+        UIManager.Instance.deadUI.SetActiveDeadInfoPanel(true);
 
         PlayerLogger.Instance.PlusDeathLog();
     }
