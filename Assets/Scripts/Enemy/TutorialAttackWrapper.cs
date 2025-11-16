@@ -19,11 +19,9 @@ public class TutorialAttackWrapper : EnemyAttackPattern
         enemy.GetRigidbody().linearVelocity = Vector2.zero;
         PlayerScript.Instance.OnParryInput += ParryInputEvent;
         float time = inner.attackChargeSec - 0.1f;
-        PlayerScript.Instance.OnlyParryDuringTime(time);
-        
-        GameManager.Instance.SetTimeScale(0, time);
-
+        PlayerScript.Instance.OnlyParryAfterTime(time);
         UIManager.Instance.SetActiveGuideUI(true, "[우클릭]!");
+        GameManager.Instance.SetTimeScale(0, time);
         yield return enemy.StartCoroutine(inner.Execute(enemy));
 
 
@@ -40,10 +38,10 @@ public class TutorialAttackWrapper : EnemyAttackPattern
         GameManager.Instance.SetTimeScale(0, 0.5f);
         PlayerScript.Instance.OnAttackInput += AttackInputEvent;
         PlayerScript.Instance.OnParryInput -= ParryInputEvent;
-
     }
     void AttackInputEvent()
     {
+
         // 연출 강화: 약간의 슬로우
         GameManager.Instance.SetTimeScale(1f);
         UIManager.Instance.SetActiveGuideUI(false);

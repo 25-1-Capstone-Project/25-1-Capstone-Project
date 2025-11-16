@@ -21,7 +21,7 @@ public class MainMenuState : GameState
 
     public override void Enter()
     {
-
+        CursorManager.Instance.SetCursorIcon(ECursorType.Default.GetHashCode());
         SceneManager.LoadScene("MainMenu");
         UIManager.Instance.SetActiveMainMenuUI(true);
     }
@@ -35,9 +35,9 @@ public class MainMenuState : GameState
     public override void Exit() { }
 }
 
-public class HubState : GameState
+public class StageState : GameState
 {
-    public HubState(GameManager manager) : base(manager) { }
+    public StageState(GameManager manager) : base(manager) { }
 
     public override void Enter()
     {
@@ -100,6 +100,7 @@ public class DungeonState : GameState
         gameManager.PlayerSpawn(gameManager.SearchSpawnPoint());
         CameraManager.Instance.SetActiveCineCam(true);
         CameraManager.Instance.SetCameraPosition(gameManager.SearchSpawnPoint());
+        CursorManager.Instance.SetCursorIcon(ECursorType.Aim.GetHashCode(), true);
     }
 
     public override void Update()

@@ -68,6 +68,10 @@ public class PlayerAnimatorController : MonoBehaviour
 
         animator.SetTrigger(triggerName);
     }
+    public void Init()
+    {
+        animator.Rebind();
+    }
 
     private int GetDirectionIndex(Vector2 vec)
     {

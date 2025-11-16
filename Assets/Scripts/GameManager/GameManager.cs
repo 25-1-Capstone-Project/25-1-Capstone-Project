@@ -11,7 +11,7 @@ public class GameManager : Singleton<GameManager>
     public StateMachine<GameState> StateMachine { get; private set; }
     private GameObject playerObj;
     public EDungeonType currentDungeonType = EDungeonType.Null;
-    public MapReference[] mapData;
+    // public MapReference[] mapData;
     public int CurrentDungeonFloor { get; set; } = 0;
     public int MaxDungeonFloor { get; private set; } = 3;
 
@@ -25,7 +25,7 @@ public class GameManager : Singleton<GameManager>
     {
         StateMachine = new StateMachine<GameState>();
         StateMachine.AddState(new MainMenuState(this));
-        StateMachine.AddState(new HubState(this));
+        StateMachine.AddState(new StageState(this));
         StateMachine.AddState(new DungeonState(this));
 
         StateMachine.ChangeState<MainMenuState>();
@@ -87,7 +87,7 @@ public class GameManager : Singleton<GameManager>
                 StateMachine.ChangeState<MainMenuState>();
                 break;
             case EGameState.Hub:
-                StateMachine.ChangeState<HubState>();
+                StateMachine.ChangeState<StageState>();
                 break;
             case EGameState.Dungeon:
                 StateMachine.ChangeState<DungeonState>();

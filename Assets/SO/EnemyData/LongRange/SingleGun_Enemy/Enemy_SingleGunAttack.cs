@@ -4,8 +4,6 @@ using System.Collections;
 [CreateAssetMenu(menuName = "Enemy/AttackPattern/Enemy/Enemy_SingleGunAttack")]
 public class Enemy_SingleGunAttack : EnemyAttackPattern
 {
-    public float effectWidth = 0.4f;
-
     public override IEnumerator Execute(EnemyBase enemy)
     {
         enemy.GetAnimatorController().PlayAttack();

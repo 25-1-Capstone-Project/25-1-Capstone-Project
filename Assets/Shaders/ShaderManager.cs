@@ -14,14 +14,7 @@ public class ShaderManager : Singleton<ShaderManager>
         {
             CallShockWave();
         }
-        if (Input.GetKeyDown(KeyCode.V))
-        {
-            CallBlackScreen(true);
-        }
-              if (Input.GetKeyDown(KeyCode.B))
-        {
-            CallBlackScreen(false);
-        }
+       
     }
     public void CallShockWave()
     {
@@ -29,7 +22,7 @@ public class ShaderManager : Singleton<ShaderManager>
         shockwave.CallShockWave(point);
     }
 
-    public void CallBlackScreen(bool enabled)
+    public void SetBleackScreen(bool enabled)
     {
         blackScreen.CallBlackScreen(enabled);
     }

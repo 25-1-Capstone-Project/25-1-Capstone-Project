@@ -50,6 +50,7 @@ public class ChaseState : EnemyState, IFixedUpdateState, ILateUpdateState
 
     public override void Enter()
     {
+        enemy.IsStunned = false;
         enemy.GetAnimatorController().PlayChase();
     }
 
@@ -132,18 +133,20 @@ public class ParriedState : EnemyState
         enemy.StopAllCoroutines();
         enemy.StartCoroutine(ParriedRoutine());
         enemy.enemyShaderController.OnOutline();
-
+        enemy.IsStunned = true;
     }
     public IEnumerator ParriedRoutine()
     {
         enemy.GetRigidbody().linearVelocity = Vector2.zero;
+
         //그로기 애니메이션 재생
         if (enemy.GetData().dontStopEnemy)
-            yield return new WaitForSecondsRealtime(0.3f);
+            yield return new WaitForSeconds(0.3f);
         else
-            yield return new WaitForSecondsRealtime(2f);
+            yield return new WaitForSeconds(2f);
         enemy.InitStamina();
         enemy.enemyShaderController.OffOutline();
+
         enemy.StateMachine.ChangeState<ChaseState>();
     }
     public override void Update() { }

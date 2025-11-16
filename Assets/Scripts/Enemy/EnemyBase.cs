@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public abstract class EnemyBase : MonoBehaviour
+public class EnemyBase : MonoBehaviour
 {
     [Header("Core Components & Data")]
     [SerializeField] protected ParticleSystem stunEffect;
@@ -19,9 +19,10 @@ public abstract class EnemyBase : MonoBehaviour
     public StateMachine<IEnemyState> StateMachine { get; protected set; }
 
     // Common States
-    public bool IsAttacking { get; set; } // 공격 중인지 여부 (State에서 제어)
+    public bool IsAttacking ;// 공격 중인지 여부 (State에서 제어)
     protected bool isDead = false;
-
+    public bool IsStunned ;
+    public bool CheckStunned() => IsStunned;
 
     public int _stamina;
     public int Stamina

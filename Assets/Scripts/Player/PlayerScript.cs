@@ -27,7 +27,7 @@ public class PlayerScript : Singleton<PlayerScript>
     public Vector3 Direction => direction;
     public Vector2 Direction2D => direction;
     [Header("=====플레이어 상태=====")]
-    [SerializeField] bool canUseAttack = false;
+    //[SerializeField] bool canUseAttack = false;
 
     bool isParrying = false;
     bool isDead = false;
@@ -35,6 +35,7 @@ public class PlayerScript : Singleton<PlayerScript>
     bool isDashing = false;
     bool isGod = false; // 무적 상태
     bool isKnockback = false;
+    bool canMove = true;
     private PlayerInput playerInput;
 
 
@@ -166,7 +167,9 @@ public class PlayerScript : Singleton<PlayerScript>
         stats.ApplyBase(playerData); // 원본 데이터를 복사
         isDead = false;
         playerAnim.SetDeath(isDead);
+        playerInput.enabled = true;
         Health = stats.maxHealth;
+
         SetActivePlayerInput(true);
     }
 
@@ -189,15 +192,16 @@ public class PlayerScript : Singleton<PlayerScript>
     {
         playerInput.enabled = isActive;
     }
-    public void OnlyParryDuringTime(float time) =>  OnlyParryRoutine(time);
+    public void OnlyParryAfterTime(float time) => StartCoroutine(OnlyParryRoutine(time));
 
-     IEnumerator OnlyParryRoutine(float time)
+    IEnumerator OnlyParryRoutine(float time)
     {
-        
-        StopCoroutine(ParryRoutine);
+        if (ParryRoutine != null)
+            StopCoroutine(ParryRoutine);
         canUseParry = false;
 
         yield return new WaitForSecondsRealtime(time);
+        UIManager.Instance.SetActiveGuideUI(true, "[우클릭]!");
         canUseParry = true;
     }
     #endregion
@@ -223,7 +227,7 @@ public class PlayerScript : Singleton<PlayerScript>
     }
     void LateUpdate()
     {
-        if (isDead || isAttacking || isParrying || isDashing) return;
+        if (!canMove || isDead || isAttacking || isParrying || isDashing) return;
 
         playerAnim.UpdateMovement(moveVec);
 
@@ -250,7 +254,7 @@ public class PlayerScript : Singleton<PlayerScript>
     }
     void Move()
     {
-        if (isDashing || isDead || isParrying || isKnockback)
+        if (!canMove || isDashing || isDead || isParrying || isKnockback)
             return;
 
         rb.linearVelocity = moveVec * stats.speed;
@@ -289,77 +293,77 @@ public class PlayerScript : Singleton<PlayerScript>
         isDashing = false;
         ghost.SetActive(false);
 
-        if (IsGroundBelow())
-        {
-            playerInput.enabled = false;
-            isGod = true;
-            yield return StartCoroutine(FallAndReturnCoroutine());
-            playerInput.enabled = true;
-            isGod = false;
-            Health -= stats.maxHealth / 12; // 낙하 대미지 처리
-            gameObject.layer = LayerMask.NameToLayer("Player");
-        }
-        else
-        {
-            gameObject.layer = LayerMask.NameToLayer("Player");
-            yield return new WaitForSeconds(dashCooldown);
-        }
+        // if (IsGroundBelow())
+        // {
+        //     playerInput.enabled = false;
+        //     isGod = true;
+        //     yield return StartCoroutine(FallAndReturnCoroutine());
+        //     playerInput.enabled = true;
+        //     isGod = false;
+        //     Health -= stats.maxHealth / 12; // 낙하 대미지 처리
+        //     gameObject.layer = LayerMask.NameToLayer("Player");
+        // }
+        // else
+        // {
+        gameObject.layer = LayerMask.NameToLayer("Player");
+        yield return new WaitForSeconds(dashCooldown);
+        //}
 
         canUseDash = true;
     }
 
 
 
-    public Tilemap fallTilemap;
-    public void SetGroundTilemap(Tilemap tilemap)
-    {
-        fallTilemap = tilemap;
-    }
-    bool IsGroundBelow()
-    {
-        if (fallTilemap == null)
-            return false;
+    // public Tilemap fallTilemap;
+    // public void SetGroundTilemap(Tilemap tilemap)
+    // {
+    //     fallTilemap = tilemap;
+    // }
+    // bool IsGroundBelow()
+    // {
+    //     if (fallTilemap == null)
+    //         return false;
 
-        Vector3Int cell = fallTilemap.WorldToCell(transform.position);
-        return fallTilemap.HasTile(cell);
-    }
-    IEnumerator FallAndReturnCoroutine()
-    {
+    //     Vector3Int cell = fallTilemap.WorldToCell(transform.position);
+    //     return fallTilemap.HasTile(cell);
+    // }
+    // IEnumerator FallAndReturnCoroutine()
+    // {
 
-        float fallTime = 1.0f;
-        float shrinkDuration = 0.5f;
-        float timer = 0f;
+    //     float fallTime = 1.0f;
+    //     float shrinkDuration = 0.5f;
+    //     float timer = 0f;
 
-        Vector3 originalScale = transform.localScale;
+    //     Vector3 originalScale = transform.localScale;
 
-        // 서서히 작아지며 사라지는 연출
-        while (timer < shrinkDuration)
-        {
-            float t = timer / shrinkDuration;
-            transform.localScale = Vector3.Lerp(originalScale, Vector3.zero, t);
-            timer += Time.deltaTime;
-            yield return null;
-        }
+    //     // 서서히 작아지며 사라지는 연출
+    //     while (timer < shrinkDuration)
+    //     {
+    //         float t = timer / shrinkDuration;
+    //         transform.localScale = Vector3.Lerp(originalScale, Vector3.zero, t);
+    //         timer += Time.deltaTime;
+    //         yield return null;
+    //     }
 
-        transform.localScale = Vector3.zero;
+    //     transform.localScale = Vector3.zero;
 
-        // 잠깐 사라짐
-        yield return new WaitForSeconds(fallTime - shrinkDuration);
+    //     // 잠깐 사라짐
+    //     yield return new WaitForSeconds(fallTime - shrinkDuration);
 
-        // 위치 복구
-        transform.position = lastSafePosition;
+    //     // 위치 복구
+    //     transform.position = lastSafePosition;
 
-        // 스케일 원상복구 (순간적으로 or 부드럽게)
-        timer = 0f;
-        while (timer < 0.3f)
-        {
-            float t = timer / 0.3f;
-            transform.localScale = Vector3.Lerp(Vector3.zero, originalScale, t);
-            timer += Time.deltaTime;
-            yield return null;
-        }
-        transform.localScale = originalScale;
-    }
+    //     // 스케일 원상복구 (순간적으로 or 부드럽게)
+    //     timer = 0f;
+    //     while (timer < 0.3f)
+    //     {
+    //         float t = timer / 0.3f;
+    //         transform.localScale = Vector3.Lerp(Vector3.zero, originalScale, t);
+    //         timer += Time.deltaTime;
+    //         yield return null;
+    //     }
+    //     transform.localScale = originalScale;
+    // }
 
     #endregion
 
@@ -391,25 +395,44 @@ public class PlayerScript : Singleton<PlayerScript>
     #region 공격
     void OnAttack()
     {
+        if (isDead || isDashing || isParrying || isAttacking)
+            return;
+        if (Input.GetMouseButtonDown(0))
+        {
+            // 1. 클릭 위치를 월드좌표로 변환
+            Vector2 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Debug.Log("마우스 월드 좌표: " + mouseWorld);
+            // 2. 해당 위치에 레이캐스트 수행
+            RaycastHit2D hit = Physics2D.Raycast(mouseWorld, Vector2.zero, 30f, LayerMask.GetMask("Enemy"));
+            if (hit.collider != null)
+            {
+                EnemyBase enemy = hit.collider.GetComponent<EnemyBase>();
 
+                if (enemy.CheckStunned())
+                {
+                    Debug.Log("클릭한 적: " + enemy.name);
+                    targetEnemy = enemy;
+
+                    OnAttackInput?.Invoke();
+                    StopCoroutine(AttackStayRoutine);
+                    StartCoroutine(AttackRoutine());
+                }
+            }
+        }
         // AudioManager.Instance.PlaySFX("Parry");
         // FlashParry();
         // ParryRoutine = StartCoroutine(Parry());
-        if (!canUseAttack || isDead || isDashing || isParrying || isAttacking)
-            return;
+
         // if (!currentSkill.IsCooldownReady())
         //     return;
-        OnAttackInput?.Invoke();
-        StopCoroutine(AttackStayRoutine);
-        StartCoroutine(AttackRoutine());
+
 
         // PlayerLogger.Instance.PlusAttackCountLog();
     }
     IEnumerator AttackRoutine()
     {
-        targetEnemy.TakeDamage(1);
         isAttacking = true;
-        canUseAttack = false;
+        //canUseAttack = false;
         rb.linearVelocity = Vector2.zero;
         playerAnim.PlayAttack();
         yield return StartCoroutine(AttackEffect());
@@ -481,7 +504,7 @@ public class PlayerScript : Singleton<PlayerScript>
     public void ParrySuccess(EnemyBase enemy)
     {
         StopCoroutine(ParryRoutine);
-        PerformParryPulse(enemy);
+        //PerformParryPulse(enemy);
         if (ParryStack < stats.maxParryStack)
         {
             ParryStack++;
@@ -512,7 +535,7 @@ public class PlayerScript : Singleton<PlayerScript>
     public void ParrySuccess(EnemyAttackBase enemyAttack)
     {
         StopCoroutine(ParryRoutine);
-        PerformParryPulse(null);
+        // PerformParryPulse(null);
         if (ParryStack < stats.maxParryStack)
         {
             ParryStack++;
@@ -546,6 +569,7 @@ public class PlayerScript : Singleton<PlayerScript>
         yield return new WaitForSeconds(0.1f);
         isGod = false;
     }
+    GameObject attackEffect;
     public IEnumerator AttackEffect()
     {
         CameraManager.Instance.CameraShake(8f, 0.3f);
@@ -562,21 +586,30 @@ public class PlayerScript : Singleton<PlayerScript>
         }
 
 
-        GameObject temp = EffectPooler.Instance.SpawnFromPool("AttackEffect", transform.position, Quaternion.Euler(0, 0, angle));
+        attackEffect = EffectPooler.Instance.SpawnFromPool("AttackEffect", transform.position, Quaternion.Euler(0, 0, angle));
         AudioManager.Instance.PlaySFX("ParrySuccess");
         // yield return FadeController.Instance.FadeOut(Color.white, 0.4f, 0.3f);
         ShaderManager.Instance.CallShockWave();
+        targetEnemy.TakeDamage(1);
         yield return new WaitForSecondsRealtime(0.4f);
         GameManager.Instance.SetTimeScale(0);
         // yield return FadeController.Instance.FadeIn(Color.white, 0);
 
-        temp.SetActive(false);
+        attackEffect.SetActive(false);
 
-        PerformExecutionKnockback();
+        // PerformExecutionKnockback();
 
         GameManager.Instance.SetTimeScale(1);
 
         isGod = false;
+    }
+
+    //Room 클리어 시 연출 변경 후 정상 작동을 위해 임시로 만든 함수입니다. 빠른 개발 용
+    public void ClearSet()
+    {
+        attackEffect.SetActive(false);
+        isGod = false;
+        isAttacking = false;
     }
 
     IEnumerator AttackStay(EnemyBase enemy)
@@ -584,13 +617,13 @@ public class PlayerScript : Singleton<PlayerScript>
         CameraManager.Instance.SetLensSize(6f);
 
         isGod = true;
-        canUseAttack = true;
+        //canUseAttack = true;
         targetEnemy = enemy;
         EffectPooler.Instance.SpawnFromPool("ParryEffect", transform.position + (direction / 2), Quaternion.identity);
         AudioManager.Instance.PlaySFX("ParrySuccess");
         yield return new WaitForSeconds(0.5f);
 
-        canUseAttack = false;
+       // canUseAttack = false;
         isGod = false;
         CameraManager.Instance.SetLensSize(7f);
     }
@@ -868,43 +901,43 @@ public class PlayerScript : Singleton<PlayerScript>
     /// 패링 성공 시 주변 적에게 약한 넉백(파동)을 적용합니다.
     /// </summary>
     /// <param name="parriedEnemy">방금 패링한 대상 (중복 적용 방지용)</param>
-    private void PerformParryPulse(EnemyBase parriedEnemy)
-    {
-        // "Enemy" 레이어를 가진 모든 적을 탐지합니다. (레이어 마스크 이름은 실제 사용하는 이름으로 변경 필요)
-        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, parryPulseRadius, LayerMask.GetMask("Enemy"));
+    // private void PerformParryPulse(EnemyBase parriedEnemy)
+    // {
+    //     // "Enemy" 레이어를 가진 모든 적을 탐지합니다. (레이어 마스크 이름은 실제 사용하는 이름으로 변경 필요)
+    //     Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, parryPulseRadius, LayerMask.GetMask("Enemy"));
 
-        foreach (var hit in hits)
-        {
-            EnemyBase nearbyEnemy = hit.GetComponent<EnemyBase>();
+    //     foreach (var hit in hits)
+    //     {
+    //         EnemyBase nearbyEnemy = hit.GetComponent<EnemyBase>();
 
-            // 탐지된 적이 있고, 방금 패링한 그 적이 아닐 경우에만
-            if (nearbyEnemy != null && nearbyEnemy != parriedEnemy)
-            {
-                Vector2 directionToEnemy = (nearbyEnemy.transform.position - transform.position).normalized;
+    //         // 탐지된 적이 있고, 방금 패링한 그 적이 아닐 경우에만
+    //         if (nearbyEnemy != null && nearbyEnemy != parriedEnemy)
+    //         {
+    //             Vector2 directionToEnemy = (nearbyEnemy.transform.position - transform.position).normalized;
 
 
-                nearbyEnemy.KnockBack(parryPulseKnockbackForce);
-            }
-        }
-    }
+    //             nearbyEnemy.KnockBack(parryPulseKnockbackForce);
+    //         }
+    //     }
+    // }
     /// <summary>
     /// 처형(공격)이 끝난 직후 주변의 모든 적을 강하게 밀쳐냅니다.
     /// </summary>
-    private void PerformExecutionKnockback()
-    {
-        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, executionKnockbackRadius, LayerMask.GetMask("Enemy"));
+    //     private void PerformExecutionKnockback()
+    //     {
+    //         Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, executionKnockbackRadius, LayerMask.GetMask("Enemy"));
 
-        foreach (var hit in hits)
-        {
-            EnemyBase nearbyEnemy = hit.GetComponent<EnemyBase>();
+    //         foreach (var hit in hits)
+    //         {
+    //             EnemyBase nearbyEnemy = hit.GetComponent<EnemyBase>();
 
-            // 처형 당한 적(targetEnemy)은 이미 처리되었으므로, 살아있는 다른 적들만 밀쳐냅니다.
-            if (nearbyEnemy != null && nearbyEnemy != targetEnemy)
-            {
-                Vector2 directionToEnemy = (nearbyEnemy.transform.position - transform.position).normalized;
+    //             // 처형 당한 적(targetEnemy)은 이미 처리되었으므로, 살아있는 다른 적들만 밀쳐냅니다.
+    //             if (nearbyEnemy != null && nearbyEnemy != targetEnemy)
+    //             {
+    //                 Vector2 directionToEnemy = (nearbyEnemy.transform.position - transform.position).normalized;
 
-                nearbyEnemy.KnockBack(executionKnockbackForce);
-            }
-        }
-    }
+    //                 nearbyEnemy.KnockBack(executionKnockbackForce);
+    //             }
+    //         }
+    //     }
 }

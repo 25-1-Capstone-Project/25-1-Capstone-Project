@@ -56,7 +56,7 @@ public class Room : MonoBehaviour
         }
         else
         {
-            ClearRoom();
+            StartCoroutine(ClearRoom());
         }
     }
 
@@ -66,16 +66,26 @@ public class Room : MonoBehaviour
         StartWave();
     }
 
-    public void ClearRoom()
+    public IEnumerator ClearRoom()
     {
+        PlayerScript.Instance.StopAllCoroutines();
+        GameManager.Instance.SetTimeScale(0.5f);
+        ShaderManager.Instance.SetBleackScreen(true);
+        PlayerScript.Instance.SetActivePlayerInput(false);
+        yield return new WaitForSecondsRealtime(1f);
+        ShaderManager.Instance.SetBleackScreen(false);
+        PlayerScript.Instance.ClearSet();
+        GameManager.Instance.SetTimeScale(1);
+
+        UIManager.Instance.SetActiveSuccessUI(true);
         isRoomCleared = true;
     }
+
 }
 
 [Serializable]
 public class Wave
 {
-    [Tooltip("웨이브 시작까지 대기")]
     public float startDelay = 0f;
     public EnemySpawn[] spawns;
 }

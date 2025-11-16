@@ -39,7 +39,7 @@ public class UIManager : Singleton<UIManager>
     }
     public void SetActiveSuccessUI(bool active)
     {
-        MainMenuUI.SetActive(active);
+        successInfo.SetActiveDeadInfoPanel(active);
     }
     public void SetActiveGuideUI(bool active, string msg = "")
     {
