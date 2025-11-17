@@ -25,9 +25,8 @@ public class UI_Pause : MonoBehaviour
 
     public void TogglePause()
     {
-
         bool isPaused = pauseMenu.activeSelf;
-        PlayerScript.Instance.SetActivePlayerInput(isPaused);
+         GameManager.Instance.playerScript?.SetActivePlayerInput(isPaused);
         pauseMenu.SetActive(!isPaused);
         float time = isPaused ? 1f : 0f;
         GameManager.Instance.SetTimeScale(time);
@@ -38,9 +37,9 @@ public class UI_Pause : MonoBehaviour
         settingsMenu.SetActive(true);
     }
 
-    public void CloseSettings()
+    public void SetActiveSettings()
     {
-        settingsMenu.SetActive(false);
+        settingsMenu.SetActive(!settingsMenu.activeSelf );
     }
 
     public void OpenControls()
@@ -56,8 +55,6 @@ public class UI_Pause : MonoBehaviour
     {
 
         pauseMenu.SetActive(false);
-        GameManager.Instance.SetTimeScale(1f);
-        Destroy(PlayerScript.Instance.gameObject);
         GameManager.Instance.ChangeStateByEnum(EGameState.MainMenu);
 
     }

@@ -8,7 +8,7 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] GameObject InGameUI;
     [SerializeField] GameObject MainMenuUI;
     [SerializeField] GameObject OptionUI;
-
+    [SerializeField] GameObject StageUI;
 
     [Header("인게임")]
     public UI_PlayerStatus playerStatUI;
@@ -36,6 +36,10 @@ public class UIManager : Singleton<UIManager>
     public void SetActiveMainMenuUI(bool active)
     {
         MainMenuUI.SetActive(active);
+    }
+    public void SetActiveStageUI(bool active)
+    {
+        StageUI.SetActive(active);
     }
     public void SetActiveOptionUI()
     {

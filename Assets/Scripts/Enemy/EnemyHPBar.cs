@@ -24,7 +24,7 @@ public class EnemyHPBar : MonoBehaviour
 
     public void Show()
     {
-        Debug.Log("EnemyHPBar Show() called");
+//        Debug.Log("EnemyHPBar Show() called");
         if (healthBarCanvas != null)
         {
             healthSlider.value = 1f;

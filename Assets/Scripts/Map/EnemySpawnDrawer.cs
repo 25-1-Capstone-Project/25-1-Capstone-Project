@@ -8,7 +8,7 @@ public class EnemySpawnDrawer : PropertyDrawer
 {
     const float BtnHeight = 20f;
     const float Extra = 22f;
-
+    private const string MARKER_PREFAB_PATH = "Assets/Prefab/Enemy/EnemySpawnMaker.prefab";
     public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         => EditorGUI.GetPropertyHeight(property, label, true) + Extra;
 
@@ -19,13 +19,13 @@ public class EnemySpawnDrawer : PropertyDrawer
         var fieldRect = new Rect(pos.x, pos.y, pos.width, pos.height - Extra);
         EditorGUI.PropertyField(fieldRect, prop, label, true);
 
-        var enemyProp  = prop.FindPropertyRelative("enemyData");
+        var enemyProp = prop.FindPropertyRelative("enemyData");
         var markerProp = prop.FindPropertyRelative("marker");
 
         int waveIdx0 = GetWaveIndex(prop);
-        int waveNo   = (waveIdx0 >= 0) ? (waveIdx0 + 1) : -1;
+        int waveNo = (waveIdx0 >= 0) ? (waveIdx0 + 1) : -1;
 
-        var btnRect  = new Rect(pos.x, pos.yMax - BtnHeight, pos.width, BtnHeight);
+        var btnRect = new Rect(pos.x, pos.yMax - BtnHeight, pos.width, BtnHeight);
 
         using (new EditorGUI.DisabledScope(enemyProp.objectReferenceValue == null))
         {
@@ -70,14 +70,26 @@ public class EnemySpawnDrawer : PropertyDrawer
         }
         if (parent == null) parent = Selection.activeTransform;
 
-        var markerGO = new GameObject("EnemySpawnMarker");
+        // 프리펩에서 인스턴스 생성
+        GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(MARKER_PREFAB_PATH);
+        if (prefab == null)
+        {
+            Debug.LogError($"프리펩을 찾을 수 없습니다: {MARKER_PREFAB_PATH}");
+            return;
+        }
+
+        GameObject markerGO = PrefabUtility.InstantiatePrefab(prefab, parent) as GameObject;
         Undo.RegisterCreatedObjectUndo(markerGO, "Create Enemy Spawn Marker");
-        if (parent) markerGO.transform.SetParent(parent, false);
 
         Vector3 spawnPos = SceneView.lastActiveSceneView ? SceneView.lastActiveSceneView.pivot : Vector3.zero;
         markerGO.transform.position = spawnPos;
 
-        var marker = markerGO.AddComponent<EnemySpawnMarker>();
+        var marker = markerGO.GetComponent<EnemySpawnMarker>();
+        if (marker == null)
+        {
+            Debug.LogError("프리펩에 EnemySpawnMarker 컴포넌트가 없습니다");
+            return;
+        }
 
         var enemyProp = spawnProp.FindPropertyRelative("enemyData");
         SyncMarker(marker, enemyProp, waveNo);
@@ -86,19 +98,15 @@ public class EnemySpawnDrawer : PropertyDrawer
         markerProp.objectReferenceValue = marker;
 
         spawnProp.serializedObject.ApplyModifiedProperties();
-
-        // 선택/핑 제거
-        // Selection.activeGameObject = markerGO;
-        // EditorGUIUtility.PingObject(markerGO);
     }
 
     void SyncMarker(EnemySpawnMarker marker, SerializedProperty enemyProp, int waveNo)
     {
-        var enemySO   = enemyProp.objectReferenceValue as EnemyDataBase;
+        var enemySO = enemyProp.objectReferenceValue as EnemyDataBase;
         var enemyName = enemySO ? (string.IsNullOrEmpty(enemySO.Name) ? enemySO.name : enemySO.Name) : "Enemy";
 
         string waveTag = (waveNo > 0) ? $"W{waveNo}" : "W?";
-        string label   = $"{waveTag}-{enemyName}";
+        string label = $"{waveTag}-{enemyName}";
 
         if (marker.label != label)
         {

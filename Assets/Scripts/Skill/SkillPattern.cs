@@ -3,17 +3,17 @@ using System.Collections;
 
 public abstract class SkillPattern : ScriptableObject
 {
- 
+
     public int damage = 0;
     public int ultimateDamage = 0;
     public int commonCost = 0;
     public int ultimateCost = 0;
     public int cooldown = 0;
     public Sprite skillIcon;
-    
+
     public bool ParryStackCheck()
     {
-        if (PlayerScript.Instance.ParryStack >= ultimateCost)
+        if (GameManager.Instance.playerScript.ParryStack >= ultimateCost)
         {
             return true;
         }

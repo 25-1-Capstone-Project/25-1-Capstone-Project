@@ -10,14 +10,14 @@ public class Enemy_SpearAttack : EnemyAttackPattern
     public override IEnumerator Execute(EnemyBase enemy)
     {
         enemy.GetRigidbody().linearVelocity = Vector2.zero;
-      
 
-        Vector2 dir = (PlayerScript.Instance.transform.position - enemy.transform.position).normalized;
+
+        Vector2 dir = (GameManager.Instance.playerScript.transform.position - enemy.transform.position).normalized;
         Vector2 startPos = enemy.transform.position;
         Vector2 endPos = startPos + dir * attackDistance;
 
         //이펙트
-       // LineRenderer spearEffect = EffectPooler.Instance.SpawnFromPool<LineRenderer>("AttackSpearEffect");
+        // LineRenderer spearEffect = EffectPooler.Instance.SpawnFromPool<LineRenderer>("AttackSpearEffect");
         // spearEffect.useWorldSpace = true;
         // spearEffect.SetPosition(0, startPos);
         // spearEffect.SetPosition(1, endPos);
@@ -32,12 +32,12 @@ public class Enemy_SpearAttack : EnemyAttackPattern
         while (time < attackChargeSec)
         {
             float t = time / attackChargeSec;
-          //  spearEffect.startWidth = spearEffect.endWidth = effectWidth * (1 - t);
+            //  spearEffect.startWidth = spearEffect.endWidth = effectWidth * (1 - t);
             time += Time.deltaTime;
             yield return null;
         }
 
-       // spearEffect.gameObject.SetActive(false);
+        // spearEffect.gameObject.SetActive(false);
         time = 0f;
         bool hasDealtDamage = false;
 
@@ -55,7 +55,7 @@ public class Enemy_SpearAttack : EnemyAttackPattern
 
                 if (hit != null && hit.CompareTag("Player"))
                 {
-                    PlayerScript.Instance.TakeAttack(enemy);
+                    GameManager.Instance.playerScript.TakeAttack(enemy);
                     hasDealtDamage = true;
                 }
 

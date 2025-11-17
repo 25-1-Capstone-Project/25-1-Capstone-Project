@@ -46,7 +46,7 @@ public class SkillSelectItem : MonoBehaviour
     {
         if (playerInRange && Input.GetKeyDown(KeyCode.K))
         {
-            PlayerScript.Instance.SkillSetting(skillIndex);
+             GameManager.Instance.playerScript.SkillSetting(skillIndex);
             Destroy(gameObject);
         }
     }

@@ -30,6 +30,6 @@ public class ScenePortalTrigger : MonoBehaviour
         }
 
 
-        SceneTransitionManager.Instance.TransitionScene(dungeonType,targetGameState);
+       // SceneTransitionManager.Instance.TransitionScene(dungeonType,targetGameState);
     }
 }

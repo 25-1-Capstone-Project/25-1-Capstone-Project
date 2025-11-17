@@ -17,7 +17,7 @@ public class Enemy_NinjaAttack : EnemyAttackPattern
                 2 => new Vector2(0, attackRange),
                 _ => new Vector2(0, -attackRange),
             };
-            Vector2 playerPos = PlayerScript.Instance.GetPlayerTransform().position;
+            Vector2 playerPos =  GameManager.Instance.playerScript.GetPlayerTransform().position;
             Vector2 direction = offset.normalized;
             Vector2 pos;
             // Raycast 발사
@@ -41,7 +41,7 @@ public class Enemy_NinjaAttack : EnemyAttackPattern
             enemy.GetRigidbody().linearVelocity = Vector2.zero;
 
 
-            Vector2 dir = (PlayerScript.Instance.transform.position - enemy.transform.position).normalized;
+            Vector2 dir = ( GameManager.Instance.playerScript.transform.position - enemy.transform.position).normalized;
             Vector2 startPos = enemy.transform.position;
             Vector2 endPos = startPos + dir * attackDistance;
             enemy.GetAnimatorController().PlayAttack();
@@ -75,7 +75,7 @@ public class Enemy_NinjaAttack : EnemyAttackPattern
 
                     if (hit != null && hit.CompareTag("Player"))
                     {
-                        PlayerScript.Instance.TakeAttack(enemy);
+                        GameManager.Instance.playerScript.TakeAttack(enemy);
                         hasDealtDamage = true;
                     }
 

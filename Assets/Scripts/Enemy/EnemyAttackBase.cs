@@ -12,7 +12,7 @@ public class EnemyAttackBase : MonoBehaviour
     Vector2 directionVec;
     public int GetDamage() => damage;
     public void SetDamage(int damage) => this.damage = damage;
-    public Vector2 GetDirectionVec() => PlayerScript.Instance.GetPlayerTransform().position - transform.position;
+    public Vector2 GetDirectionVec() => GameManager.Instance.playerScript.GetPlayerTransform().position - transform.position;
     public Vector2 GetDirectionNormalVec() => GetDirectionVec().normalized;
     public PlayerAttack playerAttack;
 

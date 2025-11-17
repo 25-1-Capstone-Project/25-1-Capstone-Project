@@ -10,7 +10,7 @@ public class AbilityRewardSystem : MonoBehaviour
 
     public void ShowAbilityChoices()
     {
-        List<AbilityData> candidates = database.GetUnlockedAbilities(PlayerScript.Instance.GetUnlockedAbilities());
+        List<AbilityData> candidates = database.GetUnlockedAbilities(GameManager.Instance.playerScript.GetUnlockedAbilities());
         
         if (candidates == null || candidates.Count == 0) return;
 
@@ -21,7 +21,7 @@ public class AbilityRewardSystem : MonoBehaviour
 
         for (int i = 0; i < choiceButtons.Length; i++)
         {
-            //Debug.Log("µà¹Ù");
+            //Debug.Log("ï¿½ï¿½ï¿½");
             if (i < choices.Count)
                 choiceButtons[i].Setup(choices[i], OnAbilityChosen);
             else
@@ -34,10 +34,10 @@ public class AbilityRewardSystem : MonoBehaviour
         abilityWindow.SetActive(false);
         GameManager.Instance.SetTimeScale(1f);
 
-        var abilityManager = PlayerScript.Instance.GetComponent<AbilityManager>();
+        var abilityManager = GameManager.Instance.playerScript.GetComponent<AbilityManager>();
         var instance = Instantiate(chosen.abilityPrefab).GetComponent<PlayerAbility>();
         abilityManager.EquipAbility(instance);
 
-        PlayerScript.Instance.RegisterUnlockedAbility(chosen);
+        GameManager.Instance.playerScript.RegisterUnlockedAbility(chosen);
     }
 }

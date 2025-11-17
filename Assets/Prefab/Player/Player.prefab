@@ -143,7 +143,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bdcf287498a55d42a10b726385e34a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canUseAttack: 0
   targetEnemy: {fileID: 0}
   canUseParry: 1
   dashDistance: 3
@@ -161,7 +160,6 @@ MonoBehaviour:
   spriteRenderer: {fileID: 2622820292897668436}
   ghost: {fileID: 8840144759729888683}
   skillParticle: {fileID: 6064639693487206674}
-  fallTilemap: {fileID: 0}
   knockBackForce: 2
 --- !u!114 &6366903998483742144
 MonoBehaviour:
@@ -604,8 +602,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -614327789
-  m_SortingLayer: -4
+  m_SortingLayerID: -1952541965
+  m_SortingLayer: -3
   m_SortingOrder: 0
   m_Sprite: {fileID: 9128384846270689552, guid: 3efb5761b1602814a83c6a1a160f2c0f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

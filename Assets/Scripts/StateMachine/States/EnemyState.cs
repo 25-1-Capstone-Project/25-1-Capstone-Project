@@ -50,7 +50,7 @@ public class ChaseState : EnemyState, IFixedUpdateState, ILateUpdateState
 
     public override void Enter()
     {
-        enemy.IsStunned = false;
+
         enemy.GetAnimatorController().PlayChase();
     }
 
@@ -134,23 +134,24 @@ public class ParriedState : EnemyState
         enemy.StartCoroutine(ParriedRoutine());
         enemy.enemyShaderController.OnOutline();
         enemy.IsStunned = true;
+        enemy.gameObject.layer = LayerMask.NameToLayer("Enemy");
     }
     public IEnumerator ParriedRoutine()
     {
         enemy.GetRigidbody().linearVelocity = Vector2.zero;
 
         //그로기 애니메이션 재생
-        if (enemy.GetData().dontStopEnemy)
-            yield return new WaitForSeconds(0.3f);
-        else
-            yield return new WaitForSeconds(2f);
+        // if (enemy.GetData().dontStopEnemy)
+        //     yield return new WaitForSeconds(0.3f);
+        // else
+        yield return new WaitForSeconds(2f);
         enemy.InitStamina();
         enemy.enemyShaderController.OffOutline();
 
         enemy.StateMachine.ChangeState<ChaseState>();
     }
     public override void Update() { }
-    public override void Exit() { }
+    public override void Exit() { enemy.IsStunned = false; }
 }
 
 public class DamagedState : EnemyState
@@ -211,6 +212,7 @@ public class DeadState : EnemyState
         //     Object.Instantiate(enemy.skillSelectItemPrefab, enemy.transform.position, Quaternion.identity);
         // }
         enemy.GetAnimatorController().PlayDeath();
+    
         EnemyManager.Instance.KillEnemy();
         yield return new WaitForSeconds(1f);
         Object.Destroy(enemy.gameObject);

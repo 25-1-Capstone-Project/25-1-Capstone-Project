@@ -16,8 +16,8 @@ public class UI_PlayerStatus : MonoBehaviour
   
     public void UI_ParryCooldownUpdate()
     {
-        cooldownImage.fillAmount = PlayerScript.Instance.ParryCooldownRatio;
-        Vector3 worldPos = PlayerScript.Instance.transform.position + uiOffset;
+        cooldownImage.fillAmount =  GameManager.Instance.playerScript.ParryCooldownRatio;
+        Vector3 worldPos =  GameManager.Instance.playerScript.transform.position + uiOffset;
         cooldownUI.position = Camera.main.WorldToScreenPoint(worldPos);
     }
 

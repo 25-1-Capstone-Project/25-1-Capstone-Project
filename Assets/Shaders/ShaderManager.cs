@@ -7,6 +7,8 @@ public class ShaderManager : Singleton<ShaderManager>
     protected override void Awake()
     {
         base.Awake();
+        blackScreen.CallBlackScreen(false);
+        shockwave.CallShockWave(Vector2.zero);
     }
     void Update()
     {
@@ -14,11 +16,11 @@ public class ShaderManager : Singleton<ShaderManager>
         {
             CallShockWave();
         }
-       
+
     }
     public void CallShockWave()
     {
-        Vector2 point = Camera.main.WorldToViewportPoint(PlayerScript.Instance.GetPlayerTransform().position);
+        Vector2 point = Camera.main.WorldToViewportPoint( GameManager.Instance.playerScript.GetPlayerTransform().position);
         shockwave.CallShockWave(point);
     }
 

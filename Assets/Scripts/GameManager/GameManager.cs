@@ -4,12 +4,13 @@ using UnityEngine;
 
 
 public enum EDungeonType { Null = -1, BlueDragon, WhiteTiger, RedBird, BlackTortoise }
-public enum EGameState { MainMenu, Hub, Dungeon, Paused };
+public enum EGameState { MainMenu, Room, Paused };
 public class GameManager : Singleton<GameManager>
 {
     [SerializeField] GameObject PlayerPrefab;
     public StateMachine<GameState> StateMachine { get; private set; }
     private GameObject playerObj;
+    public PlayerScript playerScript;
     public EDungeonType currentDungeonType = EDungeonType.Null;
     // public MapReference[] mapData;
     public int CurrentDungeonFloor { get; set; } = 0;
@@ -25,9 +26,8 @@ public class GameManager : Singleton<GameManager>
     {
         StateMachine = new StateMachine<GameState>();
         StateMachine.AddState(new MainMenuState(this));
-        StateMachine.AddState(new StageState(this));
-        StateMachine.AddState(new DungeonState(this));
-
+        //   StateMachine.AddState(new StageState(this));
+        StateMachine.AddState(new RoomState(this));
         StateMachine.ChangeState<MainMenuState>();
     }
 
@@ -69,8 +69,10 @@ public class GameManager : Singleton<GameManager>
     }
     public void InstancePlayer()
     {
-        if (playerObj == null)
-            playerObj = Instantiate(PlayerPrefab);
+        if (playerObj != null) return;
+
+        playerObj = Instantiate(PlayerPrefab);
+        playerScript = playerObj.GetComponent<PlayerScript>();
     }
 
     public Vector2 SearchSpawnPoint()
@@ -86,11 +88,11 @@ public class GameManager : Singleton<GameManager>
             case EGameState.MainMenu:
                 StateMachine.ChangeState<MainMenuState>();
                 break;
-            case EGameState.Hub:
-                StateMachine.ChangeState<StageState>();
-                break;
-            case EGameState.Dungeon:
-                StateMachine.ChangeState<DungeonState>();
+            // case EGameState.Hub:
+            //     StateMachine.ChangeState<StageState>();
+            //     break;
+            case EGameState.Room:
+                StateMachine.ChangeState<RoomState>();
                 break;
             default:
                 Debug.LogWarning($"Unknown GameState: {gameState}");
@@ -114,19 +116,17 @@ public class GameManager : Singleton<GameManager>
 
     public void StartButton()
     {
-        StateMachine.ChangeState<DungeonState>();
+        //  StateMachine.ChangeState<DungeonState>();
+        UIManager.Instance.SetActiveMainMenuUI(false);
+        UIManager.Instance.SetActiveStageUI(true);
     }
 
     public void PlayerSpawn(Vector2 targetPos)
     {
-        PlayerScript.Instance.SetPlayerPosition(targetPos);
+        playerScript.SetPlayerPosition(targetPos);
         CameraManager.Instance.SetCameraPosition(targetPos);
     }
-    public void SetPlayerPos(Vector2 pos)
-    {
-        PlayerScript.Instance.SetPlayerPosition(pos);
-        CameraManager.Instance.SetCameraPosition(pos);
-    }
+
 
     public void QuitGame()
     {

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class StageManager : Singleton<StageManager>
 {
@@ -18,30 +19,27 @@ public class StageManager : Singleton<StageManager>
     public Room GetCurrentRoom() => currentRoom;
     public void CreateRound()
     {
-        SetRoomList(originRoomList);
+        // SetRoomList(originRoomList);
         CreateRoom();
         ResetAstarPath();
-        Vector2 pos = GameManager.Instance.SearchSpawnPoint();
-        GameManager.Instance.SetPlayerPos(pos);
-
     }
 
     void CreateRoom()
     {
         if (CreatedRoom != null)
             Destroy(CreatedRoom);
+        
         CreatedRoom = Instantiate(originRoomList[curRoomIndex], Vector3.zero, Quaternion.identity);
-
         CreatedRoom.SetActive(true);
         currentRoom = CreatedRoom.GetComponent<Room>();
         currentRoom.InitRoom();
     }
     public void NextRound()
     {
-        PlayerScript.Instance.InitPlayer();
+        GameManager.Instance.playerScript.InitPlayer();
         curRoomIndex++;
         CreateRound();
-        UIManager.Instance. successUI.SetActiveDeadInfoPanel(false);
+        UIManager.Instance.successUI.SetActiveDeadInfoPanel(false);
     }
     void SetRoomList(GameObject[] rooms)
     {
@@ -51,9 +49,12 @@ public class StageManager : Singleton<StageManager>
             (rooms[i], rooms[j]) = (rooms[j], rooms[i]); // swap
         }
     }
-
     public void ResetAstarPath()
     {
         astarPath.Scan();
+    }
+    public void SelectRoom(int index)
+    {
+        curRoomIndex = index;
     }
 }

@@ -18,13 +18,14 @@ public class Room : MonoBehaviour
 
     [Header("Wave")]
     [SerializeField] int waveIndex = 0;
-   
+
     public Wave[] waves;
 
     public void InitRoom()
     {
         isRoomCleared = false;
         waveIndex = 0;
+        EnemyManager.Instance.InitSpawnedEnemy();
         StartWave();
     }
 
@@ -39,11 +40,12 @@ public class Room : MonoBehaviour
 
     IEnumerator StartWaveRoutine()
     {
+        yield return null; // 한 프레임 대기
         var wave = waves[Mathf.Clamp(waveIndex, 0, waves.Length - 1)];
         if (wave.startDelay > 0) yield return new WaitForSeconds(wave.startDelay);
 
-        foreach (var s in wave.spawns) { EnemyManager.Instance.EnemySpawn(s.enemyData, s.marker.transform.position); }
-       
+        foreach (var s in wave.spawns) { EnemyManager.Instance.EnemySpawn(s.enemyData, s.marker); }
+
     }
 
 
@@ -68,13 +70,13 @@ public class Room : MonoBehaviour
 
     public IEnumerator ClearRoom()
     {
-        PlayerScript.Instance.StopAllCoroutines();
+        GameManager.Instance.playerScript.StopAllCoroutines();
         GameManager.Instance.SetTimeScale(0.5f);
         ShaderManager.Instance.SetBleackScreen(true);
-        PlayerScript.Instance.SetActivePlayerInput(false);
+        GameManager.Instance.playerScript.SetActivePlayerInput(false);
         yield return new WaitForSecondsRealtime(1f);
         ShaderManager.Instance.SetBleackScreen(false);
-        PlayerScript.Instance.ClearSet();
+        GameManager.Instance.playerScript.ClearSet();
         GameManager.Instance.SetTimeScale(1);
 
         UIManager.Instance.successUI.SetActiveDeadInfoPanel(true);

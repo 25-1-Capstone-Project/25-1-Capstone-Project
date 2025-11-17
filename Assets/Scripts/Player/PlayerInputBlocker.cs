@@ -11,7 +11,7 @@ public static class PlayerInputBlocker
     public static void Block(bool state)
     {
         isBlocked = state;
-        PlayerInput input = PlayerScript.Instance.GetComponent<PlayerInput>();
+        PlayerInput input =  GameManager.Instance.playerScript.GetComponent<PlayerInput>();
         input.enabled = !state;
     }
 }

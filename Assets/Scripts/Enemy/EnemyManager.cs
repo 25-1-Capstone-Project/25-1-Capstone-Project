@@ -1,4 +1,5 @@
 using System.Collections;
+using UnityEditor.Animations;
 using UnityEngine;
 
 public class EnemyManager : Singleton<EnemyManager>
@@ -19,6 +20,7 @@ public class EnemyManager : Singleton<EnemyManager>
     }
     public void KillEnemy()
     {
+
         spawnedEnemy--;
 
         if (spawnedEnemy <= 0)
@@ -28,14 +30,16 @@ public class EnemyManager : Singleton<EnemyManager>
         }
     }
 
-    public void EnemySpawn(EnemyDataBase enemyData, Vector2 spawnPos)
+    public void EnemySpawn(EnemyDataBase enemyData, EnemySpawnMarker maker)
     {
-
-        GameObject enemyObj = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
+        GameObject enemyObj = Instantiate(enemyPrefab, maker.transform.position, Quaternion.identity);
         enemyObj.transform.localScale *= enemyData.sizeMagnification;
         EnemyBase enemy = enemyObj.GetComponent<EnemyBase>();
         enemy.SetEnemyData(enemyData);
         enemy.Init();
+    
+        Animator anim = maker.GetComponent<Animator>();
+        anim.SetTrigger("Spawn");
         spawnedEnemy++;
     }
 

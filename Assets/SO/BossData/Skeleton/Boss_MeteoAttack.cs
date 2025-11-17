@@ -3,7 +3,7 @@ using System.Collections;
 [CreateAssetMenu(menuName = "Boss/AttackPattern/Skeleton/Boss_MeteoAttack")]
 class Boss_MeteoAttack : EnemyAttackPattern
 {
-    [SerializeField] float attackCount = 5;
+
     public override IEnumerator Execute(EnemyBase boss)
     {  
         boss.GetAnimatorController().PlayAttack();
@@ -13,7 +13,7 @@ class Boss_MeteoAttack : EnemyAttackPattern
         for (int i = 0; i < attackCount; i++)
         {
             //플레이어의 위치에 보석을 떨굼 맞으면 데미지
-            Vector2 playerPos = PlayerScript.Instance.transform.position;
+            Vector2 playerPos =  GameManager.Instance.playerScript.transform.position;
             GameObject meteoProj = EffectPooler.Instance.SpawnFromPool("Skeleton_MeteoProjectile",playerPos);
             FallingAttack enemyAttack = meteoProj.GetComponent<FallingAttack>();
             enemyAttack.SetDamage(boss.GetDamage());

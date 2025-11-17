@@ -27,7 +27,7 @@ public class SkillSelectNPC : MonoBehaviour
     {
         if (isPlayerInRange && Input.GetKeyDown(KeyCode.K))
         {
-            PlayerScript.Instance.OpenSkillWindow();
+            GameManager.Instance.playerScript.OpenSkillWindow();
             dialogText.SetActive(false);
         }
     }

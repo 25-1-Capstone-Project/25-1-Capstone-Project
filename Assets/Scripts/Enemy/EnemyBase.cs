@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyBase : MonoBehaviour
@@ -19,9 +20,9 @@ public class EnemyBase : MonoBehaviour
     public StateMachine<IEnemyState> StateMachine { get; protected set; }
 
     // Common States
-    public bool IsAttacking ;// 공격 중인지 여부 (State에서 제어)
+    public bool IsAttacking;// 공격 중인지 여부 (State에서 제어)
     protected bool isDead = false;
-    public bool IsStunned ;
+    public bool IsStunned;
     public bool CheckStunned() => IsStunned;
 
     public int _stamina;
@@ -65,6 +66,7 @@ public class EnemyBase : MonoBehaviour
     protected virtual void Start()
     {
         Init();
+
     }
 
     protected virtual void Update()
@@ -109,7 +111,7 @@ public class EnemyBase : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         aIAgent = GetComponent<AIAgent>();
-        // null 체크를 추가하여 안정성 확보
+        // null 체크
         if (animController != null && data != null)
         {
             animController.SetAnimator(data.animator);
@@ -134,6 +136,7 @@ public class EnemyBase : MonoBehaviour
         _currentHealth = data.maxHealth;
         _stamina = data.stamina;
         isDead = false;
+
     }
     public void InitStamina()
     {
@@ -158,7 +161,7 @@ public class EnemyBase : MonoBehaviour
         // 초기 상태 설정
         StateMachine.ChangeState<IdleState>();
     }
-  
+
     #endregion
 
     #region Common Actions & Behaviours
@@ -170,11 +173,11 @@ public class EnemyBase : MonoBehaviour
         AudioManager.Instance.PlaySFX("AttackHit"); // 오디오 매니저가 있다면
         Health -= damage;
         FlashSprite(Color.red, 0.1f);
-        hpBar?.SetHealth(_currentHealth, data.maxHealth);
+        //hpBar?.SetHealth(_currentHealth, data.maxHealth);
     }
     protected virtual void OnParried()
     {
-        if(!data.dontStopEnemy) stunEffect.Play();
+        if (!data.dontStopEnemy) stunEffect.Play();
         StateMachine.ChangeState<ParriedState>();
     }
 
@@ -191,7 +194,7 @@ public class EnemyBase : MonoBehaviour
         isDead = true;
         StateMachine.ChangeState<DeadState>();
         PlayerLogger.Instance.PlusEnemyKilledLog(); // 적 처치 기록
-        hpBar?.Hide();
+                                                    // hpBar?.Hide();
     }
 
     public void KnockBack(float knockBackForce)
@@ -253,7 +256,7 @@ public class EnemyBase : MonoBehaviour
     public EnemyAnimatorController GetAnimatorController() => animController;
     public EnemyDataBase GetData() => data;
 
-    public Vector2 GetDirectionToPlayerVec() => PlayerScript.Instance.GetPlayerTransform().position - transform.position;
+    public Vector2 GetDirectionToPlayerVec() => GameManager.Instance.playerScript.GetPlayerTransform().position - transform.position;
     public Vector2 GetDirectionNormalVec() => GetDirectionToPlayerVec().normalized;
 
     public void SetEnemyData(EnemyDataBase newData) => this.data = newData;

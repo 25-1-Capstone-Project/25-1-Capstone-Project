@@ -12,13 +12,9 @@ using UnityEngine.Tilemaps;
 /// 씬 전환 시 플레이어의 상태를 저장하고 불러오는 기능도 포함되어 있습니다.
 /// 이 스크립트는 Singleton 패턴을 사용합니다.
 /// </summary>
-public class PlayerScript : Singleton<PlayerScript>
+public class PlayerScript : MonoBehaviour
 {
-    protected override void Awake()
-    {
-        base.Awake();
-    }
-
+ 
     [Header("방향 관련")]
     Vector2 moveVec;
     Vector2 lookInput;
@@ -172,7 +168,10 @@ public class PlayerScript : Singleton<PlayerScript>
 
         SetActivePlayerInput(true);
     }
-
+    public void DestroyPlayer()
+    {
+        Destroy(gameObject);
+    }
     #region GetSetFunction
     public PlayerRuntimeStats GetPlayerRuntimeStats() => stats;
     public bool GetIsDead() => isDead;
@@ -399,10 +398,10 @@ public class PlayerScript : Singleton<PlayerScript>
             return;
         if (Input.GetMouseButtonDown(0))
         {
-            // 1. 클릭 위치를 월드좌표로 변환
+            // 클릭 위치를 월드좌표로 변환
             Vector2 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Debug.Log("마우스 월드 좌표: " + mouseWorld);
-            // 2. 해당 위치에 레이캐스트 수행
+
+            // 해당 위치에 레이캐스트
             RaycastHit2D hit = Physics2D.Raycast(mouseWorld, Vector2.zero, 30f, LayerMask.GetMask("Enemy"));
             if (hit.collider != null)
             {
@@ -410,7 +409,6 @@ public class PlayerScript : Singleton<PlayerScript>
 
                 if (enemy.CheckStunned())
                 {
-                    Debug.Log("클릭한 적: " + enemy.name);
                     targetEnemy = enemy;
 
                     OnAttackInput?.Invoke();
@@ -623,7 +621,7 @@ public class PlayerScript : Singleton<PlayerScript>
         AudioManager.Instance.PlaySFX("ParrySuccess");
         yield return new WaitForSeconds(0.5f);
 
-       // canUseAttack = false;
+        // canUseAttack = false;
         isGod = false;
         CameraManager.Instance.SetLensSize(7f);
     }
@@ -711,7 +709,7 @@ public class PlayerScript : Singleton<PlayerScript>
         isKnockback = true; // 넉백 시작
         AudioManager.Instance.PlaySFX("Hit");
         playerAnim.PlayDamaged();
-        KnockBack(forceDir, knockBackForce);
+       // KnockBack(forceDir, knockBackForce);
         yield return StartCoroutine(FlashRoutine(hitColor));
 
         rb.linearVelocity = Vector2.zero;

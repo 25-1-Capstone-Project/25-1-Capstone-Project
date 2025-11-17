@@ -13,7 +13,7 @@ public class PlayerCollision : MonoBehaviour
         {
             case "EnemyAttack":
                 EnemyAttackBase enemyAttack = other.GetComponent<EnemyAttackBase>();
-                PlayerScript.Instance.TakeAttack(enemyAttack);
+                 GameManager.Instance.playerScript.TakeAttack(enemyAttack);
                 break;
         }
 

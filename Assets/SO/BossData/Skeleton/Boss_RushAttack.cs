@@ -3,17 +3,17 @@ using System.Collections;
 [CreateAssetMenu(menuName = "Boss/AttackPattern/Skeleton/Boss_RushAttack")]
 class Boss_RushAttack : EnemyAttackPattern
 {
-    [SerializeField]float attackDistance;
+    [SerializeField] float attackDistance;
     [SerializeField] float effectWidth = 0.4f;
-    [SerializeField] float attackCount = 3;
+
     public override IEnumerator Execute(EnemyBase boss)
     {
-     for (int i = 0; i < attackCount; i++)
+        for (int i = 0; i < attackCount; i++)
         {
             boss.GetRigidbody().linearVelocity = Vector2.zero;
             boss.enemyShaderController.OnOutline();
 
-            Vector2 dir = (PlayerScript.Instance.transform.position - boss.transform.position).normalized;
+            Vector2 dir = (GameManager.Instance.playerScript.transform.position - boss.transform.position).normalized;
             Vector2 startPos = boss.transform.position;
             Vector2 endPos = startPos + dir * attackDistance;
 
@@ -51,14 +51,14 @@ class Boss_RushAttack : EnemyAttackPattern
 
                     if (hit != null && hit.CompareTag("Player"))
                     {
-                        PlayerScript.Instance.TakeAttack(boss);
+                         GameManager.Instance.playerScript.TakeAttack(boss);
                         hasDealtDamage = true;
                     }
 
                 }
 
                 time += Time.fixedDeltaTime;
-             
+
                 yield return new WaitForFixedUpdate();
             }
             boss.gameObject.layer = LayerMask.NameToLayer("Enemy");

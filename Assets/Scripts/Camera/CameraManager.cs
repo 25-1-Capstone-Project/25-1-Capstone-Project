@@ -20,7 +20,7 @@ public class CameraManager : Singleton<CameraManager>
         }
 
         mainCamera = Camera.main;
-        mainCamera.transform.position = new Vector3(0, 0,  mainCamera.transform.position.z); // 초기 카메라 위치 설정
+        mainCamera.transform.position = new Vector3(0, 0, mainCamera.transform.position.z); // 초기 카메라 위치 설정
     }
     public void SetCameraPosition(Vector3 position)
     {
@@ -38,7 +38,7 @@ public class CameraManager : Singleton<CameraManager>
             yield return null;
         }
     }
-    public void CameraShake(float shakeIntensity, float shakeDuration )
+    public void CameraShake(float shakeIntensity, float shakeDuration)
     {
         StopAllCoroutines(); // 기존 코루틴 중복 방지
         StartCoroutine(DoCameraShake(shakeIntensity, shakeDuration));
@@ -57,7 +57,7 @@ public class CameraManager : Singleton<CameraManager>
     {
         if (active == true)
         {
-            cineCam.Follow = PlayerScript.Instance.GetPlayerTransform();
+            cineCam.Follow = GameManager.Instance.playerScript.GetPlayerTransform();
             cineCam.gameObject.SetActive(true);
         }
         else { cineCam.gameObject.SetActive(false); }

@@ -29,7 +29,7 @@ public class PlayerAnimatorController : MonoBehaviour
     }
     public void PlayAttack()
     {
-        SetDirection(PlayerScript.Instance.Direction); // 방향 설정
+        SetDirection( GameManager.Instance.playerScript.Direction); // 방향 설정
         SetTrigger("Attack");
 
     }
@@ -42,13 +42,13 @@ public class PlayerAnimatorController : MonoBehaviour
 
     public void PlayParry()
     {
-        SetDirection(PlayerScript.Instance.Direction);
+        SetDirection( GameManager.Instance.playerScript.Direction);
         SetTrigger("Parry");
     }
 
     public void PlayDamaged()
     {
-        SetDirection(PlayerScript.Instance.Direction);
+        SetDirection( GameManager.Instance.playerScript.Direction);
         SetTrigger("Damaged");
     }
 
