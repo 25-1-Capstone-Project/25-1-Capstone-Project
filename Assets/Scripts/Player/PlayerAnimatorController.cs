@@ -57,6 +57,11 @@ public class PlayerAnimatorController : MonoBehaviour
         animator.SetBool("isDeath", dead);
         SetTrigger("Death");
     }
+    public void SetIdle(bool dead)
+    {
+        SetTrigger("Idle");
+    }
+
 
     private void SetTrigger(string triggerName)
     {
@@ -65,7 +70,7 @@ public class PlayerAnimatorController : MonoBehaviour
         //animator.ResetTrigger("Parry");
         animator.ResetTrigger("Damaged");
         animator.ResetTrigger("Death");
-
+        animator.ResetTrigger("Idle");
         animator.SetTrigger(triggerName);
     }
     public void Init()

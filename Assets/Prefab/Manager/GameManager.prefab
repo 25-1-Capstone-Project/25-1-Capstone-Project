@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6107933875107746861}
   - component: {fileID: 2240131865535586627}
+  - component: {fileID: 2815023489362031902}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -46,5 +47,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerPrefab: {fileID: 1043139584216896345, guid: 4569542ff57041d42827b0cbdb7bd76c, type: 3}
   currentDungeonType: 0
-  mapData:
-  - {fileID: 11400000, guid: 50db21b234ff40b49b308ab57bfed972, type: 2}
+--- !u!114 &2815023489362031902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5398574056034855121}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa27b8d9000f843fe8dcfee2ef303147, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -4,7 +4,7 @@ public class StageManager : Singleton<StageManager>
 {
     [SerializeField] GameObject[] originRoomList;
     GameObject CreatedRoom;
-    [SerializeField] static int curRoomIndex = 0;
+    [SerializeField] int curRoomIndex = 0;
 
     Room currentRoom;
     //private MapGen mapGen;

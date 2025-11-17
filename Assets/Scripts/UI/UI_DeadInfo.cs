@@ -10,7 +10,7 @@ public class UI_DeadInfo : MonoBehaviour
     {
         SetActiveDeadInfoPanel(false);
         GameManager.Instance.SetTimeScale(1f);
-        GameManager.Instance.ChangeStateByEnum(EGameState.Hub);
+        GameManager.Instance.ChangeStateByEnum(EGameState.MainMenu);
 
     }
     public void SetActiveDeadInfoPanel(bool active)

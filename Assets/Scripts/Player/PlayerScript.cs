@@ -201,7 +201,7 @@ public class PlayerScript : Singleton<PlayerScript>
         canUseParry = false;
 
         yield return new WaitForSecondsRealtime(time);
-        UIManager.Instance. guideUI.SetActiveGuideUI(true, "[우클릭]!");
+        UIManager.Instance.guideUI.SetActiveGuideUI(true, "[우클릭]!");
         canUseParry = true;
     }
     #endregion

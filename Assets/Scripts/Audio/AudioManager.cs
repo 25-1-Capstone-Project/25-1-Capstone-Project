@@ -1,28 +1,23 @@
 using UnityEngine;
-using System.Collections.Generic;
+using UnityEngine.Audio;
 
 
-public class AudioManager : Singleton<AudioManager> 
+public class AudioManager : Singleton<AudioManager>
 {
-
     [SerializeField] private int sfxSourceCount = 5;
     [SerializeField] private AudioSource bgmSource;
     [SerializeField] private SoundLibrary soundLibrary;
-
-    private List<AudioSource> sfxSources;
+    [SerializeField] private GameObject sfxParent;
+    [SerializeField] private AudioMixer audioMixer;
+    private AudioSource[] sfxSources;
     private int currentSfxIndex = 0;
 
     protected override void Awake()
     {
-        base.Awake(); 
-        sfxSources = new List<AudioSource>();
+        base.Awake();
 
-        for (int i = 0; i < sfxSourceCount; i++)
-        {
-            var source = gameObject.AddComponent<AudioSource>();
-            source.playOnAwake = false;
-            sfxSources.Add(source);
-        }
+        sfxSources = sfxParent.GetComponents<AudioSource>();
+
     }
 
     public void PlaySFX(string key)
@@ -31,15 +26,15 @@ public class AudioManager : Singleton<AudioManager>
         if (clip != null)
         {
             sfxSources[currentSfxIndex].PlayOneShot(clip);
-            currentSfxIndex = (currentSfxIndex + 1) % sfxSources.Count;
+            currentSfxIndex = (currentSfxIndex + 1) % sfxSources.Length;
         }
     }
 
-    // BGM 관련은 그대로
-    public void PlayBGM(AudioClip bgmClip, bool loop = true)
+    public void PlayBGM(string key, bool loop = true)
     {
-        if (bgmSource.clip == bgmClip) return;
-        bgmSource.clip = bgmClip;
+        var clip = soundLibrary.GetClip(key);
+        if (bgmSource.clip == clip) return;
+        bgmSource.clip = clip;
         bgmSource.loop = loop;
         bgmSource.Play();
     }
@@ -47,5 +42,18 @@ public class AudioManager : Singleton<AudioManager>
     public void StopBGM()
     {
         bgmSource.Stop();
+    }
+
+    public void SetBGMVolume(float volume)
+    {
+        audioMixer.SetFloat("BGM", volume);
+    }
+    public void SetSFXVolume(float volume)
+    {
+        audioMixer.SetFloat("SFX", volume);
+    }
+    public void SetMasterVolume(float volume)
+    {
+        audioMixer.SetFloat("Master", volume);
     }
 }

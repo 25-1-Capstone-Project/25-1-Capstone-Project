@@ -51,6 +51,9 @@ MonoBehaviour:
     - tag: ParryEffect
       prefab: {fileID: 1429954232896169633, guid: bbba54ffba7275549a405d1c513419b3, type: 3}
       size: 0
+    - tag: AttackEffect
+      prefab: {fileID: 4966777942551832438, guid: c205a7aa8ab99c348989d5502a7b0cde, type: 3}
+      size: 0
   - groupName: Skill
     pools:
     - tag: playerAttackBoomerang

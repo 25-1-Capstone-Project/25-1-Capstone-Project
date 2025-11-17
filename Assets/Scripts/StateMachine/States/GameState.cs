@@ -83,7 +83,7 @@ public class DungeonState : GameState
         // string sceneName =
         // gameManager.mapData[(int)gameManager.currentDungeonType]
         // .sceneNames[gameManager.CurrentDungeonFloor];
-
+        AudioManager.Instance.PlayBGM("Room");
 
     }
 
@@ -116,7 +116,10 @@ public class DungeonState : GameState
         }
     }
 
-    public override void Exit() { }
+    public override void Exit()
+    {
+        AudioManager.Instance.StopBGM();
+    }
 }
 
 
