@@ -17,11 +17,12 @@ MonoBehaviour:
   attackDuration: 0
   attackPostDelay: 0
   attackCount: 3
-  animationClips:
-  - {fileID: 7400000, guid: 64cfc3d76f7eced438a00db865c65ab7, type: 2}
-  - {fileID: 7400000, guid: c21bfd6f71d606b4f8ca686a21407cba, type: 2}
-  - {fileID: 7400000, guid: 0ab3250010dfa3d4aa3913cf221a2336, type: 2}
+  animationClips: []
   EnemyAttackPatterns:
   - {fileID: 11400000, guid: d0fab64757b00f54bb6916acedc0010f, type: 2}
   - {fileID: 11400000, guid: d0fab64757b00f54bb6916acedc0010f, type: 2}
   - {fileID: 11400000, guid: b491c7f3d0bb94c40a21d73c21cd896a, type: 2}
+  animationClips:
+  - {fileID: 7400000, guid: 64cfc3d76f7eced438a00db865c65ab7, type: 2}
+  - {fileID: 7400000, guid: c21bfd6f71d606b4f8ca686a21407cba, type: 2}
+  - {fileID: 7400000, guid: 0ab3250010dfa3d4aa3913cf221a2336, type: 2}

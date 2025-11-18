@@ -10,15 +10,16 @@ public class Enemy_SwordSlash : EnemyAttackPattern
         enemy.IsAttacking = true;
         enemy.GetAnimatorController().PlayAttack();
         yield return new WaitForEndOfFrame();
-       // enemy.GetAnimatorController().FreezeFrame(true);
+
         enemy.enemyShaderController.OnOutline();
 
-        yield return new WaitForSecondsRealtime(attackChargeSec);
-         yield return new WaitForSeconds(0.001f);
-        //enemy.GetAnimatorController().FreezeFrame(false);
-        Vector2 attackDir = ( GameManager.Instance.playerScript.transform.position - enemy.transform.position).normalized;
+        yield return new WaitForSeconds(attackChargeSec);
+        // enemy.GetAnimatorController().FreezeFrame(true);
+        // yield return new WaitForSeconds(0.001f);
+        // enemy.GetAnimatorController().FreezeFrame(false);
+        Vector2 attackDir = (GameManager.Instance.playerScript.transform.position - enemy.transform.position).normalized;
         float angle = Mathf.Atan2(attackDir.y, attackDir.x) * Mathf.Rad2Deg;
-        EffectPooler.Instance.SpawnFromPool("AttackSlashParticle", enemy.transform.position, Quaternion.Euler(0f, 0f, angle));
+      //  EffectPooler.Instance.SpawnFromPool("AttackSlashParticle", enemy.transform.position, Quaternion.Euler(0f, 0f, angle));
         Vector2 boxCenter = (Vector2)enemy.transform.position + attackDir * attackRange;
         Vector2 boxSize = new Vector2(1f, 1f);
 

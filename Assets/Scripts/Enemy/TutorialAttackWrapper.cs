@@ -18,24 +18,24 @@ public class TutorialAttackWrapper : EnemyAttackPattern
         enemy.enemyShaderController.OnOutline();
         enemy.GetRigidbody().linearVelocity = Vector2.zero;
         GameManager.Instance.playerScript.OnParryInput += ParryInputEvent;
-        float time = inner.attackChargeSec - 0.1f;
+        float time = inner.attackChargeSec * 0.99f;
         GameManager.Instance.playerScript.OnlyParryAfterTime(time);
         UIManager.Instance.guideUI.SetActiveGuideUI(true, "[우클릭]!");
         GameManager.Instance.SetTimeScale(0, time);
         yield return enemy.StartCoroutine(inner.Execute(enemy));
 
 
-        yield return null;
+        // yield return null;
         enemy.enemyShaderController.OffOutline();
         enemy.IsAttacking = false;
     }
 
     void ParryInputEvent()
     {
-
+        GameManager.Instance.playerScript.SetCanMove(false);
         UIManager.Instance.guideUI.SetActiveGuideUI(true, "[좌클릭]을 눌러 마무리 일격!");
         GameManager.Instance.SetTimeScale(1f);
-        GameManager.Instance.SetTimeScale(0, 0.5f);
+        GameManager.Instance.SetTimeScale(0, 1f);
         GameManager.Instance.playerScript.OnAttackInput += AttackInputEvent;
         GameManager.Instance.playerScript.OnParryInput -= ParryInputEvent;
     }
@@ -45,6 +45,7 @@ public class TutorialAttackWrapper : EnemyAttackPattern
         // 연출 강화: 약간의 슬로우
         GameManager.Instance.SetTimeScale(1f);
         UIManager.Instance.guideUI.SetActiveGuideUI(false);
+        GameManager.Instance.playerScript.SetCanMove(true);
         GameManager.Instance.playerScript.OnAttackInput -= AttackInputEvent;
     }
 
