@@ -30,7 +30,7 @@ public class PlayerScript : MonoBehaviour
     bool isAttacking = false;
     bool isDashing = false;
     bool isGod = false; // 무적 상태
-    bool isKnockback = false;
+   
     bool canMove = true;
     private PlayerInput playerInput;
 
@@ -75,57 +75,13 @@ public class PlayerScript : MonoBehaviour
     private float parryCooldownTimer = 0f;
     Coroutine ParryRoutine;
 
-    public int ParryStack
-    {
-        get => stats.currentParryStack;
-        set
-        {
-            int previous = stats.currentParryStack;
-            stats.currentParryStack = value;
-
-            // 0이 된 경우 전체 제거
-            if (value == 0 && previous > 0)
-            {
-                UIManager.Instance.parryStackUI.RemoveAllParryStackIcon();
-            }
-            // 증가 → 아이콘 추가
-            else if (value > previous)
-            {
-                UIManager.Instance.parryStackUI.AddParryStackIcon();
-            }
-            // 감소 → 아이콘 제거
-            else if (value < previous)
-            {
-                int delta = previous - value;
-                UIManager.Instance.parryStackUI.RemoveParryStackIcon(delta);
-            }
-
-
-        }
-    }
-    public void SetMaxParryStack(int max) { stats.maxParryStack = max; UIManager.Instance.parryStackUI.SetMaxParryStack(); }
 
     // 증강
     public event Action OnParrySuccess;
     public event Action OnParryInput;
     public event Action OnAttackInput;
-    private List<PlayerAbility> equipAbilities = new List<PlayerAbility>();
 
-    public void EquipAbility(PlayerAbility ability)
-    {
-        equipAbilities.Add(ability);
-        ability.OnEquip(this);
-    }
 
-    public void UnequipAbility(PlayerAbility ability)
-    {
-        ability.OnUnequip(this);
-        equipAbilities.Remove(ability);
-    }
-
-    private List<AbilityData> unlockedAbilities = new List<AbilityData>();
-    public void RegisterUnlockedAbility(AbilityData data) => unlockedAbilities.Add(data);
-    public List<AbilityData> GetUnlockedAbilities() => unlockedAbilities;
 
 
     [Header("=====대시 옵션=====")]
@@ -136,8 +92,8 @@ public class PlayerScript : MonoBehaviour
 
 
     [Header("=====플래시 옵션=====")]
-    [SerializeField] private Color hitColor = Color.red;
-    [SerializeField] private float flashDuration = 0.1f;
+
+
 
 
 
@@ -152,14 +108,13 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private Ghost ghost;
 
     [SerializeField] private ParticleSystem skillParticle;
-    SkillPattern currentSkill;
+
     private PlayerRuntimeStats stats = new PlayerRuntimeStats();
     public PlayerRuntimeStats Stats => stats;
 
     public void InitPlayer()
     {
         SetComponent();
-        SkillSetting(0);
         stats.ApplyBase(playerData); // 원본 데이터를 복사
         isDead = false;
         playerAnim.SetDeath(isDead);
@@ -212,22 +167,9 @@ public class PlayerScript : MonoBehaviour
 
     void Update()
     {
-        // if (Input.GetKeyDown(KeyCode.F1))
-        //     Health = stats.maxHealth;
-        // if (Input.GetKeyDown(KeyCode.F2))
-        //     Health = 0;
-        // if (Input.GetKeyDown(KeyCode.F3))
-        //     ParryStack = stats.maxParryStack;
-        // if (Input.GetKeyDown(KeyCode.F4))
-        // {
-        //     EnemyBase[] temp = FindObjectsByType<EnemyBase>(FindObjectsSortMode.None);
-        //     foreach (EnemyBase enemy in temp)
-        //     {
-        //         enemy.TakeDamage(100);
-        //     }
-        // }
 
-        PlayerLogger.Instance.AddPlaytimeLog(Time.deltaTime);
+
+        //PlayerLogger.Instance.AddPlaytimeLog(Time.deltaTime);
     }
     void LateUpdate()
     {
@@ -464,7 +406,7 @@ public class PlayerScript : MonoBehaviour
 
         OnParryInput?.Invoke();
         playerAnim.PlayAttack();
-        AudioManager.Instance.PlaySFX("Parry");
+        AudioManager.Instance.PlaySFX("ParryTry");
         ParryRoutine = StartCoroutine(Parry());
     }
     // 패리 코루틴, 일단 패리 사용X, 패리중O 처리→패리지속시간 기다림 뒤 ParryFailed() 호출
@@ -474,7 +416,7 @@ public class PlayerScript : MonoBehaviour
         isParrying = true;
         rb.linearVelocity = Vector2.zero;
 
-        CheckInteractObject();
+       // CheckInteractObject();
 
         // 패리 지속시간이 끝나면 패리중X 처리
         yield return new WaitForSeconds(stats.parryDurationSec);
@@ -486,27 +428,27 @@ public class PlayerScript : MonoBehaviour
         canUseParry = true;
     }
 
-    void CheckInteractObject()
-    {
-        float checkRange = stats.attackRange;
-        float checkAngle = stats.attackAngle;
+    // void CheckInteractObject()
+    // {
+    //     float checkRange = stats.attackRange;
+    //     float checkAngle = stats.attackAngle;
 
-        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, checkRange, LayerMask.GetMask("Interactable"));
+    //     Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, checkRange, LayerMask.GetMask("Interactable"));
 
-        foreach (var hit in hits)
-        {
-            if (hit != null)
-            {
-                Vector2 toTarget = (hit.transform.position - transform.position).normalized;
-                float angle = Vector2.Angle(Direction, toTarget);
+    //     foreach (var hit in hits)
+    //     {
+    //         if (hit != null)
+    //         {
+    //             Vector2 toTarget = (hit.transform.position - transform.position).normalized;
+    //             float angle = Vector2.Angle(Direction, toTarget);
 
-                if (angle <= checkAngle / 2f)
-                {
-                    hit.GetComponent<Interactable>().Interact();
-                }
-            }
-        }
-    }
+    //             if (angle <= checkAngle / 2f)
+    //             {
+    //                 hit.GetComponent<Interactable>().Interact();
+    //             }
+    //         }
+    //     }
+    // }
 
 
     // 근접 패링
@@ -514,30 +456,16 @@ public class PlayerScript : MonoBehaviour
     {
         StopCoroutine(ParryRoutine);
         //PerformParryPulse(enemy);
-        if (ParryStack < stats.maxParryStack)
-        {
-            ParryStack++;
-        }
-        // if (ParryStack == stats.maxParryStack)
-        // {
-        //     currentSkill.ResetCooldown();
-        // }
-
+      
         OnParrySuccess?.Invoke();
 
 
         canUseParry = true;
-        //Health += 1;
-        //enemy.TakeDamage(1); // 적에게 대미지 주기
+       
         enemy.Stamina--;
-        // if (enemy.Stamina == 0) // 적의 기력 0으로 변경 예정
-        // {
-        //     AttackStayRoutine = StartCoroutine(AttackStay(enemy));
-        // }
-        // else
-        // {
+      
         StartCoroutine(ParryEffect());
-        // }
+        
         isParrying = false;
     }
     //원거리 패링
@@ -545,11 +473,7 @@ public class PlayerScript : MonoBehaviour
     {
         StopCoroutine(ParryRoutine);
         // PerformParryPulse(null);
-        if (ParryStack < stats.maxParryStack)
-        {
-            ParryStack++;
-
-        }
+    
 
         OnParrySuccess?.Invoke();
         enemyAttack.gameObject.SetActive(true);
@@ -703,7 +627,7 @@ public class PlayerScript : MonoBehaviour
 
         }
     }
-    [SerializeField] float knockBackForce = 0.5f;
+    
     public void KnockBack(Vector2 forceDir, float knockBackForce)
     {
         //rb.linearVelocity = forceDir * knockBackForce;
@@ -713,20 +637,20 @@ public class PlayerScript : MonoBehaviour
 
     public void OnDamaged()
     {
-        StartCoroutine(DamagedRoutine(takeAttackDirection));
+        StartCoroutine(DamagedRoutine());
     }
-    public IEnumerator DamagedRoutine(Vector2 forceDir)
+    public IEnumerator DamagedRoutine()
     {
         playerInput.enabled = false;
         isGod = true;
-        isKnockback = true; // 넉백 시작
+      
         AudioManager.Instance.PlaySFX("Hit");
         playerAnim.PlayDamaged();
         // KnockBack(forceDir, knockBackForce);
         // yield return StartCoroutine(FlashRoutine(hitColor));
 
         rb.linearVelocity = Vector2.zero;
-        isKnockback = false; //넉백 종료
+   
         playerInput.enabled = true;
         yield return StartCoroutine(FlashInvincible());
         isGod = false;
@@ -734,94 +658,11 @@ public class PlayerScript : MonoBehaviour
 
 
 
-    public void abilTestPlayerHealth(int h)
-    {
-        Health += h;
-    }
     #endregion
 
-    #region 스킬
 
 
-    // 스킬 셋팅
-    public void SkillSetting(int skillNum)
-    {
-        currentSkill = SkillManager.Instance.SkillPatterns[skillNum];
 
-        if (currentSkill == null)
-        {
-            SetMaxParryStack(0);
-        }
-        else
-        {
-            // 땜질2
-            SetMaxParryStack(currentSkill.ultimateCost);
-            UIManager.Instance.parryStackUI.SyncParryIcons(ParryStack);
-            UIManager.Instance.skillUI.UpdateSkillIcon(currentSkill.skillIcon);
-        }
-    }
-
-
-    // 스킬 키 입력
-    void OnSkill(InputValue value)
-    {
-        bool checkUltimate = CheckUltimate();
-        if (!checkUltimate)
-        {
-            return;
-        }
-
-        StartCoroutine(UseUltimateSkill());
-        PlayerLogger.Instance.PlusSkillUsedLog();
-    }
-
-    private bool CheckUltimate()
-    {
-        if (!currentSkill.ParryStackCheck())
-            return false;
-        if (currentSkill == null)
-            return false;
-
-        if (isDead || isDashing || isParrying)
-            return false;
-
-        // 스킬 쿨타임 체크
-        if (!currentSkill.IsCooldownReady())
-            return false;
-        return true;
-    }
-
-    private IEnumerator UseUltimateSkill()
-    {
-        ParryStack -= currentSkill.ultimateCost;
-        CameraManager.Instance.CameraShake(2f, 0.1f);
-        skillParticle.Play();
-        FadeController.Instance.FadeOut(Color.white, 0.05f, 0.01f);
-        FadeController.Instance.FadeIn(Color.white, 0.05f, 0.01f);
-        GameManager.Instance.SetTimeScale(0.1f);
-        yield return new WaitForSecondsRealtime(0.3f);
-        GameManager.Instance.SetTimeScale(1f);
-        StartCoroutine(currentSkill.UltimateSkill(this));
-        ShaderManager.Instance.CallShockWave();
-    }
-
-    // IEnumerator CooldownRoutine()
-    // {
-    //     float duration = currentSkill.cooldown;
-    //     float startTime = Time.time;
-
-    //     while (Time.time - startTime < duration)
-    //     {
-    //         float elapsed = Time.time - startTime;
-    //         float ratio = Mathf.Clamp01(1f - (elapsed / duration));
-    //         UIManager.Instance.skillUI.UpdateCooldown(ratio);
-    //         yield return null;
-    //     }
-
-    //     UIManager.Instance.skillUI.UpdateCooldown(0f);
-    //     cooldownRoutine = null;
-    // }
-    #endregion
 
     public void Dead()
     {
@@ -834,32 +675,6 @@ public class PlayerScript : MonoBehaviour
     }
 
 
-    #region 인벤토리
-
-    void OnInventory(InputValue value)
-    {
-        //SkillSetting(1);
-        GameManager.Instance.SetTimeScale(0f);
-        UIManager.Instance.skillSelect.ShowSkillWindow(OnSkillSelected);
-    }
-
-    public void OpenSkillWindow()
-    {
-        GameManager.Instance.SetTimeScale(0f);
-        UIManager.Instance.skillSelect.ShowSkillWindow(OnSkillSelected);
-    }
-
-    void OnSkillSelected(int index)
-    {
-        SkillSetting(index);
-    }
-
-    void OnAbilityTest(InputValue value)
-    {
-        UIManager.Instance.abilityUI.ShowAbilityChoices();
-    }
-
-    #endregion
 
 
     #region FlashSprite

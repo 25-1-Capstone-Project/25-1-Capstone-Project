@@ -4,7 +4,7 @@ using UnityEngine.Audio;
 
 public class AudioManager : Singleton<AudioManager>
 {
-    [SerializeField] private int sfxSourceCount = 5;
+   
     [SerializeField] private AudioSource bgmSource;
     [SerializeField] private SoundLibrary soundLibrary;
     [SerializeField] private GameObject sfxParent;

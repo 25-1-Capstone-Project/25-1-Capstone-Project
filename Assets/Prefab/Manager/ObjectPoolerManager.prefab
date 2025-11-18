@@ -54,28 +54,8 @@ MonoBehaviour:
     - tag: AttackEffect
       prefab: {fileID: 4966777942551832438, guid: c205a7aa8ab99c348989d5502a7b0cde, type: 3}
       size: 0
-  - groupName: Skill
-    pools:
-    - tag: playerAttackBoomerang
-      prefab: {fileID: 1740914747221749175, guid: b2161d5b51d6ccb4088e38b65458e79b, type: 3}
-      size: 0
-    - tag: playerAttackFireball
-      prefab: {fileID: 6986725825239899581, guid: 987176123172fe14488869561d516ccf, type: 3}
-      size: 0
-    - tag: playerAttackSword
-      prefab: {fileID: 1308343021925632072, guid: 3f99d23eaf2aae3439afc7cad065c352, type: 3}
-      size: 0
-    - tag: playerAttackSword_U
-      prefab: {fileID: 3386701588590134645, guid: 5510f2ac45eb9454c8f76e28dc468bde, type: 3}
-      size: 0
   - groupName: Enemy
     pools:
-    - tag: AttackSlashParticle
-      prefab: {fileID: 1662842244217693460, guid: 2a20153a327efc241a6254d115656abd, type: 3}
-      size: 0
-    - tag: AttackSpearEffect
-      prefab: {fileID: 7384867683205151564, guid: 58ffa022f47032846bbd05b75d1831e1, type: 3}
-      size: 0
     - tag: EnemyAttackProjectile1
       prefab: {fileID: 2149256603058294964, guid: a18fbe8890b2e8642bd9465fce983ebf, type: 3}
       size: 0

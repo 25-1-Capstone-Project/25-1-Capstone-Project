@@ -7,7 +7,6 @@ public class AIAgent : MonoBehaviour
     private AIPath path;
     [SerializeField] private float speed = 3f;
     [SerializeField] private Transform target;
-    [SerializeField] private float stopdistance = 2f;
 
     public void Start()
     {

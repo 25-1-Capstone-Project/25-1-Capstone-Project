@@ -43,7 +43,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -1329924442946323058, guid: b75c197ac8742ae40aebca2f052cc466, type: 2}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 0}
+  m_Resource: {fileID: 6418180475301049370, guid: cae76c11b19c7534d81e19d0ce05cf8d, type: 2}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -175,7 +175,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1c928e69eb52f5409e7f568b4aeb959, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sfxSourceCount: 5
   bgmSource: {fileID: 820212588828843985}
   soundLibrary: {fileID: 11400000, guid: 9530d1efaabc3024094d0f9ef20f8909, type: 2}
   sfxParent: {fileID: 8356204811604667934}
