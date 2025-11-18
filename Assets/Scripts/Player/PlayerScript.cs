@@ -166,6 +166,7 @@ public class PlayerScript : MonoBehaviour
         playerInput.enabled = true;
         Health = stats.maxHealth;
 
+        UIManager.Instance.playerStatUI.HPUIInit(stats.maxHealth);
         SetActivePlayerInput(true);
     }
     public void DestroyPlayer()
