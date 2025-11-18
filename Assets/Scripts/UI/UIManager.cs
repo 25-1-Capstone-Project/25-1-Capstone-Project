@@ -27,7 +27,7 @@ public class UIManager : Singleton<UIManager>
     {
         base.Awake();
         InGameUI.SetActive(false);
-        MainMenuUI.SetActive(false);
+        MainMenuUI.SetActive(true);
     }
     public void SetActiveInGameUI(bool active)
     {

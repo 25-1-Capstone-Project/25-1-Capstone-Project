@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -21,13 +22,9 @@ public class MainMenuState : GameState
 
     public override void Enter()
     {
-
-
         CursorManager.Instance.SetCursorIcon(ECursorType.Default.GetHashCode());
-        SceneManager.LoadScene("MainMenu");
-        UIManager.Instance.SetActiveMainMenuUI(true);
-        UIManager.Instance.SetActiveStageUI(false);
-        UIManager.Instance.SetActiveInGameUI(true);
+
+
 
     }
 
@@ -84,14 +81,14 @@ public class RoomState : GameState
     public override void Enter()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
-        gameManager.StartCoroutine(RoomTransitionRoutine());
+        gameManager.StartCoroutine(RoomTransitionRoutine("RoundScene"));
         GameManager.Instance.SetTimeScale(1f);
 
     }
-    IEnumerator RoomTransitionRoutine()
+    IEnumerator RoomTransitionRoutine(string nextScene)
     {
         yield return FadeController.Instance.FadeOut(Color.black, 1f);
-        SceneManager.LoadScene("RoundScene");
+        SceneManager.LoadScene(nextScene);
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -114,7 +111,14 @@ public class RoomState : GameState
         CameraManager.Instance.SetCameraPosition(gameManager.SearchSpawnPoint());
         CursorManager.Instance.SetCursorIcon(ECursorType.Aim.GetHashCode(), true);
     }
-
+    void OnSceneMoveMainMenu(Scene scene, LoadSceneMode mode)
+    {
+        SceneManager.sceneLoaded -= OnSceneMoveMainMenu;
+        FadeController.Instance.FadeIn(Color.black, 1f);
+        UIManager.Instance.SetActiveMainMenuUI(true);
+        UIManager.Instance.SetActiveStageUI(false);
+        UIManager.Instance.SetActiveInGameUI(false);
+    }
     public override void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -125,6 +129,8 @@ public class RoomState : GameState
 
     public override void Exit()
     {
+         SceneManager.sceneLoaded += OnSceneMoveMainMenu;
+        gameManager.StartCoroutine(RoomTransitionRoutine("MainMenu"));
         AudioManager.Instance.StopBGM();
         gameManager.playerScript.DestroyPlayer();
     }

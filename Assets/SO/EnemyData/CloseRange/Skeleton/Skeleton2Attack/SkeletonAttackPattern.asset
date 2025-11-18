@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SkeletonAttackPattern
   m_EditorClassIdentifier: 
   attackRange: 1
-  attackChargeSec: 0.5
+  attackChargeSec: 0
   attackDuration: 0
   attackPostDelay: 0
   attackCount: 2

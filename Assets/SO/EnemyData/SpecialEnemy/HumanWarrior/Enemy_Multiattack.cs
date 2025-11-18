@@ -11,7 +11,7 @@ public class Enemy_Multiattack : EnemyAttackPattern
         enemy.InitStamina();
         int attackIndex = 0;
         enemy.enemyShaderController.OnOutline();
-        enemy.GetAnimatorController().PlayIdle();
+      //  enemy.GetAnimatorController().PlayIdle();
         yield return new WaitForSeconds(attackChargeSec);
         for (int i = 0; i < attackCount; i++)
         {

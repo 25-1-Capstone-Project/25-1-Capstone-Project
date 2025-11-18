@@ -170,13 +170,14 @@ public class EnemyBase : MonoBehaviour
     {
         if (isDead) return;
 
-        AudioManager.Instance.PlaySFX("AttackHit"); // 오디오 매니저가 있다면
+        AudioManager.Instance.PlaySFX("Damaged");
         Health -= damage;
         FlashSprite(Color.red, 0.1f);
         //hpBar?.SetHealth(_currentHealth, data.maxHealth);
     }
     protected virtual void OnParried()
     {
+        AudioManager.Instance.PlaySFX("ParrySuccess");
         if (!data.dontStopEnemy) stunEffect.Play();
         StateMachine.ChangeState<ParriedState>();
     }
@@ -186,11 +187,13 @@ public class EnemyBase : MonoBehaviour
     /// </summary>
     protected virtual void OnDamaged()
     {
+
         StateMachine.ChangeState<DamagedState>();
     }
 
     protected virtual void Dead()
     {
+
         isDead = true;
         StateMachine.ChangeState<DeadState>();
         PlayerLogger.Instance.PlusEnemyKilledLog(); // 적 처치 기록

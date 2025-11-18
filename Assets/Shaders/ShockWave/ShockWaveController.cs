@@ -31,7 +31,7 @@ public class ShockWaveController : MonoBehaviour
         float elapsedTime = 0;
         while (elapsedTime < _shockWaveTime)
         {
-            elapsedTime += Time.deltaTime;
+            elapsedTime += Time.deltaTime *2;
             lerpedAmount = Mathf.Lerp(start, end, elapsedTime / _shockWaveTime);
             _material.SetFloat(_waveDistanceFromCenter, lerpedAmount);
 

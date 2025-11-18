@@ -74,7 +74,7 @@ public class PlayerScript : MonoBehaviour
     public float ParryCooldownRatio => parryCooldownTimer / stats.attackCooldownSec;
     private float parryCooldownTimer = 0f;
     Coroutine ParryRoutine;
-    Coroutine AttackStayRoutine;
+
     public int ParryStack
     {
         get => stats.currentParryStack;
@@ -177,7 +177,7 @@ public class PlayerScript : MonoBehaviour
     public bool GetIsDead() => isDead;
     public Transform GetPlayerTransform()
     {
-        return transform;
+        return transform ? transform : null;
     }
     public void SetPlayerPosition(Vector2 target)
     {
@@ -272,7 +272,6 @@ public class PlayerScript : MonoBehaviour
         PlayerLogger.Instance.PlusDashLog();
     }
 
-    Vector3 lastSafePosition;
 
     IEnumerator DashCoroutine()
     {
@@ -285,7 +284,7 @@ public class PlayerScript : MonoBehaviour
         canUseDash = false;
 
         // 1. 마지막 안전한 위치 저장
-        lastSafePosition = transform.position;
+        // lastSafePosition = transform.position;
 
         playerAnim.PlayDash(moveVec);
         rb.linearVelocity = moveVec.normalized * (dashDistance / dashDuration);
@@ -565,7 +564,7 @@ public class PlayerScript : MonoBehaviour
     {
         CameraManager.Instance.CameraShake(3f, 0.2f);
         EffectPooler.Instance.SpawnFromPool("ParryEffect", transform.position + (direction / 2), Quaternion.identity);
-        AudioManager.Instance.PlaySFX("ParrySuccess");
+        AudioManager.Instance.PlaySFX("Parry" + UnityEngine.Random.Range(0, 3));
         //isGod = true;
         // yield return FadeController.Instance.FadeOut(Color.white, 0.1f, 0.3f);
         ShaderManager.Instance.CallShockWave();
@@ -592,12 +591,12 @@ public class PlayerScript : MonoBehaviour
         }
         else
         {
-            transform.position = (Vector2)targetEnemy.transform.position + toEnemyDirection * 1.5f;
+            transform.position = (Vector2)targetEnemy.transform.position + toEnemyDirection;
         }
 
 
         attackEffect = EffectPooler.Instance.SpawnFromPool("AttackEffect", transform.position, Quaternion.Euler(0, 0, angle));
-        AudioManager.Instance.PlaySFX("ParrySuccess");
+        AudioManager.Instance.PlaySFX("AttackHit");
         // yield return FadeController.Instance.FadeOut(Color.white, 0.4f, 0.3f);
         ShaderManager.Instance.CallShockWave();
         targetEnemy.TakeDamage(1);
@@ -723,7 +722,7 @@ public class PlayerScript : MonoBehaviour
         AudioManager.Instance.PlaySFX("Hit");
         playerAnim.PlayDamaged();
         // KnockBack(forceDir, knockBackForce);
-        yield return StartCoroutine(FlashRoutine(hitColor));
+        // yield return StartCoroutine(FlashRoutine(hitColor));
 
         rb.linearVelocity = Vector2.zero;
         isKnockback = false; //넉백 종료
@@ -901,54 +900,5 @@ public class PlayerScript : MonoBehaviour
 
     }
     #endregion
-    [Header("=====다중 전투 시스템=====")]
-    private float parryPulseRadius = 4f; // 패링 파동 범위
-    private float parryPulseKnockbackForce = 1f; // 패링 파동 넉백 힘
 
-    private float executionKnockbackRadius = 8f; // 처형 넉백 범위 (더 넓게)
-    private float executionKnockbackForce = 2f; // 처형 넉백 힘 (더 강하게)
-
-    /// <summary>
-    /// 패링 성공 시 주변 적에게 약한 넉백(파동)을 적용합니다.
-    /// </summary>
-    /// <param name="parriedEnemy">방금 패링한 대상 (중복 적용 방지용)</param>
-    // private void PerformParryPulse(EnemyBase parriedEnemy)
-    // {
-    //     // "Enemy" 레이어를 가진 모든 적을 탐지합니다. (레이어 마스크 이름은 실제 사용하는 이름으로 변경 필요)
-    //     Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, parryPulseRadius, LayerMask.GetMask("Enemy"));
-
-    //     foreach (var hit in hits)
-    //     {
-    //         EnemyBase nearbyEnemy = hit.GetComponent<EnemyBase>();
-
-    //         // 탐지된 적이 있고, 방금 패링한 그 적이 아닐 경우에만
-    //         if (nearbyEnemy != null && nearbyEnemy != parriedEnemy)
-    //         {
-    //             Vector2 directionToEnemy = (nearbyEnemy.transform.position - transform.position).normalized;
-
-
-    //             nearbyEnemy.KnockBack(parryPulseKnockbackForce);
-    //         }
-    //     }
-    // }
-    /// <summary>
-    /// 처형(공격)이 끝난 직후 주변의 모든 적을 강하게 밀쳐냅니다.
-    /// </summary>
-    //     private void PerformExecutionKnockback()
-    //     {
-    //         Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, executionKnockbackRadius, LayerMask.GetMask("Enemy"));
-
-    //         foreach (var hit in hits)
-    //         {
-    //             EnemyBase nearbyEnemy = hit.GetComponent<EnemyBase>();
-
-    //             // 처형 당한 적(targetEnemy)은 이미 처리되었으므로, 살아있는 다른 적들만 밀쳐냅니다.
-    //             if (nearbyEnemy != null && nearbyEnemy != targetEnemy)
-    //             {
-    //                 Vector2 directionToEnemy = (nearbyEnemy.transform.position - transform.position).normalized;
-
-    //                 nearbyEnemy.KnockBack(executionKnockbackForce);
-    //             }
-    //         }
-    //     }
 }

@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 263e27cb71b88f845aed894261fa039f, type: 3}
+  m_Name: Skeleton1Attack_TutoData
+  m_EditorClassIdentifier: 
+  Name: 
+  maxHealth: 1
+  moveSpeed: 2
+  attackDamage: 1
+  dontStopEnemy: 0
+  stamina: 1
+  animator: {fileID: 22100000, guid: 5b83e30b834be0e4a843d3c8f2971fdd, type: 2}
+  attackPattern: {fileID: 11400000, guid: 7f5a19e46fe75c048b53ca4294813308, type: 2}
+  sizeMagnification: 1

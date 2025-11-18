@@ -4479,7 +4479,7 @@ MonoBehaviour:
   waves:
   - startDelay: 1
     spawns:
-    - enemyData: {fileID: 11400000, guid: ae80da02252793b4f9da2cbe22737cdf, type: 2}
+    - enemyData: {fileID: 11400000, guid: 7048c885cb2fb124c8a800a1cf1ee06e, type: 2}
       marker: {fileID: 2838092004443549837}
   - startDelay: 1
     spawns:
@@ -6346,11 +6346,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 489201107137592093, guid: bd07c1d0313c414488fce510a691a835, type: 3}
       propertyPath: label
-      value: W1-Golem_Data
+      value: W1-Skeleton1Attack_TutoData
       objectReference: {fileID: 0}
     - target: {fileID: 2259136786881526688, guid: bd07c1d0313c414488fce510a691a835, type: 3}
       propertyPath: m_Name
-      value: W1-Golem_Data
+      value: W1-Skeleton1Attack_TutoData
       objectReference: {fileID: 0}
     - target: {fileID: 6018348965547619117, guid: bd07c1d0313c414488fce510a691a835, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6497,7 +6497,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6018348965547619117, guid: bd07c1d0313c414488fce510a691a835, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 13.11
+      value: 8.88
       objectReference: {fileID: 0}
     - target: {fileID: 6018348965547619117, guid: bd07c1d0313c414488fce510a691a835, type: 3}
       propertyPath: m_LocalPosition.y
@@ -6578,7 +6578,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6018348965547619117, guid: bd07c1d0313c414488fce510a691a835, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 12.76
+      value: 8.88
       objectReference: {fileID: 0}
     - target: {fileID: 6018348965547619117, guid: bd07c1d0313c414488fce510a691a835, type: 3}
       propertyPath: m_LocalPosition.y
