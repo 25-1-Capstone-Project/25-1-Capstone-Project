@@ -45,5 +45,4 @@ public class UIManager : Singleton<UIManager>
     {
         OptionUI.SetActive(!OptionUI.activeSelf);
     }
-
 }
