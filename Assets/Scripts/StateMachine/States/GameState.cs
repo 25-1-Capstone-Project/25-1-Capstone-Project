@@ -132,7 +132,7 @@ public class RoomState : GameState
          SceneManager.sceneLoaded += OnSceneMoveMainMenu;
         gameManager.StartCoroutine(RoomTransitionRoutine("MainMenu"));
         AudioManager.Instance.StopBGM();
-        gameManager.playerScript.DestroyPlayer();
+        gameManager.playerScript?.DestroyPlayer();
     }
 }
 

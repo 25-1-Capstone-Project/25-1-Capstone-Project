@@ -138,12 +138,9 @@ public class ParriedState : EnemyState
     }
     public IEnumerator ParriedRoutine()
     {
+        enemy.KnockBack(2);
+        yield return new WaitForSeconds(0.7f);
         enemy.GetRigidbody().linearVelocity = Vector2.zero;
-
-        //그로기 애니메이션 재생
-        // if (enemy.GetData().dontStopEnemy)
-        //     yield return new WaitForSeconds(0.3f);
-        // else
         yield return new WaitForSeconds(2f);
         enemy.InitStamina();
         enemy.enemyShaderController.OffOutline();
@@ -157,7 +154,7 @@ public class ParriedState : EnemyState
 public class DamagedState : EnemyState
 {
     public DamagedState(EnemyBase enemy) : base(enemy) { }
-    WaitForSeconds KnockBackDelaySec = new WaitForSeconds(0.5f);
+
     public override void Enter()
     {
         enemy.enemyShaderController.OffOutline();
@@ -167,21 +164,9 @@ public class DamagedState : EnemyState
         enemy.GetAnimatorController().PlayDamage();
 
         enemy.StopAllCoroutines();
-        enemy.StartCoroutine(KnockBackRoutine());
+        // enemy.StartCoroutine(enemy.KnockBackRoutine());
     }
-    public IEnumerator KnockBackRoutine(float time = 1f)
-    {
-        if (enemy.GetData().dontStopEnemy)
-        {
-            enemy.StateMachine.ChangeState<ChaseState>();
-            yield break;
-        }
-        enemy.KnockBack(2);
-        yield return KnockBackDelaySec;
-        enemy.GetRigidbody().linearVelocity = Vector2.zero;
-        yield return new WaitForSeconds(time);
-        enemy.StateMachine.ChangeState<ChaseState>();
-    }
+
 
     public override void Update() { }
     public override void Exit() { }
@@ -205,14 +190,9 @@ public class DeadState : EnemyState
     }
     public IEnumerator DeadRoutine()
     {
-        // 적 스킬아이템 드랍 임시 추가(하드코딩된 거 SO에 변수 추가, 변경할 것)
-        // float dropChance = 0.2f;
-        // if (Random.value < dropChance)
-        // {
-        //     Object.Instantiate(enemy.skillSelectItemPrefab, enemy.transform.position, Quaternion.identity);
-        // }
+
         enemy.GetAnimatorController().PlayDeath();
-    
+
         EnemyManager.Instance.KillEnemy();
         yield return new WaitForSeconds(1f);
         Object.Destroy(enemy.gameObject);
