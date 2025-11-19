@@ -666,15 +666,23 @@ public class PlayerScript : MonoBehaviour
 
     public void Dead()
     {
+        if (isDead) return;
         isDead = true;
-        playerAnim.SetDeath(true);
-        rb.linearVelocity = Vector2.zero;
-        UIManager.Instance.deadUI.SetActiveDeadInfoPanel(true);
 
-        PlayerLogger.Instance.PlusDeathLog();
+        StartCoroutine(DeadRoutine());
     }
 
+    IEnumerator DeadRoutine()
+    {
+        rb.linearVelocity = Vector2.zero;
+        playerAnim.SetDeath(true);
 
+        // 아 약간 나중에 원형으로 삐로로롱 하는 거 추가해도 ㄱㅊ을듯
+        yield return new WaitForSeconds(1.5f);
+
+        UIManager.Instance.deadUI.SetActiveDeadInfoPanel(true);
+        PlayerLogger.Instance.PlusDeathLog();
+    }
 
 
     #region FlashSprite
