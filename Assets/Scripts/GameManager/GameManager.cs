@@ -15,7 +15,7 @@ public class GameManager : Singleton<GameManager>
     // public MapReference[] mapData;
     public int CurrentDungeonFloor { get; set; } = 0;
     public int MaxDungeonFloor { get; private set; } = 3;
-
+    Coroutine timeScaleCoroutine;
     protected override void Awake()
     {
         base.Awake();
@@ -43,8 +43,9 @@ public class GameManager : Singleton<GameManager>
             Time.timeScale = targetTimeScale;
             return;
         }
-
-        StartCoroutine(LerpTimeScale(targetTimeScale, duration));
+        if (timeScaleCoroutine != null)
+            StopCoroutine(timeScaleCoroutine);
+        timeScaleCoroutine = StartCoroutine(LerpTimeScale(targetTimeScale, duration));
     }
 
     private IEnumerator LerpTimeScale(float targetTimeScale, float duration)
@@ -121,8 +122,9 @@ public class GameManager : Singleton<GameManager>
         UIManager.Instance.SetActiveStageUI(true);
     }
 
-    public void PlayerSpawn(Vector2 targetPos)
+    public void PlayerSpawn()
     {
+        Vector2 targetPos = SearchSpawnPoint();
         playerScript.SetPlayerPosition(targetPos);
         CameraManager.Instance.SetCameraPosition(targetPos);
     }

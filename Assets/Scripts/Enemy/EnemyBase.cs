@@ -6,6 +6,7 @@ public class EnemyBase : MonoBehaviour
 {
     [Header("Core Components & Data")]
     [SerializeField] protected ParticleSystem stunEffect;
+    public ParticleSystem GetStunEffect() => stunEffect;
     [SerializeField] protected EnemyDataBase data; // 모든 적은 데이터를 가짐
     [SerializeField] protected SpriteRenderer enemySprite;
     [SerializeField] protected EnemyAnimatorController animController;
@@ -109,6 +110,7 @@ public class EnemyBase : MonoBehaviour
     /// </summary>
     private void InitSharedComponents()
     {
+        stunEffect.gameObject.SetActive(true);
         rb = GetComponent<Rigidbody2D>();
         aIAgent = GetComponent<AIAgent>();
         // null 체크
@@ -193,7 +195,7 @@ public class EnemyBase : MonoBehaviour
 
     protected virtual void Dead()
     {
-
+        stunEffect.gameObject.SetActive(false);
         isDead = true;
         StateMachine.ChangeState<DeadState>();
         PlayerLogger.Instance.PlusEnemyKilledLog(); // 적 처치 기록
@@ -241,7 +243,6 @@ public class EnemyBase : MonoBehaviour
             CurrentSpearIndicator = null;
         }
     }
-
 
 
     public virtual bool CheckAttackRange()

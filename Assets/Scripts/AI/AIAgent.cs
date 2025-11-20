@@ -16,13 +16,14 @@ public class AIAgent : MonoBehaviour
     }
     public void Move()
     {
+        if (target == null) return;
         path.canMove = true;
         path.destination = target.position;
     }
-     public void Stop()
+    public void Stop()
     {
-         path.canMove = false;
-   
+        path.canMove = false;
+
     }
     public void SetTarget(Transform newTarget)
     {

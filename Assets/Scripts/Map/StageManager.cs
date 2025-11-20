@@ -28,7 +28,7 @@ public class StageManager : Singleton<StageManager>
     {
         if (CreatedRoom != null)
             Destroy(CreatedRoom);
-        
+
         CreatedRoom = Instantiate(originRoomList[curRoomIndex], Vector3.zero, Quaternion.identity);
         CreatedRoom.SetActive(true);
         currentRoom = CreatedRoom.GetComponent<Room>();
@@ -36,9 +36,11 @@ public class StageManager : Singleton<StageManager>
     }
     public void NextRound()
     {
-        GameManager.Instance.playerScript.InitPlayer();
         curRoomIndex++;
         CreateRound();
+        AudioManager.Instance.PlayBGM("Room");
+        GameManager.Instance.playerScript.InitPlayer();
+        GameManager.Instance.PlayerSpawn();
         UIManager.Instance.successUI.SetActiveDeadInfoPanel(false);
     }
     void SetRoomList(GameObject[] rooms)

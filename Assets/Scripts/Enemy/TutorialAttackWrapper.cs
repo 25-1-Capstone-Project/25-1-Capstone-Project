@@ -18,13 +18,15 @@ public class TutorialAttackWrapper : EnemyAttackPattern
         enemy.enemyShaderController.OnOutline();
         enemy.GetRigidbody().linearVelocity = Vector2.zero;
         GameManager.Instance.playerScript.OnParryInput += ParryInputEvent;
-        float time = inner.attackChargeSec * 0.99f;
+        GameManager.Instance.playerScript.OnParrySuccess += ParrySuccessEvent;
+        float time = inner.attackChargeSec;
+        GameManager.Instance.playerScript.SetCanMove(false);
         GameManager.Instance.playerScript.OnlyParryAfterTime(time);
         UIManager.Instance.guideUI.SetActiveGuideUI(true, "[우클릭]!");
         GameManager.Instance.SetTimeScale(0, time);
         yield return enemy.StartCoroutine(inner.Execute(enemy));
 
-
+        GameManager.Instance.playerScript.OnParrySuccess -= ParrySuccessEvent;
         // yield return null;
         enemy.enemyShaderController.OffOutline();
         enemy.IsAttacking = false;
@@ -32,21 +34,28 @@ public class TutorialAttackWrapper : EnemyAttackPattern
 
     void ParryInputEvent()
     {
-        GameManager.Instance.playerScript.SetCanMove(false);
-        UIManager.Instance.guideUI.SetActiveGuideUI(true, "[좌클릭]을 눌러 마무리 일격!");
+        UIManager.Instance.guideUI.SetActiveGuideUI(false);
         GameManager.Instance.SetTimeScale(1f);
-        GameManager.Instance.SetTimeScale(0, 1f);
+        GameManager.Instance.playerScript.OnParryInput -= ParryInputEvent;
+    }
+    void ParrySuccessEvent()
+    {
+        GameManager.Instance.SetTimeScale(0f, 0.3f);
+        UIManager.Instance.guideUI.SetActiveGuideUI(true, "[좌클릭]을 눌러 마무리 일격!");
+
         GameManager.Instance.playerScript.OnAttackInput += AttackInputEvent;
         GameManager.Instance.playerScript.OnParryInput -= ParryInputEvent;
+        GameManager.Instance.playerScript.OnParrySuccess -= ParrySuccessEvent;
     }
     void AttackInputEvent()
     {
 
-        // 연출 강화: 약간의 슬로우
         GameManager.Instance.SetTimeScale(1f);
         UIManager.Instance.guideUI.SetActiveGuideUI(false);
         GameManager.Instance.playerScript.SetCanMove(true);
+        GameManager.Instance.playerScript.SetCanUseParry(true);
         GameManager.Instance.playerScript.OnAttackInput -= AttackInputEvent;
     }
 
 }
+

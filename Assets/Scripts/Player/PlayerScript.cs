@@ -71,6 +71,7 @@ public class PlayerScript : MonoBehaviour
     [Header("=====패링 옵션=====")]
     [SerializeField] EnemyBase targetEnemy;
     [SerializeField] bool canUseParry = true;
+    public void SetCanUseParry(bool value) => canUseParry = value;
     public float ParryCooldownRatio => parryCooldownTimer / stats.attackCooldownSec;
     private float parryCooldownTimer = 0f;
     Coroutine ParryRoutine;
@@ -158,10 +159,13 @@ public class PlayerScript : MonoBehaviour
         yield return new WaitForSecondsRealtime(time);
         UIManager.Instance.guideUI.SetActiveGuideUI(true, "[우클릭]!");
         canUseParry = true;
+
     }
+    
     public void SetCanMove(bool value)
     {
         canMove = value;
+        rb.linearVelocity = Vector2.zero;
     }
     #endregion
 
@@ -416,16 +420,17 @@ public class PlayerScript : MonoBehaviour
         isParrying = true;
         rb.linearVelocity = Vector2.zero;
 
-       // CheckInteractObject();
+        canMove = false;
+        // CheckInteractObject();
 
         // 패리 지속시간이 끝나면 패리중X 처리
         yield return new WaitForSeconds(stats.parryDurationSec);
         isParrying = false;
-
-
+        canMove = true;
         // 패리 쿨타임이 끝나면 패리 가능여부 True 처리
         yield return new WaitForSeconds(stats.parryCooldownSec);
         canUseParry = true;
+
     }
 
     // void CheckInteractObject()
@@ -479,7 +484,7 @@ public class PlayerScript : MonoBehaviour
         enemyAttack.gameObject.SetActive(true);
         enemyAttack.gameObject.tag = "PlayerAttack";
         enemyAttack.SetDirectionVec(direction); // 방향 반전
-
+        canMove = true;
         isParrying = false;
         canUseParry = true;
         StartCoroutine(ParryEffect());

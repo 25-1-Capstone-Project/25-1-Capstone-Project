@@ -43,6 +43,15 @@ public class EnemyManager : Singleton<EnemyManager>
         spawnedEnemy++;
     }
 
+    public void ClearAllEnemies()
+    {
+        EnemyBase[] enemies = FindObjectsOfType<EnemyBase>();
+        foreach (var enemy in enemies)
+        {
+            Destroy(enemy.gameObject);
+        }
+        spawnedEnemy = 0;
+    }
     // public void BossSpawn(Vector2 spawnPos)
     // {
     //     BossData bossData = enemyReference.GetRandomBossData();

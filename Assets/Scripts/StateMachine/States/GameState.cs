@@ -1,6 +1,4 @@
 using System.Collections;
-using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 public abstract class GameState : IState
@@ -106,9 +104,9 @@ public class RoomState : GameState
         UIManager.Instance.SetActiveInGameUI(true);
 
         StageManager.Instance.CreateRound();
-        gameManager.PlayerSpawn(gameManager.SearchSpawnPoint());
+        gameManager.PlayerSpawn();
         CameraManager.Instance.SetActiveCineCam(true);
-        CameraManager.Instance.SetCameraPosition(gameManager.SearchSpawnPoint());
+        CameraManager.Instance.SetCameraPosition(gameManager.playerScript.GetPlayerTransform().position);
         CursorManager.Instance.SetCursorIcon(ECursorType.Aim.GetHashCode(), true);
     }
     void OnSceneMoveMainMenu(Scene scene, LoadSceneMode mode)
@@ -129,7 +127,8 @@ public class RoomState : GameState
 
     public override void Exit()
     {
-         SceneManager.sceneLoaded += OnSceneMoveMainMenu;
+        SceneManager.sceneLoaded += OnSceneMoveMainMenu;
+        EnemyManager.Instance.ClearAllEnemies();
         gameManager.StartCoroutine(RoomTransitionRoutine("MainMenu"));
         AudioManager.Instance.StopBGM();
         gameManager.playerScript?.DestroyPlayer();
