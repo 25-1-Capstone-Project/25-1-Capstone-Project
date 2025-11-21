@@ -69,7 +69,6 @@ public class PlayerAnimatorController : MonoBehaviour
         animator.ResetTrigger("Dash");
         //animator.ResetTrigger("Parry");
         animator.ResetTrigger("Damaged");
-        //        animator.ResetTrigger("Death");
         animator.ResetTrigger("Idle");
         animator.SetTrigger(triggerName);
     }

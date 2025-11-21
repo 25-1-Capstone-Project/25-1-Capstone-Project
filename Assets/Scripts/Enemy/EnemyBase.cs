@@ -199,7 +199,7 @@ public class EnemyBase : MonoBehaviour
         isDead = true;
         StateMachine.ChangeState<DeadState>();
         PlayerLogger.Instance.PlusEnemyKilledLog(); // 적 처치 기록
-                                                    // hpBar?.Hide();
+          // hpBar?.Hide();
     }
 
     public void KnockBack(float knockBackForce)

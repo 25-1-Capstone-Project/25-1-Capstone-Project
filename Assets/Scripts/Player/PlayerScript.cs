@@ -346,53 +346,72 @@ public class PlayerScript : MonoBehaviour
     {
         if (isDead || isDashing || isParrying || isAttacking)
             return;
-        if (Input.GetMouseButtonDown(0))
+
+
+        // 클릭 위치를 월드좌표로 변환
+        Vector2 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        // 클릭 위치에서 지름 1(반지름 0.5)의 원 범위 검사
+        Collider2D[] hits = Physics2D.OverlapCircleAll(mouseWorld, 0.5f, LayerMask.GetMask("Enemy"));
+
+        if (hits.Length == 0)
+            return;
+
+        // 스턴 상태인 적 중 가장 가까운 적 찾기
+        EnemyBase closestStunnedEnemy = null;
+        float closestDistance = float.MaxValue;
+
+        foreach (var hit in hits)
         {
-            // 클릭 위치를 월드좌표로 변환
-            Vector2 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-            // 클릭 위치에서 지름 1(반지름 0.5)의 원 범위 검사
-            Collider2D[] hits = Physics2D.OverlapCircleAll(mouseWorld, 0.5f, LayerMask.GetMask("Enemy"));
-
-            if (hits.Length == 0)
-                return;
-
-            // 스턴 상태인 적 중 가장 가까운 적 찾기
-            EnemyBase closestStunnedEnemy = null;
-            float closestDistance = float.MaxValue;
-
-            foreach (var hit in hits)
+            EnemyBase enemy = hit.GetComponent<EnemyBase>();
+            if (enemy != null && enemy.CheckStunned())
             {
-                EnemyBase enemy = hit.GetComponent<EnemyBase>();
-                if (enemy != null && enemy.CheckStunned())
+                float distance = Vector2.Distance(mouseWorld, hit.transform.position);
+                if (distance < closestDistance)
                 {
-                    float distance = Vector2.Distance(mouseWorld, hit.transform.position);
-                    if (distance < closestDistance)
-                    {
-                        closestDistance = distance;
-                        closestStunnedEnemy = enemy;
-                    }
+                    closestDistance = distance;
+                    closestStunnedEnemy = enemy;
                 }
             }
-            Debug.Log(closestStunnedEnemy);
-            // 스턴 상태의 적이 있으면 공격 실행
-            if (closestStunnedEnemy != null)
-            {
-                targetEnemy = closestStunnedEnemy;
-                OnAttackInput?.Invoke();
-                StartCoroutine(AttackRoutine());
-            }
         }
+        // 스턴 상태의 적이 있으면 공격 실행
+        if (closestStunnedEnemy != null)
+        {
+            targetEnemy = closestStunnedEnemy;
+            OnAttackInput?.Invoke();
+            StartCoroutine(AttackRoutine());
+        }
+
     }
     IEnumerator AttackRoutine()
     {
         isAttacking = true;
-        //canUseAttack = false;
         rb.linearVelocity = Vector2.zero;
         playerAnim.PlayAttack();
-        yield return StartCoroutine(AttackEffect());
+
+        CameraManager.Instance.CameraShake(8f, 0.3f);
+        Vector2 toEnemyDirection = -targetEnemy.GetDirectionNormalVec();
+        float angle = Mathf.Atan2(toEnemyDirection.y, toEnemyDirection.x) * Mathf.Rad2Deg;
+        RaycastHit2D hit = Physics2D.Raycast(targetEnemy.transform.position, toEnemyDirection, 1.5f, LayerMask.GetMask("Wall"));
+        if (hit.collider != null)
+        {
+            hit.transform.position = (Vector2)hit.transform.position - toEnemyDirection * 0.1f;
+        }
+        else
+        {
+            transform.position = (Vector2)targetEnemy.transform.position + toEnemyDirection;
+        }
+        attackEffect = EffectPooler.Instance.SpawnFromPool("AttackEffect", transform.position, Quaternion.Euler(0, 0, angle));
+        AudioManager.Instance.PlaySFX("AttackHit");
+
+        ShaderManager.Instance.CallShockWave();
+        targetEnemy.TakeDamage(1);
+        yield return new WaitForSecondsRealtime(0.4f);
+        GameManager.Instance.SetTimeScale(0);
+
+        attackEffect.SetActive(false);
         isGod = false;
-        canMove=true;
+        canMove = true;
         isAttacking = false;
         targetEnemy = null;
         GameManager.Instance.SetTimeScale(1f);
@@ -462,16 +481,16 @@ public class PlayerScript : MonoBehaviour
     {
         StopCoroutine(ParryRoutine);
         //PerformParryPulse(enemy);
-      
+
         OnParrySuccess?.Invoke();
 
 
         canUseParry = true;
-       
+
         enemy.Stamina--;
-      
+
         StartCoroutine(ParryEffect());
-        
+
         isParrying = false;
     }
     //원거리 패링
@@ -479,7 +498,7 @@ public class PlayerScript : MonoBehaviour
     {
         StopCoroutine(ParryRoutine);
         // PerformParryPulse(null);
-    
+
 
         OnParrySuccess?.Invoke();
         enemyAttack.gameObject.SetActive(true);
@@ -510,39 +529,7 @@ public class PlayerScript : MonoBehaviour
         isGod = false;
     }
     GameObject attackEffect;
-    public IEnumerator AttackEffect()
-    {
-        CameraManager.Instance.CameraShake(8f, 0.3f);
-        Vector2 toEnemyDirection = -targetEnemy.GetDirectionNormalVec();
-        float angle = Mathf.Atan2(toEnemyDirection.y, toEnemyDirection.x) * Mathf.Rad2Deg;
-        RaycastHit2D hit = Physics2D.Raycast(targetEnemy.transform.position, toEnemyDirection, 1.5f, LayerMask.GetMask("Wall"));
-        if (hit.collider != null)
-        {
-            hit.transform.position = (Vector2)hit.transform.position - toEnemyDirection * 0.1f;
-        }
-        else
-        {
-            transform.position = (Vector2)targetEnemy.transform.position + toEnemyDirection;
-        }
 
-
-        attackEffect = EffectPooler.Instance.SpawnFromPool("AttackEffect", transform.position, Quaternion.Euler(0, 0, angle));
-        AudioManager.Instance.PlaySFX("AttackHit");
-        // yield return FadeController.Instance.FadeOut(Color.white, 0.4f, 0.3f);
-        ShaderManager.Instance.CallShockWave();
-        targetEnemy.TakeDamage(1);
-        yield return new WaitForSecondsRealtime(0.4f);
-        GameManager.Instance.SetTimeScale(0);
-        // yield return FadeController.Instance.FadeIn(Color.white, 0);
-
-        attackEffect.SetActive(false);
-
-        // PerformExecutionKnockback();
-
-        GameManager.Instance.SetTimeScale(1);
-
-        isGod = false;
-    }
 
     //Room 클리어 시 연출 변경 후 정상 작동을 위해 임시로 만든 함수입니다. 빠른 개발 용
     public void ClearSet()
@@ -581,20 +568,18 @@ public class PlayerScript : MonoBehaviour
         if (isParrying)
         {
             float parryDot = Vector2.Dot(direction, -takeAttackDirection);
-            float threshold = Mathf.Cos(45f * Mathf.Deg2Rad); // 90도 시야
+            float threshold = Mathf.Cos(30f * Mathf.Deg2Rad);
 
             if (parryDot >= threshold)
                 ParrySuccess(enemy);
             else
             {
                 // ParryFailed();
-                Debug.Log(1);
                 Health -= 1;
             }
         }
         else
             Health -= 1;
-
 
     }
 
@@ -633,7 +618,7 @@ public class PlayerScript : MonoBehaviour
 
         }
     }
-    
+
     public void KnockBack(Vector2 forceDir, float knockBackForce)
     {
         //rb.linearVelocity = forceDir * knockBackForce;
@@ -649,14 +634,14 @@ public class PlayerScript : MonoBehaviour
     {
         playerInput.enabled = false;
         isGod = true;
-      
+
         AudioManager.Instance.PlaySFX("Hit");
         playerAnim.PlayDamaged();
         // KnockBack(forceDir, knockBackForce);
         // yield return StartCoroutine(FlashRoutine(hitColor));
 
         rb.linearVelocity = Vector2.zero;
-   
+
         playerInput.enabled = true;
         yield return StartCoroutine(FlashInvincible());
         isGod = false;

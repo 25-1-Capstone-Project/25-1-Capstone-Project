@@ -19,7 +19,6 @@ public class StageManager : Singleton<StageManager>
     public Stage GetCurrentRoom() => currentRoom;
     public void CreateRound()
     {
-        // SetRoomList(originRoomList);
         CreateRoom();
         ResetAstarPath();
     }
@@ -43,14 +42,7 @@ public class StageManager : Singleton<StageManager>
         GameManager.Instance.PlayerSpawn();
         UIManager.Instance.successUI.SetActiveDeadInfoPanel(false);
     }
-    void SetRoomList(GameObject[] rooms)
-    {
-        for (int i = rooms.Length - 1; i > 0; i--)
-        {
-            int j = Random.Range(0, i + 1);
-            (rooms[i], rooms[j]) = (rooms[j], rooms[i]); // swap
-        }
-    }
+
     public void ResetAstarPath()
     {
         astarPath.Scan();

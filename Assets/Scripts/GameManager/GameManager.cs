@@ -26,7 +26,6 @@ public class GameManager : Singleton<GameManager>
     {
         StateMachine = new StateMachine<GameState>();
         StateMachine.AddState(new MainMenuState(this));
-        //   StateMachine.AddState(new StageState(this));
         StateMachine.AddState(new StageState(this));
         StateMachine.ChangeState<MainMenuState>();
     }
@@ -89,9 +88,6 @@ public class GameManager : Singleton<GameManager>
             case EGameState.MainMenu:
                 StateMachine.ChangeState<MainMenuState>();
                 break;
-            // case EGameState.Hub:
-            //     StateMachine.ChangeState<StageState>();
-            //     break;
             case EGameState.Room:
                 StateMachine.ChangeState<StageState>();
                 break;

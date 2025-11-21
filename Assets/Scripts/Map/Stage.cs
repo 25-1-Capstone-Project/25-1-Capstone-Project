@@ -12,8 +12,6 @@ public class Stage : MonoBehaviour
     [Tooltip("이 룸을 시각적으로 배치할 때 스폰 마커를 담을 폴더(선택)")]
     public Transform markerRoot;
 
-    // [Header("Visual/Level")]
-    // public Tilemap GroundTileMap; // 방 타일맵 (있으면 마커 생성 시 셀 중앙 정렬)
 
     [Header("Wave")]
     [SerializeField] int waveIndex = 0;
