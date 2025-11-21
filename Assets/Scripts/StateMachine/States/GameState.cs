@@ -72,9 +72,9 @@ public class MainMenuState : GameState
 //     public override void Exit() { }
 // }
 
-public class RoomState : GameState
+public class StageState : GameState
 {
-    public RoomState(GameManager manager) : base(manager) { }
+    public StageState(GameManager manager) : base(manager) { }
 
     public override void Enter()
     {
@@ -85,7 +85,7 @@ public class RoomState : GameState
     }
     IEnumerator RoomTransitionRoutine(string nextScene)
     {
-        yield return FadeController.Instance.FadeOut(Color.black, 1f);
+        yield return FadeManager.Instance.FadeOut(Color.black, 1f);
         SceneManager.LoadScene(nextScene);
     }
 
@@ -97,7 +97,7 @@ public class RoomState : GameState
         UIManager.Instance.SetActiveMainMenuUI(false);
         UIManager.Instance.SetActiveStageUI(false);
         UIManager.Instance.SetActiveInGameUI(true);
-        FadeController.Instance.FadeIn(Color.black, 1f);
+        FadeManager.Instance.FadeIn(Color.black, 1f);
         AudioManager.Instance.PlayBGM("Room");
 
         UIManager.Instance.SetActiveMainMenuUI(false);
@@ -112,7 +112,7 @@ public class RoomState : GameState
     void OnSceneMoveMainMenu(Scene scene, LoadSceneMode mode)
     {
         SceneManager.sceneLoaded -= OnSceneMoveMainMenu;
-        FadeController.Instance.FadeIn(Color.black, 1f);
+        FadeManager.Instance.FadeIn(Color.black, 1f);
         UIManager.Instance.SetActiveMainMenuUI(true);
         UIManager.Instance.SetActiveStageUI(false);
         UIManager.Instance.SetActiveInGameUI(false);

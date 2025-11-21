@@ -1,10 +1,9 @@
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
-public interface IEnemyState : IState { }
+
 
 // 몬스터 상태 기본 클래스
-public abstract class EnemyState : IEnemyState
+public abstract class EnemyState : IState
 {
     protected EnemyBase enemy;
 

@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 /// 페이드 아웃 및 페이드 인을 담당하는 스크립트입니다.
 /// 씬전환에 활용중입니다.
 /// </summary>
-public class FadeController : Singleton<FadeController>
+public class FadeManager : Singleton<FadeManager>
 {
     public Image fadeImage;
     public float fadeDuration = 1f;

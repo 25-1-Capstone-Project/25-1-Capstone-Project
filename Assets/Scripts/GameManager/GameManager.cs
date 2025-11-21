@@ -27,7 +27,7 @@ public class GameManager : Singleton<GameManager>
         StateMachine = new StateMachine<GameState>();
         StateMachine.AddState(new MainMenuState(this));
         //   StateMachine.AddState(new StageState(this));
-        StateMachine.AddState(new RoomState(this));
+        StateMachine.AddState(new StageState(this));
         StateMachine.ChangeState<MainMenuState>();
     }
 
@@ -93,7 +93,7 @@ public class GameManager : Singleton<GameManager>
             //     StateMachine.ChangeState<StageState>();
             //     break;
             case EGameState.Room:
-                StateMachine.ChangeState<RoomState>();
+                StateMachine.ChangeState<StageState>();
                 break;
             default:
                 Debug.LogWarning($"Unknown GameState: {gameState}");

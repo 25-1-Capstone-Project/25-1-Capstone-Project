@@ -18,7 +18,7 @@ public class EnemyBase : MonoBehaviour
     [SerializeField] public EnemyShaderController enemyShaderController; // 적 스크립트 (Enemy, Boss 등)
     protected EnemyDataBase Data => data; // 외부에서 데이터 접근을 위한 프로퍼티
     // State Machine
-    public StateMachine<IEnemyState> StateMachine { get; protected set; }
+    public StateMachine<EnemyState> StateMachine { get; protected set; }
 
     // Common States
     public bool IsAttacking;// 공격 중인지 여부 (State에서 제어)
@@ -150,7 +150,7 @@ public class EnemyBase : MonoBehaviour
     /// </summary>
     protected virtual void SetState()
     {
-        StateMachine = new StateMachine<IEnemyState>();
+        StateMachine = new StateMachine<EnemyState>();
 
         // 일반 적을 위한 상태들 등록
         StateMachine.AddState(new IdleState(this));

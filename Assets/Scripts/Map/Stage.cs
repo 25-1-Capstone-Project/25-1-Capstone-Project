@@ -1,9 +1,8 @@
 using System;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
-public class Room : MonoBehaviour
+public class Stage : MonoBehaviour
 {
     [Header("State")]
     [SerializeField] bool isRoomCleared = false;

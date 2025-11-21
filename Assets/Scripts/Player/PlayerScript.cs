@@ -392,6 +392,7 @@ public class PlayerScript : MonoBehaviour
         playerAnim.PlayAttack();
         yield return StartCoroutine(AttackEffect());
         isGod = false;
+        canMove=true;
         isAttacking = false;
         targetEnemy = null;
         GameManager.Instance.SetTimeScale(1f);

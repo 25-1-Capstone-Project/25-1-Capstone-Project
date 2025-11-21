@@ -53,7 +53,7 @@ public class EnemySpawnDrawer : PropertyDrawer
     void CreateMarker(SerializedProperty spawnProp, int waveNo)
     {
         var targetObj = spawnProp.serializedObject.targetObject;
-        var room = targetObj as Room;
+        var room = targetObj as Stage;
 
         Transform parent = null;
         if (room != null)
@@ -140,8 +140,8 @@ public class EnemySpawnDrawer : PropertyDrawer
         new Color(1.00f, 1.00f, 0.00f), // 노랑
         new Color(0.00f, 1.00f, 0.00f), // 초록
         new Color(0.00f, 0.00f, 1.00f), // 파랑
-        new Color(0.06f, 0.20f, 0.65f), // 남색(Indigo)
-        new Color(0.56f, 0.00f, 1.00f), // 보라(Violet)
+        new Color(0.06f, 0.20f, 0.65f), // 남색
+        new Color(0.56f, 0.00f, 1.00f), // 보라
     };
 
     Color GetWaveColor(int waveNo)
