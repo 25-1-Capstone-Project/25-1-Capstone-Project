@@ -30,7 +30,7 @@ public class PlayerScript : MonoBehaviour
     bool isAttacking = false;
     bool isDashing = false;
     bool isGod = false; // 무적 상태
-   
+
     bool canMove = true;
     private PlayerInput playerInput;
 
@@ -161,7 +161,7 @@ public class PlayerScript : MonoBehaviour
         canUseParry = true;
 
     }
-    
+
     public void SetCanMove(bool value)
     {
         canMove = value;
@@ -504,7 +504,7 @@ public class PlayerScript : MonoBehaviour
         enemyAttack.gameObject.SetActive(true);
         enemyAttack.gameObject.tag = "PlayerAttack";
         enemyAttack.SetDirectionVec(direction); // 방향 반전
-        canMove = true;
+
         isParrying = false;
         canUseParry = true;
         StartCoroutine(ParryEffect());
@@ -524,7 +524,7 @@ public class PlayerScript : MonoBehaviour
         //   yield return FadeController.Instance.FadeIn(Color.white, 0.1f, 0.3f);
         yield return new WaitForSecondsRealtime(0.1f);
         GameManager.Instance.SetTimeScale(1);
-
+        canMove = true;
         // yield return new WaitForSeconds(0.1f);
         isGod = false;
     }

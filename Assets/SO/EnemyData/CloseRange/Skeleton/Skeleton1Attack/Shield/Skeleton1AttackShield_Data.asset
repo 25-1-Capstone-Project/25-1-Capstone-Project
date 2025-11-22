@@ -10,16 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 263e27cb71b88f845aed894261fa039f, type: 3}
-  m_Name: Golem_Data
+  m_Name: Skeleton1AttackShield_Data
   m_EditorClassIdentifier: 
   Name: 
   maxHealth: 2
-  moveSpeed: 1
+  moveSpeed: 2
   attackDamage: 1
-  dontStopEnemy: 1
+  dontStopEnemy: 0
   stamina: 1
-  animator: {fileID: 22100000, guid: b2f2fae1bb091b347869c3a48e5b0915, type: 2}
+  animator: {fileID: 22100000, guid: 5b83e30b834be0e4a843d3c8f2971fdd, type: 2}
   animators:
-  - {fileID: 22100000, guid: b2f2fae1bb091b347869c3a48e5b0915, type: 2}
-  attackPattern: {fileID: 11400000, guid: 6f65b8ecd94b1624e81a7c570c617bf5, type: 2}
+  - {fileID: 22100000, guid: 4abf18f9d86c9464089c4b65ec788118, type: 2}
+  - {fileID: 22100000, guid: 5b83e30b834be0e4a843d3c8f2971fdd, type: 2}
+  attackPattern: {fileID: 11400000, guid: 5f3a9433eadae03488615180977906f0, type: 2}
   sizeMagnification: 1

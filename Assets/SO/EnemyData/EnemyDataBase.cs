@@ -11,12 +11,19 @@ public abstract class EnemyDataBase : ScriptableObject
     public int attackDamage;
     public bool dontStopEnemy = false;
     public int stamina = 1;
-    public RuntimeAnimatorController animator;
+    public RuntimeAnimatorController animator; 
+      public RuntimeAnimatorController[] animators;
     public EnemyAttackPattern attackPattern;
     public float sizeMagnification = 1f;
 
 
-    public abstract void AttackPatternSet(int index = 0);
+    public RuntimeAnimatorController GetAnimatorAtIndex(int index)
+    {
+        return animators[index];
+    }
+
+
+
 
 
 

@@ -100,8 +100,9 @@ public class EnemyBase : MonoBehaviour
     /// </summary>
     public virtual void Init()
     {
-        InitSharedComponents();
         InitData();
+        InitSharedComponents();
+
         SetState();
     }
 
@@ -116,11 +117,16 @@ public class EnemyBase : MonoBehaviour
         // null 체크
         if (animController != null && data != null)
         {
-            animController.SetAnimator(data.animator);
+            SetCurrentAnimator();
             StartCoroutine(SetShaderMainTextureAfterFirstFrame());
         }
     }
-
+    public void SetCurrentAnimator()
+    {
+        int index = data.animators.Length - _currentHealth;
+        animController.SetAnimator(data.GetAnimatorAtIndex(index));
+        
+    }
     private IEnumerator SetShaderMainTextureAfterFirstFrame()
     {
         yield return new WaitForEndOfFrame();
@@ -199,12 +205,12 @@ public class EnemyBase : MonoBehaviour
         isDead = true;
         StateMachine.ChangeState<DeadState>();
         PlayerLogger.Instance.PlusEnemyKilledLog(); // 적 처치 기록
-          // hpBar?.Hide();
+                                                    // hpBar?.Hide();
     }
 
     public void KnockBack(float knockBackForce)
     {
-        animController.PlayKnockBack();
+        //animController.PlayKnockBack();
         rb.linearVelocity = -GetDirectionNormalVec() * knockBackForce;
 
     }

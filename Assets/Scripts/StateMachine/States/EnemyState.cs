@@ -138,9 +138,13 @@ public class ParriedState : EnemyState
     public IEnumerator ParriedRoutine()
     {
         enemy.KnockBack(2);
+         enemy.GetAnimatorController().PlayIdle();
+        yield return new WaitForSeconds(0.1f);
+        enemy.GetAnimatorController().FreezeFrame(true);
         yield return new WaitForSeconds(0.7f);
         enemy.GetRigidbody().linearVelocity = Vector2.zero;
         yield return new WaitForSeconds(2f);
+        enemy.GetAnimatorController().FreezeFrame(false);
         enemy.InitStamina();
         enemy.enemyShaderController.OffOutline();
 
@@ -156,16 +160,19 @@ public class DamagedState : EnemyState
 
     public override void Enter()
     {
+        enemy.StartCoroutine(DamagedRoutine());
+    }
+    public IEnumerator DamagedRoutine()
+    {
         enemy.enemyShaderController.OffOutline();
         enemy.GetRigidbody().linearVelocity = Vector2.zero;
         enemy.gameObject.layer = LayerMask.NameToLayer("Enemy");
 
-        enemy.GetAnimatorController().PlayDamage();
-
+        yield return new WaitForSeconds(1f);
         enemy.StopAllCoroutines();
-        // enemy.StartCoroutine(enemy.KnockBackRoutine());
+        enemy.SetCurrentAnimator();
+        enemy.StateMachine.ChangeState<ChaseState>();
     }
-
 
     public override void Update() { }
     public override void Exit() { }
