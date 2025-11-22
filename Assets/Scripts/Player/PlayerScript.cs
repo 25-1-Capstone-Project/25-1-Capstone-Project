@@ -668,10 +668,11 @@ public class PlayerScript : MonoBehaviour
         rb.linearVelocity = Vector2.zero;
         playerAnim.SetDeath(true);
 
-        // 아 약간 나중에 원형으로 삐로로롱 하는 거 추가해도 ㄱㅊ을듯
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1.0f);
 
         UIManager.Instance.deadUI.SetActiveDeadInfoPanel(true);
+        UIManager.Instance.deadUI.PlayMaskShrink();
+
         PlayerLogger.Instance.PlusDeathLog();
     }
 
