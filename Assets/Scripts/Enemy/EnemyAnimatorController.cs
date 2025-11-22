@@ -35,7 +35,7 @@ public class EnemyAnimatorController : MonoBehaviour
     public virtual void PlayAttack()
     {
         SetTrigger("Attack");
-        
+
     }
     public void PlayDamage()
     {
@@ -52,8 +52,8 @@ public class EnemyAnimatorController : MonoBehaviour
     }
     public void FreezeFrame(bool stop)
     {
-       animator.speed  =  stop ?  0 :  1;
-       
+        animator.speed = stop ? 0 : 1;
+
     }
     protected virtual void SetTrigger(string triggerName)
     {
@@ -62,6 +62,7 @@ public class EnemyAnimatorController : MonoBehaviour
         animator.ResetTrigger("Attack");
         animator.ResetTrigger("Death");
         animator.ResetTrigger("Damage");
+        animator.ResetTrigger("KnockBack");
 
         animator.SetTrigger(triggerName);
     }

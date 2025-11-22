@@ -138,8 +138,8 @@ public class ParriedState : EnemyState
     public IEnumerator ParriedRoutine()
     {
         enemy.KnockBack(2);
-         enemy.GetAnimatorController().PlayIdle();
-        yield return new WaitForSeconds(0.1f);
+        enemy.GetAnimatorController().PlayKnockBack();
+        yield return new WaitForSeconds(0.2f);
         enemy.GetAnimatorController().FreezeFrame(true);
         yield return new WaitForSeconds(0.7f);
         enemy.GetRigidbody().linearVelocity = Vector2.zero;
@@ -151,7 +151,7 @@ public class ParriedState : EnemyState
         enemy.StateMachine.ChangeState<ChaseState>();
     }
     public override void Update() { }
-    public override void Exit() { enemy.IsStunned = false; }
+    public override void Exit() { enemy.IsStunned = false; enemy.GetAnimatorController().FreezeFrame(false); }
 }
 
 public class DamagedState : EnemyState
@@ -167,7 +167,7 @@ public class DamagedState : EnemyState
         enemy.enemyShaderController.OffOutline();
         enemy.GetRigidbody().linearVelocity = Vector2.zero;
         enemy.gameObject.layer = LayerMask.NameToLayer("Enemy");
-
+        enemy.GetAnimatorController().PlayDamage();
         yield return new WaitForSeconds(1f);
         enemy.StopAllCoroutines();
         enemy.SetCurrentAnimator();

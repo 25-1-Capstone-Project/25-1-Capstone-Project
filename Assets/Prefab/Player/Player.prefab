@@ -145,8 +145,6 @@ MonoBehaviour:
   canUseDash: 1
   dashDuration: 0.2
   dashCooldown: 1
-  hitColor: {r: 1, g: 0, b: 0, a: 1}
-  flashDuration: 0.1
   playerData: {fileID: 11400000, guid: ac875f24e6722b44186598c3523bc25c, type: 2}
   arrow: {fileID: 8287425239734384137}
   ammo: {fileID: 6894103495596934110, guid: 341fb0815bf65ea4a8d42969d53cbd75, type: 3}
@@ -156,7 +154,6 @@ MonoBehaviour:
   spriteRenderer: {fileID: 2622820292897668436}
   ghost: {fileID: 8840144759729888683}
   skillParticle: {fileID: 0}
-  knockBackForce: 2
 --- !u!114 &6366903998483742144
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -465,7 +462,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
