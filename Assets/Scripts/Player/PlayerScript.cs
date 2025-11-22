@@ -358,7 +358,7 @@ public class PlayerScript : MonoBehaviour
             return;
 
         // 스턴 상태인 적 중 가장 가까운 적 찾기
-        EnemyBase closestStunnedEnemy = null;
+
         float closestDistance = float.MaxValue;
 
         foreach (var hit in hits)
@@ -370,14 +370,13 @@ public class PlayerScript : MonoBehaviour
                 if (distance < closestDistance)
                 {
                     closestDistance = distance;
-                    closestStunnedEnemy = enemy;
+                    targetEnemy = enemy;
                 }
             }
         }
         // 스턴 상태의 적이 있으면 공격 실행
-        if (closestStunnedEnemy != null)
+        if (targetEnemy != null)
         {
-            targetEnemy = closestStunnedEnemy;
             OnAttackInput?.Invoke();
             StartCoroutine(AttackRoutine());
         }
@@ -392,10 +391,11 @@ public class PlayerScript : MonoBehaviour
         CameraManager.Instance.CameraShake(8f, 0.3f);
         Vector2 toEnemyDirection = -targetEnemy.GetDirectionNormalVec();
         float angle = Mathf.Atan2(toEnemyDirection.y, toEnemyDirection.x) * Mathf.Rad2Deg;
-        RaycastHit2D hit = Physics2D.Raycast(targetEnemy.transform.position, toEnemyDirection, 1.5f, LayerMask.GetMask("Wall"));
+       
+        RaycastHit2D hit = Physics2D.Raycast(targetEnemy.transform.position, toEnemyDirection, 1f, LayerMask.GetMask("Wall"));
         if (hit.collider != null)
         {
-            hit.transform.position = (Vector2)hit.transform.position - toEnemyDirection * 0.1f;
+            transform.position = hit.point - toEnemyDirection * 0.5f;
         }
         else
         {
@@ -545,7 +545,7 @@ public class PlayerScript : MonoBehaviour
 
         isGod = true;
         //canUseAttack = true;
-        targetEnemy = enemy;
+        //    targetEnemy = enemy;
         EffectPooler.Instance.SpawnFromPool("ParryEffect", transform.position + (direction / 2), Quaternion.identity);
         AudioManager.Instance.PlaySFX("ParrySuccess");
         yield return new WaitForSeconds(0.5f);
