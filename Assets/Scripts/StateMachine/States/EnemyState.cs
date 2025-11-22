@@ -92,6 +92,7 @@ public class AttackState : EnemyState
 
     public override void Enter()
     {
+        enemy.GetRigidbody().bodyType = RigidbodyType2D.Kinematic;
         enemy.GetRigidbody().linearVelocity = Vector2.zero;
         enemy.IsAttacking = true;
         attackRoutine = enemy.StartCoroutine(AttackSequence());
@@ -105,13 +106,14 @@ public class AttackState : EnemyState
             enemy.StopCoroutine(attackRoutine);
             attackRoutine = null;
         }
-
+        enemy.GetRigidbody().bodyType = RigidbodyType2D.Dynamic;
         enemy.IsAttacking = false;
-        enemy.ClearAttackEffect(); // 예고선 정리
+        enemy.ClearAttackEffect(); 
     }
 
     private IEnumerator AttackSequence()
     {
+        enemy.SpriteFlip();
         yield return enemy.GetAttackPattern().Execute(enemy);
 
         if (enemy.CheckAttackRange())
@@ -134,24 +136,27 @@ public class ParriedState : EnemyState
         enemy.enemyShaderController.OnOutline();
         enemy.IsStunned = true;
         enemy.gameObject.layer = LayerMask.NameToLayer("Enemy");
+        enemy.SetStunEffectActive(true);
+    
     }
     public IEnumerator ParriedRoutine()
     {
         enemy.KnockBack(2);
         enemy.GetAnimatorController().PlayKnockBack();
-        yield return new WaitForSeconds(0.2f);
-        enemy.GetAnimatorController().FreezeFrame(true);
-        yield return new WaitForSeconds(0.7f);
+       // enemy.GetAnimatorController().FreezeFrame(true);
         enemy.GetRigidbody().linearVelocity = Vector2.zero;
         yield return new WaitForSeconds(2f);
-        enemy.GetAnimatorController().FreezeFrame(false);
+        //enemy.GetAnimatorController().FreezeFrame(false);
         enemy.InitStamina();
         enemy.enemyShaderController.OffOutline();
 
-        enemy.StateMachine.ChangeState<ChaseState>();
+        if (enemy.CheckAttackRange())
+            enemy.StateMachine.ChangeState<AttackState>();
+        else
+            enemy.StateMachine.ChangeState<ChaseState>();
     }
     public override void Update() { }
-    public override void Exit() { enemy.IsStunned = false; enemy.GetAnimatorController().FreezeFrame(false); }
+    public override void Exit() { enemy.IsStunned = false;   enemy.SetStunEffectActive(false); }
 }
 
 public class DamagedState : EnemyState
@@ -171,7 +176,12 @@ public class DamagedState : EnemyState
         yield return new WaitForSeconds(1f);
         enemy.StopAllCoroutines();
         enemy.SetCurrentAnimator();
-        enemy.StateMachine.ChangeState<ChaseState>();
+        enemy.InitStamina();
+        enemy.enemyShaderController.OffOutline();
+        if (enemy.CheckAttackRange())
+            enemy.StateMachine.ChangeState<AttackState>();
+        else
+            enemy.StateMachine.ChangeState<ChaseState>();
     }
 
     public override void Update() { }

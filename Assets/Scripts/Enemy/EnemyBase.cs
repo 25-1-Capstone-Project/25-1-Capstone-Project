@@ -111,7 +111,7 @@ public class EnemyBase : MonoBehaviour
     /// </summary>
     private void InitSharedComponents()
     {
-        stunEffect.gameObject.SetActive(true);
+        stunEffect.gameObject.SetActive(false);
         rb = GetComponent<Rigidbody2D>();
         aIAgent = GetComponent<AIAgent>();
         // null 체크
@@ -125,7 +125,7 @@ public class EnemyBase : MonoBehaviour
     {
         int index = data.animators.Length - _currentHealth;
         animController.SetAnimator(data.GetAnimatorAtIndex(index));
-        
+        animController.PlayIdle();
     }
     private IEnumerator SetShaderMainTextureAfterFirstFrame()
     {
@@ -148,6 +148,7 @@ public class EnemyBase : MonoBehaviour
     }
     public void InitStamina()
     {
+
         _stamina = data.stamina;
     }
     /// <summary>
@@ -186,10 +187,14 @@ public class EnemyBase : MonoBehaviour
     protected virtual void OnParried()
     {
         AudioManager.Instance.PlaySFX("ParrySuccess");
-        if (!data.dontStopEnemy) stunEffect.Play();
         StateMachine.ChangeState<ParriedState>();
     }
+    public void SetStunEffectActive(bool isActive)
+    {
 
+        stunEffect.gameObject.SetActive(isActive);
+
+    }
     /// <summary>
     /// 피격 시 호출되는 메서드. 자식 클래스에서 오버라이드
     /// </summary>
@@ -201,7 +206,7 @@ public class EnemyBase : MonoBehaviour
 
     protected virtual void Dead()
     {
-        stunEffect.gameObject.SetActive(false);
+
         isDead = true;
         StateMachine.ChangeState<DeadState>();
         PlayerLogger.Instance.PlusEnemyKilledLog(); // 적 처치 기록
@@ -269,7 +274,7 @@ public class EnemyBase : MonoBehaviour
     public Vector2 GetDirectionToPlayerVec() => GameManager.Instance.playerScript.GetPlayerTransform().position - transform.position;
     public Vector2 GetDirectionNormalVec() => GetDirectionToPlayerVec().normalized;
 
-    public void SetEnemyData(EnemyDataBase newData) => this.data = newData;
+    public void SetEnemyData(EnemyDataBase newData) => data = newData;
 
     #endregion
 }

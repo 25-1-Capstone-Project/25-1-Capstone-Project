@@ -9,7 +9,7 @@ public class DoorTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            StageManager.Instance.NextRound();
+           // StageManager.Instance.NextStage();
    
         }
     }

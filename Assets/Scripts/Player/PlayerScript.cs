@@ -121,7 +121,7 @@ public class PlayerScript : MonoBehaviour
         playerAnim.SetDeath(isDead);
         playerInput.enabled = true;
         Health = stats.maxHealth;
-
+        canMove = true;
         UIManager.Instance.playerStatUI.HPUIInit(stats.maxHealth);
         SetActivePlayerInput(true);
     }
@@ -391,7 +391,7 @@ public class PlayerScript : MonoBehaviour
         CameraManager.Instance.CameraShake(8f, 0.3f);
         Vector2 toEnemyDirection = -targetEnemy.GetDirectionNormalVec();
         float angle = Mathf.Atan2(toEnemyDirection.y, toEnemyDirection.x) * Mathf.Rad2Deg;
-       
+
         RaycastHit2D hit = Physics2D.Raycast(targetEnemy.transform.position, toEnemyDirection, 1f, LayerMask.GetMask("Wall"));
         if (hit.collider != null)
         {
@@ -518,12 +518,14 @@ public class PlayerScript : MonoBehaviour
         //isGod = true;
         // yield return FadeController.Instance.FadeOut(Color.white, 0.1f, 0.3f);
         ShaderManager.Instance.CallShockWave();
-
+        CameraManager.Instance.SetLensSize(3f);
         yield return new WaitForSecondsRealtime(0.1f);
         GameManager.Instance.SetTimeScale(0);
+
         //   yield return FadeController.Instance.FadeIn(Color.white, 0.1f, 0.3f);
-        yield return new WaitForSecondsRealtime(0.1f);
+        yield return new WaitForSecondsRealtime(0.3f);
         GameManager.Instance.SetTimeScale(1);
+        CameraManager.Instance.SetLensSize(5f);
         canMove = true;
         // yield return new WaitForSeconds(0.1f);
         isGod = false;

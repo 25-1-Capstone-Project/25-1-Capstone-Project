@@ -9,7 +9,7 @@ public class PlayerRuntimeStats
     public int currentHealth;
     public int damage;
     public float attackCooldownSec;
-    public float attackRange;
+ 
     public float attackAngle;
 
     public float parryCooldownSec;
@@ -22,13 +22,9 @@ public class PlayerRuntimeStats
         speed = baseData.speed;
         maxHealth = baseData.maxHealth;
         currentHealth = maxHealth;
-        damage = baseData.damage;
-        attackCooldownSec = baseData.attackCooldownSec;
-        attackRange = baseData.attackRange;
-        attackAngle = baseData.attackAngle;
+
         parryCooldownSec = baseData.parryCooldownSec;
         parryDurationSec = baseData.parryDurationSec;
-        maxParryStack = baseData.maxParryStack;
-        currentParryStack = baseData.currentParryStack;
+   
     }
 }

@@ -7,7 +7,7 @@ public class Enemy_SwordSlash : EnemyAttackPattern
 
     public override IEnumerator Execute(EnemyBase enemy)
     {
-        enemy.IsAttacking = true;
+
         enemy.GetAnimatorController().PlayAttack();
         yield return new WaitForEndOfFrame();
 
@@ -34,7 +34,7 @@ public class Enemy_SwordSlash : EnemyAttackPattern
         yield return new WaitForSeconds(attackDuration);
         enemy.enemyShaderController.OffOutline();
         yield return new WaitForSeconds(attackPostDelay);
-        enemy.IsAttacking = false;
+  
 
     }
 
