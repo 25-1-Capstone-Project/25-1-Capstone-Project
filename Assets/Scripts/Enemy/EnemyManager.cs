@@ -60,10 +60,11 @@ public class EnemyManager : Singleton<EnemyManager>
         yield return new WaitForSeconds(1.0f);
 
         // 3) 보스 스폰
-        SpawnBoss(spawn);
+        Boss boss = SpawnBoss(spawn);
 
+        yield return new WaitForSeconds(1f);
         // 4) 보스 등장 연출 대기
-        yield return new WaitForSeconds(1.2f);
+        yield return new WaitForSeconds(boss.GetAnimatorController().GetAnimator().GetCurrentAnimatorClipInfo(0)[0].clip.length);
 
         // 5) 카메라 원래 플레이어에게 복귀
         yield return StartCoroutine(CameraManager.Instance.LerpCameraPosition(playerPos));
@@ -74,10 +75,8 @@ public class EnemyManager : Singleton<EnemyManager>
         GameManager.Instance.playerScript.SetActivePlayerInput(true);
     }
 
-    private void SpawnBoss(EnemySpawn spawn)
+    private Boss SpawnBoss(EnemySpawn spawn)
     {
-
-
         GameObject enemyObj = Instantiate(
             bossPrefab,
             spawn.marker.transform.position,
@@ -94,6 +93,7 @@ public class EnemyManager : Singleton<EnemyManager>
         anim.SetTrigger("Spawn");
 
         spawnedEnemy++;
+        return (Boss)enemy;
     }
     private void BossSpawn()
     {
@@ -110,6 +110,7 @@ public class EnemyManager : Singleton<EnemyManager>
 
     public void BossSpawnEvent()
     {
+        AudioManager.Instance.PlayBGM("Stage6Boss");
         StartCoroutine(BossSpawnRoutine());
 
     }

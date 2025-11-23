@@ -199,7 +199,7 @@ SpriteRenderer:
   m_SortingLayerID: -940925785
   m_SortingLayer: -4
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7053633157004955853, guid: 0e262c5faf1e968469d3a7dd83c7c309, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -207,7 +207,7 @@ SpriteRenderer:
   m_Size: {x: 1.46875, y: 1.40625}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!95 &2041896880324455559
@@ -720,12 +720,10 @@ MonoBehaviour:
   data: {fileID: 11400000, guid: 7b31b1a268ce7fa449cac152533836c0, type: 2}
   enemySprite: {fileID: 6823296138178529082}
   animController: {fileID: 1213534254612820977}
-  hpBar: {fileID: 4127750533706630349}
   enemyShaderController: {fileID: 6148230100185541133}
   IsAttacking: 0
   IsStunned: 0
   _stamina: 0
-  skillSelectItemPrefab: {fileID: 4741066030510868246, guid: 4f5e063cd0d62ed46b594f0b15029ea8, type: 3}
 --- !u!114 &-2833255135379681415
 MonoBehaviour:
   m_ObjectHideFlags: 0

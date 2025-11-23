@@ -1,11 +1,11 @@
 using UnityEngine;
 using System.Collections;
 
-[CreateAssetMenu(menuName = "Enemy/AttackPattern/Enemy/Enemy_SpearAttack")]
-public class Enemy_SpearAttack : EnemyAttackPattern
+[CreateAssetMenu(menuName = "Enemy/AttackPattern/Boss/Boss_DrillAttack")]
+public class Boss_DrillAttack : EnemyAttackPattern
 {
 
-    public float attackSpeed ; // 
+    public float attackSpeed; // 
 
     public override IEnumerator Execute(EnemyBase enemy)
     {
@@ -15,14 +15,17 @@ public class Enemy_SpearAttack : EnemyAttackPattern
         enemy.GetAnimatorController().PlayAttack();
         enemy.enemyShaderController.OnOutline();
 
+
         yield return new WaitForSeconds(attackChargeSec);
         Vector2 PlayerPos = GameManager.Instance.playerScript.GetPlayerTransform().position;
         Vector2 dir = (GameManager.Instance.playerScript.transform.position - enemy.transform.position).normalized;
+
+
         Vector2 startPos = enemy.GetRigidbody().position;
         Vector2 endPos = PlayerPos + dir * 2f;
         bool hasDealtDamage = false;
         enemy.gameObject.layer = LayerMask.NameToLayer("EnemyAttack");
-
+        GameObject effect = EffectPooler.Instance.SpawnFromPool("WoodDrill", startPos + dir, Quaternion.FromToRotation(Vector3.right, dir));
         // 속도 기반 이동 (거리 / 속도 = 필요한 시간)
         float totalDistance = Vector2.Distance(startPos, endPos);
         float travelTime = totalDistance / attackSpeed;
@@ -33,7 +36,7 @@ public class Enemy_SpearAttack : EnemyAttackPattern
             float t = elapsedTime / travelTime;
             Vector2 currentPos = Vector2.Lerp(startPos, endPos, t);
             enemy.GetRigidbody().MovePosition(currentPos);
-
+            effect.transform.position = enemy.transform.position + (Vector3)dir;
             if (!hasDealtDamage)
             {
                 Collider2D hit = Physics2D.OverlapCircle(currentPos, 0.3f, LayerMask.GetMask("Player", "PlayerDash"));
@@ -47,7 +50,7 @@ public class Enemy_SpearAttack : EnemyAttackPattern
             elapsedTime += Time.fixedDeltaTime;
             yield return new WaitForFixedUpdate();
         }
-
+        effect.SetActive(false);
         enemy.GetRigidbody().MovePosition(endPos); // 정확한 끝점 보정
         enemy.gameObject.layer = LayerMask.NameToLayer("Enemy");
         enemy.enemyShaderController.OffOutline();

@@ -12,9 +12,9 @@ public class DisableEffect : MonoBehaviour
         }
     }
 
-    void Start()
+    void OnEnable()
     {
-        StartCoroutine(DisableAfterTime(5f));
+        StartCoroutine(DisableAfterTime(2f));
     }
     private IEnumerator DisableAfterTime(float time)
     {

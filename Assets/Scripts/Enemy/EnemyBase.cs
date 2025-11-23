@@ -115,9 +115,10 @@ public class EnemyBase : MonoBehaviour
         stunEffect.gameObject.SetActive(false);
         rb = GetComponent<Rigidbody2D>();
         aIAgent = GetComponent<AIAgent>();
+        aIAgent.SetSpeed(data.moveSpeed);
 
     }
-    public void SetCurrentAnimator()
+    public virtual void SetCurrentAnimator()
     {
         int index = data.animators.Length - _currentHealth;
         animController.SetAnimator(data.GetAnimatorAtIndex(index));
@@ -254,7 +255,9 @@ public class EnemyBase : MonoBehaviour
 
     public virtual bool CheckAttackRange()
     {
+        
         if (data.attackPattern == null) return false;
+        if(data.attackPattern.attackRange ==-1) return true; // 사거리 무제한 처리
         return GetDirectionToPlayerVec().magnitude < data.attackPattern.attackRange;
     }
 

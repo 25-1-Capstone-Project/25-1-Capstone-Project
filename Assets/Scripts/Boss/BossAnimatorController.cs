@@ -10,7 +10,12 @@ public class BossAnimatorController : EnemyAnimatorController
     {
         SetTrigger("Spawn");
     }
+    public override void PlayAttack()
+    {
 
+        SetTrigger("Attack");
+
+    }
     public void SetAttackIndex(int attackIndex)
     {
         animator.SetInteger("AttackIndex", attackIndex);
@@ -21,10 +26,8 @@ public class BossAnimatorController : EnemyAnimatorController
         animator.ResetTrigger("Chase");
         animator.ResetTrigger("Attack");
         animator.ResetTrigger("Death");
-        animator.ResetTrigger("KnockBack");
         animator.ResetTrigger("AttackEnd");
-
-
+        animator.ResetTrigger("StartBattle");
         animator.ResetTrigger("Spawn");
 
         animator.SetTrigger(triggerName);

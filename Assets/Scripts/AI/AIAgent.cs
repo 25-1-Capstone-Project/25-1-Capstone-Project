@@ -1,6 +1,6 @@
 using Pathfinding;
 using UnityEngine;
-using UnityEngine.Rendering;
+
 
 public class AIAgent : MonoBehaviour
 {
@@ -24,6 +24,10 @@ public class AIAgent : MonoBehaviour
     {
         path.canMove = false;
 
+    }
+    public void SetSpeed(float newSpeed)
+    {
+        speed = newSpeed;
     }
     public void SetTarget(Transform newTarget)
     {

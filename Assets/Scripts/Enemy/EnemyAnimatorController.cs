@@ -4,7 +4,7 @@ using UnityEngine;
 public class EnemyAnimatorController : MonoBehaviour
 {
     protected Animator animator;
-
+    public Animator GetAnimator() => animator;
     void Awake()
     {
         animator = GetComponent<Animator>();

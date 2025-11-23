@@ -10,16 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe7b41882d911124dbfce8033bbdb6dc, type: 3}
-  m_Name: EnemyData
+  m_Name: Boss_Wood_Data
   m_EditorClassIdentifier: 
   Name: 
   maxHealth: 3
-  moveSpeed: 2
+  moveSpeed: 0
   attackDamage: 0
   dontStopEnemy: 0
-  stamina: 1
+  stamina: 3
   animators:
-  - {fileID: 22100000, guid: a0056520e7cde014d8cee514bdf28a44, type: 2}
-  attackPattern: {fileID: 11400000, guid: e046c09cf101f054c834b068de4af735, type: 2}
-  sizeMagnification: 1
+  - {fileID: 9100000, guid: 8f2d48ac40576554cbd8eea3739a19e9, type: 2}
+  attackPattern: {fileID: 11400000, guid: ab5078363ce0dcc409bdb0727754f595, type: 2}
+  sizeMagnification: 1.5
   attackPatterns: []
+  spawnAnimator: {fileID: 9100000, guid: bba85ded45440514e889d7cc69d3b455, type: 2}

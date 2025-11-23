@@ -384,11 +384,14 @@ public class PlayerScript : MonoBehaviour
     }
     IEnumerator AttackRoutine()
     {
+        GameManager.Instance.SetTimeScale(1f);
         isAttacking = true;
         rb.linearVelocity = Vector2.zero;
         playerAnim.PlayAttack();
 
-        CameraManager.Instance.CameraShake(8f, 0.3f);
+        CameraManager.Instance.CameraShake(10f, 0.3f);
+
+        CameraManager.Instance.SetLensSize(5f);
         Vector2 toEnemyDirection = -targetEnemy.GetDirectionNormalVec();
         float angle = Mathf.Atan2(toEnemyDirection.y, toEnemyDirection.x) * Mathf.Rad2Deg;
 
@@ -406,16 +409,16 @@ public class PlayerScript : MonoBehaviour
 
         targetEnemy.TakeDamage(1);
         GameManager.Instance.SetTimeScale(0);
-        yield return new WaitForSecondsRealtime(0.4f);
+        yield return new WaitForSecondsRealtime(0.3f);
         GameManager.Instance.SetTimeScale(1f);
-
+        CameraManager.Instance.SetLensSize(6.5f);
         attackEffect.SetActive(false);
         isGod = false;
         canMove = true;
         isAttacking = false;
         targetEnemy = null;
 
-        CameraManager.Instance.SetLensSize(5f);
+        CameraManager.Instance.SetLensSize(6.5f);
     }
 
 
@@ -512,7 +515,7 @@ public class PlayerScript : MonoBehaviour
     }
     public IEnumerator ParryEffect(bool projectile = false)
     {
-        CameraManager.Instance.CameraShake(3f, 0.2f);
+        CameraManager.Instance.CameraShake(5f, 0.2f);
         EffectPooler.Instance.SpawnFromPool("ParryEffect", transform.position + (direction / 2), Quaternion.identity);
         AudioManager.Instance.PlaySFX("Parry" + UnityEngine.Random.Range(0, 3));
 
@@ -527,14 +530,14 @@ public class PlayerScript : MonoBehaviour
     {
 
         ShaderManager.Instance.CallShockWave();
-        CameraManager.Instance.SetLensSize(3.5f);
+        CameraManager.Instance.SetLensSize(4.5f);
         yield return new WaitForSecondsRealtime(0.1f);
         GameManager.Instance.SetTimeScale(0);
 
         //   yield return FadeController.Instance.FadeIn(Color.white, 0.1f, 0.3f);
-        yield return new WaitForSecondsRealtime(0.3f);
+        yield return new WaitForSecondsRealtime(0.2f);
         GameManager.Instance.SetTimeScale(1);
-        CameraManager.Instance.SetLensSize(5f);
+        CameraManager.Instance.SetLensSize(6.5f);
     }
     GameObject attackEffect;
 

@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.UIElements;
 public class Boss : EnemyBase
 {
     [Header("Boss Only Settings")]
@@ -7,7 +8,6 @@ public class Boss : EnemyBase
     [SerializeField] private EnemyAttackPattern[] bossPatternsPhase1;
     [SerializeField] private EnemyAttackPattern[] bossPatternsPhase2;
 
-    private bool isEnraged = false;
 
     public override void Init()
     {
@@ -22,23 +22,27 @@ public class Boss : EnemyBase
     private IEnumerator SpawnRoutine()
     {
         // Spawn 애니메이터 설정
-        if (data is BossData bossData && animController is BossAnimatorController anim)
+        if (animController is BossAnimatorController anim)
         {
-            anim.SetAnimator(bossData.spawnAnimator);
+            SetCurrentAnimator();
             anim.PlaySpawn();
+            yield return new WaitForSeconds(1);
+            // Spawn 애니메이션 길이만큼 대기 
+            yield return new WaitForSeconds(anim.GetAnimator().GetCurrentAnimatorClipInfo(0)[0].clip.length);
+            anim.PlayStartBattle();
+            yield return new WaitForSeconds(1);
+
+            StartCoroutine(SetShaderMainTextureAfterFirstFrame());
+
+            // 상태 머신 시작
+            StateMachine.ChangeState<ChaseState>();
         }
-
-        // Spawn 애니메이션 길이만큼 대기 (약 2초, 필요시 조정)
-        yield return new WaitForSeconds(2f);
-
-        // Spawn 애니메이션 종료 후 일반 애니메이터로 변경
-        SetCurrentAnimator();
-        StartCoroutine(SetShaderMainTextureAfterFirstFrame());
-
-        // 상태 머신 시작
-        StateMachine.ChangeState<IdleState>();
     }
-
+    public override void SetCurrentAnimator()
+    {
+        animController.SetAnimator(data.animators[0]);
+        animController.PlayChase();
+    }
     protected override void SetState()
     {
         StateMachine = new StateMachine<EnemyState>();
@@ -60,7 +64,7 @@ public class Boss : EnemyBase
 
     public EnemyAttackPattern GetCurrentPattern()
     {
-        if (isEnraged) return bossPatternsPhase2[Random.Range(0, bossPatternsPhase2.Length)];
+
         return bossPatternsPhase1[Random.Range(0, bossPatternsPhase1.Length)];
     }
 }
