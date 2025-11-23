@@ -1,5 +1,6 @@
 using UnityEngine;
 
+
 public class EnemyAnimatorController : MonoBehaviour
 {
     protected Animator animator;

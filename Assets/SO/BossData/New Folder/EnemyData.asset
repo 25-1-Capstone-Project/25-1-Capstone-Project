@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe7b41882d911124dbfce8033bbdb6dc, type: 3}
+  m_Name: EnemyData
+  m_EditorClassIdentifier: 
+  Name: 
+  maxHealth: 3
+  moveSpeed: 2
+  attackDamage: 0
+  dontStopEnemy: 0
+  stamina: 1
+  animators:
+  - {fileID: 22100000, guid: a0056520e7cde014d8cee514bdf28a44, type: 2}
+  attackPattern: {fileID: 11400000, guid: e046c09cf101f054c834b068de4af735, type: 2}
+  sizeMagnification: 1
+  attackPatterns: []

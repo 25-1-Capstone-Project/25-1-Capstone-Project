@@ -11,7 +11,6 @@ public class EnemyBase : MonoBehaviour
     [SerializeField] protected SpriteRenderer enemySprite;
     [SerializeField] protected EnemyAnimatorController animController;
     protected AIAgent aIAgent;
-    [SerializeField] private EnemyHPBar hpBar;
     public EnemyAttackPattern GetAttackPattern() => data.attackPattern;
     public int GetDamage() => data.attackDamage;
     protected Rigidbody2D rb;
@@ -102,24 +101,21 @@ public class EnemyBase : MonoBehaviour
     {
         InitData();
         InitSharedComponents();
-
         SetState();
+        SetCurrentAnimator();
+        StartCoroutine(SetShaderMainTextureAfterFirstFrame());
+
     }
 
     /// <summary>
     /// 모든 적이 공통으로 사용하는 컴포넌트를 초기화합니다.
     /// </summary>
-    private void InitSharedComponents()
+    protected void InitSharedComponents()
     {
         stunEffect.gameObject.SetActive(false);
         rb = GetComponent<Rigidbody2D>();
         aIAgent = GetComponent<AIAgent>();
-        // null 체크
-        if (animController != null && data != null)
-        {
-            SetCurrentAnimator();
-            StartCoroutine(SetShaderMainTextureAfterFirstFrame());
-        }
+
     }
     public void SetCurrentAnimator()
     {
@@ -127,14 +123,14 @@ public class EnemyBase : MonoBehaviour
         animController.SetAnimator(data.GetAnimatorAtIndex(index));
         animController.PlayIdle();
     }
-    private IEnumerator SetShaderMainTextureAfterFirstFrame()
+    protected IEnumerator SetShaderMainTextureAfterFirstFrame()
     {
         yield return new WaitForEndOfFrame();
         enemyShaderController.InitMaterial();
     }
     /// <summary>
     /// </summary>
-    private void InitData()
+    protected void InitData()
     {
         if (data == null)
         {

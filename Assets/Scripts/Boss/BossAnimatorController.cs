@@ -10,12 +10,7 @@ public class BossAnimatorController : EnemyAnimatorController
     {
         SetTrigger("Spawn");
     }
-    public override void PlayAttack()
-    {
-        
-        SetTrigger("Attack");
 
-    }
     public void SetAttackIndex(int attackIndex)
     {
         animator.SetInteger("AttackIndex", attackIndex);

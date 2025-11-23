@@ -11,7 +11,7 @@ public abstract class EnemyDataBase : ScriptableObject
     public int attackDamage;
     public bool dontStopEnemy = false;
     public int stamina = 1;
-      public RuntimeAnimatorController[] animators;
+    public RuntimeAnimatorController[] animators;
     public EnemyAttackPattern attackPattern;
     public float sizeMagnification = 1f;
 

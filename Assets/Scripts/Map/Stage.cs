@@ -7,6 +7,7 @@ public class Stage : MonoBehaviour
     [Header("State")]
     [SerializeField] bool isRoomCleared = false;
     public string roomName;
+    public bool isBossRoom = false;
 
     [Header("Editor Placement")]
     [Tooltip("이 룸을 시각적으로 배치할 때 스폰 마커를 담을 폴더(선택)")]
@@ -23,7 +24,8 @@ public class Stage : MonoBehaviour
         isRoomCleared = false;
         waveIndex = 0;
         EnemyManager.Instance.InitSpawnedEnemy();
-        StartWave();
+        if (!isBossRoom)
+            StartWave();
     }
 
     public void StartWave()
@@ -75,7 +77,7 @@ public class Stage : MonoBehaviour
         ShaderManager.Instance.SetBleackScreen(false);
         GameManager.Instance.playerScript.ClearSet();
         GameManager.Instance.SetTimeScale(1);
-
+        CameraManager.Instance.SetLensSize(5);
         UIManager.Instance.successUI.SetActiveDeadInfoPanel(true);
         isRoomCleared = true;
     }

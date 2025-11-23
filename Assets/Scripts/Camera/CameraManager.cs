@@ -30,14 +30,19 @@ public class CameraManager : Singleton<CameraManager>
     public IEnumerator LerpCameraPosition(Vector3 position)
     {
         float elapsedTime = 0f;
-        Vector3 startPosition = mainCamera.transform.position;
+        Vector3 start = mainCamera.transform.position;
+        Vector3 target = new Vector3(position.x, position.y, start.z);
+
         while (elapsedTime < duration)
         {
-            mainCamera.transform.position = Vector3.Lerp(startPosition, new Vector3(position.x, position.y, mainCamera.transform.position.z), elapsedTime / duration);
+            mainCamera.transform.position = Vector3.Lerp(start, target, elapsedTime / duration);
             elapsedTime += Time.deltaTime;
             yield return null;
         }
+
+        mainCamera.transform.position = target; // 마지막 보정
     }
+
     public void CameraShake(float shakeIntensity, float shakeDuration)
     {
         StopAllCoroutines(); // 기존 코루틴 중복 방지

@@ -404,18 +404,18 @@ public class PlayerScript : MonoBehaviour
         attackEffect = EffectPooler.Instance.SpawnFromPool("AttackEffect", transform.position, Quaternion.Euler(0, 0, angle));
         AudioManager.Instance.PlaySFX("AttackHit");
 
-        ShaderManager.Instance.CallShockWave();
         targetEnemy.TakeDamage(1);
-        yield return new WaitForSecondsRealtime(0.4f);
         GameManager.Instance.SetTimeScale(0);
+        yield return new WaitForSecondsRealtime(0.4f);
+        GameManager.Instance.SetTimeScale(1f);
 
         attackEffect.SetActive(false);
         isGod = false;
         canMove = true;
         isAttacking = false;
         targetEnemy = null;
-        GameManager.Instance.SetTimeScale(1f);
-        CameraManager.Instance.SetLensSize(7f);
+
+        CameraManager.Instance.SetLensSize(5f);
     }
 
 
@@ -507,18 +507,27 @@ public class PlayerScript : MonoBehaviour
 
         isParrying = false;
         canUseParry = true;
-        StartCoroutine(ParryEffect());
+        StartCoroutine(ParryEffect(true));
 
     }
-    public IEnumerator ParryEffect()
+    public IEnumerator ParryEffect(bool projectile = false)
     {
         CameraManager.Instance.CameraShake(3f, 0.2f);
         EffectPooler.Instance.SpawnFromPool("ParryEffect", transform.position + (direction / 2), Quaternion.identity);
         AudioManager.Instance.PlaySFX("Parry" + UnityEngine.Random.Range(0, 3));
-        //isGod = true;
-        // yield return FadeController.Instance.FadeOut(Color.white, 0.1f, 0.3f);
+
+        if (!projectile)
+            yield return StartCoroutine(ParryEffectRoutine());
+
+        canMove = true;
+        // yield return new WaitForSeconds(0.1f);
+        isGod = false;
+    }
+    public IEnumerator ParryEffectRoutine()
+    {
+
         ShaderManager.Instance.CallShockWave();
-        CameraManager.Instance.SetLensSize(3f);
+        CameraManager.Instance.SetLensSize(3.5f);
         yield return new WaitForSecondsRealtime(0.1f);
         GameManager.Instance.SetTimeScale(0);
 
@@ -526,9 +535,6 @@ public class PlayerScript : MonoBehaviour
         yield return new WaitForSecondsRealtime(0.3f);
         GameManager.Instance.SetTimeScale(1);
         CameraManager.Instance.SetLensSize(5f);
-        canMove = true;
-        // yield return new WaitForSeconds(0.1f);
-        isGod = false;
     }
     GameObject attackEffect;
 
@@ -541,21 +547,21 @@ public class PlayerScript : MonoBehaviour
         isAttacking = false;
     }
 
-    IEnumerator AttackStay(EnemyBase enemy)
-    {
-        CameraManager.Instance.SetLensSize(6f);
+    // IEnumerator AttackStay(EnemyBase enemy)
+    // {
+    //     CameraManager.Instance.SetLensSize(6f);
 
-        isGod = true;
-        //canUseAttack = true;
-        //    targetEnemy = enemy;
-        EffectPooler.Instance.SpawnFromPool("ParryEffect", transform.position + (direction / 2), Quaternion.identity);
-        AudioManager.Instance.PlaySFX("ParrySuccess");
-        yield return new WaitForSeconds(0.5f);
+    //     isGod = true;
+    //     //canUseAttack = true;
+    //     //    targetEnemy = enemy;
+    //     EffectPooler.Instance.SpawnFromPool("ParryEffect", transform.position + (direction / 2), Quaternion.identity);
+    //     AudioManager.Instance.PlaySFX("ParrySuccess");
+    //     yield return new WaitForSeconds(0.5f);
 
-        // canUseAttack = false;
-        isGod = false;
-        CameraManager.Instance.SetLensSize(7f);
-    }
+    //     // canUseAttack = false;
+    //     isGod = false;
+    //     CameraManager.Instance.SetLensSize(7f);
+    // }
     #endregion
 
     #region 데미지 처리

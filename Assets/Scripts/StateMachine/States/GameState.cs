@@ -22,7 +22,7 @@ public class MainMenuState : GameState
     {
         CursorManager.Instance.SetCursorIcon(ECursorType.Default.GetHashCode());
 
-
+        SceneManager.sceneLoaded += OnSceneMoveMainMenu;
 
     }
 
@@ -33,6 +33,16 @@ public class MainMenuState : GameState
     }
 
     public override void Exit() { }
+
+    void OnSceneMoveMainMenu(Scene scene, LoadSceneMode mode)
+    {
+        SceneManager.sceneLoaded -= OnSceneMoveMainMenu;
+        AudioManager.Instance.PlayBGM("Main");
+        FadeManager.Instance.FadeIn(Color.black, 1f);
+        UIManager.Instance.SetActiveMainMenuUI(true);
+        UIManager.Instance.SetActiveStageUI(false);
+        UIManager.Instance.SetActiveInGameUI(false);
+    }
 }
 
 
@@ -73,14 +83,7 @@ public class StageState : GameState
         CameraManager.Instance.SetCameraPosition(gameManager.playerScript.GetPlayerTransform().position);
         CursorManager.Instance.SetCursorIcon(ECursorType.Aim.GetHashCode(), true);
     }
-    void OnSceneMoveMainMenu(Scene scene, LoadSceneMode mode)
-    {
-        SceneManager.sceneLoaded -= OnSceneMoveMainMenu;
-        FadeManager.Instance.FadeIn(Color.black, 1f);
-        UIManager.Instance.SetActiveMainMenuUI(true);
-        UIManager.Instance.SetActiveStageUI(false);
-        UIManager.Instance.SetActiveInGameUI(false);
-    }
+
     public override void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -91,7 +94,7 @@ public class StageState : GameState
 
     public override void Exit()
     {
-        SceneManager.sceneLoaded += OnSceneMoveMainMenu;
+
         EnemyManager.Instance.ClearAllEnemies();
         gameManager.StartCoroutine(RoomTransitionRoutine("MainMenu"));
         AudioManager.Instance.StopBGM();

@@ -15,6 +15,7 @@ public class Enemy_Multiattack : EnemyAttackPattern
         yield return new WaitForSeconds(attackChargeSec);
         for (int i = 0; i < attackCount; i++)
         {
+            enemy.SpriteFlip();
             yield return enemy.StartCoroutine(EnemyAttackPatterns[attackIndex++].Execute(enemy));
         }
 

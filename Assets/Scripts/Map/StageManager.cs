@@ -7,7 +7,7 @@ public class StageManager : Singleton<StageManager>
     GameObject CreatedRoom;
     [SerializeField] int curRoomIndex = 0;
 
-    Stage currentRoom;
+    Stage currentStage;
     //private MapGen mapGen;
     public AstarPath astarPath;
     protected override void Awake()
@@ -16,7 +16,7 @@ public class StageManager : Singleton<StageManager>
         astarPath = GetComponentInChildren<AstarPath>();
 
     }
-    public Stage GetCurrentRoom() => currentRoom;
+    public Stage GetCurrentStage() => currentStage;
     public void CreateRound()
     {
         CreateRoom();
@@ -30,8 +30,8 @@ public class StageManager : Singleton<StageManager>
 
         CreatedRoom = Instantiate(originRoomList[curRoomIndex], Vector3.zero, Quaternion.identity);
         CreatedRoom.SetActive(true);
-        currentRoom = CreatedRoom.GetComponent<Stage>();
-        currentRoom.InitRoom();
+        currentStage = CreatedRoom.GetComponent<Stage>();
+        currentStage.InitRoom();
     }
     public void NextRound()
     {

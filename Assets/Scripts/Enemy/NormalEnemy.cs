@@ -3,7 +3,6 @@ using UnityEngine;
 public class NormalEnemy : EnemyBase
 {
 
-    public GameObject skillSelectItemPrefab;
     // EnemyBase에 Init()이 있으므로, 추가적인 초기화가 필요 없다면 override하지 않아도 됨.
     // public override void Init()
     // {
