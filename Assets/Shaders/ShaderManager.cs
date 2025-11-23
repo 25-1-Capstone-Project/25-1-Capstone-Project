@@ -12,6 +12,7 @@ public class ShaderManager : Singleton<ShaderManager>
         base.Awake();
         blackScreen.CallBlackScreen(false);
         shockwave.CallShockWave(Vector2.zero);
+        SetVignette();
     }
     void Update()
     {

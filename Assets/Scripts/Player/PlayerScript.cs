@@ -115,6 +115,8 @@ public class PlayerScript : MonoBehaviour
 
     public void InitPlayer()
     {
+        
+        CameraManager.Instance.SetLensSize(6.5f);
         SetComponent();
         stats.ApplyBase(playerData); // 원본 데이터를 복사
         isDead = false;
@@ -223,8 +225,8 @@ public class PlayerScript : MonoBehaviour
     IEnumerator DashCoroutine()
     {
         //대시 잔상
-        ghost.SetSprite(spriteRenderer);
-        ghost.SetActive(true);
+        // ghost.SetSprite(spriteRenderer);
+        // ghost.SetActive(true);
 
         gameObject.layer = LayerMask.NameToLayer("PlayerDash"); // 대시 중 플레이어 레이어 변경
         isDashing = true;
@@ -240,7 +242,7 @@ public class PlayerScript : MonoBehaviour
 
         rb.linearVelocity = Vector2.zero;
         isDashing = false;
-        ghost.SetActive(false);
+        //  ghost.SetActive(false);
 
         // if (IsGroundBelow())
         // {
@@ -409,7 +411,7 @@ public class PlayerScript : MonoBehaviour
 
         targetEnemy.TakeDamage(1);
         GameManager.Instance.SetTimeScale(0);
-        yield return new WaitForSecondsRealtime(0.3f);
+        yield return new WaitForSecondsRealtime(0.2f);
         GameManager.Instance.SetTimeScale(1f);
         CameraManager.Instance.SetLensSize(6.5f);
         attackEffect.SetActive(false);
@@ -418,7 +420,6 @@ public class PlayerScript : MonoBehaviour
         isAttacking = false;
         targetEnemy = null;
 
-        CameraManager.Instance.SetLensSize(6.5f);
     }
 
 
@@ -530,12 +531,12 @@ public class PlayerScript : MonoBehaviour
     {
 
         ShaderManager.Instance.CallShockWave();
-        CameraManager.Instance.SetLensSize(4.5f);
+        CameraManager.Instance.SetLensSize(6f);
         yield return new WaitForSecondsRealtime(0.1f);
         GameManager.Instance.SetTimeScale(0);
 
         //   yield return FadeController.Instance.FadeIn(Color.white, 0.1f, 0.3f);
-        yield return new WaitForSecondsRealtime(0.2f);
+        yield return new WaitForSecondsRealtime(0.1f);
         GameManager.Instance.SetTimeScale(1);
         CameraManager.Instance.SetLensSize(6.5f);
     }
@@ -678,13 +679,15 @@ public class PlayerScript : MonoBehaviour
     {
         rb.linearVelocity = Vector2.zero;
         playerAnim.SetDeath(true);
-
+        AudioManager.Instance.PlaySFX("GameOverMelody");
+        AudioManager.Instance.StopBGM();
         yield return new WaitForSeconds(1.0f);
 
         UIManager.Instance.deadUI.SetActiveDeadInfoPanel(true);
         UIManager.Instance.deadUI.PlayMaskShrink();
 
-        PlayerLogger.Instance.PlusDeathLog();
+        AudioManager.Instance.PlaySFX("GameOver");
+        //  PlayerLogger.Instance.PlusDeathLog();
     }
 
 
@@ -692,6 +695,7 @@ public class PlayerScript : MonoBehaviour
 
     public IEnumerator FlashInvincible()
     {
+        ShaderManager.Instance.SetVignette(0.5f, Color.red);
         float elapsed = 0f;
         bool fadingOut = true;
         Color baseColor = spriteRenderer.color;
@@ -713,7 +717,7 @@ public class PlayerScript : MonoBehaviour
             yield return new WaitForSeconds(playerData.flashInterval);
             elapsed += playerData.flashInterval;
         }
-
+        ShaderManager.Instance.SetVignette();
         // 원복
         spriteRenderer.color = new Color(baseColor.r, baseColor.g, baseColor.b, 1f);
     }

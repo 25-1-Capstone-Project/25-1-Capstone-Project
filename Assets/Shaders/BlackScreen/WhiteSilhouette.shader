@@ -1,5 +1,5 @@
 // Assets/Shaders/URP2D_WhiteSilhouette_PerRenderer_Stable_NoBatch.shader
-Shader "Hidden/URP2D/WhiteSilhouette_PerRenderer_Stable_NoBatch"
+Shader "URP2D/WhiteSilhouette_PerRenderer_Stable_NoBatch"
 {
     Properties
     {

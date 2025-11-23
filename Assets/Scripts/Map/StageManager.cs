@@ -37,9 +37,16 @@ public class StageManager : Singleton<StageManager>
     {
         curRoomIndex++;
         CreateRound();
-        AudioManager.Instance.PlayBGM("Room");
+
+        // 플레이어를 초기화
+        GameManager.Instance.playerScript.gameObject.SetActive(false);
         GameManager.Instance.playerScript.InitPlayer();
+
+        // 새 스폰 포인트에서 스폰
         GameManager.Instance.PlayerSpawn();
+        GameManager.Instance.playerScript.gameObject.SetActive(true);
+
+        AudioManager.Instance.PlayBGM("Room");
         UIManager.Instance.successUI.SetActiveDeadInfoPanel(false);
     }
 

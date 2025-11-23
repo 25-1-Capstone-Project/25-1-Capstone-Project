@@ -546,7 +546,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4888207161927734507, guid: c7552be6231d9db4c8d54cb7d08719c7, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5213037058811788323, guid: c7552be6231d9db4c8d54cb7d08719c7, type: 3}
       propertyPath: m_IsActive
@@ -874,22 +874,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5374514495471530501, guid: 5d9521cb6bd3a514ebfc8aafc24a2b68, type: 3}
-      propertyPath: originRoomList.Array.size
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 5374514495471530501, guid: 5d9521cb6bd3a514ebfc8aafc24a2b68, type: 3}
-      propertyPath: 'originRoomList.Array.data[3]'
-      value: 
-      objectReference: {fileID: 4557894655228889410, guid: 406580b415cda2843b9f08bbdae10386, type: 3}
-    - target: {fileID: 5374514495471530501, guid: 5d9521cb6bd3a514ebfc8aafc24a2b68, type: 3}
-      propertyPath: 'originRoomList.Array.data[4]'
-      value: 
-      objectReference: {fileID: 4557894655228889410, guid: 032f657ae7e0e104fa5e04f413615098, type: 3}
-    - target: {fileID: 5374514495471530501, guid: 5d9521cb6bd3a514ebfc8aafc24a2b68, type: 3}
-      propertyPath: 'originRoomList.Array.data[5]'
-      value: 
-      objectReference: {fileID: 4557894655228889410, guid: 25162a8c028ffc9469072680ee46d84f, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

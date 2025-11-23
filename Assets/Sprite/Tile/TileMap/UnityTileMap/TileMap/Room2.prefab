@@ -4476,6 +4476,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isRoomCleared: 0
   roomName: 
+  isBossRoom: 0
   markerRoot: {fileID: 1486351480550466595}
   waveIndex: 0
   waves:

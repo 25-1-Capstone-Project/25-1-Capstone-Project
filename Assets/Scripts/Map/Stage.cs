@@ -57,7 +57,7 @@ public class Stage : MonoBehaviour
         }
         else
         {
-            StartCoroutine(ClearRoom());
+            StartCoroutine(ClearStage());
         }
     }
 
@@ -67,18 +67,21 @@ public class Stage : MonoBehaviour
         StartWave();
     }
 
-    public IEnumerator ClearRoom()
+    public IEnumerator ClearStage()
     {
+
         GameManager.Instance.playerScript.StopAllCoroutines();
         GameManager.Instance.SetTimeScale(0.5f);
-        ShaderManager.Instance.SetBleackScreen(true);
+        //ShaderManager.Instance.SetBleackScreen(true);
         GameManager.Instance.playerScript.SetActivePlayerInput(false);
         yield return new WaitForSecondsRealtime(1f);
-        ShaderManager.Instance.SetBleackScreen(false);
+      //  ShaderManager.Instance.SetBleackScreen(false);
         GameManager.Instance.playerScript.ClearSet();
         GameManager.Instance.SetTimeScale(1);
-        CameraManager.Instance.SetLensSize(5);
+        CameraManager.Instance.SetLensSize(6.5f);
         UIManager.Instance.successUI.SetActiveDeadInfoPanel(true);
+        yield return new WaitForSecondsRealtime(0.5f);
+        AudioManager.Instance.PlaySFX("Victory");
         isRoomCleared = true;
     }
 
