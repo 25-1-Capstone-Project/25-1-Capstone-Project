@@ -53,9 +53,8 @@ public class UI_Pause : MonoBehaviour
     }
     public void OnClickGoToMainMenu()
     {
-
         pauseMenu.SetActive(false);
+        GameManager.Instance.SetTimeScale(1);
         GameManager.Instance.ChangeStateByEnum(EGameState.MainMenu);
-
     }
 }
