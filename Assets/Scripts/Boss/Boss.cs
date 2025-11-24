@@ -30,6 +30,9 @@ public class Boss : EnemyBase
             // Spawn 애니메이션 길이만큼 대기 
             yield return new WaitForSeconds(anim.GetAnimator().GetCurrentAnimatorClipInfo(0)[0].clip.length);
             anim.PlayStartBattle();
+            UIManager.Instance.bossUI.SetBossName(data.Name);
+            UIManager.Instance.bossUI.SetActiveBossUI(true);
+            UIManager.Instance.bossUI.SetBossHealth(_currentHealth, data.maxHealth);
             yield return new WaitForSeconds(1);
 
             StartCoroutine(SetShaderMainTextureAfterFirstFrame());
@@ -60,6 +63,7 @@ public class Boss : EnemyBase
     protected override void OnDamaged()
     {
         base.OnDamaged();
+        UIManager.Instance.bossUI.SetBossHealth(_currentHealth, data.maxHealth);
     }
 
     public EnemyAttackPattern GetCurrentPattern()

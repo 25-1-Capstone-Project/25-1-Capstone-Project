@@ -518,7 +518,7 @@ public class PlayerScript : MonoBehaviour
     {
         CameraManager.Instance.CameraShake(5f, 0.2f);
         EffectPooler.Instance.SpawnFromPool("ParryEffect", transform.position + (direction / 2), Quaternion.identity);
-        AudioManager.Instance.PlaySFX("Parry" + UnityEngine.Random.Range(0, 3));
+        AudioManager.Instance.PlaySFX("Parry" + UnityEngine.Random.Range(0, 2));
 
         if (!projectile)
             yield return StartCoroutine(ParryEffectRoutine());

@@ -6,7 +6,7 @@ public class UI_BossInfo : MonoBehaviour
     [SerializeField] GameObject bossUI;
     [SerializeField] TMP_Text bossNameText;
     [SerializeField] Slider bossHealthBar;
-    float maxHealth = 0;
+
     public void SetActiveBossUI(bool active)
     {
         bossUI.SetActive(active);
@@ -17,15 +17,12 @@ public class UI_BossInfo : MonoBehaviour
         bossNameText.text = name;
     }
 
-    public void SetBossHealth(float currentHealth)
+    public void SetBossHealth(float currentHealth, float maxHealth)
     {
 
         float healthPercentage = currentHealth / maxHealth;
         bossHealthBar.value = healthPercentage;
 
     }
-    public void SetBossMaxHealth(float maxHealth)
-    {
-        this.maxHealth = maxHealth;
-    }
+  
 }

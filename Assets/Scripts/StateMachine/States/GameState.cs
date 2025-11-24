@@ -94,7 +94,7 @@ public class StageState : GameState
 
     public override void Exit()
     {
-
+        UIManager.Instance.bossUI.SetActiveBossUI(false);
         EnemyManager.Instance.ClearAllEnemies();
         gameManager.StartCoroutine(RoomTransitionRoutine("MainMenu"));
         AudioManager.Instance.StopBGM();
