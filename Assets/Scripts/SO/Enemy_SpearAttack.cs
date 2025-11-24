@@ -5,7 +5,7 @@ using System.Collections;
 public class Enemy_SpearAttack : EnemyAttackPattern
 {
 
-    public float attackSpeed ; // 
+    public float attackSpeed; // 
 
     public override IEnumerator Execute(EnemyBase enemy)
     {
@@ -13,9 +13,8 @@ public class Enemy_SpearAttack : EnemyAttackPattern
 
 
         enemy.GetAnimatorController().PlayAttack();
-        enemy.enemyShaderController.OnOutline();
+        yield return enemy.StartCoroutine(enemy.OutLineRoutine(attackChargeSec));
 
-        yield return new WaitForSeconds(attackChargeSec);
         Vector2 PlayerPos = GameManager.Instance.playerScript.GetPlayerTransform().position;
         Vector2 dir = (GameManager.Instance.playerScript.transform.position - enemy.transform.position).normalized;
         Vector2 startPos = enemy.GetRigidbody().position;

@@ -137,7 +137,7 @@ public class ParriedState : EnemyState
         enemy.IsStunned = true;
         enemy.gameObject.layer = LayerMask.NameToLayer("Enemy");
         enemy.SetStunEffectActive(true);
-    
+        enemy.enemyShaderController.OffOutline();
     }
     public IEnumerator ParriedRoutine()
     {

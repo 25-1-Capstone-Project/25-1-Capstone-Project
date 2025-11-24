@@ -46,7 +46,7 @@ public class EnemyBase : MonoBehaviour
         protected set
         {
             if (isDead) return; // 이미 죽었다면 체력 변경 방지
-
+            
             _currentHealth = Mathf.Max(0, value);
 
             if (_currentHealth == 0)
@@ -107,6 +107,12 @@ public class EnemyBase : MonoBehaviour
 
     }
 
+    public IEnumerator OutLineRoutine(float time)
+    {
+        yield return new WaitForSeconds(time - 0.2f);
+        enemyShaderController.OnOutline();
+        yield return new WaitForSeconds(0.2f);
+    }
     /// <summary>
     /// 모든 적이 공통으로 사용하는 컴포넌트를 초기화합니다.
     /// </summary>
@@ -116,7 +122,6 @@ public class EnemyBase : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         aIAgent = GetComponent<AIAgent>();
         aIAgent.SetSpeed(data.moveSpeed);
-
     }
     public virtual void SetCurrentAnimator()
     {
@@ -255,9 +260,9 @@ public class EnemyBase : MonoBehaviour
 
     public virtual bool CheckAttackRange()
     {
-        
+
         if (data.attackPattern == null) return false;
-        if(data.attackPattern.attackRange ==-1) return true; // 사거리 무제한 처리
+        if (data.attackPattern.attackRange == -1) return true; // 사거리 무제한 처리
         return GetDirectionToPlayerVec().magnitude < data.attackPattern.attackRange;
     }
 

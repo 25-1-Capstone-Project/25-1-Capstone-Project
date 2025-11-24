@@ -34,7 +34,7 @@ class Boss_RushAttack : EnemyAttackPattern
                 time += Time.deltaTime;
                 yield return null;
             }
-
+            
             spearEffect.gameObject.SetActive(false);
             time = 0f;
             bool hasDealtDamage = false;

@@ -7,15 +7,15 @@ public class Enemy_SingleGunAttack : EnemyAttackPattern
     public override IEnumerator Execute(EnemyBase enemy)
     {
         enemy.GetAnimatorController().PlayAttack();
-        enemy.enemyShaderController.OnOutline();
-        yield return new WaitForSeconds(attackChargeSec);
+        yield return enemy.StartCoroutine(enemy.OutLineRoutine(attackChargeSec));
+      
         GameObject attackProjectile = EffectPooler.Instance.SpawnFromPool("EnemyAttackProjectile1", enemy.transform.position, Quaternion.identity);
         attackProjectile.tag = "EnemyAttack";
         ProjectileEnemyAttack enemyAttack = attackProjectile.GetComponent<ProjectileEnemyAttack>();
         enemyAttack.SetDamage(enemy.GetDamage());
         enemyAttack.SetDirectionVec(enemy.GetDirectionNormalVec());
         enemy.SpriteFlip();
-         enemy.enemyShaderController.OffOutline();
+        enemy.enemyShaderController.OffOutline();
         yield return new WaitForSeconds(attackPostDelay);
 
 

@@ -14,12 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: 
   maxHealth: 1
-  moveSpeed: 2
+  moveSpeed: 3
   attackDamage: 1
   dontStopEnemy: 0
   stamina: 1
-  animator: {fileID: 22100000, guid: 5b83e30b834be0e4a843d3c8f2971fdd, type: 2}
   animators:
   - {fileID: 22100000, guid: 5b83e30b834be0e4a843d3c8f2971fdd, type: 2}
-  attackPattern: {fileID: 11400000, guid: 5f3a9433eadae03488615180977906f0, type: 2}
+  attackPattern: {fileID: 11400000, guid: b6b76561835aabc4f8149330f16d9768, type: 2}
   sizeMagnification: 1

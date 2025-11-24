@@ -1204,8 +1204,16 @@ PrefabInstance:
       value: EffectPooler
       objectReference: {fileID: 0}
     - target: {fileID: 3392107579056649435, guid: 4741b474fb1ea444f9aad06fe4526b9e, type: 3}
+      propertyPath: groupedPools.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3392107579056649435, guid: 4741b474fb1ea444f9aad06fe4526b9e, type: 3}
       propertyPath: groupedPools.Array.data[2].pools.Array.size
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3392107579056649435, guid: 4741b474fb1ea444f9aad06fe4526b9e, type: 3}
+      propertyPath: groupedPools.Array.data[3].pools.Array.size
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3392107579056649435, guid: 4741b474fb1ea444f9aad06fe4526b9e, type: 3}
       propertyPath: groupedPools.Array.data[2].pools.Array.data[1].tag

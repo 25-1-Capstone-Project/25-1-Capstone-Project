@@ -2,8 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System;
-using System.Collections.Generic;
-using UnityEngine.Tilemaps;
+
 
 
 /// <summary>
@@ -159,7 +158,7 @@ public class PlayerScript : MonoBehaviour
         canUseParry = false;
 
         yield return new WaitForSecondsRealtime(time);
-        UIManager.Instance.guideUI.SetActiveGuideUI(true, "[우클릭]!");
+        UIManager.Instance.guideUI.SetActiveGuideUI(true, "공격 방향으로 [우클릭] 패링!");
         canUseParry = true;
 
     }
@@ -451,10 +450,11 @@ public class PlayerScript : MonoBehaviour
         yield return new WaitForSeconds(stats.parryDurationSec);
         isParrying = false;
         canMove = true;
+        playerAnim.PlayIdle();
         // 패리 쿨타임이 끝나면 패리 가능여부 True 처리
         yield return new WaitForSeconds(stats.parryCooldownSec);
         canUseParry = true;
-
+        
     }
 
     // void CheckInteractObject()

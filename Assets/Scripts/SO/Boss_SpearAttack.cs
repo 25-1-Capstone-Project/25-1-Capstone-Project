@@ -13,10 +13,9 @@ public class Boss_DrillAttack : EnemyAttackPattern
 
 
         enemy.GetAnimatorController().PlayAttack();
-        enemy.enemyShaderController.OnOutline();
 
+        yield return enemy.StartCoroutine(enemy.OutLineRoutine(attackChargeSec));
 
-        yield return new WaitForSeconds(attackChargeSec);
         Vector2 PlayerPos = GameManager.Instance.playerScript.GetPlayerTransform().position;
         Vector2 dir = (GameManager.Instance.playerScript.transform.position - enemy.transform.position).normalized;
 

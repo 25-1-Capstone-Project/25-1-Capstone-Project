@@ -28,7 +28,7 @@ public class ShaderManager : Singleton<ShaderManager>
         shockwave.CallShockWave(point);
     }
 
-    public void SetBleackScreen(bool enabled)
+    public void SetBlackScreen(bool enabled)
     {
         blackScreen.CallBlackScreen(enabled);
     }

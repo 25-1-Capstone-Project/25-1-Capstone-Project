@@ -14,11 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: skeleton
   maxHealth: 1
-  moveSpeed: 2
+  moveSpeed: 3
   attackDamage: 1
   dontStopEnemy: 0
   stamina: 2
-  animator: {fileID: 22100000, guid: 44ba24f9821ce2244981dbda1f8a4f1f, type: 2}
   animators:
   - {fileID: 22100000, guid: 44ba24f9821ce2244981dbda1f8a4f1f, type: 2}
   attackPattern: {fileID: 11400000, guid: 01ba1b2351a21a94390a5ea3654fc5e6, type: 2}

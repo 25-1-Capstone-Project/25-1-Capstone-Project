@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa812680c3b514746a2425c1f2a3802f, type: 3}
   m_Name: SkeletonAttackPattern
   m_EditorClassIdentifier: 
-  attackRange: 1
+  attackRange: 2
   attackChargeSec: 0
   attackDuration: 0
   attackPostDelay: 0

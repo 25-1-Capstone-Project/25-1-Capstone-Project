@@ -7,7 +7,7 @@ class Boss_MeteoAttack : EnemyAttackPattern
     public override IEnumerator Execute(EnemyBase boss)
     {  
         boss.GetAnimatorController().PlayAttack();
-        yield return new WaitForSeconds(attackChargeSec);
+        yield return boss.StartCoroutine(boss.OutLineRoutine(attackChargeSec));
 
 
         for (int i = 0; i < attackCount; i++)

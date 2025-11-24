@@ -72,10 +72,10 @@ public class Stage : MonoBehaviour
 
         GameManager.Instance.playerScript.StopAllCoroutines();
         GameManager.Instance.SetTimeScale(0.5f);
-        //ShaderManager.Instance.SetBleackScreen(true);
+       // ShaderManager.Instance.SetBlackScreen(true);
         GameManager.Instance.playerScript.SetActivePlayerInput(false);
-        yield return new WaitForSecondsRealtime(1f);
-      //  ShaderManager.Instance.SetBleackScreen(false);
+        yield return new WaitForSecondsRealtime(0.3f);
+       // ShaderManager.Instance.SetBlackScreen(false);
         GameManager.Instance.playerScript.ClearSet();
         GameManager.Instance.SetTimeScale(1);
         CameraManager.Instance.SetLensSize(6.5f);
