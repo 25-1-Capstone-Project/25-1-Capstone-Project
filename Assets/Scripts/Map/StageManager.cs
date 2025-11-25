@@ -7,6 +7,8 @@ public class StageManager : Singleton<StageManager>
     GameObject CreatedRoom;
     [SerializeField] int curRoomIndex = 0;
 
+    public bool isLoading = false;
+
     Stage currentStage;
     //private MapGen mapGen;
     public AstarPath astarPath;
@@ -26,12 +28,13 @@ public class StageManager : Singleton<StageManager>
     void CreateRoom()
     {
         if (CreatedRoom != null)
-            Destroy(CreatedRoom);
+            Destroy(CreatedRoom); 
 
         CreatedRoom = Instantiate(originRoomList[curRoomIndex], Vector3.zero, Quaternion.identity);
         CreatedRoom.SetActive(true);
         currentStage = CreatedRoom.GetComponent<Stage>();
         currentStage.InitRoom();
+        isLoading = false;
     }
     public void NextRound()
     {
