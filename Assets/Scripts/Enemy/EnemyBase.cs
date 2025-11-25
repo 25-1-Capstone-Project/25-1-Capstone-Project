@@ -266,6 +266,12 @@ public class EnemyBase : MonoBehaviour
         return GetDirectionToPlayerVec().magnitude < data.attackPattern.attackRange;
     }
 
+    // 커서 관련해서
+    public bool CanBeExecuted()
+    {
+        return !isDead && IsStunned;
+    }
+
 
     #region Getters & Setters
 
