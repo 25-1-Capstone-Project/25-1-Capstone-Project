@@ -9,11 +9,12 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] GameObject MainMenuUI;
     [SerializeField] GameObject OptionUI;
     [SerializeField] GameObject StageUI;
+    [SerializeField] GameObject infoUI;
 
     [Header("인게임")]
     public UI_PlayerStatus playerStatUI;
    
-     public UI_BossInfo bossUI;
+    public UI_BossInfo bossUI;
     public UI_DeadInfo deadUI;
     public UI_SuccessInfo successUI;
     public UI_Guide guideUI;
@@ -40,5 +41,9 @@ public class UIManager : Singleton<UIManager>
     public void SetActiveOptionUI()
     {
         OptionUI.SetActive(!OptionUI.activeSelf);
+    }
+    public void SetActiveInfoUI()
+    {
+        infoUI.SetActive(!infoUI.activeSelf);
     }
 }
