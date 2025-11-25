@@ -7,7 +7,7 @@ public class Enemy_NinjaAttack : EnemyAttackPattern
     public float attackDistance;
     public override IEnumerator Execute(EnemyBase enemy)
     {
-        enemy.InitStamina();
+        //enemy.InitStamina();
         for (int i = 0; i < attackCount; i++)
         {
             Vector2 offset = Random.Range(0, 3) switch

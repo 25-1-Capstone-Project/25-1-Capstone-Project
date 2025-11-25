@@ -431,6 +431,7 @@ public class PlayerScript : MonoBehaviour
         if (!canUseParry || isDead || isAttacking || isDashing)
             return;
 
+        isGod = false;
         OnParryInput?.Invoke();
         playerAnim.PlayAttack();
         AudioManager.Instance.PlaySFX("ParryTry");
@@ -695,7 +696,7 @@ public class PlayerScript : MonoBehaviour
 
     public IEnumerator FlashInvincible()
     {
-        ShaderManager.Instance.SetVignette(0.5f, Color.red);
+        StartCoroutine(FlashVignette());
         float elapsed = 0f;
         bool fadingOut = true;
         Color baseColor = spriteRenderer.color;
@@ -717,11 +718,17 @@ public class PlayerScript : MonoBehaviour
             yield return new WaitForSeconds(playerData.flashInterval);
             elapsed += playerData.flashInterval;
         }
-        ShaderManager.Instance.SetVignette();
+
         // 원복
         spriteRenderer.color = new Color(baseColor.r, baseColor.g, baseColor.b, 1f);
     }
 
+    private IEnumerator FlashVignette()
+    {
+        ShaderManager.Instance.SetVignette(0.5f, Color.red);
+        yield return new WaitForSeconds(0.2f);
+        ShaderManager.Instance.SetVignette();
+    }
 
     private IEnumerator FlashRoutine(Color color)
     {

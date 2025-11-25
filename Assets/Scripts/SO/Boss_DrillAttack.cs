@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-[CreateAssetMenu(menuName = "Enemy/AttackPattern/Boss/Boss_DrillAttack")]
+[CreateAssetMenu(menuName = "Boss/AttackPattern/Wood/Boss_DrillAttack")]
 public class Boss_DrillAttack : EnemyAttackPattern
 {
 
@@ -24,18 +24,18 @@ public class Boss_DrillAttack : EnemyAttackPattern
         Vector2 endPos = PlayerPos + dir * 2f;
         bool hasDealtDamage = false;
         enemy.gameObject.layer = LayerMask.NameToLayer("EnemyAttack");
-        GameObject effect = EffectPooler.Instance.SpawnFromPool("WoodDrill", startPos + dir, Quaternion.FromToRotation(Vector3.right, dir));
+        enemy.AddAttackEffect(EffectPooler.Instance.SpawnFromPool("WoodDrill", startPos + dir, Quaternion.FromToRotation(Vector3.right, dir)));
         // 속도 기반 이동 (거리 / 속도 = 필요한 시간)
         float totalDistance = Vector2.Distance(startPos, endPos);
         float travelTime = totalDistance / attackSpeed;
         float elapsedTime = 0f;
-
+        bool isWall = false;
         while (elapsedTime < travelTime)
         {
             float t = elapsedTime / travelTime;
             Vector2 currentPos = Vector2.Lerp(startPos, endPos, t);
             enemy.GetRigidbody().MovePosition(currentPos);
-            effect.transform.position = enemy.transform.position + (Vector3)dir;
+
             if (!hasDealtDamage)
             {
                 Collider2D hit = Physics2D.OverlapCircle(currentPos, 0.3f, LayerMask.GetMask("Player", "PlayerDash"));
@@ -45,12 +45,19 @@ public class Boss_DrillAttack : EnemyAttackPattern
                     hasDealtDamage = true;
                 }
             }
-
+            RaycastHit2D wallHit = Physics2D.Raycast(enemy.transform.position, dir, 1f, LayerMask.GetMask("Wall", "Hole"));
+            if (wallHit != false)
+            {
+                enemy.GetRigidbody().MovePosition(enemy.transform.position);
+                isWall = true;
+                break;
+            }
+            enemy.Effects[0].transform.position = enemy.transform.position + (Vector3)dir;
             elapsedTime += Time.fixedDeltaTime;
             yield return new WaitForFixedUpdate();
         }
-        effect.SetActive(false);
-        enemy.GetRigidbody().MovePosition(endPos); // 정확한 끝점 보정
+        enemy.Effects[0].SetActive(false);
+        if (!isWall) enemy.GetRigidbody().MovePosition(endPos); // 정확한 끝점 보정
         enemy.gameObject.layer = LayerMask.NameToLayer("Enemy");
         enemy.enemyShaderController.OffOutline();
         yield return new WaitForSeconds(attackPostDelay);

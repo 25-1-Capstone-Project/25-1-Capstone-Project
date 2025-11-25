@@ -64,10 +64,11 @@ MonoBehaviour:
     - tag: Skeleton_MeteoProjectile
       prefab: {fileID: 816145936183077409, guid: 3c35ec66a904c404ab93347d4f747581, type: 3}
       size: 0
-  - groupName: Item
-    pools:
-    - tag: SkillSelectItem
-      prefab: {fileID: 4741066030510868246, guid: 4f5e063cd0d62ed46b594f0b15029ea8, type: 3}
+    - tag: WoodDrill
+      prefab: {fileID: 8114757239042970699, guid: 75e07a15dff776c4bb65c7fba1e97085, type: 3}
+      size: 0
+    - tag: WoodProjectile
+      prefab: {fileID: 2149256603058294964, guid: 3cf102a07125c4841aa5e7db20cd16b8, type: 3}
       size: 0
 --- !u!210 &6867485980776952247
 SortingGroup:

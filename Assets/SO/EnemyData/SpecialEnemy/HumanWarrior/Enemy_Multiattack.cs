@@ -11,10 +11,11 @@ public class Enemy_Multiattack : EnemyAttackPattern
     {
         attackRange = EnemyAttackPatterns[0].attackRange;
     }
-  
+
     public override IEnumerator Execute(EnemyBase enemy)
     {
-        enemy.InitStamina();
+        if (enemy is NormalEnemy e)
+        { e.InitStamina(); }
         attackIndex = 0;
         enemy.enemyShaderController.OnOutline();
         //  enemy.GetAnimatorController().PlayIdle();

@@ -17,10 +17,13 @@ MonoBehaviour:
   moveSpeed: 0
   attackDamage: 0
   dontStopEnemy: 0
-  stamina: 3
+  stamina: 4
   animators:
   - {fileID: 9100000, guid: 8f2d48ac40576554cbd8eea3739a19e9, type: 2}
-  attackPattern: {fileID: 11400000, guid: ab5078363ce0dcc409bdb0727754f595, type: 2}
+  attackPattern: {fileID: 11400000, guid: 2ee5a1ef50dc0ee43bdf5e4802cfdd25, type: 2}
   sizeMagnification: 1.5
-  attackPatterns: []
+  attackPatterns:
+  - {fileID: 11400000, guid: ab5078363ce0dcc409bdb0727754f595, type: 2}
+  - {fileID: 11400000, guid: da3344de2deac7646996820bc776c04e, type: 2}
+  - {fileID: 11400000, guid: 2ee5a1ef50dc0ee43bdf5e4802cfdd25, type: 2}
   spawnAnimator: {fileID: 9100000, guid: bba85ded45440514e889d7cc69d3b455, type: 2}

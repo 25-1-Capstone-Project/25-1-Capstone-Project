@@ -5,7 +5,7 @@ public class DisableEffect : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Enemy") || other.CompareTag("Wall"))
+        if ( other.CompareTag("Wall"))
         {
             
             gameObject.SetActive(false);
@@ -14,7 +14,7 @@ public class DisableEffect : MonoBehaviour
 
     void OnEnable()
     {
-        StartCoroutine(DisableAfterTime(2f));
+        StartCoroutine(DisableAfterTime(5f));
     }
     private IEnumerator DisableAfterTime(float time)
     {

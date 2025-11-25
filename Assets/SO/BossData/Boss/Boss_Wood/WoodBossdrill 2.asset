@@ -9,11 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75957c8fc8ff32d4bb9a8de73795a18f, type: 3}
-  m_Name: Skeleton2_2Attackpattern
+  m_Script: {fileID: 11500000, guid: 67b03201e6258bd40a0241c31daec4e9, type: 3}
+  m_Name: WoodBossdrill 2
   m_EditorClassIdentifier: 
-  attackRange: 2
-  attackChargeSec: 0.4
+  attackRange: -1
+  attackChargeSec: 0.5
   attackDuration: 0
-  attackPostDelay: 0.6
+  attackPostDelay: 0.15
   attackCount: 1
+  attackSpeed: 30

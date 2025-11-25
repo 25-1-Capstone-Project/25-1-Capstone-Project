@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -46,7 +47,7 @@ public class EnemyBase : MonoBehaviour
         protected set
         {
             if (isDead) return; // 이미 죽었다면 체력 변경 방지
-            
+
             _currentHealth = Mathf.Max(0, value);
 
             if (_currentHealth == 0)
@@ -247,15 +248,19 @@ public class EnemyBase : MonoBehaviour
 
 
     // 공격 예고선 관련 로직은 공통으로 사용될 수 있음
-    public LineRenderer CurrentSpearIndicator { get; set; }
+    public List<GameObject> Effects;
     public void ClearAttackEffect()
     {
-        if (CurrentSpearIndicator != null)
+        if (Effects.Count > 0)
         {
-            CurrentSpearIndicator.gameObject.SetActive(false);
-            CurrentSpearIndicator = null;
+            foreach (var e in Effects) { e.SetActive(false); }
+            Effects.Clear();
         }
+
     }
+    public void AddAttackEffect(GameObject effect) => Effects.Add(effect);
+
+
 
 
     public virtual bool CheckAttackRange()

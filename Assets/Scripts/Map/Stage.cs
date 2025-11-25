@@ -69,13 +69,13 @@ public class Stage : MonoBehaviour
 
     public IEnumerator ClearStage()
     {
-
+        UIManager.Instance.bossUI.SetActiveBossUI(false);
         GameManager.Instance.playerScript.StopAllCoroutines();
         GameManager.Instance.SetTimeScale(0.5f);
-       // ShaderManager.Instance.SetBlackScreen(true);
+        // ShaderManager.Instance.SetBlackScreen(true);
         GameManager.Instance.playerScript.SetActivePlayerInput(false);
         yield return new WaitForSecondsRealtime(0.3f);
-       // ShaderManager.Instance.SetBlackScreen(false);
+        // ShaderManager.Instance.SetBlackScreen(false);
         GameManager.Instance.playerScript.ClearSet();
         GameManager.Instance.SetTimeScale(1);
         CameraManager.Instance.SetLensSize(6.5f);

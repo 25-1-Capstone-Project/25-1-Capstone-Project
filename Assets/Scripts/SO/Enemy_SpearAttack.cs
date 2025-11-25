@@ -27,6 +27,7 @@ public class Enemy_SpearAttack : EnemyAttackPattern
         float travelTime = totalDistance / attackSpeed;
         float elapsedTime = 0f;
 
+        bool isWall = false;
         while (elapsedTime < travelTime)
         {
             float t = elapsedTime / travelTime;
@@ -42,12 +43,20 @@ public class Enemy_SpearAttack : EnemyAttackPattern
                     hasDealtDamage = true;
                 }
             }
-
+            RaycastHit2D wallHit = Physics2D.Raycast(enemy.transform.position, dir, 1f, LayerMask.GetMask("Wall", "Hole"));
+            if (wallHit != false)
+            {
+                enemy.GetRigidbody().MovePosition(enemy.transform.position);
+                isWall = true;
+                break;
+            }
+   
             elapsedTime += Time.fixedDeltaTime;
             yield return new WaitForFixedUpdate();
         }
+ 
+        if (!isWall) enemy.GetRigidbody().MovePosition(endPos); // 정확한 끝점 보정
 
-        enemy.GetRigidbody().MovePosition(endPos); // 정확한 끝점 보정
         enemy.gameObject.layer = LayerMask.NameToLayer("Enemy");
         enemy.enemyShaderController.OffOutline();
         yield return new WaitForSeconds(attackPostDelay);

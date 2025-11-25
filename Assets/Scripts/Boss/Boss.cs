@@ -14,7 +14,7 @@ public class Boss : EnemyBase
         InitData();
         InitSharedComponents();
         SetState();
-        // Spawn 애니메이션 재생 (아직 행동 금지)
+        
         StartCoroutine(SpawnRoutine());
         animController = GetComponentInChildren<BossAnimatorController>();
     }
@@ -25,6 +25,7 @@ public class Boss : EnemyBase
         if (animController is BossAnimatorController anim)
         {
             SetCurrentAnimator();
+            SetAttackPattern();
             anim.PlaySpawn();
             yield return new WaitForSeconds(1);
             // Spawn 애니메이션 길이만큼 대기 
@@ -63,12 +64,21 @@ public class Boss : EnemyBase
     protected override void OnDamaged()
     {
         base.OnDamaged();
+        SetAttackPattern();
+
         UIManager.Instance.bossUI.SetBossHealth(_currentHealth, data.maxHealth);
     }
 
-    public EnemyAttackPattern GetCurrentPattern()
+    private void SetAttackPattern()
     {
+        if (data is BossData d && animController is BossAnimatorController anim)
+        {
+            int attackIndex = d.GetPatternLength() - _currentHealth;
+            d.SetAttackPattern(d.GetEnemyAttackPatternAtIndex(d.GetPatternLength() - _currentHealth));
+            anim.SetAttackIndex(attackIndex);
 
-        return bossPatternsPhase1[Random.Range(0, bossPatternsPhase1.Length)];
+        }
     }
+
+    
 }

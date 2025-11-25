@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Data.Common;
 using UnityEngine;
 
 
@@ -108,7 +109,7 @@ public class AttackState : EnemyState
         }
         enemy.GetRigidbody().bodyType = RigidbodyType2D.Dynamic;
         enemy.IsAttacking = false;
-        enemy.ClearAttackEffect(); 
+      //  enemy.ClearAttackEffect(); 
     }
 
     private IEnumerator AttackSequence()
@@ -131,6 +132,7 @@ public class ParriedState : EnemyState
 
     public override void Enter()
     {
+    
         enemy.StopAllCoroutines();
         enemy.StartCoroutine(ParriedRoutine());
         enemy.enemyShaderController.OnOutline();
@@ -166,6 +168,7 @@ public class DamagedState : EnemyState
     public override void Enter()
     {
         enemy.StartCoroutine(DamagedRoutine());
+        enemy.ClearAttackEffect();
     }
     public IEnumerator DamagedRoutine()
     {
@@ -173,7 +176,7 @@ public class DamagedState : EnemyState
         enemy.GetRigidbody().linearVelocity = Vector2.zero;
         enemy.gameObject.layer = LayerMask.NameToLayer("Enemy");
         enemy.GetAnimatorController().PlayDamage();
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(enemy.GetAnimatorController().GetAnimator().GetCurrentAnimatorClipInfo(0)[0].clip.length);
         enemy.StopAllCoroutines();
         enemy.SetCurrentAnimator();
         enemy.InitStamina();
