@@ -26,12 +26,17 @@ public class IdleState : EnemyState
     public override void Enter()
     {
         enemy.GetRigidbody().linearVelocity = Vector2.zero; // 정지
+        // 플레이어가 일정 거리 안에 있으면 추격 상태로 전환
+        if (enemy.GetDirectionToPlayerVec().magnitude < enemy.GetData().chaseRange)
+        {
+            enemy.StateMachine.ChangeState<ChaseState>();
+        }
     }
 
     public override void Update()
     {
         // 플레이어가 일정 거리 안에 있으면 추격 상태로 전환
-        if (enemy.GetDirectionToPlayerVec().magnitude < 5f)
+        if (enemy.GetDirectionToPlayerVec().magnitude < enemy.GetData().chaseRange)
         {
             enemy.StateMachine.ChangeState<ChaseState>();
         }
@@ -109,7 +114,7 @@ public class AttackState : EnemyState
         }
         enemy.GetRigidbody().bodyType = RigidbodyType2D.Dynamic;
         enemy.IsAttacking = false;
-      //  enemy.ClearAttackEffect(); 
+        //  enemy.ClearAttackEffect(); 
     }
 
     private IEnumerator AttackSequence()
@@ -132,7 +137,7 @@ public class ParriedState : EnemyState
 
     public override void Enter()
     {
-    
+        enemy.GetAnimatorController().FreezeFrame(false);
         enemy.StopAllCoroutines();
         enemy.StartCoroutine(ParriedRoutine());
         enemy.enemyShaderController.OnOutline();
@@ -145,7 +150,7 @@ public class ParriedState : EnemyState
     {
         enemy.KnockBack(2);
         enemy.GetAnimatorController().PlayKnockBack();
-       // enemy.GetAnimatorController().FreezeFrame(true);
+        // enemy.GetAnimatorController().FreezeFrame(true);
         enemy.GetRigidbody().linearVelocity = Vector2.zero;
         yield return new WaitForSeconds(2f);
         //enemy.GetAnimatorController().FreezeFrame(false);
@@ -158,7 +163,7 @@ public class ParriedState : EnemyState
             enemy.StateMachine.ChangeState<ChaseState>();
     }
     public override void Update() { }
-    public override void Exit() { enemy.IsStunned = false;   enemy.SetStunEffectActive(false); }
+    public override void Exit() { enemy.IsStunned = false; enemy.SetStunEffectActive(false); }
 }
 
 public class DamagedState : EnemyState

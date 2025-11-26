@@ -114,7 +114,7 @@ public class PlayerScript : MonoBehaviour
 
     public void InitPlayer()
     {
-        
+
         CameraManager.Instance.SetLensSize(6.5f);
         SetComponent();
         stats.ApplyBase(playerData); // 원본 데이터를 복사
@@ -455,7 +455,7 @@ public class PlayerScript : MonoBehaviour
         // 패리 쿨타임이 끝나면 패리 가능여부 True 처리
         yield return new WaitForSeconds(stats.parryCooldownSec);
         canUseParry = true;
-        
+
     }
 
     // void CheckInteractObject()
@@ -678,17 +678,19 @@ public class PlayerScript : MonoBehaviour
 
     IEnumerator DeadRoutine()
     {
-        rb.linearVelocity = Vector2.zero;
         playerAnim.SetDeath(true);
-        AudioManager.Instance.PlaySFX("GameOverMelody");
         AudioManager.Instance.StopBGM();
-        yield return new WaitForSeconds(1.0f);
-
+        AudioManager.Instance.PlaySFX("Hit");
+        CameraManager.Instance.CameraShake(10, 0.5f);
+        rb.linearVelocity = Vector2.zero;
+        yield return new WaitForSecondsRealtime(0.5f);
+        GameManager.Instance.SetTimeScale(0);
         UIManager.Instance.deadUI.SetActiveDeadInfoPanel(true);
         UIManager.Instance.deadUI.PlayMaskShrink();
-
+        yield return new WaitForSecondsRealtime(1.3f);
+        AudioManager.Instance.PlaySFX("GameOverMelody");
         AudioManager.Instance.PlaySFX("GameOver");
-        //  PlayerLogger.Instance.PlusDeathLog();
+
     }
 
 

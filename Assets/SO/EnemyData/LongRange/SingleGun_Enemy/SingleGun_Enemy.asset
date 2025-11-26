@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 263e27cb71b88f845aed894261fa039f, type: 3}
   m_Name: SingleGun_Enemy
   m_EditorClassIdentifier: 
-  Name: 
+  Name: "\uC624\uD06C \uB9C8\uBC95\uC0AC"
   maxHealth: 1
   moveSpeed: 3
+  chaseRange: 6
   attackDamage: 5
   dontStopEnemy: 0
   stamina: 1

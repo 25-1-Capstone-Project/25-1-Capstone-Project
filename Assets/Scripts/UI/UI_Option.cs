@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,6 +7,7 @@ public class UI_Option : MonoBehaviour
     [SerializeField] Slider SFXSlider;
     [SerializeField] Slider BGMSlider;
     [SerializeField] Slider MasterSlider;
+    [SerializeField] TMP_Dropdown dropdown;
     public void SetBGMVolume()
     {
         AudioManager.Instance.SetBGMVolume(BGMSlider.value);
@@ -17,5 +19,9 @@ public class UI_Option : MonoBehaviour
     public void SetMasterVolume()
     {
         AudioManager.Instance.SetMasterVolume(MasterSlider.value);
+    }
+    public void SetDifficulty()
+    {
+        GameManager.Instance.SetPlayerHealth(dropdown.value);
     }
 }

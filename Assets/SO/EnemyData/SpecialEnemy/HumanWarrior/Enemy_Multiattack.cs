@@ -1,6 +1,6 @@
 using UnityEngine;
 using System.Collections;
-using System;
+
 
 [CreateAssetMenu(menuName = "Enemy/AttackPattern/Enemy/Enemy_Multiattack")]
 public class Enemy_Multiattack : EnemyAttackPattern

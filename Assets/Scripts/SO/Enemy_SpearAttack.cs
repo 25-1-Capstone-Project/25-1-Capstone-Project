@@ -11,10 +11,11 @@ public class Enemy_SpearAttack : EnemyAttackPattern
     {
         enemy.GetRigidbody().linearVelocity = Vector2.zero;
 
-
         enemy.GetAnimatorController().PlayAttack();
         yield return enemy.StartCoroutine(enemy.OutLineRoutine(attackChargeSec));
-
+        yield return new WaitForEndOfFrame();
+        enemy.GetAnimatorController().FreezeFrame(true);
+        enemy.SpriteFlip();
         Vector2 PlayerPos = GameManager.Instance.playerScript.GetPlayerTransform().position;
         Vector2 dir = (GameManager.Instance.playerScript.transform.position - enemy.transform.position).normalized;
         Vector2 startPos = enemy.GetRigidbody().position;
@@ -50,11 +51,11 @@ public class Enemy_SpearAttack : EnemyAttackPattern
                 isWall = true;
                 break;
             }
-   
+
             elapsedTime += Time.fixedDeltaTime;
             yield return new WaitForFixedUpdate();
         }
- 
+        enemy.GetAnimatorController().FreezeFrame(false);
         if (!isWall) enemy.GetRigidbody().MovePosition(endPos); // 정확한 끝점 보정
 
         enemy.gameObject.layer = LayerMask.NameToLayer("Enemy");

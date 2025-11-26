@@ -53,7 +53,7 @@ public class CameraManager : Singleton<CameraManager>
         noise.AmplitudeGain = shakeIntensity;
         noise.FrequencyGain = 2f; // 빠른 진동 (짧고 강하게)
 
-        yield return new WaitForSeconds(shakeDuration);
+        yield return new WaitForSecondsRealtime(shakeDuration);
 
         noise.AmplitudeGain = 0f; // 원래 상태 복원
         noise.FrequencyGain = 0f;

@@ -1,17 +1,19 @@
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 
-public enum EDungeonType { Null = -1, BlueDragon, WhiteTiger, RedBird, BlackTortoise }
+
 public enum EGameState { MainMenu, Room, Paused };
 public class GameManager : Singleton<GameManager>
 {
     [SerializeField] GameObject PlayerPrefab;
+    [SerializeField] PlayerData playerData;
     public StateMachine<GameState> StateMachine { get; private set; }
     private GameObject playerObj;
     public PlayerScript playerScript;
-    public EDungeonType currentDungeonType = EDungeonType.Null;
+
     // public MapReference[] mapData;
     public int CurrentDungeonFloor { get; set; } = 0;
     public int MaxDungeonFloor { get; private set; } = 3;
@@ -63,10 +65,7 @@ public class GameManager : Singleton<GameManager>
     }
 
 
-    public void SetCurrentDungeonType(EDungeonType eDungeonType)
-    {
-        currentDungeonType = eDungeonType;
-    }
+
     public void InstancePlayer()
     {
         if (playerObj != null) return;
@@ -124,7 +123,25 @@ public class GameManager : Singleton<GameManager>
         playerScript.SetPlayerPosition(targetPos);
         CameraManager.Instance.SetCameraPosition(targetPos);
     }
+    public void SetPlayerHealth(int i)
+    {
+        switch (i)
+        {
+            case 0:
+                playerData.maxHealth = 10;
+                Debug.Log(0);
+                break;
+            case 1:
+                playerData.maxHealth = 5;
+                   Debug.Log(1);
+                break;
+            case 2:
+                playerData.maxHealth = 1;
+                   Debug.Log(2);
+                break;
+        }
 
+    }
 
     public void QuitGame()
     {

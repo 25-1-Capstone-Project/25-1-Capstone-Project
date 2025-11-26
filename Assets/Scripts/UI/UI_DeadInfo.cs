@@ -28,7 +28,7 @@ public class UI_DeadInfo : MonoBehaviour
 
     IEnumerator MaskShrinkRoutine()
     {
-        float duration = 1.2f;
+        float duration = 0.8f;
         float t = 0f;
 
         Vector3 startScale = new Vector3(100f, 100f, 100f);

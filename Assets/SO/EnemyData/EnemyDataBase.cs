@@ -8,6 +8,7 @@ public abstract class EnemyDataBase : ScriptableObject
     public string Name;
     public int maxHealth;
     public float moveSpeed;
+    public float chaseRange=5;
     public int attackDamage;
     public bool dontStopEnemy = false;
     public int stamina = 1;
