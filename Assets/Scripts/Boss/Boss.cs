@@ -3,11 +3,6 @@ using System.Collections;
 using UnityEngine.UIElements;
 public class Boss : EnemyBase
 {
-    [Header("Boss Only Settings")]
-    [SerializeField] private float enragedThreshold = 0.3f;
-
-
-
     public override void Init()
     {
         InitData();

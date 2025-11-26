@@ -1,21 +1,11 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Firebase;
-using Firebase.Extensions;
 
 
 public class BootStrap : MonoBehaviour
 {
     [SerializeField] string firstSceneName = "MainMenu";
 
-    void Awake()
-    {
-        FirebaseApp.CheckAndFixDependenciesAsync().ContinueWithOnMainThread(task =>
-        {
-            var dependencyStatus = task.Result;
-    
-        });
-    }
 
     private void Start()
     {

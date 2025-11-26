@@ -105,8 +105,6 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] Transform PlayerModel;
     [SerializeField] PlayerAnimatorController playerAnim;
     [SerializeField] private SpriteRenderer spriteRenderer;
-    [SerializeField] private Ghost ghost;
-
     [SerializeField] private ParticleSystem skillParticle;
 
     private PlayerRuntimeStats stats = new PlayerRuntimeStats();
@@ -216,23 +214,15 @@ public class PlayerScript : MonoBehaviour
             return;
         StartCoroutine(DashCoroutine());
         AudioManager.Instance.PlaySFX("Dash");
-
-        PlayerLogger.Instance.PlusDashLog();
     }
 
 
     IEnumerator DashCoroutine()
     {
-        //대시 잔상
-        // ghost.SetSprite(spriteRenderer);
-        // ghost.SetActive(true);
-
+  
         gameObject.layer = LayerMask.NameToLayer("PlayerDash"); // 대시 중 플레이어 레이어 변경
         isDashing = true;
         canUseDash = false;
-
-        // 1. 마지막 안전한 위치 저장
-        // lastSafePosition = transform.position;
 
         playerAnim.PlayDash(moveVec);
         rb.linearVelocity = moveVec.normalized * (dashDistance / dashDuration);
@@ -241,84 +231,20 @@ public class PlayerScript : MonoBehaviour
 
         rb.linearVelocity = Vector2.zero;
         isDashing = false;
-        //  ghost.SetActive(false);
-
-        // if (IsGroundBelow())
-        // {
-        //     playerInput.enabled = false;
-        //     isGod = true;
-        //     yield return StartCoroutine(FallAndReturnCoroutine());
-        //     playerInput.enabled = true;
-        //     isGod = false;
-        //     Health -= stats.maxHealth / 12; // 낙하 대미지 처리
-        //     gameObject.layer = LayerMask.NameToLayer("Player");
-        // }
-        // else
-        // {
+     
         gameObject.layer = LayerMask.NameToLayer("Player");
         yield return new WaitForSeconds(dashCooldown);
-        //}
+        
 
         canUseDash = true;
     }
 
 
 
-    // public Tilemap fallTilemap;
-    // public void SetGroundTilemap(Tilemap tilemap)
-    // {
-    //     fallTilemap = tilemap;
-    // }
-    // bool IsGroundBelow()
-    // {
-    //     if (fallTilemap == null)
-    //         return false;
-
-    //     Vector3Int cell = fallTilemap.WorldToCell(transform.position);
-    //     return fallTilemap.HasTile(cell);
-    // }
-    // IEnumerator FallAndReturnCoroutine()
-    // {
-
-    //     float fallTime = 1.0f;
-    //     float shrinkDuration = 0.5f;
-    //     float timer = 0f;
-
-    //     Vector3 originalScale = transform.localScale;
-
-    //     // 서서히 작아지며 사라지는 연출
-    //     while (timer < shrinkDuration)
-    //     {
-    //         float t = timer / shrinkDuration;
-    //         transform.localScale = Vector3.Lerp(originalScale, Vector3.zero, t);
-    //         timer += Time.deltaTime;
-    //         yield return null;
-    //     }
-
-    //     transform.localScale = Vector3.zero;
-
-    //     // 잠깐 사라짐
-    //     yield return new WaitForSeconds(fallTime - shrinkDuration);
-
-    //     // 위치 복구
-    //     transform.position = lastSafePosition;
-
-    //     // 스케일 원상복구 (순간적으로 or 부드럽게)
-    //     timer = 0f;
-    //     while (timer < 0.3f)
-    //     {
-    //         float t = timer / 0.3f;
-    //         transform.localScale = Vector3.Lerp(Vector3.zero, originalScale, t);
-    //         timer += Time.deltaTime;
-    //         yield return null;
-    //     }
-    //     transform.localScale = originalScale;
-    // }
-
     #endregion
 
     #region 방향
-    // 마우스 이동으로 보는 방향 처리(마우스 위치값(OnLook)→Look()호출, 캐릭터 보는 방향 조절)
+    // 마우스 이동으로 보는 방향 
     void OnLook(InputValue value)
     {
         lookInput = value.Get<Vector2>();
@@ -552,21 +478,7 @@ public class PlayerScript : MonoBehaviour
         isAttacking = false;
     }
 
-    // IEnumerator AttackStay(EnemyBase enemy)
-    // {
-    //     CameraManager.Instance.SetLensSize(6f);
-
-    //     isGod = true;
-    //     //canUseAttack = true;
-    //     //    targetEnemy = enemy;
-    //     EffectPooler.Instance.SpawnFromPool("ParryEffect", transform.position + (direction / 2), Quaternion.identity);
-    //     AudioManager.Instance.PlaySFX("ParrySuccess");
-    //     yield return new WaitForSeconds(0.5f);
-
-    //     // canUseAttack = false;
-    //     isGod = false;
-    //     CameraManager.Instance.SetLensSize(7f);
-    // }
+ 
     #endregion
 
     #region 데미지 처리
@@ -587,7 +499,7 @@ public class PlayerScript : MonoBehaviour
                 ParrySuccess(enemy);
             else
             {
-                // ParryFailed();
+          
                 Health -= 1;
             }
         }
@@ -634,7 +546,7 @@ public class PlayerScript : MonoBehaviour
 
     public void KnockBack(Vector2 forceDir, float knockBackForce)
     {
-        //rb.linearVelocity = forceDir * knockBackForce;
+
         rb.AddForce(forceDir * knockBackForce, ForceMode2D.Impulse);
 
     }
@@ -650,8 +562,7 @@ public class PlayerScript : MonoBehaviour
 
         AudioManager.Instance.PlaySFX("Hit");
         playerAnim.PlayDamaged();
-        // KnockBack(forceDir, knockBackForce);
-        // yield return StartCoroutine(FlashRoutine(hitColor));
+  
 
         rb.linearVelocity = Vector2.zero;
 
@@ -732,13 +643,7 @@ public class PlayerScript : MonoBehaviour
         ShaderManager.Instance.SetVignette();
     }
 
-    private IEnumerator FlashRoutine(Color color)
-    {
-        spriteRenderer.color = color;
-        yield return new WaitForSeconds(0.3f);
-        spriteRenderer.color = Color.white;
-
-    }
+  
     #endregion
 
 }
