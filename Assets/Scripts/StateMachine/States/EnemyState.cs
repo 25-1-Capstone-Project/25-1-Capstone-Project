@@ -131,8 +131,6 @@ public class AttackState : EnemyState
 
 public class ParriedState : EnemyState
 {
-
-
     public ParriedState(EnemyBase enemy) : base(enemy) { }
 
     public override void Enter()
@@ -173,7 +171,6 @@ public class DamagedState : EnemyState
     public override void Enter()
     {
         enemy.StartCoroutine(DamagedRoutine());
-        enemy.ClearAttackEffect();
     }
     public IEnumerator DamagedRoutine()
     {
@@ -182,6 +179,7 @@ public class DamagedState : EnemyState
         enemy.gameObject.layer = LayerMask.NameToLayer("Enemy");
         enemy.GetAnimatorController().PlayDamage();
         yield return new WaitForSeconds(enemy.GetAnimatorController().GetAnimator().GetCurrentAnimatorClipInfo(0)[0].clip.length);
+        enemy.ClearAttackEffect();
         enemy.StopAllCoroutines();
         enemy.SetCurrentAnimator();
         enemy.InitStamina();

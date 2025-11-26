@@ -5,8 +5,7 @@ public class Boss : EnemyBase
 {
     [Header("Boss Only Settings")]
     [SerializeField] private float enragedThreshold = 0.3f;
-    [SerializeField] private EnemyAttackPattern[] bossPatternsPhase1;
-    [SerializeField] private EnemyAttackPattern[] bossPatternsPhase2;
+
 
 
     public override void Init()

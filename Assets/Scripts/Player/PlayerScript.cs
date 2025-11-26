@@ -525,7 +525,7 @@ public class PlayerScript : MonoBehaviour
             yield return StartCoroutine(ParryEffectRoutine());
 
         canMove = true;
-        // yield return new WaitForSeconds(0.1f);
+    
         isGod = false;
     }
     public IEnumerator ParryEffectRoutine()
@@ -533,11 +533,11 @@ public class PlayerScript : MonoBehaviour
 
         ShaderManager.Instance.CallShockWave();
         CameraManager.Instance.SetLensSize(6f);
-        yield return new WaitForSecondsRealtime(0.1f);
+        yield return new WaitForSecondsRealtime(0.15f);
         GameManager.Instance.SetTimeScale(0);
 
         //   yield return FadeController.Instance.FadeIn(Color.white, 0.1f, 0.3f);
-        yield return new WaitForSecondsRealtime(0.1f);
+        yield return new WaitForSecondsRealtime(0.2f);
         GameManager.Instance.SetTimeScale(1);
         CameraManager.Instance.SetLensSize(6.5f);
     }

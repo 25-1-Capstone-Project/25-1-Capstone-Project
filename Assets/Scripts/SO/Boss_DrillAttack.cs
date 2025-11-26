@@ -56,7 +56,7 @@ public class Boss_DrillAttack : EnemyAttackPattern
             elapsedTime += Time.fixedDeltaTime;
             yield return new WaitForFixedUpdate();
         }
-        enemy.Effects[0].SetActive(false);
+        enemy.ClearAttackEffect();
         if (!isWall) enemy.GetRigidbody().MovePosition(endPos); // 정확한 끝점 보정
         enemy.gameObject.layer = LayerMask.NameToLayer("Enemy");
         enemy.enemyShaderController.OffOutline();

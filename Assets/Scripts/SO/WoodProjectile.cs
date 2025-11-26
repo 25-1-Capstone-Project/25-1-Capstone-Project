@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System;
 
-public class WoodSword : ProjectileEnemyAttack
+public class WoodProjectile : ProjectileEnemyAttack
 {
     Transform target;
 
