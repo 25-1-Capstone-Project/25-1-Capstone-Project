@@ -684,6 +684,8 @@ MonoBehaviour:
   data: {fileID: 11400000, guid: 3ac3b5a1c898bef44aa260111f30bbcb, type: 2}
   enemySprite: {fileID: 6823296138178529082}
   animController: {fileID: 2797090100885923777}
+  canThrow: 0
+  thrownEnenmy: 0
   enemyShaderController: {fileID: 6148230100185541133}
   IsAttacking: 0
   IsStunned: 0

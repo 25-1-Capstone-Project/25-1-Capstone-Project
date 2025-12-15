@@ -32,7 +32,6 @@ public class IdleState : EnemyState
             enemy.StateMachine.ChangeState<ChaseState>();
         }
     }
-
     public override void Update()
     {
         // 플레이어가 일정 거리 안에 있으면 추격 상태로 전환
@@ -41,7 +40,6 @@ public class IdleState : EnemyState
             enemy.StateMachine.ChangeState<ChaseState>();
         }
     }
-
     public override void Exit()
     {
 
@@ -63,7 +61,6 @@ public class ChaseState : EnemyState, IFixedUpdateState, ILateUpdateState
     {
         if (enemy.CheckAttackRange())
             enemy.StateMachine.ChangeState<AttackState>(); // 공격 범위 체크
-
     }
 
     public void FixedUpdate()
@@ -72,8 +69,7 @@ public class ChaseState : EnemyState, IFixedUpdateState, ILateUpdateState
             return;
 
         enemy.GetAIAgent().Move();
-        // Vector2 direction = enemy.GetDirectionToPlayerNormalVec();
-        // enemy.GetRigidbody().linearVelocity = direction * enemy.GetSpeed();
+
     }
 
 
@@ -143,6 +139,7 @@ public class ParriedState : EnemyState
         enemy.gameObject.layer = LayerMask.NameToLayer("Enemy");
         enemy.SetStunEffectActive(true);
         enemy.enemyShaderController.OffOutline();
+        enemy.ClearAttackEffect();
     }
     public IEnumerator ParriedRoutine()
     {
@@ -155,13 +152,17 @@ public class ParriedState : EnemyState
         enemy.InitStamina();
         enemy.enemyShaderController.OffOutline();
 
-        if (enemy.CheckAttackRange())
-            enemy.StateMachine.ChangeState<AttackState>();
-        else
-            enemy.StateMachine.ChangeState<ChaseState>();
+        while (enemy.thrownEnenmy)
+        {
+            yield return null;
+        }
+            if (enemy.CheckAttackRange())
+                enemy.StateMachine.ChangeState<AttackState>();
+            else
+                enemy.StateMachine.ChangeState<ChaseState>();
     }
     public override void Update() { }
-    public override void Exit() { enemy.IsStunned = false; enemy.SetStunEffectActive(false); }
+    public override void Exit() { enemy.thrownEnenmy = false; enemy.IsStunned = false; enemy.SetStunEffectActive(false); }
 }
 
 public class DamagedState : EnemyState
@@ -179,7 +180,6 @@ public class DamagedState : EnemyState
         enemy.gameObject.layer = LayerMask.NameToLayer("Enemy");
         enemy.GetAnimatorController().PlayDamage();
         yield return new WaitForSeconds(enemy.GetAnimatorController().GetAnimator().GetCurrentAnimatorClipInfo(0)[0].clip.length);
-        enemy.ClearAttackEffect();
         enemy.StopAllCoroutines();
         enemy.SetCurrentAnimator();
         enemy.InitStamina();

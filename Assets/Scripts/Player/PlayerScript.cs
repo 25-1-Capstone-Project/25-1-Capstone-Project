@@ -2,6 +2,8 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System;
+using UnityEngine.InputSystem.Interactions;
+using UnityEngine.Splines.ExtrusionShapes;
 
 
 
@@ -75,26 +77,16 @@ public class PlayerScript : MonoBehaviour
     private float parryCooldownTimer = 0f;
     Coroutine ParryRoutine;
 
-
     // 증강
     public event Action OnParrySuccess;
     public event Action OnParryInput;
     public event Action OnAttackInput;
-
-
-
 
     [Header("=====대시 옵션=====")]
     [SerializeField] float dashDistance = 6f;
     [SerializeField] bool canUseDash = true;
     [SerializeField] private float dashDuration = 0.2f;
     [SerializeField] private float dashCooldown = 1f;
-
-
-    [Header("=====플래시 옵션=====")]
-
-
-
 
 
     [Header("=====컴포넌트=====")]
@@ -170,9 +162,36 @@ public class PlayerScript : MonoBehaviour
 
     void Update()
     {
+        if (!isPressed) return;
+        if (isDead || isDashing || isParrying || isAttacking) return;
 
+        // 홀드 시간 지나면 조준 모드 진입
+        if (!isAiming && (Time.time - pressStartTime) >= enterAimHoldTime)
+        {
+            isAiming = true;
+            StartCoroutine(UpdateThrowAim());
+        }
 
-        //PlayerLogger.Instance.AddPlaytimeLog(Time.deltaTime);
+    }
+    IEnumerator UpdateThrowAim()
+    {
+        if (!targetEnemy) yield break;
+        if (!targetEnemy.canThrow) yield break;
+        CameraManager.Instance.SetLensSize(6f);
+        yield return null;
+        Vector2 origin = targetEnemy.transform.position;
+        transform.position = origin;
+        GameManager.Instance.SetTimeScale(0f);
+        targetEnemy.GetComponent<Collider2D>().isTrigger = true;
+        while (isAiming)
+        {
+            Vector2 mouseWorld = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+
+            Vector2 dir = mouseWorld - origin;
+            aimDir = dir.normalized;
+            targetEnemy.transform.position = origin + aimDir * 1f;
+            yield return null;
+        }
     }
     void LateUpdate()
     {
@@ -219,7 +238,7 @@ public class PlayerScript : MonoBehaviour
 
     IEnumerator DashCoroutine()
     {
-  
+
         gameObject.layer = LayerMask.NameToLayer("PlayerDash"); // 대시 중 플레이어 레이어 변경
         isDashing = true;
         canUseDash = false;
@@ -231,10 +250,10 @@ public class PlayerScript : MonoBehaviour
 
         rb.linearVelocity = Vector2.zero;
         isDashing = false;
-     
+
         gameObject.layer = LayerMask.NameToLayer("Player");
         yield return new WaitForSeconds(dashCooldown);
-        
+
 
         canUseDash = true;
     }
@@ -267,19 +286,89 @@ public class PlayerScript : MonoBehaviour
     }
 
     #endregion
-
     #region 공격
-    void OnAttack()
+    [SerializeField] LayerMask enemyMask;
+    [SerializeField] float enterAimHoldTime = 0.15f;
+
+    bool isPressed;
+    bool isAiming;
+    float pressStartTime;
+    Vector2 aimDir;
+
+    // 외부에서 읽고 싶으면 이렇게만 노출
+    public bool IsAiming => isAiming;
+    public Vector2 AimDir => aimDir;
+
+    public void OnAttack(InputValue value)
+    {
+        if (isDead || isDashing || isParrying || isAttacking) return;
+
+        if (value.isPressed)
+        {
+            // Press 시작
+            isPressed = true;
+            isAiming = false;
+            pressStartTime = Time.time;
+            SearchTarget();
+            return;
+        }
+
+        if (targetEnemy == null)
+        {
+            isPressed = false;
+            isAiming = false;
+            return;
+        }
+        // Release
+        isPressed = false;
+
+        if (isAiming)
+        {
+            //놓으면 발사
+            GameManager.Instance.SetTimeScale(1f);
+            CameraManager.Instance.SetLensSize(6.5f);
+            Throw(aimDir);
+
+        }
+        else
+        {
+            Attack();
+        }
+
+        isAiming = false;
+    }
+    void Throw(Vector2 dir)
+    {
+        isAiming = false;
+        isPressed = false;
+        targetEnemy.Throw(dir);
+        CameraManager.Instance.CameraShake(10f, 0.3f);
+        playerAnim.PlayAttack();
+    }
+
+    void Attack()
     {
         if (isDead || isDashing || isParrying || isAttacking)
             return;
 
+        // 스턴 상태의 적이 있으면 공격 실행
+        if (targetEnemy != null)
+        {
+            OnAttackInput?.Invoke();
 
+            AudioManager.Instance.PlaySFX("Damaged");
+            StartCoroutine(AttackRoutine());
+        }
+
+    }
+    void SearchTarget()
+    {
+        targetEnemy = null;
         // 클릭 위치를 월드좌표로 변환
         Vector2 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         // 클릭 위치에서 지름 1(반지름 0.5)의 원 범위 검사
-        Collider2D[] hits = Physics2D.OverlapCircleAll(mouseWorld, 0.5f, LayerMask.GetMask("Enemy"));
+        Collider2D[] hits = Physics2D.OverlapCircleAll(mouseWorld, 0.5f, enemyMask);
 
         if (hits.Length == 0)
             return;
@@ -301,13 +390,6 @@ public class PlayerScript : MonoBehaviour
                 }
             }
         }
-        // 스턴 상태의 적이 있으면 공격 실행
-        if (targetEnemy != null)
-        {
-            OnAttackInput?.Invoke();
-            StartCoroutine(AttackRoutine());
-        }
-
     }
     IEnumerator AttackRoutine()
     {
@@ -451,19 +533,19 @@ public class PlayerScript : MonoBehaviour
             yield return StartCoroutine(ParryEffectRoutine());
 
         canMove = true;
-    
+
         isGod = false;
     }
     public IEnumerator ParryEffectRoutine()
     {
-
-        ShaderManager.Instance.CallShockWave();
         CameraManager.Instance.SetLensSize(6f);
-        yield return new WaitForSecondsRealtime(0.15f);
+        ShaderManager.Instance.CallShockWave();
+        yield return new WaitForSecondsRealtime(0.05f);
         GameManager.Instance.SetTimeScale(0);
 
         //   yield return FadeController.Instance.FadeIn(Color.white, 0.1f, 0.3f);
-        yield return new WaitForSecondsRealtime(0.2f);
+        yield return new WaitForSecondsRealtime(0.25f);
+        //ShaderManager.Instance.CallShockWave();
         GameManager.Instance.SetTimeScale(1);
         CameraManager.Instance.SetLensSize(6.5f);
     }
@@ -473,12 +555,12 @@ public class PlayerScript : MonoBehaviour
     //Room 클리어 시 연출 변경 후 정상 작동을 위해 임시로 만든 함수입니다. 빠른 개발 용
     public void ClearSet()
     {
-        attackEffect.SetActive(false);
+        attackEffect?.SetActive(false);
         isGod = false;
         isAttacking = false;
     }
 
- 
+
     #endregion
 
     #region 데미지 처리
@@ -499,7 +581,7 @@ public class PlayerScript : MonoBehaviour
                 ParrySuccess(enemy);
             else
             {
-          
+
                 Health -= 1;
             }
         }
@@ -562,7 +644,7 @@ public class PlayerScript : MonoBehaviour
 
         AudioManager.Instance.PlaySFX("Hit");
         playerAnim.PlayDamaged();
-  
+
 
         rb.linearVelocity = Vector2.zero;
 
@@ -574,11 +656,6 @@ public class PlayerScript : MonoBehaviour
 
 
     #endregion
-
-
-
-
-
     public void Dead()
     {
         if (isDead) return;
@@ -643,7 +720,7 @@ public class PlayerScript : MonoBehaviour
         ShaderManager.Instance.SetVignette();
     }
 
-  
+
     #endregion
 
 }

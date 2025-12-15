@@ -152,6 +152,11 @@ MonoBehaviour:
   playerAnim: {fileID: 1608423559212130683}
   spriteRenderer: {fileID: 2622820292897668436}
   skillParticle: {fileID: 0}
+  enemyMask:
+    serializedVersion: 2
+    m_Bits: 64
+  enterAimHoldTime: 0.15
+  aimOrigin: {fileID: 0}
 --- !u!114 &6366903998483742144
 MonoBehaviour:
   m_ObjectHideFlags: 0

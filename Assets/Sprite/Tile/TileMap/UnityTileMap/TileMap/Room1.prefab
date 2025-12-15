@@ -4253,7 +4253,7 @@ GameObject:
   - component: {fileID: 4454753807102838877}
   m_Layer: 10
   m_Name: WallCollider
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4501,7 +4501,7 @@ GameObject:
   - component: {fileID: 1179624521968201362}
   m_Layer: 10
   m_Name: wall
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

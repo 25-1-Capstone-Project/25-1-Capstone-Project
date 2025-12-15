@@ -11,6 +11,8 @@ public class EnemyBase : MonoBehaviour
     [SerializeField] protected EnemyDataBase data; // 모든 적은 데이터를 가짐
     [SerializeField] protected SpriteRenderer enemySprite;
     [SerializeField] protected EnemyAnimatorController animController;
+    public bool canThrow= true;
+    public bool thrownEnenmy;
     protected AIAgent aIAgent;
     public EnemyAttackPattern GetAttackPattern() => data.attackPattern;
     public int GetDamage() => data.attackDamage;
@@ -144,6 +146,7 @@ public class EnemyBase : MonoBehaviour
             Debug.LogError($"{gameObject.name}에 EnemyBaseData가 할당되지 않았습니다.");
             return;
         }
+        thrownEnenmy = false;
         _currentHealth = data.maxHealth;
         _stamina = data.stamina;
         isDead = false;
@@ -181,8 +184,6 @@ public class EnemyBase : MonoBehaviour
     public virtual void TakeDamage(int damage)
     {
         if (isDead) return;
-
-        AudioManager.Instance.PlaySFX("Damaged");
         Health -= damage;
         FlashSprite(Color.red, 0.1f);
         //hpBar?.SetHealth(_currentHealth, data.maxHealth);
@@ -206,14 +207,18 @@ public class EnemyBase : MonoBehaviour
 
         StateMachine.ChangeState<DamagedState>();
     }
-
+    public void Throw(Vector2 dir)
+    {
+        thrownEnenmy = true;
+        rb.linearVelocity = dir * 15f;
+    }
     protected virtual void Dead()
     {
 
         isDead = true;
         StateMachine.ChangeState<DeadState>();
-      
-                                                    // hpBar?.Hide();
+
+        // hpBar?.Hide();
     }
 
     public void KnockBack(float knockBackForce)
@@ -246,7 +251,6 @@ public class EnemyBase : MonoBehaviour
     #endregion
 
 
-
     // 공격 예고선 관련 로직은 공통으로 사용될 수 있음
     public List<GameObject> Effects;
     public void ClearAttackEffect()
@@ -260,12 +264,8 @@ public class EnemyBase : MonoBehaviour
     }
     public void AddAttackEffect(GameObject effect) => Effects.Add(effect);
 
-
-
-
     public virtual bool CheckAttackRange()
     {
-
         if (data.attackPattern == null) return false;
         if (data.attackPattern.attackRange == -1) return true; // 사거리 무제한 처리
         return GetDirectionToPlayerVec().magnitude < data.attackPattern.attackRange;
