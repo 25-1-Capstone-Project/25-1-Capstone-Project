@@ -915,6 +915,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: EffectPooler
       objectReference: {fileID: 0}
+    - target: {fileID: 3392107579056649435, guid: 4741b474fb1ea444f9aad06fe4526b9e, type: 3}
+      propertyPath: groupedPools.Array.data[0].pools.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3392107579056649435, guid: 4741b474fb1ea444f9aad06fe4526b9e, type: 3}
+      propertyPath: groupedPools.Array.data[0].pools.Array.data[2].tag
+      value: ThrowImpact
+      objectReference: {fileID: 0}
+    - target: {fileID: 3392107579056649435, guid: 4741b474fb1ea444f9aad06fe4526b9e, type: 3}
+      propertyPath: groupedPools.Array.data[0].pools.Array.data[2].prefab
+      value: 
+      objectReference: {fileID: 5112403345868107898, guid: 6f34ef0d986e9db4199cf75805f79753, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

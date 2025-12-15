@@ -18,12 +18,17 @@ public class Stage : MonoBehaviour
     [SerializeField] int waveIndex = 0;
 
     public Wave[] waves;
-
+    public GameObject[] doors;
     public void InitRoom()
     {
         isRoomCleared = false;
         waveIndex = 0;
         EnemyManager.Instance.InitSpawnedEnemy();
+        foreach (var door in doors)
+        {
+            door.SetActive(false);
+        }
+        doors[0].SetActive(true);
         if (!isBossRoom)
             StartWave();
     }
@@ -43,17 +48,20 @@ public class Stage : MonoBehaviour
         var wave = waves[Mathf.Clamp(waveIndex, 0, waves.Length - 1)];
         if (wave.startDelay > 0) yield return new WaitForSeconds(wave.startDelay);
 
-        foreach (var s in wave.spawns) { EnemyManager.Instance.EnemySpawn(s.enemyData, s.marker); }
+        foreach (var s in wave.spawns)
+        {
+            EnemyManager.Instance.EnemySpawn(s.enemyData, s.marker);
+        }
 
     }
-
-
     public void ClearWave()
     {
         waveIndex++;
         if (waveIndex < waves.Length && waveIndex < (waves?.Length ?? 0))
         {
             StartCoroutine(NextWaveRoutine());
+            if (waveIndex < doors.Length)
+                doors[waveIndex - 1].SetActive(false);
         }
         else
         {
@@ -66,7 +74,11 @@ public class Stage : MonoBehaviour
         yield return new WaitForSeconds(1f);
         StartWave();
     }
-
+    public void DoorSet()
+    {
+        Debug.Log("DoorSet");
+        doors[waveIndex].SetActive(true);
+    }
     public IEnumerator ClearStage()
     {
         UIManager.Instance.bossUI.SetActiveBossUI(false);
