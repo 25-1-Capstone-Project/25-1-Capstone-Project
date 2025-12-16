@@ -47,6 +47,10 @@ MonoBehaviour:
     sounds:
     - key: OpenStoneDoor
       clip: {fileID: 8300000, guid: eb300b9e718184d4cabeba3bb4b6804b, type: 3}
+    - key: CloseMetalDoor
+      clip: {fileID: 8300000, guid: b07c88277097d1d48b8756b2ac657b02, type: 3}
+    - key: OpenMetalDoor
+      clip: {fileID: 8300000, guid: 936bd01ba21e0de4584864358faf331b, type: 3}
   - name: Menu
     sounds:
     - key: GameOverMelody

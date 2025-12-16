@@ -28,7 +28,8 @@ public class Stage : MonoBehaviour
         {
             door.SetActive(false);
         }
-        doors[0].SetActive(true);
+        if (doors.Length > 0)
+            doors[0].SetActive(true);
         if (!isBossRoom)
             StartWave();
     }
@@ -45,6 +46,7 @@ public class Stage : MonoBehaviour
     IEnumerator StartWaveRoutine()
     {
         yield return null; // 한 프레임 대기
+
         var wave = waves[Mathf.Clamp(waveIndex, 0, waves.Length - 1)];
         if (wave.startDelay > 0) yield return new WaitForSeconds(wave.startDelay);
 
@@ -59,9 +61,13 @@ public class Stage : MonoBehaviour
         waveIndex++;
         if (waveIndex < waves.Length && waveIndex < (waves?.Length ?? 0))
         {
+            if (doors.Length > 0)
+                AudioManager.Instance.PlaySFX("OpenMetalDoor");
             StartCoroutine(NextWaveRoutine());
             if (waveIndex < doors.Length)
+            {
                 doors[waveIndex - 1].SetActive(false);
+            }
         }
         else
         {
@@ -76,7 +82,6 @@ public class Stage : MonoBehaviour
     }
     public void DoorSet()
     {
-        Debug.Log("DoorSet");
         doors[waveIndex].SetActive(true);
     }
     public IEnumerator ClearStage()

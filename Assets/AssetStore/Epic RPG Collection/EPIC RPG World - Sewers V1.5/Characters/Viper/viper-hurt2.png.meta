@@ -125,10 +125,10 @@ TextureImporter:
       name: viper-hurt2_0
       rect:
         serializedVersion: 2
-        x: 28
-        y: 41
-        width: 36
-        height: 29
+        x: 0
+        y: 0
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -147,10 +147,10 @@ TextureImporter:
       name: viper-hurt2_1
       rect:
         serializedVersion: 2
-        x: 127
-        y: 41
-        width: 36
-        height: 29
+        x: 96
+        y: 0
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -169,10 +169,10 @@ TextureImporter:
       name: viper-hurt2_2
       rect:
         serializedVersion: 2
-        x: 220
-        y: 41
-        width: 39
-        height: 30
+        x: 192
+        y: 0
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -191,10 +191,10 @@ TextureImporter:
       name: viper-hurt2_3
       rect:
         serializedVersion: 2
-        x: 316
-        y: 41
-        width: 40
-        height: 30
+        x: 288
+        y: 0
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -213,7 +213,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 4cf85a4c8552f2d4f82de36e84f1a0d7
     internalID: 0
     vertices: []
     indices: 

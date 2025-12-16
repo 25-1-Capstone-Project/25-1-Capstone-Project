@@ -140,10 +140,10 @@ TextureImporter:
       name: viper-attack-no smear FX_0
       rect:
         serializedVersion: 2
-        x: 28
-        y: 41
-        width: 40
-        height: 30
+        x: 0
+        y: 0
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -162,10 +162,10 @@ TextureImporter:
       name: viper-attack-no smear FX_1
       rect:
         serializedVersion: 2
-        x: 123
-        y: 41
-        width: 41
-        height: 31
+        x: 96
+        y: 0
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -184,10 +184,10 @@ TextureImporter:
       name: viper-attack-no smear FX_2
       rect:
         serializedVersion: 2
-        x: 219
-        y: 41
-        width: 40
-        height: 35
+        x: 192
+        y: 0
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -206,10 +206,10 @@ TextureImporter:
       name: viper-attack-no smear FX_3
       rect:
         serializedVersion: 2
-        x: 316
-        y: 41
-        width: 36
-        height: 39
+        x: 288
+        y: 0
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -228,10 +228,10 @@ TextureImporter:
       name: viper-attack-no smear FX_4
       rect:
         serializedVersion: 2
-        x: 403
-        y: 41
-        width: 60
-        height: 21
+        x: 384
+        y: 0
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -250,10 +250,10 @@ TextureImporter:
       name: viper-attack-no smear FX_5
       rect:
         serializedVersion: 2
-        x: 501
-        y: 41
-        width: 58
-        height: 23
+        x: 480
+        y: 0
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -272,10 +272,10 @@ TextureImporter:
       name: viper-attack-no smear FX_6
       rect:
         serializedVersion: 2
-        x: 604
-        y: 41
-        width: 50
-        height: 23
+        x: 576
+        y: 0
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -294,10 +294,10 @@ TextureImporter:
       name: viper-attack-no smear FX_7
       rect:
         serializedVersion: 2
-        x: 702
-        y: 41
-        width: 47
-        height: 26
+        x: 672
+        y: 0
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -316,10 +316,10 @@ TextureImporter:
       name: viper-attack-no smear FX_8
       rect:
         serializedVersion: 2
-        x: 797
-        y: 41
-        width: 41
-        height: 29
+        x: 768
+        y: 0
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -338,7 +338,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5232250e525a55244a797141485c671f
     internalID: 0
     vertices: []
     indices: 

@@ -11,11 +11,10 @@ public class Enemy_Multiattack : EnemyAttackPattern
     {
         attackRange = EnemyAttackPatterns[0].attackRange;
     }
-
     public override IEnumerator Execute(EnemyBase enemy)
     {
-        if (enemy is NormalEnemy e)
-        { e.InitStamina(); }
+        // if (enemy is NormalEnemy e)
+        // { e.InitStamina(); }
         attackIndex = 0;
         enemy.enemyShaderController.OnOutline();
         //  enemy.GetAnimatorController().PlayIdle();
@@ -25,8 +24,5 @@ public class Enemy_Multiattack : EnemyAttackPattern
             enemy.SpriteFlip();
             yield return enemy.StartCoroutine(EnemyAttackPatterns[attackIndex++].Execute(enemy));
         }
-
     }
-
-
 }
