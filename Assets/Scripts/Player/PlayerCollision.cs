@@ -6,6 +6,7 @@ using UnityEngine;
 /// </summary>
 public class PlayerCollision : MonoBehaviour
 {
+    [SerializeField] PlayerScript playerScript;
     private void OnTriggerEnter2D(Collider2D other)
     {
 
@@ -13,10 +14,23 @@ public class PlayerCollision : MonoBehaviour
         {
             case "EnemyAttack":
                 EnemyAttackBase enemyAttack = other.GetComponent<EnemyAttackBase>();
-                 GameManager.Instance.playerScript.TakeAttack(enemyAttack);
+                GameManager.Instance.playerScript.TakeAttack(enemyAttack);
+                break;
+            case "Hole":
+                playerScript.isOnHole = true;
+                // if (!playerScript.isDashing)
+                //     TryFallToHole();
                 break;
         }
-
+    }
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        switch (other.tag)
+        {
+            case "Hole":
+                playerScript.isOnHole = false;
+                break;
+        }
 
     }
 }

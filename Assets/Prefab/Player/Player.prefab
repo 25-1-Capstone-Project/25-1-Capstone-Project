@@ -138,12 +138,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bdcf287498a55d42a10b726385e34a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDashing: 0
   targetEnemy: {fileID: 0}
   canUseParry: 1
   dashDistance: 3
   canUseDash: 1
   dashDuration: 0.2
   dashCooldown: 1
+  holeDamage: 1
+  holeRespawnDelay: 0.15
+  holeInvincibleAfterRespawn: 0.5
+  isOnHole: 0
+  isFalling: 0
   playerData: {fileID: 11400000, guid: ac875f24e6722b44186598c3523bc25c, type: 2}
   arrow: {fileID: 8287425239734384137}
   ammo: {fileID: 6894103495596934110, guid: 341fb0815bf65ea4a8d42969d53cbd75, type: 3}
@@ -152,11 +158,16 @@ MonoBehaviour:
   playerAnim: {fileID: 1608423559212130683}
   spriteRenderer: {fileID: 2622820292897668436}
   skillParticle: {fileID: 0}
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  dashLayer:
+    serializedVersion: 2
+    m_Bits: 256
   enemyMask:
     serializedVersion: 2
     m_Bits: 64
   enterAimHoldTime: 0.15
-  aimOrigin: {fileID: 0}
 --- !u!114 &6366903998483742144
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -169,6 +180,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3d92e0e91441894ca0f037686e0825f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerScript: {fileID: 919865993923637413}
 --- !u!114 &1608423559212130683
 MonoBehaviour:
   m_ObjectHideFlags: 0

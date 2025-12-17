@@ -11,7 +11,7 @@ public class EnemyBase : MonoBehaviour
     [SerializeField] protected EnemyDataBase data; // 모든 적은 데이터를 가짐
     [SerializeField] protected SpriteRenderer enemySprite;
     [SerializeField] protected EnemyAnimatorController animController;
-    public bool canThrow= true;
+    public bool canThrow = true;
     public bool thrownEnenmy;
     protected AIAgent aIAgent;
     public EnemyAttackPattern GetAttackPattern() => data.attackPattern;
@@ -66,11 +66,7 @@ public class EnemyBase : MonoBehaviour
 
     #region Unity Lifecycle
 
-    protected virtual void Start()
-    {
-        Init();
 
-    }
 
     protected virtual void Update()
     {
@@ -207,17 +203,12 @@ public class EnemyBase : MonoBehaviour
 
         StateMachine.ChangeState<DamagedState>();
     }
-    public void Throw(Vector2 dir)
-    {
-        thrownEnenmy = true;
-        rb.linearVelocity = dir * 15f;
-    }
+
     protected virtual void Dead()
     {
 
         isDead = true;
         StateMachine.ChangeState<DeadState>();
-
         // hpBar?.Hide();
     }
 
@@ -227,7 +218,12 @@ public class EnemyBase : MonoBehaviour
         rb.linearVelocity = -GetDirectionNormalVec() * knockBackForce;
 
     }
-
+    public void Throw(Vector2 dir)
+    {
+        thrownEnenmy = true;
+        rb.linearVelocity = Vector2.zero;
+        rb.linearVelocity = dir * 25f;
+    }
     public void FlashSprite(Color color, float duration)
     {
         if (enemySprite == null) return;

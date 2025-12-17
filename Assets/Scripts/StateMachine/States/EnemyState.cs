@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Data.Common;
 using UnityEngine;
 
 
@@ -26,11 +25,6 @@ public class IdleState : EnemyState
     public override void Enter()
     {
         enemy.GetRigidbody().linearVelocity = Vector2.zero; // 정지
-        // 플레이어가 일정 거리 안에 있으면 추격 상태로 전환
-        if (enemy.GetDirectionToPlayerVec().magnitude < enemy.GetData().chaseRange)
-        {
-            enemy.StateMachine.ChangeState<ChaseState>();
-        }
     }
     public override void Update()
     {
@@ -42,7 +36,6 @@ public class IdleState : EnemyState
     }
     public override void Exit()
     {
-
     }
 }
 
@@ -80,6 +73,7 @@ public class ChaseState : EnemyState, IFixedUpdateState, ILateUpdateState
 
     public override void Exit()
     {
+
         enemy.GetAIAgent().Stop();
         enemy.GetRigidbody().linearVelocity = Vector2.zero; // 추격 종료 시 정지
     }
@@ -148,18 +142,20 @@ public class ParriedState : EnemyState
         // enemy.GetAnimatorController().FreezeFrame(true);
         enemy.GetRigidbody().linearVelocity = Vector2.zero;
         yield return new WaitForSeconds(2f);
+        if (enemy.thrownEnenmy)
+        {
+            yield return new WaitForSeconds(2f);
+            enemy.thrownEnenmy = false;
+        }
         //enemy.GetAnimatorController().FreezeFrame(false);
         enemy.InitStamina();
         enemy.enemyShaderController.OffOutline();
 
-        while (enemy.thrownEnenmy)
-        {
-            yield return null;
-        }
-            if (enemy.CheckAttackRange())
-                enemy.StateMachine.ChangeState<AttackState>();
-            else
-                enemy.StateMachine.ChangeState<ChaseState>();
+
+        if (enemy.CheckAttackRange())
+            enemy.StateMachine.ChangeState<AttackState>();
+        else
+            enemy.StateMachine.ChangeState<ChaseState>();
     }
     public override void Update() { }
     public override void Exit() { enemy.thrownEnenmy = false; enemy.IsStunned = false; enemy.SetStunEffectActive(false); }

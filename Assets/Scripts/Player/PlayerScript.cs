@@ -29,7 +29,7 @@ public class PlayerScript : MonoBehaviour
     bool isParrying = false;
     bool isDead = false;
     bool isAttacking = false;
-    bool isDashing = false;
+    public bool isDashing = false;
     bool isGod = false; // 무적 상태
 
     bool canMove = true;
@@ -88,6 +88,14 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private float dashDuration = 0.2f;
     [SerializeField] private float dashCooldown = 1f;
 
+    [Header("=====낙사 옵션=====")]
+    [SerializeField] int holeDamage = 1;
+    [SerializeField] float holeRespawnDelay = 0.15f;
+    [SerializeField] float holeInvincibleAfterRespawn = 0.5f;
+
+    public bool isOnHole = false;   // 현재 구멍 트리거 위인가
+    public bool isFalling = false;  // 중복 낙사 방지
+    Vector3 lastSafePos;      // 되돌아갈 위치
 
     [Header("=====컴포넌트=====")]
     [SerializeField] PlayerData playerData;
@@ -168,6 +176,9 @@ public class PlayerScript : MonoBehaviour
         // 홀드 시간 지나면 조준 모드 진입
         if (!isAiming && (Time.time - pressStartTime) >= enterAimHoldTime)
         {
+            if (!targetEnemy) return;
+            if (!targetEnemy.canThrow) return;
+            if (targetEnemy.thrownEnenmy) return;
             isAiming = true;
             StartCoroutine(UpdateThrowAim());
         }
@@ -175,8 +186,6 @@ public class PlayerScript : MonoBehaviour
     }
     IEnumerator UpdateThrowAim()
     {
-        if (!targetEnemy) yield break;
-        if (!targetEnemy.canThrow) yield break;
         CameraManager.Instance.SetLensSize(6f);
         yield return null;
         Vector2 origin = targetEnemy.transform.position;
@@ -185,11 +194,7 @@ public class PlayerScript : MonoBehaviour
         targetEnemy.GetComponent<Collider2D>().isTrigger = true;
         while (isAiming)
         {
-            Vector2 mouseWorld = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-
-            Vector2 dir = mouseWorld - origin;
-            aimDir = dir.normalized;
-            targetEnemy.transform.position = origin + aimDir * 1f;
+            targetEnemy.transform.position = origin + (Vector2)direction * 1.2f;
             yield return null;
         }
     }
@@ -197,7 +202,11 @@ public class PlayerScript : MonoBehaviour
     {
         if (!canMove || isDead || isAttacking || isParrying || isDashing) return;
 
+        if (!isOnHole && !isFalling)
+            lastSafePos = transform.position;
+
         playerAnim.UpdateMovement(moveVec);
+
 
     }
 
@@ -251,14 +260,54 @@ public class PlayerScript : MonoBehaviour
         rb.linearVelocity = Vector2.zero;
         isDashing = false;
 
+        // 낙사 검사
+        if (isOnHole)
+            TryFallToHole();
+
         gameObject.layer = LayerMask.NameToLayer("Player");
         yield return new WaitForSeconds(dashCooldown);
 
 
         canUseDash = true;
     }
+    void TryFallToHole()
+    {
+        if (isFalling || isDead) return;
+        StartCoroutine(FallToHoleRoutine());
+    }
+    IEnumerator FallToHoleRoutine()
+    {
+        isFalling = true;
 
+        // 이동/입력 잠깐 막기(원하면)
+        SetCanMove(false);
+        playerInput.enabled = false;
 
+        // 데미지 (너 Health 프로퍼티가 UI/Dead 처리 다 하니까 여기서 깔끔)
+        Health -= holeDamage;
+
+        // 연출 텀
+        yield return new WaitForSecondsRealtime(holeRespawnDelay);
+
+        // 되돌아가기
+        transform.position = lastSafePos;
+        rb.linearVelocity = Vector2.zero;
+
+        // 잠깐 무적
+        isGod = true;
+        float t = 0f;
+        while (t < holeInvincibleAfterRespawn)
+        {
+            t += Time.unscaledDeltaTime;
+            yield return null;
+        }
+        isGod = false;
+
+        playerInput.enabled = true;
+        SetCanMove(true);
+
+        isFalling = false;
+    }
 
     #endregion
 
@@ -327,8 +376,7 @@ public class PlayerScript : MonoBehaviour
             //놓으면 발사
             GameManager.Instance.SetTimeScale(1f);
             CameraManager.Instance.SetLensSize(6.5f);
-            Throw(aimDir);
-
+            Throw();
         }
         else
         {
@@ -337,11 +385,11 @@ public class PlayerScript : MonoBehaviour
 
         isAiming = false;
     }
-    void Throw(Vector2 dir)
+    void Throw()
     {
         isAiming = false;
         isPressed = false;
-        targetEnemy.Throw(dir);
+        targetEnemy.Throw(direction);
         CameraManager.Instance.CameraShake(10f, 0.3f);
         playerAnim.PlayAttack();
     }
