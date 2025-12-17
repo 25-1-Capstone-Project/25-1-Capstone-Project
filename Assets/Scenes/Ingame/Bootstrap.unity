@@ -127,14 +127,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3702182310383914650, guid: 17b7ab8a32101994c80764524384575a, type: 3}
-      propertyPath: orthographic size
-      value: 6.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5357050298168920666, guid: 17b7ab8a32101994c80764524384575a, type: 3}
-      propertyPath: Lens.OrthographicSize
-      value: 6.5
-      objectReference: {fileID: 0}
     - target: {fileID: 6400897836313873855, guid: 17b7ab8a32101994c80764524384575a, type: 3}
       propertyPath: m_Name
       value: CameraManager
@@ -241,6 +233,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5ea93afe9c012f349aa3b36da984d32a, type: 3}
+--- !u!1 &680880597 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7900629358419569210, guid: 17b7ab8a32101994c80764524384575a, type: 3}
+  m_PrefabInstance: {fileID: 290892216}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1048738471
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -253,6 +250,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ShaderManager
       objectReference: {fileID: 0}
+    - target: {fileID: 2341546969184411538, guid: 7b71013159e0d0348a0e17f6f8efa29d, type: 3}
+      propertyPath: glowEffect
+      value: 
+      objectReference: {fileID: 680880597}
     - target: {fileID: 6877753652479385246, guid: 7b71013159e0d0348a0e17f6f8efa29d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

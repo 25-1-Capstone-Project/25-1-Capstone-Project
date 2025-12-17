@@ -25,7 +25,6 @@ public class EnemyCollision : MonoBehaviour
         switch (other.tag)
         {
             case "Wall":
-            //  case "Hole":
             case "Enemy":
                 if (!enemy.thrownEnenmy) break;
                 enemy.GetRigidbody().linearVelocity = Vector2.zero;
@@ -40,6 +39,7 @@ public class EnemyCollision : MonoBehaviour
                     }
                 }
                 EffectPooler.Instance.SpawnFromPool("ThrowImpact", transform.position);
+                CameraManager.Instance.CameraShake(10f, 0.3f);
                 enemy.thrownEnenmy = false;
                 enemy.TakeDamage(1);
                 break;

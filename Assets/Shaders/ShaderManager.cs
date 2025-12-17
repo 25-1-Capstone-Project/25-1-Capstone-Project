@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
@@ -6,6 +7,7 @@ public class ShaderManager : Singleton<ShaderManager>
 {
     [SerializeField] private ShockWaveController shockwave;
     [SerializeField] private BlackScreenController blackScreen;
+    [SerializeField] private GameObject glowEffect;
     [SerializeField] private VolumeProfile volumeProfile;
     protected override void Awake()
     {
@@ -24,13 +26,17 @@ public class ShaderManager : Singleton<ShaderManager>
     }
     public void CallShockWave()
     {
-        Vector2 point = Camera.main.WorldToViewportPoint( GameManager.Instance.playerScript.GetPlayerTransform().position);
+        Vector2 point = Camera.main.WorldToViewportPoint(GameManager.Instance.playerScript.GetPlayerTransform().position);
         shockwave.CallShockWave(point);
     }
 
     public void SetBlackScreen(bool enabled)
     {
         blackScreen.CallBlackScreen(enabled);
+    }
+    public void SetGlowEffect(bool enabled)
+    {
+        glowEffect.SetActive(enabled);
     }
     public void SetVignette(float intensity = 0.2f, Color color = default)
     {
@@ -40,4 +46,5 @@ public class ShaderManager : Singleton<ShaderManager>
             vignette.intensity.value = intensity;
         }
     }
+ 
 }

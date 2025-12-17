@@ -180,23 +180,31 @@ public class PlayerScript : MonoBehaviour
             if (!targetEnemy.canThrow) return;
             if (targetEnemy.thrownEnenmy) return;
             isAiming = true;
+            ShaderManager.Instance.SetGlowEffect(true);
+            ShaderManager.Instance.SetVignette(0.4f, Color.blue);
             StartCoroutine(UpdateThrowAim());
         }
 
     }
     IEnumerator UpdateThrowAim()
     {
-        CameraManager.Instance.SetLensSize(6f);
-        yield return null;
+
         Vector2 origin = targetEnemy.transform.position;
         transform.position = origin;
+        CameraManager.Instance.SetLensSize(6f);
+        CameraManager.Instance.SetCameraPosition(origin);
+        yield return null;
         GameManager.Instance.SetTimeScale(0f);
         targetEnemy.GetComponent<Collider2D>().isTrigger = true;
         while (isAiming)
         {
             targetEnemy.transform.position = origin + (Vector2)direction * 1.2f;
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            arrow.SetActive(true);
+            arrow.transform.rotation = Quaternion.Euler(0, 0, angle);
             yield return null;
         }
+
     }
     void LateUpdate()
     {
@@ -329,9 +337,7 @@ public class PlayerScript : MonoBehaviour
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(mouseScreenPos);
         // 방향
         direction = (mouseWorldPos - transform.position).normalized;
-        // 회전
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        arrow.transform.rotation = Quaternion.Euler(0, 0, angle);
+
     }
 
     #endregion
@@ -376,6 +382,9 @@ public class PlayerScript : MonoBehaviour
             //놓으면 발사
             GameManager.Instance.SetTimeScale(1f);
             CameraManager.Instance.SetLensSize(6.5f);
+            ShaderManager.Instance.SetGlowEffect(false);
+            ShaderManager.Instance.SetVignette();
+            arrow.SetActive(false);
             Throw();
         }
         else
@@ -390,7 +399,6 @@ public class PlayerScript : MonoBehaviour
         isAiming = false;
         isPressed = false;
         targetEnemy.Throw(direction);
-        CameraManager.Instance.CameraShake(10f, 0.3f);
         playerAnim.PlayAttack();
     }
 
@@ -581,7 +589,6 @@ public class PlayerScript : MonoBehaviour
             yield return StartCoroutine(ParryEffectRoutine());
 
         canMove = true;
-
         isGod = false;
     }
     public IEnumerator ParryEffectRoutine()

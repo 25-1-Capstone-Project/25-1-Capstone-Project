@@ -24,8 +24,7 @@ public class CameraManager : Singleton<CameraManager>
     }
     public void SetCameraPosition(Vector3 position)
     {
-        mainCamera.transform.position = new Vector3(position.x, position.y, mainCamera.transform.position.z);
-
+        cineCam.ForceCameraPosition(new Vector3(position.x, position.y, mainCamera.transform.position.z), Quaternion.identity);
     }
     public IEnumerator LerpCameraPosition(Vector3 position)
     {
