@@ -30,11 +30,11 @@ MonoBehaviour:
     - key: Parry1
       clip: {fileID: 8300000, guid: 5b4cd36e3bebbf041b27c57d78ebced2, type: 3}
     - key: Grab
-      clip: {fileID: 8300000, guid: e47e3470f3ced3e4ab35dc34d65866e1, type: 3}
+      clip: {fileID: 8300000, guid: 8e7679a71a0079f4fbf3d59a9b1ddf5a, type: 3}
     - key: Throw
-      clip: {fileID: 8300000, guid: 35fccf6fc7bf22743b687e482afcbdae, type: 3}
+      clip: {fileID: 8300000, guid: a1e2a47ee35ee1f47a381c18c20b9bad, type: 3}
     - key: ThrowHit
-      clip: {fileID: 8300000, guid: 1c6af0cb58dca284496593844332848f, type: 3}
+      clip: {fileID: 8300000, guid: e65a6c9c00657aa4f84ba1a72cbe0af1, type: 3}
   - name: enemy
     sounds:
     - key: Damaged

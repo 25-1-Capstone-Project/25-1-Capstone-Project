@@ -133,7 +133,6 @@ public class ParriedState : EnemyState
         enemy.gameObject.layer = LayerMask.NameToLayer("Enemy");
         enemy.SetStunEffectActive(true);
         enemy.enemyShaderController.OffOutline();
-        Debug.Log("Parried State Entered");
         enemy.ClearAttackEffect();
     }
     public IEnumerator ParriedRoutine()
@@ -159,7 +158,7 @@ public class ParriedState : EnemyState
             enemy.StateMachine.ChangeState<ChaseState>();
     }
     public override void Update() { }
-    public override void Exit() { Debug.Log("Parried State out"); enemy.thrownEnenmy = false; enemy.IsStunned = false; enemy.SetStunEffectActive(false); }
+    public override void Exit() { enemy.thrownEnenmy = false; enemy.IsStunned = false; enemy.SetStunEffectActive(false); }
 }
 
 public class DamagedState : EnemyState
