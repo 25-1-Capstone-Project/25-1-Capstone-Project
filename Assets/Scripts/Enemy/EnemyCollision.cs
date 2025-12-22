@@ -39,6 +39,7 @@ public class EnemyCollision : MonoBehaviour
                     }
                 }
                 EffectPooler.Instance.SpawnFromPool("ThrowImpact", transform.position);
+                AudioManager.Instance.PlaySFX("ThrowHit");
                 CameraManager.Instance.CameraShake(10f, 0.3f);
                 enemy.thrownEnenmy = false;
                 enemy.TakeDamage(1);

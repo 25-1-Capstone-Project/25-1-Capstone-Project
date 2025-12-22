@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Enemy_SpearAttack
   m_EditorClassIdentifier: 
   attackRange: 5
-  attackChargeSec: 1.1
+  attackChargeSec: 1
   attackDuration: 0
   attackPostDelay: 0.5
   attackCount: 1
+  pathLinePrefab: {fileID: 0}
   attackSpeed: 15

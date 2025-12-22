@@ -73,7 +73,6 @@ public class ChaseState : EnemyState, IFixedUpdateState, ILateUpdateState
 
     public override void Exit()
     {
-
         enemy.GetAIAgent().Stop();
         enemy.GetRigidbody().linearVelocity = Vector2.zero; // 추격 종료 시 정지
     }
@@ -125,6 +124,7 @@ public class ParriedState : EnemyState
 
     public override void Enter()
     {
+        enemy.GetAIAgent().Stop();
         enemy.GetAnimatorController().FreezeFrame(false);
         enemy.StopAllCoroutines();
         enemy.StartCoroutine(ParriedRoutine());
@@ -133,6 +133,7 @@ public class ParriedState : EnemyState
         enemy.gameObject.layer = LayerMask.NameToLayer("Enemy");
         enemy.SetStunEffectActive(true);
         enemy.enemyShaderController.OffOutline();
+        Debug.Log("Parried State Entered");
         enemy.ClearAttackEffect();
     }
     public IEnumerator ParriedRoutine()
@@ -158,7 +159,7 @@ public class ParriedState : EnemyState
             enemy.StateMachine.ChangeState<ChaseState>();
     }
     public override void Update() { }
-    public override void Exit() { enemy.thrownEnenmy = false; enemy.IsStunned = false; enemy.SetStunEffectActive(false); }
+    public override void Exit() { Debug.Log("Parried State out"); enemy.thrownEnenmy = false; enemy.IsStunned = false; enemy.SetStunEffectActive(false); }
 }
 
 public class DamagedState : EnemyState

@@ -221,7 +221,6 @@ public class EnemyBase : MonoBehaviour
     public void Throw(Vector2 dir)
     {
         thrownEnenmy = true;
-        rb.linearVelocity = Vector2.zero;
         rb.linearVelocity = dir * 25f;
     }
     public void FlashSprite(Color color, float duration)

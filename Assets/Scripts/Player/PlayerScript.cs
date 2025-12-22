@@ -2,8 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System;
-using UnityEngine.InputSystem.Interactions;
-using UnityEngine.Splines.ExtrusionShapes;
+
 
 
 
@@ -180,15 +179,16 @@ public class PlayerScript : MonoBehaviour
             if (!targetEnemy.canThrow) return;
             if (targetEnemy.thrownEnenmy) return;
             isAiming = true;
-            ShaderManager.Instance.SetGlowEffect(true);
-            ShaderManager.Instance.SetVignette(0.4f, Color.blue);
+
             StartCoroutine(UpdateThrowAim());
         }
 
     }
     IEnumerator UpdateThrowAim()
     {
-
+        ShaderManager.Instance.SetGlowEffect(true);
+        ShaderManager.Instance.SetVignette(0.4f, Color.blue);
+        AudioManager.Instance.PlaySFX("Grab");
         Vector2 origin = targetEnemy.transform.position;
         transform.position = origin;
         CameraManager.Instance.SetLensSize(6f);
@@ -398,6 +398,7 @@ public class PlayerScript : MonoBehaviour
     {
         isAiming = false;
         isPressed = false;
+        AudioManager.Instance.PlaySFX("Throw");
         targetEnemy.Throw(direction);
         playerAnim.PlayAttack();
     }
