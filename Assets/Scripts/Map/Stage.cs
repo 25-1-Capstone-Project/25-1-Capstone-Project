@@ -13,9 +13,11 @@ public class Stage : MonoBehaviour
     [Tooltip("이 룸을 시각적으로 배치할 때 스폰 마커를 담을 폴더(선택)")]
     public Transform markerRoot;
 
-
     [Header("Wave")]
+    Wave wave;
+
     [SerializeField] int waveIndex = 0;
+    int doorIndex = 0;
 
     public Wave[] waves;
     public GameObject[] doors;
@@ -45,9 +47,10 @@ public class Stage : MonoBehaviour
 
     IEnumerator StartWaveRoutine()
     {
-        yield return null; // 한 프레임 대기
+        yield return null; // 대기
 
-        var wave = waves[Mathf.Clamp(waveIndex, 0, waves.Length - 1)];
+        wave = waves[Mathf.Clamp(waveIndex, 0, waves.Length - 1)];
+
         if (wave.startDelay > 0) yield return new WaitForSeconds(wave.startDelay);
 
         foreach (var s in wave.spawns)
@@ -61,13 +64,13 @@ public class Stage : MonoBehaviour
         waveIndex++;
         if (waveIndex < waves.Length && waveIndex < (waves?.Length ?? 0))
         {
-            if (doors.Length > 0)
-                AudioManager.Instance.PlaySFX("OpenMetalDoor");
-            StartCoroutine(NextWaveRoutine());
-            if (waveIndex < doors.Length)
+            if (wave.isDoorOpen && waveIndex != 0)
             {
-                doors[waveIndex - 1].SetActive(false);
+                AudioManager.Instance.PlaySFX("OpenMetalDoor");
+                doors[doorIndex].SetActive(false);
+                doorIndex++;
             }
+            StartCoroutine(NextWaveRoutine());
         }
         else
         {
@@ -82,7 +85,8 @@ public class Stage : MonoBehaviour
     }
     public void DoorSet()
     {
-        doors[waveIndex].SetActive(true);
+        doors[doorIndex-1].SetActive(true);
+        doors[doorIndex].SetActive(true);
     }
     public IEnumerator ClearStage()
     {
@@ -95,7 +99,7 @@ public class Stage : MonoBehaviour
         // ShaderManager.Instance.SetBlackScreen(false);
         GameManager.Instance.playerScript.ClearSet();
         GameManager.Instance.SetTimeScale(1);
-        CameraManager.Instance.SetLensSize(6.5f);
+        CameraManager.Instance.SetLensSize(GameManager.Instance.playerScript.CameraDefaultValue);
         UIManager.Instance.successUI.SetActiveDeadInfoPanel(true);
         yield return new WaitForSecondsRealtime(0.5f);
         AudioManager.Instance.PlaySFX("Victory");
@@ -108,6 +112,7 @@ public class Stage : MonoBehaviour
 public class Wave
 {
     public float startDelay = 0f;
+    public bool isDoorOpen = false;
     public EnemySpawn[] spawns;
 }
 

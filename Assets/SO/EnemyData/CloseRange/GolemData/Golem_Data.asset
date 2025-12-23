@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 263e27cb71b88f845aed894261fa039f, type: 3}
   m_Name: Golem_Data
   m_EditorClassIdentifier: 
-  Name: 
+  Name: Golem
   maxHealth: 2
   moveSpeed: 1
+  chaseRange: 5
   attackDamage: 1
-  dontStopEnemy: 1
+  dontStopEnemy: 0
   stamina: 1
-  animator: {fileID: 22100000, guid: b2f2fae1bb091b347869c3a48e5b0915, type: 2}
   animators:
   - {fileID: 22100000, guid: b2f2fae1bb091b347869c3a48e5b0915, type: 2}
   attackPattern: {fileID: 11400000, guid: 6f65b8ecd94b1624e81a7c570c617bf5, type: 2}

@@ -23,14 +23,12 @@ public class PlayerScript : MonoBehaviour
     public Vector3 Direction => direction;
     public Vector2 Direction2D => direction;
     [Header("=====플레이어 상태=====")]
-    //[SerializeField] bool canUseAttack = false;
 
     bool isParrying = false;
     bool isDead = false;
     bool isAttacking = false;
     public bool isDashing = false;
     bool isGod = false; // 무적 상태
-
     bool canMove = true;
     private PlayerInput playerInput;
 
@@ -105,14 +103,16 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] PlayerAnimatorController playerAnim;
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private ParticleSystem skillParticle;
-
+    private float cameraDefaultValue = 7f;
+    public float CameraDefaultValue => cameraDefaultValue;
+    private float cameraZoomValue = 6f;
     private PlayerRuntimeStats stats = new PlayerRuntimeStats();
     public PlayerRuntimeStats Stats => stats;
 
     public void InitPlayer()
     {
 
-        CameraManager.Instance.SetLensSize(6.5f);
+        CameraManager.Instance.SetLensSize(cameraDefaultValue);
         SetComponent();
         stats.ApplyBase(playerData); // 원본 데이터를 복사
         isDead = false;
@@ -186,12 +186,13 @@ public class PlayerScript : MonoBehaviour
     }
     IEnumerator UpdateThrowAim()
     {
+        isGod = true;
         ShaderManager.Instance.SetGlowEffect(true);
         ShaderManager.Instance.SetVignette(0.4f, Color.blue);
         AudioManager.Instance.PlaySFX("Grab");
         Vector2 origin = targetEnemy.transform.position;
         transform.position = origin;
-        CameraManager.Instance.SetLensSize(6f);
+        CameraManager.Instance.SetLensSize(8f);
         CameraManager.Instance.SetCameraPosition(origin);
         yield return null;
         GameManager.Instance.SetTimeScale(0f);
@@ -381,11 +382,13 @@ public class PlayerScript : MonoBehaviour
         {
             //놓으면 발사
             GameManager.Instance.SetTimeScale(1f);
-            CameraManager.Instance.SetLensSize(6.5f);
+            CameraManager.Instance.SetLensSize(cameraDefaultValue);
             ShaderManager.Instance.SetGlowEffect(false);
             ShaderManager.Instance.SetVignette();
             arrow.SetActive(false);
+            isGod = false;
             Throw();
+
         }
         else
         {
@@ -457,7 +460,7 @@ public class PlayerScript : MonoBehaviour
 
         CameraManager.Instance.CameraShake(10f, 0.3f);
 
-        CameraManager.Instance.SetLensSize(5f);
+        CameraManager.Instance.SetLensSize(cameraZoomValue);
         Vector2 toEnemyDirection = -targetEnemy.GetDirectionNormalVec();
         float angle = Mathf.Atan2(toEnemyDirection.y, toEnemyDirection.x) * Mathf.Rad2Deg;
 
@@ -477,7 +480,7 @@ public class PlayerScript : MonoBehaviour
         GameManager.Instance.SetTimeScale(0);
         yield return new WaitForSecondsRealtime(0.2f);
         GameManager.Instance.SetTimeScale(1f);
-        CameraManager.Instance.SetLensSize(6.5f);
+        CameraManager.Instance.SetLensSize(cameraDefaultValue);
         attackEffect.SetActive(false);
         isGod = false;
         canMove = true;
@@ -582,33 +585,32 @@ public class PlayerScript : MonoBehaviour
     }
     public IEnumerator ParryEffect(bool projectile = false)
     {
-        CameraManager.Instance.CameraShake(5f, 0.2f);
+        CameraManager.Instance.CameraShake(cameraZoomValue, 0.2f);
         EffectPooler.Instance.SpawnFromPool("ParryEffect", transform.position + (direction / 2), Quaternion.identity);
         AudioManager.Instance.PlaySFX("Parry" + UnityEngine.Random.Range(0, 2));
 
-        if (!projectile)
-            yield return StartCoroutine(ParryEffectRoutine());
+
+        yield return StartCoroutine(ParryEffectRoutine());
 
         canMove = true;
         isGod = false;
     }
     public IEnumerator ParryEffectRoutine()
     {
-        CameraManager.Instance.SetLensSize(6f);
+        CameraManager.Instance.SetLensSize(cameraZoomValue);
         ShaderManager.Instance.CallShockWave();
         yield return new WaitForSecondsRealtime(0.05f);
         GameManager.Instance.SetTimeScale(0);
 
         //   yield return FadeController.Instance.FadeIn(Color.white, 0.1f, 0.3f);
-        yield return new WaitForSecondsRealtime(0.25f);
+        yield return new WaitForSecondsRealtime(0.15f);
         //ShaderManager.Instance.CallShockWave();
         GameManager.Instance.SetTimeScale(1);
-        CameraManager.Instance.SetLensSize(6.5f);
+        CameraManager.Instance.SetLensSize(cameraDefaultValue);
     }
     GameObject attackEffect;
 
 
-    //Room 클리어 시 연출 변경 후 정상 작동을 위해 임시로 만든 함수입니다. 빠른 개발 용
     public void ClearSet()
     {
         attackEffect?.SetActive(false);
